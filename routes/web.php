@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleContorller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+
+    Route::middleware(['auth', 'role:admin'])
+        ->name('admin.')
+        ->prefix('admin')
+        ->group(function(){
+            Route::get('/', [AdminController::class, 'index'])->name('index');
+            Route::resource('/roles', RoleContorller::class);
+            Route::resource('/permissions', PermissionController::class);
+        });
