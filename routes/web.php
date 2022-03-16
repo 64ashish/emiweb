@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
+use App\Http\Controllers\Emiweb\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,11 +29,18 @@ use Illuminate\Support\Facades\Route;
     ->name('dashboard');
 
 
+    Route::resource('/organizations', OrganizationController::class)
+        ->middleware(['auth']);
+
     Route::middleware(['auth', 'role:admin'])
         ->name('admin.')
         ->prefix('admin')
         ->group(function(){
             Route::get('/', [AdminController::class, 'index'])->name('index');
             Route::resource('/roles', RoleContorller::class);
+            Route::post('/roles/{role}/permissions', [RoleContorller::class, 'updatePermission'])
+                ->name('roles.permissions');
+            Route::delete('/roles/{role}/permissions/{permission}', [RoleContorller::class, 'revokePermission'])
+                ->name('roles.permissions.revoke');
             Route::resource('/permissions', PermissionController::class);
         });
