@@ -27,7 +27,15 @@ class PermissionRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|min:2|unique:permissions,name'
+            'name' => 'required',
+            'phone' => 'min:8',
+            'email' => 'email',
+            'location' => 'min:3',
+            'address' => 'required',
+            'city' => 'required',
+            'postcode' => 'required',
+            'province' => 'required',
+            'fax' => 'min:8',
         ];
     }
 }

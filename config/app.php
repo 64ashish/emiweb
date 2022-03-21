@@ -169,6 +169,7 @@ return [
          */
 
         App\Providers\FortifyServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
