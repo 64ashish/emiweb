@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\ArchiveRequest;
+use App\Models\Archive;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ArchiveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with(['roles.permissions'])->get();
-//        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        return "all archives";
     }
 
     /**
@@ -26,20 +26,26 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category)
     {
         //
+        return view('admin.archives.create', compact('category'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ArchiveRequest $archiveRequest
+     * @param Category $category
+     * @param Archive $archive
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArchiveRequest $archiveRequest, Category $category, Archive $archive)
     {
         //
+        $category->archive()->create($archiveRequest->all());
+        return redirect('/admin/archives')->with('success', 'Archive created!');
+
     }
 
     /**
@@ -59,11 +65,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         //
-        return view('admin.users.edit', compact('user'));
-
     }
 
     /**

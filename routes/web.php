@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ArchiveController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
@@ -46,4 +48,14 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/users', [UserController::class, 'index'])
                 ->name('users.index');
+            Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+                ->name('users.edit');
+
+            Route::resource('/categories', CategoryController::class);
+
+            Route::resource('categories.archives', ArchiveController::class,
+            ['except' => ['index']]);
+
+            Route::get('/archives/', [ArchiveController::class, 'index'])
+                ->name('archives.index');
         });

@@ -6,30 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('archive_user', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('archive_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('archive_user');
-    }
+//    /**
+//     * Run the migrations.
+//     *
+//     * @return void
+//     */
+//    public function up()
+//    {
+//        Schema::create('archive_user', function (Blueprint $table) {
+//            $table->id();
+//            $table->unsignedBigInteger('archive_id');
+//            $table->unsignedBigInteger('user_id');
+//            $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->timestamps();
+//        });
+//    }
+//
+//    /**
+//     * Reverse the migrations.
+//     *
+//     * @return void
+//     */
+//    public function down()
+//    {
+//        Schema::dropIfExists('archive_user');
+//    }
 };

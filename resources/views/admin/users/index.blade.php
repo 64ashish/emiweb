@@ -51,7 +51,7 @@
                                     text-gray-500">{{ $user->email }}</td>
                                         <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
                                     text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                            <a href="{{ route('admin.users.index', $user) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

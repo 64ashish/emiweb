@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +17,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with(['roles.permissions'])->get();
-//        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -29,6 +29,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('admin.categories.create');
     }
 
     /**
@@ -37,9 +38,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $categoryRequest, Category $category)
     {
         //
+        $category->create($categoryRequest->all());
+        return redirect('/admin/categories')->with('success', 'Category created!');
+
     }
 
     /**
@@ -59,11 +63,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Category $category)
     {
         //
-        return view('admin.users.edit', compact('user'));
 
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -73,9 +77,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $categoryRequest, Category $category)
     {
         //
+        $category->update($categoryRequest->all());
+        return redirect('/admin/categories')->with('success', 'Category updated!');
+
     }
 
     /**
