@@ -18,7 +18,9 @@ class ArchiveController extends Controller
     public function index()
     {
         //
-        return "all archives";
+        $archives = Archive::with('category','organizations')->get();
+//        return $archives;
+        return view('admin.archives.index', compact('archives'));
     }
 
     /**
@@ -54,9 +56,11 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Archive $archive)
     {
         //
+//        return $archive;
+        return view('admin.archives.show', compact('archive'));
     }
 
     /**
@@ -67,7 +71,7 @@ class ArchiveController extends Controller
      */
     public function edit($id)
     {
-        //
+        // put html editor
     }
 
     /**

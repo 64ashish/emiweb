@@ -17,4 +17,9 @@ class Archive extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'archive_organization');
+    }
 }

@@ -3,10 +3,10 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ArchiveController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Emiweb\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,10 +31,10 @@ use Illuminate\Support\Facades\Route;
     ->middleware(['auth'])
     ->name('dashboard');
 
-    Route::resource('/organizations', OrganizationController::class)
-        ->middleware(['auth']);
+//    Route::resource('/organizations', OrganizationController::class)
+//        ->middleware(['auth', 'isActive']);
 
-    Route::middleware(['auth', 'role:admin'])
+    Route::middleware(['auth', 'role:admin', 'isAdmin', 'isActive'])
         ->name('admin.')
         ->prefix('admin')
         ->group(function(){
@@ -58,4 +58,14 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/archives/', [ArchiveController::class, 'index'])
                 ->name('archives.index');
+
+            Route::get('/archives/{archive}/show', [ArchiveController::class, 'show'])
+                ->name('archives.show');
+
+            Route::get('/archives/{archive}/edit', [ArchiveController::class, 'edit'])
+                ->name('archives.edit');
+
+            Route::resource('/organizations', OrganizationController::class);
+            Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
+                ->name('organization.archive.sync');
         });

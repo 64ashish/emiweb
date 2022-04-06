@@ -20,4 +20,18 @@ class Organization extends Model
         'province' ,
         'fax' ,
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function archives()
+    {
+        return $this->belongsToMany(Archive::class, 'archive_organization');
+    }
+
 }

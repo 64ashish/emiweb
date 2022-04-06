@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = [ 'name' ];
 
-    public function archive()
+    public function archives()
     {
         return $this->hasMany(Archive::class);
     }
