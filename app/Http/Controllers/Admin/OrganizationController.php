@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationRequest;
 use App\Models\Archive;
 use App\Models\Organization;
+use App\Traits\RoleBasedRedirect;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
 {
+    use RoleBasedRedirect;
+
     /**
      * Display a listing of the resource.
      *x
@@ -41,9 +45,13 @@ class OrganizationController extends Controller
      */
     public function store(OrganizationRequest $organizationRequest, Organization $organization)
     {
-        //
-         $organization->create($organizationRequest->all());
-         return redirect('/admin/organizations')->with('success', 'Organization has been added');
+        // make organization
+            $organization->create($organizationRequest->all());
+        // redirect to right place
+           return  $this->NowRedirectTo('/admin/organizations',
+                '/emiweb/organizations',
+                'Organization has been added'
+            );
 
     }
 
@@ -55,8 +63,20 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization)
     {
-        //
-        return view('admin.organizations.view', compact('organization'));
+
+//        return $organization->load( 'users.roles');
+        // get all roles
+        $getRoles = Role::all()
+            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff', 'regular user', 'subscribers']);
+//        // prepare for drop down
+        $roles = $getRoles->mapWithKeys(function ($item, $key) {
+            return [$item['name'] => $item['name']];
+        });
+//
+        $TheOrganization = $organization->load('archives', 'users.roles');
+//        return $TheOrganization->name;
+//
+        return view('admin.organizations.view', compact('TheOrganization','roles'));
     }
 
     /**
@@ -69,8 +89,15 @@ class OrganizationController extends Controller
     {
         //
 //        $archives = Archive::get()->pluck('id', 'name');
+        $getRoles = Role::all()
+            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff', 'regular user', 'subscribers']);
+        // prepare for drop down
+        $roles = $getRoles->mapWithKeys(function ($item, $key) {
+            return [$item['name'] => $item['name']];
+        });
         $archives = Archive::all();
-        return view('admin.organizations.edit', compact('organization', 'archives'));
+        $TheOrganization = $organization->load('archives', 'users.roles');
+        return view('admin.organizations.edit', compact('TheOrganization', 'archives', 'roles'));
     }
 
     /**
@@ -84,20 +111,30 @@ class OrganizationController extends Controller
     {
         //
         $organization->update($organizationRequest->all());
-        return redirect('/admin/organizations')->with('success', 'Organization details has been updated');
+
+        return  $this->NowRedirectTo('/admin/organizations',
+            '/emiweb/organizations',
+            'Organization details has been updated'
+        );
+
+
     }
 
     public function syncArchive(Organization $organization, Request $request)
     {
 
-//        $user->roles()->sync($roleIds);
-//        $organization->archives()->sync($request->archive_id);
-//        return
+
 
         try {
             // Validate the value...
             $organization->archives()->sync($request->archive_id);
-            return redirect('/admin/organizations')->with('success', 'Archives synced to organization');
+//            return redirect('/admin/organizations')->with('success', 'Archives synced to organization');
+
+            return  $this->NowRedirectTo('/admin/organizations',
+                '/emiweb/organizations',
+                'Archives synced to organization'
+            );
+
 
         } catch (Throwable $e) {
             report($e);
@@ -106,6 +143,8 @@ class OrganizationController extends Controller
         }
 
     }
+
+
 
     /**
      * Remove the specified resource from storage.

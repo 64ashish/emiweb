@@ -1,5 +1,11 @@
 <x-admin-layout>
+    @role('super admin')
     {!! Form::open(['route' => 'admin.organizations.store'],['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
+    @endrole
+    @hasanyrole('emiweb admin|emiweb staff')
+    {!! Form::open(['route' => 'emiweb.organizations.store'],['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
+    @endhasanyrole
+{{--    {!! Form::open(['route' => 'admin.organizations.store'],['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}--}}
 {{--    <form class="space-y-8 divide-y divide-gray-200" method="POST"--}}
 {{--          action="{{ route('organizations.store') }}">--}}
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">

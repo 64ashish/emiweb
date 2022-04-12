@@ -23,6 +23,7 @@
                                     <div class="w-0 flex-1 flex items-center">
                                        <span class="ml-2 flex-1 w-0 truncate"> {{ $archive->name }} </span>
                                     </div>
+                                    @hasanyrole('super admin')
                                     <div class="ml-4 flex-shrink-0">
                                         <a href="{{ route('admin.archives.show', $archive) }}" class="inline-flex items-center px-3 py-1.5 border
                                          border-transparent text-xs font-medium rounded-full shadow-sm
@@ -35,6 +36,17 @@
                                          text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                                          focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> View Archive </a>
                                     </div>
+                                    @endhasanyrole
+
+                                    @hasanyrole('emiweb admin|emiweb staff')
+
+                                    <div class="ml-4 flex-shrink-0">
+                                        <a href="{{ route('emiweb.archives.show', $category) }}" class="inline-flex items-center px-3 py-1.5 border
+                                         border-transparent text-xs font-medium rounded-full shadow-sm
+                                         text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                                         focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> View Archive </a>
+                                    </div>
+                                    @endhasanyrole
                                 </li>
                                 @endforeach
 

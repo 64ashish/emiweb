@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Emiweb\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 //    Route::resource('/organizations', OrganizationController::class)
 //        ->middleware(['auth', 'isActive']);
 
-    Route::middleware(['auth', 'role:admin', 'isAdmin', 'isActive'])
+    Route::middleware(['auth', 'role:super admin', 'isAdmin', 'isActive'])
         ->name('admin.')
         ->prefix('admin')
         ->group(function(){
@@ -50,6 +51,8 @@ use Illuminate\Support\Facades\Route;
                 ->name('users.index');
             Route::get('/users/{user}/edit', [UserController::class, 'edit'])
                 ->name('users.edit');
+            Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
+                ->name('users.sync-role');
 
             Route::resource('/categories', CategoryController::class);
 
@@ -67,5 +70,45 @@ use Illuminate\Support\Facades\Route;
 
             Route::resource('/organizations', OrganizationController::class);
             Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
-                ->name('organization.archive.sync');
+                ->name('organizations.archive.sync');
+
+            Route::post('/organizations/{organization}/users/search', [UserController::class, 'search'])
+            ->name('organizations.users.search');
+
+            Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
+                ->name('organizations.users.sync');
+        });
+
+
+
+//    emiweb office urls
+    Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
+        ->name('emiweb.')
+        ->prefix('emiweb')
+        ->group(function(){
+            Route::get('/', [HomeController::class, 'index'])->name('index'); // get to emiweb dashboard
+//            categories
+            Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index'); // show all categories
+            Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show'); // show one categories
+//            Archives
+            Route::get('/archives', [ArchiveController::class, 'index'])->name('archives.index'); // show all categories
+            Route::get('/archives/{archive}', [ArchiveController::class, 'show'])->name('archives.show'); // show one categories
+
+
+            Route::get('/users', [UserController::class, 'index'])
+                ->name('users.index');
+
+            Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
+                ->name('users.sync-role');
+
+//            organization stuff
+            Route::resource('/organizations', OrganizationController::class);
+            Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
+                ->name('organizations.archive.sync');
+//
+            Route::post('/organizations/{organization}/users/search', [UserController::class, 'search'])
+                ->name('organizations.users.search');      // search user
+
+            Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
+                ->name('organizations.users.sync');      // sync user to organization
         });

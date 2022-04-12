@@ -19,7 +19,7 @@ class RoleContorller extends Controller
     {
         //
 //        return "this should return roles";
-        $roles = Role::whereNotIn('name', ['admin'])->get();
+        $roles = Role::whereNotIn('name', ['super admin'])->get();
         return view('admin.roles.index', compact('roles'));
     }
 

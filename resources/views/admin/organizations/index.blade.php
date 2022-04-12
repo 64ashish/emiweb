@@ -6,9 +6,18 @@
                 <p class="mt-2 text-sm text-gray-700">A list of all the organizations in registered.</p>
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                <a href="{{ route('admin.organizations.create') }}" class="inline-flex items-center justify-center rounded-md border
-                border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700
-                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add Organization</a>
+                @role('super admin')
+                    <a href="{{ route('admin.organizations.create') }}" class="inline-flex items-center justify-center rounded-md border
+                    border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add Organization</a>
+               @endrole
+
+                @hasanyrole('emiweb admin|emiweb staff')
+                <a href="{{ route('emiweb.organizations.create') }}" class="inline-flex items-center justify-center rounded-md border
+                    border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add Organization</a>
+                @endhasanyrole
+
             </div>
         </div>
         <div class="mt-8 flex flex-col">
@@ -50,7 +59,31 @@
                                     text-gray-500">{{ $organization->email }}</td>
                                     <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
                                     text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                                        <a href="{{ route('admin.organizations.edit', $organization) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                        @role('super admin')
+                                            <a href="{{ route('admin.organizations.show', $organization) }}"
+                                               class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                                text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
+                                                hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                                focus:ring-indigo-500">View</a>
+                                            <a href="{{ route('admin.organizations.edit', $organization) }}"
+                                               class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                                text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
+                                                hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                                focus:ring-indigo-500">Edit</a>
+                                        @endrole
+
+                                        @hasanyrole('emiweb admin|emiweb staff')
+                                        <a href="{{ route('emiweb.organizations.show', $organization) }}"
+                                           class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                                text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
+                                                hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                                focus:ring-indigo-500">View</a>
+                                        <a href="{{ route('emiweb.organizations.edit', $organization) }}"
+                                           class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                                text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
+                                                hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                                focus:ring-indigo-500">Edit</a>
+                                        @endhasanyrole
                                     </td>
                                 </tr>
                             @endforeach

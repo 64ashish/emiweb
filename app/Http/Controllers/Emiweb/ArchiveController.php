@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Emiweb;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 
-
-class PermissionController extends Controller
+class ArchiveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,6 @@ class PermissionController extends Controller
     public function index()
     {
         //
-        $permissions = Permission::all();
-        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -30,23 +25,17 @@ class PermissionController extends Controller
     public function create()
     {
         //
-        return view('admin.permissions.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     *
-     * @param Permission $permission
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(  PermissionRequest $permissionRequest, Permission $permission)
+    public function store(Request $request)
     {
         //
-//        return $permissionRequest->all();
-        $permission->create($permissionRequest->all());
-        return redirect('/admin/permissions')->with('success', 'Permission created!');
-
     }
 
     /**
@@ -66,11 +55,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permission $permission)
+    public function edit($id)
     {
         //
-        return view('admin.permissions.edit', compact('permission'));
-
     }
 
     /**
@@ -80,11 +67,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PermissionRequest $permissionRequest, Permission $permission)
+    public function update(Request $request, $id)
     {
         //
-        $permission->update($permissionRequest->all());
-        return redirect('/admin/permissions')->with('success', 'Permission updated!');
     }
 
     /**
