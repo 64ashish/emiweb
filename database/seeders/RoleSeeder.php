@@ -70,13 +70,16 @@ class RoleSeeder extends Seeder
 
 //        organization roles [read and update access to data belonging to their organization, i.e users, organization, migration data]
         Role::create(['name' => 'organization admin'])
-            ->givePermissionTo(['view users', 'update users', 'view organizations', 'update organizations', 'view archives',
-            'create archives', 'update archives']);
+            ->givePermissionTo(['view users', 'update users', 'view organizations', 'update organizations', 'view archives', 'update archives']);
+
         Role::create(['name' => 'organization staff'])
-            ->givePermissionTo(['view users', 'update users', 'view organizations','view archives',
-                'create archives', 'update archives']);
+            ->givePermissionTo(['view users', 'update users', 'view organizations', 'view archives', 'update archives']);
+//         subscribers
+        Role::create(['name' => 'subscriber'])
+            ->givePermissionTo(['view users', 'update users', 'view archives']);
 //         regular user
-        Role::create(['name' => 'regular user']);
+        Role::create(['name' => 'regular user'])
+            ->givePermissionTo(['view users', 'update users', 'view archives']);
 
 
 //        assign permissions for roles

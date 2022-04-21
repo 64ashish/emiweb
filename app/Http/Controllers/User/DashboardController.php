@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Emiweb;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.index');
+        $user = auth()->user()->load('roles', 'organization','organization.archives.category');
+        $catArchive = $user->organization->archives->groupBy('category.name');
+        $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
+            return $item['place'];
+        }], $preserveKeys = true);
+
+//        return $result;
+        return view('dashboard.dashboard', compact('groups'));
     }
 
     /**
@@ -83,6 +89,4 @@ class HomeController extends Controller
     {
         //
     }
-
-
 }

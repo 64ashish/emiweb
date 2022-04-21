@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Emiweb\HomeController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\StaffController;
+use App\Http\Controllers\User\UserOrganizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,16 +29,12 @@ use Illuminate\Support\Facades\Route;
     });
 
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })
-    ->middleware(['auth'])
-    ->name('dashboard');
 
-//    Route::resource('/organizations', OrganizationController::class)
-//        ->middleware(['auth', 'isActive']);
 
-    Route::middleware(['auth', 'role:super admin', 'isAdmin', 'isActive'])
+
+
+// super user urls
+    Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
         ->name('admin.')
         ->prefix('admin')
         ->group(function(){
@@ -49,6 +48,8 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/users', [UserController::class, 'index'])
                 ->name('users.index');
+            Route::put('/users/{user}/update', [UserController::class, 'update'])
+                ->name('users.update');
             Route::get('/users/{user}/edit', [UserController::class, 'edit'])
                 ->name('users.edit');
             Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
@@ -86,7 +87,7 @@ use Illuminate\Support\Facades\Route;
         ->name('emiweb.')
         ->prefix('emiweb')
         ->group(function(){
-            Route::get('/', [HomeController::class, 'index'])->name('index'); // get to emiweb dashboard
+            Route::get('/', [AdminController::class, 'index'])->name('index'); // get to emiweb dashboard
 //            categories
             Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index'); // show all categories
             Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show'); // show one categories
@@ -97,6 +98,11 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('/users', [UserController::class, 'index'])
                 ->name('users.index');
+
+            Route::put('/users/{user}/update', [UserController::class, 'update'])
+                ->name('users.update');
+            Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+                ->name('users.edit');
 
             Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
                 ->name('users.sync-role');
@@ -112,3 +118,38 @@ use Illuminate\Support\Facades\Route;
             Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
                 ->name('organizations.users.sync');      // sync user to organization
         });
+
+//    organization users
+Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff',  'isActive'])
+    ->group(function(){
+        Route::get('/dashboard', [DashboardController::class,'index'])
+        ->name('dashboard');
+
+        Route::resource('/organizations', UserOrganizationController::class, ['only' => ['show','update']]);
+
+//        show user association table
+        Route::get('/organizations/{organization}/users/associations', [StaffController::class, 'associations'])
+            ->name('organizations.users.associations');
+
+//        show edit form
+        Route::get('/organizations/{organization}/users/{user}', [StaffController::class, 'edit'])
+            ->name('organizations.users.edit');
+//        save updated details
+        Route::put('/users/{user}/update', [StaffController::class, 'update'])
+            ->name('users.update');
+//
+        Route::post('/organizations/{organization}/users/{user}/approve-association', [StaffController::class, 'approveAssociation'])
+            ->name('organizations.users.approve-association');      // approve or reject association
+
+        Route::post('/organizations/{organization}/users/{user}/sync-user', [StaffController::class, 'syncWithOrganization'])
+            ->name('organizations.users.sync');      // sync user to organization
+
+        Route::post('/users/{user}/sync-role', [StaffController::class, 'syncRole'])
+            ->name('users.sync-role');
+    });
+
+//regular users and subscribers
+Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff',  'isActive'])
+    ->group(function(){
+//        Route::('/home');
+    });

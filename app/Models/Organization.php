@@ -35,4 +35,11 @@ class Organization extends Model
         return $this->belongsToMany(Archive::class, 'archive_organization');
     }
 
+    public function association()
+    {
+        return $this->hasMany(Association::class);
+    }
+
+
+
 }

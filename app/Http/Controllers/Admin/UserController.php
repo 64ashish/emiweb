@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\User;
 use App\Traits\RoleBasedRedirect;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\Fortify;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -78,9 +81,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
+
+        # Validation
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required',
+        ]);
+
+        #Match The Old Password
+        if(!Hash::check($request->current_password, $user->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+        #Update the new Password
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+
+        return  $this->NowRedirectTo('/admin/users/',
+            '/emiweb/users/',
+            'password is updated'
+        );
+
     }
 
 
@@ -116,7 +142,7 @@ class UserController extends Controller
      */
     public function syncWithOrganization(Request $request, Organization $organization, User $user)
     {
-
+        $this->authorize('syncWithOrganization', $user);
 //       if the user is being disconnected from a member
         if($request->disconnect == true)
         {
@@ -155,9 +181,10 @@ class UserController extends Controller
 
     }
 
-    public function syncRole(Request $request,User $user){
+    public function syncRole(Request $request,User $user)
+    {
 
-//        return $request->all();
+        $this->authorize('syncRole', $user);
 
 //         dont update superadmin
             $CurrentRole = $user->roles->first();
@@ -183,6 +210,10 @@ class UserController extends Controller
 //
     }
 
+
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -193,4 +224,6 @@ class UserController extends Controller
     {
         //
     }
+
+
 }

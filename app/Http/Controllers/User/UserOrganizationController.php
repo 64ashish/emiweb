@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Emiweb;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Http\Requests\OrganizationRequest;
+use App\Models\Organization;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
-class CategoryController extends Controller
+class UserOrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +18,6 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        //        $categories = Category::all();
-        $categories = Category::with('archives')->get();
-//        return $categories;
-        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -49,9 +47,19 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Organization $organization)
     {
-        //
+        $this->authorize('view', $organization);
+
+        $getRoles = Role::all()
+            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff', 'regular user', 'subscribers']);
+        // prepare for drop down
+        $roles = $getRoles->mapWithKeys(function ($item, $key) {
+            return [$item['name'] => $item['name']];
+        });
+
+        $TheOrganization = $organization->load('users', 'archives', 'users.roles');
+        return view('dashboard.organization', compact('TheOrganization','roles'));
     }
 
     /**
@@ -72,9 +80,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrganizationRequest $organizationRequest, Organization $organization)
     {
         //
+        $this->authorize('update', $organization);
+        $organization->update($organizationRequest->all());
+        return redirect('/dashboard')->with('success', 'Organization details updated');
     }
 
     /**

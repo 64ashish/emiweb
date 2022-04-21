@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 </head>
 <body class="h-full h-full">
     <div>
@@ -110,11 +111,14 @@
                             From: "transform opacity-100 scale-100"
                             To: "transform opacity-0 scale-95"
                         -->
-                        <div id="profileMenu" style="display: none" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                        <div id="profileMenu" style="display: none" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md
+                        shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
+                               transition ease-out duration-100 ease-in duration-75" role="menu"
+                             aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                            <span class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">{{ auth()->user()->name }}</span>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                               id="user-menu-item-0">Update password</a>
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -172,10 +176,10 @@
            profileMenu.style.display = "none";
        }
     }
-    function flashClose() {
-           var flashBox = document.getElementById('flashBox')
-            flashBox.remove();
-    }
+    // function flashClose() {
+    //        var flashBox = document.getElementById('flashBox')
+    //         flashBox.remove();
+    // }
 
     function toggleMainMenu(){
         var MainMenu = document.getElementById("MainMenu");

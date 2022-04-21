@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Organization::class);
     }
+
+    public function association()
+    {
+        return $this->hasOne(Association::class);
+    }
 }

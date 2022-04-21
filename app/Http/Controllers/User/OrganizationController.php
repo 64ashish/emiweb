@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Emiweb;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OrganizationRequest;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -11,14 +10,12 @@ class OrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *x
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         //
-        $organizations = Organization::all();
-        return view('organizations.index', compact('organizations'));
     }
 
     /**
@@ -29,7 +26,6 @@ class OrganizationController extends Controller
     public function create()
     {
         //
-        return view('organizations.create');
     }
 
     /**
@@ -38,12 +34,9 @@ class OrganizationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrganizationRequest $organizationRequest, Organization $organization)
+    public function store(Request $request)
     {
         //
-         $organization->create($organizationRequest->all());
-         return redirect('/organizations')->with('success', 'Organization has been added');
-
     }
 
     /**
@@ -52,9 +45,10 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Organization $organization)
     {
         //
+        return $organization;
     }
 
     /**
@@ -63,10 +57,9 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Organization $organization)
+    public function edit($id)
     {
         //
-        return view('organizations.edit', compact('organization'));
     }
 
     /**
@@ -76,11 +69,9 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OrganizationRequest $organizationRequest, Organization $organization)
+    public function update(Request $request, $id)
     {
         //
-        $organization->update($organizationRequest->all());
-        return redirect('/organizations')->with('success', 'Organization details has been updated');
     }
 
     /**
@@ -92,5 +83,11 @@ class OrganizationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+//    get users belonging to the organization
+    public function users()
+    {
+
     }
 }

@@ -1,5 +1,4 @@
-<x-admin-layout>
-
+<x-app-layout>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">User Information</h3>
@@ -31,12 +30,10 @@
                         @endforeach
                     </dd>
                 </div>
-                @role('super admin')
-                {!! Form::open(['route' =>['admin.users.update',$user], 'method' => 'put']) !!}
-                @endrole
-                @hasanyrole('emiweb admin|emiweb staff')
-                {!! Form::open(['route' =>['emiweb.users.update',$user], 'method' => 'put']) !!}
-                @endhasanyrole
+
+
+                {!! Form::model($user,['route' =>['users.update',$user], 'method' => 'put']) !!}
+
 
                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 
@@ -64,73 +61,16 @@
 
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
 
+
+
                     <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
-                         shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update Password</button>
+                             shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update Password</button>
                 </div>
                 {!! Form::close() !!}
             </dl>
         </div>
     </div>
 
-    @can('syncRole', $user)
 
-    <div class="bg-white mt-5 shadow overflow-hidden sm:rounded-lg">
-        <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">User Role</h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">Update user role.</p>
-        </div>
-        @role('super admin')
-            {!! Form::model($user->roles,['route' =>['admin.users.sync-role', $user]]) !!}
-        @endrole
-        @hasanyrole('emiweb admin|emiweb staff')
-            {!! Form::model($user->roles,['route' =>['emiweb.users.sync-role', $user]]) !!}
-        @endhasanyrole
-
-
-        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-
-            <fieldset>
-                <legend class="sr-only">Roles</legend>
-                <div class="space-y-5">
-                    @foreach( $roles as $role)
-                        <div class="relative flex items-start">
-                            <div class="flex items-center h-5">
-                                {!! Form::radio('name', $role->name,
-                                    in_array($role->name, $user->roles->pluck('name')->toArray())? 'true' : '',
-                                     ['class' => 'focus:ring-indigo-500 h-4 w-4
-                                    text-indigo-600 border-gray-300', 'id'=> $role->name]); !!}
-
-
-                            </div>
-                            <div class="ml-3 text-sm">
-                                <label for="{{ $role->name }}" class="font-medium text-gray-700">{{ $role->name }}
-                                </label>
-                                <p id="small-description" class="text-gray-500">
-
-                                    {{ $role->permissions->implode('name', ', ') }}
-                                </p>
-                            </div>
-                        </div>
-                    @endforeach
-
-
-                </div>
-            </fieldset>
-
-        </div>
-        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm
-                        text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cancel</button>
-            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
-                         shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
-        </div>
-            {!! Form::close() !!}
-
-    </div>
-
-    @endcan
-
-
-</x-admin-layout>
+</x-app-layout>

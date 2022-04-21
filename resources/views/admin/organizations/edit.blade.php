@@ -249,12 +249,13 @@
                             <h3 class="text-lg leading-6 font-medium text-gray-900">Users</h3>
                             <p class="mt-1 text-sm text-gray-500">Users associated with this organization.</p>
                         </div>
+
                         <div>
                             @role('super admin')
                             {!! Form::open(['route' => ['admin.organizations.users.search', $TheOrganization]],
                                     ['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
                             @endrole
-                            @hasanyrole('emiweb admin|emiweb staff')
+                            @hasanyrole('emiweb admin')
                             {!! Form::open(['route' => ['emiweb.organizations.users.search', $TheOrganization]],
                                         ['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
                             @endhasanyrole
@@ -293,6 +294,7 @@
                             </div>
                             {!! Form::close() !!}
                         </div>
+
                         @if($TheOrganization->users->count() > 0)
                             <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200 mt-5">
                                 @foreach($TheOrganization->users as $user)
@@ -309,7 +311,7 @@
                                             @endif
                                         </div>
                                         <div class="ml-4 flex gap-4 ">
-
+                                        @hasanyrole('super admin|emiweb admin')
                                             @role('super admin')
                                             {!! Form::model($user->roles,['route' => ['admin.users.sync-role',$user]],
                                                     ['class' => 'inline-flex'])  !!}
@@ -331,8 +333,13 @@
                                                      focus:ring-offset-2 focus:ring-emerald-500">
 
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="-ml-0.5 mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="-ml-0.5 mr-2 h-6 w-6"
+                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                              d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955
+                                                              0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9
+                                                              11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12
+                                                              9v2m0 4h.01" />
                                                     </svg>
                                                     Assign
                                                 </button>
@@ -340,6 +347,7 @@
 
 
                                             {!! Form::close() !!}
+                                        @endhasanyrole
 
 
 
@@ -360,6 +368,7 @@
                                                 Unlink User
                                             </button>
                                             {!! Form::close() !!}
+
 
 
                                         </div>
