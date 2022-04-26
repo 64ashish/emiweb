@@ -17,12 +17,14 @@
                 <!-- Logo -->
                 <div class="absolute left-0 flex-shrink-0 lg:static">
 
-                        <lord-icon
-                                src="https://cdn.lordicon.com/gqzfzudq.json"
-                                trigger="loop"
-                                colors="primary:#ffffff,secondary:#08a88a"
-                                style="width:35px;height:35px">
-                        </lord-icon>
+                    <div class="flex-shrink-0 flex items-center px-4 text-white">
+                        @role('organization admin')
+                        <a href="{{ route('dashboard')  }}"  aria-current="page"> EMIWEB </a>
+                        @endrole
+                        @if(auth()->user()->hasRole('regular user|subscriber'))
+                            <a href="{{ route('home')  }}"  aria-current="page"> EMIWEB </a>
+                        @endif
+                    </div>
 
                 </div>
 
@@ -116,9 +118,7 @@
                             @role('organization admin')
                             <a href="{{ route('dashboard')  }}" class="text-white text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10" aria-current="page"> Dashboard </a>
                             @endrole
-                            @if(auth()->user()->hasRole('regular user|subscriber'))
-                            <a href="{{ route('home')  }}" class="text-white text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10" aria-current="page"> Archives </a>
-                            @endif
+                            
                             @role('organization admin')
                             <a href="#" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Archives </a>
 
