@@ -1,5 +1,6 @@
 /node_modules
 /vendor
 /.idea
-
+/database/factories/*
+/database/seeders/*
 .env
