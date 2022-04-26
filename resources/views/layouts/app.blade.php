@@ -16,25 +16,20 @@
             <div class="relative py-5 flex items-center justify-center lg:justify-between">
                 <!-- Logo -->
                 <div class="absolute left-0 flex-shrink-0 lg:static">
-                    <a href="/dashboard" class="text-white font-bold">
+
                         <lord-icon
                                 src="https://cdn.lordicon.com/gqzfzudq.json"
                                 trigger="loop"
                                 colors="primary:#ffffff,secondary:#08a88a"
                                 style="width:35px;height:35px">
                         </lord-icon>
-                    </a>
+
                 </div>
+
+
 
                 <!-- Right section on desktop -->
                 <div class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
-                    <button type="button" class="flex-shrink-0 p-1 text-indigo-200 rounded-full hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
-                        <span class="sr-only">View notifications</span>
-                        <!-- Heroicon name: outline/bell -->
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                    </button>
 
                     <!-- Profile dropdown -->
                     <div class="ml-4 relative flex-shrink-0" x-data="{ openDesk: false }">
@@ -45,16 +40,7 @@
                             </button>
                         </div>
 
-                        <!--
-                          Dropdown menu, show/hide based on menu state.
 
-                          Entering: ""
-                            From: ""
-                            To: ""
-                          Leaving: "transition ease-in duration-75"
-                            From: "transform opacity-100 scale-100"
-                            To: "transform opacity-0 scale-95"
-                        -->
                         <div x-show="openDesk" @click.away="openDesk = false" class="origin-top-right z-40 absolute -right-2
                         mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5
                         focus:outline-none" role="menu" aria-orientation="vertical"
@@ -77,18 +63,23 @@
                     </div>
                 </div>
 
-                <!-- Search -->
+                <!-- Search for phones -->
                 <div class="flex-1 min-w-0 px-12 lg:hidden">
                     <div class="max-w-xs w-full mx-auto">
                         <label for="desktop-search" class="sr-only">Search</label>
                         <div class="relative text-white focus-within:text-gray-600">
                             <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                                 <!-- Heroicon name: solid/search -->
-                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                     fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0
+                                    1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <input id="desktop-search" class="block w-full bg-white bg-opacity-20 py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-white focus:outline-none focus:bg-opacity-100 focus:border-transparent focus:placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Search" type="search" name="search">
+                            <input id="desktop-search" class="block w-full bg-white bg-opacity-20 py-2 pl-10 pr-3
+                            border border-transparent rounded-md leading-5 text-gray-900 placeholder-white
+                            focus:outline-none focus:bg-opacity-100 focus:border-transparent focus:placeholder-gray-500
+                            focus:ring-0 sm:text-sm" placeholder="Search" type="search" name="searches">
                         </div>
                     </div>
                 </div>
@@ -122,7 +113,12 @@
                     <div class="col-span-2">
                         <nav class="flex space-x-4">
                             <!-- Current: "text-white", Default: "text-indigo-100" -->
+                            @role('organization admin')
                             <a href="{{ route('dashboard')  }}" class="text-white text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10" aria-current="page"> Dashboard </a>
+                            @endrole
+                            @if(auth()->user()->hasRole('regular user|subscriber'))
+                            <a href="{{ route('home')  }}" class="text-white text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10" aria-current="page"> Dashboard </a>
+                            @endif
 
                             <a href="#" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Archives </a>
                             @role('organization admin')
@@ -139,17 +135,86 @@
                         </nav>
                     </div>
                     <div>
-                        <div class="max-w-md w-full mx-auto">
-                            <label for="mobile-search" class="sr-only">Search</label>
-                            <div class="relative text-white focus-within:text-gray-600">
-                                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                    <!-- Heroicon name: solid/search -->
-                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                                    </svg>
+                        <div class="max-w-md w-full mx-auto flex justify-end"   x-data="{ openSearch: false }">
+                            <svg @click="openSearch = true; $nextTick(() => $refs.input.focus())" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white " fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+{{--                            search starts from here --}}
+
+                            <div x-show="openSearch"
+                                 x-transition:enter="ease-out duration-300"
+                                 x-transition:enter-start="opacity-0"
+                                 x-transition:enter-end="opacity-100"
+                                 x-transition:leave="transition ease-in duration-75"
+                                 x-transition:leave-start="opacity-100"
+                                 x-transition:leave-end="opacity-0"
+                                 class="fixed inset-0 z-20 overflow-y-auto p-4 sm:p-6 md:p-20"
+                                 role="dialog" aria-modal="true" style="display:none">
+                                <!--
+                                  Background overlay, show/hide based on modal state.
+
+                                  Entering: "ease-out duration-300"
+                                    From: "opacity-0"
+                                    To: "opacity-100"
+                                  Leaving: "ease-in duration-200"
+                                    From: "opacity-100"
+                                    To: "opacity-0"
+                                -->
+                                <div  class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" aria-hidden="true"></div>
+
+                                <!--
+                                  Command palette, show/hide based on modal state.
+
+                                  Entering: "ease-out duration-300"
+                                    From: "opacity-0 scale-95"
+                                    To: "opacity-100 scale-100"
+                                  Leaving: "ease-in duration-200"
+                                    From: "opacity-100 scale-100"
+                                    To: "opacity-0 opacity-100 scale-100""
+                                -->
+                                <div x-transition:enter="ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     x-transition:leave="ease-in duration-200"
+                                     x-transition:leave-start="opacity-100 scale-100"
+                                     x-transition:leave-end="opacity-0 opacity-100 scale-100"
+                                        class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+                                    <div class="relative" @click.away="openSearch = false">
+                                        <!-- Heroicon name: solid/search -->
+                                        <svg class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                        </svg>
+
+{{--                                            {!! Form::open() !!}--}}
+                                            {!! Form::open(['route' => 'records.search'])  !!}
+                                        <input x-ref="input" name="search" type="text" class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               placeholder="Search..."  aria-expanded="false"
+                                               aria-controls="options">
+                                        <input type="submit" hidden />
+                                        {!! Form::close() !!}
+                                    </div>
+
+
+
                                 </div>
-                                <input id="mobile-search" class="block w-full bg-white bg-opacity-20 py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-white focus:outline-none focus:bg-opacity-100 focus:border-transparent focus:placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Search" type="search" name="search">
                             </div>
+
+
+{{--                            <label for="mobile-search" class="sr-only">Search</label>--}}
+{{--                            <div class="relative text-white focus-within:text-gray-600">--}}
+{{--                                <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">--}}
+{{--                                    <!-- Heroicon name: solid/search -->--}}
+{{--                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">--}}
+{{--                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />--}}
+{{--                                    </svg>--}}
+{{--                                </div>--}}
+{{--                                <input id="mobile-search" class="block w-full bg-white bg-opacity-20 py-2 pl-10 pr-3--}}
+{{--                                border border-transparent rounded-md leading-5 text-gray-900 placeholder-white--}}
+{{--                                focus:outline-none focus:bg-opacity-100 focus:border-transparent--}}
+{{--                                focus:placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Search desktop" type="search"--}}
+{{--                                       name="search">--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -262,7 +327,7 @@
     </main>
     <footer>
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
-            <div class="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left"><span class="block sm:inline">&copy; 2021 Tailwind Labs Inc.</span> <span class="block sm:inline">All rights reserved.</span></div>
+            <div class="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left"><span class="block sm:inline">2022 Kortaben.</span> <span class="block sm:inline">All rights reserved.</span></div>
         </div>
     </footer>
 </div>

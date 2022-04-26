@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Record\DenmarkEmigrationController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
@@ -159,5 +160,13 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::get('/home/users/{user}', [HomeController::class, 'user'])
         ->name('home.users.edit');
         Route::put('/home/users/{user}', [HomeController::class, 'updateUser'])
-            ->name('home.users.update');
+        ->name('home.users.update');
+        Route::post('records/search', [DenmarkEmigrationController::class, 'search'])
+            ->name('records.search');
+        Route::get('/records', [DenmarkEmigrationController::class, 'index'])
+            ->name('records');
+        Route::get('/records/{id}', [DenmarkEmigrationController::class, 'show'])
+            ->name('records.show');
+
+
     });

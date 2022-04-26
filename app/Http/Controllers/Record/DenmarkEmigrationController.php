@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArchiveRequest;
-use App\Models\Archive;
-use App\Models\Category;
 use App\Models\DenmarkEmigration;
 use Illuminate\Http\Request;
 
-class ArchiveController extends Controller
+class DenmarkEmigrationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +16,9 @@ class ArchiveController extends Controller
     public function index()
     {
         //
-        $archives = Archive::with('category','organizations')->get();
-//        return $archives;
-        return view('admin.archives.index', compact('archives'));
+        $records = DenmarkEmigration::paginate(100);
+
+        return view('home.records', compact('records'));
     }
 
     /**
@@ -29,26 +26,20 @@ class ArchiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $category)
+    public function create()
     {
         //
-        return view('admin.archives.create', compact('category'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ArchiveRequest $archiveRequest
-     * @param Category $category
-     * @param Archive $archive
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArchiveRequest $archiveRequest, Category $category, Archive $archive)
+    public function store(Request $request)
     {
         //
-        $category->archives()->create($archiveRequest->all());
-        return redirect('/admin/archives')->with('success', 'Archive created!');
-
     }
 
     /**
@@ -57,13 +48,12 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Archive $archive)
+    public function show($id)
     {
         //
-//        return $archive;
-        return view('admin.archives.show', compact('archive'));
-//        return $archive->denmarkEmigrations;
-
+        $detail = DenmarkEmigration::findOrFail($id);
+//        return $detail;
+        return view('home.showrecord', compact('detail'));
     }
 
     /**
@@ -74,7 +64,7 @@ class ArchiveController extends Controller
      */
     public function edit($id)
     {
-        // put html editor
+        //
     }
 
     /**
@@ -98,5 +88,14 @@ class ArchiveController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search( Request  $request)
+    {
+        $keywords = $request->search;
+        $records = DenmarkEmigration::search($keywords)->get();
+//        return $records;
+        return view('home.results', compact('records', 'keywords'));
+
     }
 }

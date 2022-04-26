@@ -22,12 +22,29 @@ class HomeController extends Controller
         if(auth()->user()->hasRole(['organization admin', 'organization staff'])){
             return redirect('/dashboard');
         }
+
+        if(auth()->user()->hasRole(['regular user'])){
+            $groups = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
+                return $item['place'];
+            }], $preserveKeys = true);
+        }
+
+
+        if(auth()->user()->hasRole(['subscriber'])){
+            $groups = Archive::where('id',1)
+                ->where('id',5)
+                ->get()
+                ->groupBy(['category.name', function ($item) {
+                return $item['place'];
+            }], $preserveKeys = true);
+        }
+        $user = auth()->user();
         $user = auth()->user();
 
 //        $catArchive = Archive::get()->groupBy('category.name');
 
 
-        $groups = Archive::get()->groupBy(['category.name', function ($item) {
+        $groups = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
             return $item['place'];
         }], $preserveKeys = true);
 
