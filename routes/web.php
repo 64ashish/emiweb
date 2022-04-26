@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Emiweb\HomeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
+    ->name('home');
 
 
 
@@ -54,6 +56,9 @@ use Illuminate\Support\Facades\Route;
                 ->name('users.edit');
             Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
                 ->name('users.sync-role');
+//            Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate']);
+//            Route::get('/leave-impersonate', 'UsersController@leaveImpersonate')
+//                ->name('users.leave-impersonate');
 
             Route::resource('/categories', CategoryController::class);
 
@@ -149,7 +154,10 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
     });
 
 //regular users and subscribers
-Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff',  'isActive'])
+Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|regular user|subscriber',  'isActive'])
     ->group(function(){
-//        Route::('/home');
+        Route::get('/home/users/{user}', [HomeController::class, 'user'])
+        ->name('home.users.edit');
+        Route::put('/home/users/{user}', [HomeController::class, 'updateUser'])
+            ->name('home.users.update');
     });

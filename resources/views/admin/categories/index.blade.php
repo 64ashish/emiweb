@@ -41,27 +41,25 @@
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium
                                      sm:pr-6">
                                         @hasanyrole('super admin')
-                                        <a href="{{ route('admin.categories.show', $category) }}" type="button" class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
-                                         text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
-                                         focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Show Category</a>
+                                        <a href="{{ route('admin.categories.show', $category) }}" type="button"
+                                           class="inline-flex items-center px-3 py-1.5 text-indigo-700">Show Category</a>
 
-                                        <a href="{{ route('admin.categories.edit', $category) }}" type="button" class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
+                                        <a href="{{ route('admin.categories.edit', $category) }}" type="button"
+                                           class="inline-flex items-center px-3 py-1.5 border
+                                         border-transparent text-xs font-medium rounded-md  shadow-sm
                                          text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                                          focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Edit Category</a>
 
-                                        <a  href="{{ route('admin.categories.archives.create', $category) }}" type="button" class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
+                                        <a  href="{{ route('admin.categories.archives.create', $category) }}" type="button"
+                                            class="inline-flex items-center px-3 py-1.5 border
+                                         border-transparent text-xs font-medium rounded-md  shadow-sm
                                          text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                                          focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Archive</a>
                                         @endhasanyrole
 
                                         @hasanyrole('emiweb admin|emiweb staff')
-                                        <a href="{{ route('emiweb.categories.show', $category) }}" type="button" class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
-                                         text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
-                                         focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Show Category</a>
+                                        <a href="{{ route('emiweb.categories.show', $category) }}" type="button"
+                                           class="inline-flex items-center px-3 py-1.5 text-indigo-700">Show Category</a>
                                         @endhasanyrole
 
                                     </td>

@@ -23,4 +23,8 @@ class Archive extends Model
     {
         return $this->belongsToMany(Organization::class, 'archive_organization');
     }
+
+    public function denmarkEmigrations(){
+        return $this->hasMany(DenmarkEmigration::class);
+    }
 }

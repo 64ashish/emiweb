@@ -61,12 +61,12 @@
                                     text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                         @role('super admin')
                                             <a href="{{ route('admin.organizations.show', $organization) }}"
-                                               class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                               class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm
                                                 text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
                                                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                                 focus:ring-indigo-500">View</a>
                                             <a href="{{ route('admin.organizations.edit', $organization) }}"
-                                               class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                               class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm
                                                 text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
                                                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                                 focus:ring-indigo-500">Edit</a>
@@ -74,12 +74,12 @@
 
                                         @hasanyrole('emiweb admin|emiweb staff')
                                         <a href="{{ route('emiweb.organizations.show', $organization) }}"
-                                           class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                           class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm
                                                 text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
                                                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                                 focus:ring-indigo-500">View</a>
                                         <a href="{{ route('emiweb.organizations.edit', $organization) }}"
-                                           class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm
+                                           class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm
                                                 text-sm leading-4 font-medium rounded-md text-white bg-indigo-600
                                                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                                                 focus:ring-indigo-500">Edit</a>

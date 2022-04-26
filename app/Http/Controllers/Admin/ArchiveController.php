@@ -45,7 +45,7 @@ class ArchiveController extends Controller
     public function store(ArchiveRequest $archiveRequest, Category $category, Archive $archive)
     {
         //
-        $category->archive()->create($archiveRequest->all());
+        $category->archives()->create($archiveRequest->all());
         return redirect('/admin/archives')->with('success', 'Archive created!');
 
     }
@@ -60,7 +60,8 @@ class ArchiveController extends Controller
     {
         //
 //        return $archive;
-        return view('admin.archives.show', compact('archive'));
+//        return view('admin.archives.show', compact('archive'));
+        return $archive->denmarkEmigrations;
     }
 
     /**

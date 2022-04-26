@@ -211,6 +211,25 @@ class UserController extends Controller
     }
 
 
+//    /**
+//     * @param User $user
+//     * @return \Illuminate\Http\RedirectResponse
+//     */
+//    public function impersonate(User $user)
+//    {
+//        auth()->user()->impersonate($user);
+//
+//        return redirect()->route('home.index');
+//    }
+//
+//
+//    public function leaveImpersonate()
+//    {
+//        auth()->user()->leaveImpersonation();
+//
+//        return redirect()->route('home.index');
+//    }
+
 
 
 

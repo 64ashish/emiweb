@@ -14,14 +14,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = auth()->user()->load('roles', 'organization','organization.archives.category');
-        $catArchive = $user->organization->archives->groupBy('category.name');
-        $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
-            return $item['place'];
-        }], $preserveKeys = true);
 
-//        return $result;
-        return view('dashboard.dashboard', compact('groups'));
+            $user = auth()->user()->load('roles', 'organization','organization.archives.category');
+            $catArchive = $user->organization->archives->groupBy('category.name');
+            $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
+                return $item['place'];
+            }], $preserveKeys = true);
+    //        return $result;
+            return view('dashboard.dashboard', compact('groups'));
+
+
+//
     }
 
     /**

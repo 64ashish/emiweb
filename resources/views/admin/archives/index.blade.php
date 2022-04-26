@@ -47,22 +47,18 @@
 
                                         @hasanyrole('emiweb admin|emiweb staff')
                                         <a href="{{ route('emiweb.archives.show', $archive) }}" type="button"
-                                           class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
-                                         text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
-                                         focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Show Archive</a>
+                                           class="inline-flex items-center px-3 py-1.5
+                                         text-indigo-600 ">Show Archive</a>
                                         @endhasanyrole
 
                                         @hasanyrole('super admin')
                                         <a href="{{ route('admin.archives.show', $archive) }}" type="button"
-                                           class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
-                                         text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
-                                         focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Show Archive</a>
+                                           class="inline-flex items-center px-3 py-1.5
+                                         text-indigo-600 ">Show Archive</a>
 
                                         <a href="{{ route('admin.archives.edit', $archive) }}" type="button"
                                            class="inline-flex items-center px-3 py-1.5 border
-                                         border-transparent text-xs font-medium rounded-full shadow-sm
+                                         border-transparent text-xs font-medium rounded-md shadow-sm
                                          text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                                          focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Edit Archive</a>
                                         @endhasanyrole
