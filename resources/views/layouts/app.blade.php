@@ -119,9 +119,9 @@
                             @if(auth()->user()->hasRole('regular user|subscriber'))
                             <a href="{{ route('home')  }}" class="text-white text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10" aria-current="page"> Dashboard </a>
                             @endif
-
-                            <a href="#" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Archives </a>
                             @role('organization admin')
+                            <a href="#" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Archives </a>
+
                             <a href="{{ route('organizations.show', auth()->user()->organization)  }}" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Organization </a>
 
                             <a href="{{ route('organizations.users.associations', auth()->user()->organization)  }}" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Users Requests </a>
