@@ -27,4 +27,8 @@ class Archive extends Model
     public function denmarkEmigrations(){
         return $this->hasMany(DenmarkEmigration::class);
     }
+
+    public function SwedishChurchEmigrationRecord(){
+        return $this->hasMany(SwedishChurchEmigrationRecord::class);
+    }
 }

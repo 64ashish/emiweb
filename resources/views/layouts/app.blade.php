@@ -118,7 +118,7 @@
                             @role('organization admin')
                             <a href="{{ route('dashboard')  }}" class="text-white text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10" aria-current="page"> Dashboard </a>
                             @endrole
-                            
+
                             @role('organization admin')
                             <a href="#" class="text-indigo-100 text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10"> Archives </a>
 
@@ -187,7 +187,7 @@
                                         </svg>
 
 {{--                                            {!! Form::open() !!}--}}
-                                            {!! Form::open(['route' => 'records.search'])  !!}
+                                            {!! Form::open(['route' => 'search'])  !!}
                                         <input x-ref="input" name="search" type="text" class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="Search..."  aria-expanded="false"
                                                aria-controls="options">

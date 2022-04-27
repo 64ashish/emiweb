@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
-use App\Models\DenmarkEmigration;
-use App\Models\SwedishChurchEmigrationRecord;
 use Illuminate\Http\Request;
 
-class DenmarkEmigrationController extends Controller
+class SwedishChurchEmigrationRecordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,6 @@ class DenmarkEmigrationController extends Controller
     public function index()
     {
         //
-        $records = DenmarkEmigration::paginate(100);
-
-        return view('home.records', compact('records'));
     }
 
     /**
@@ -52,9 +47,6 @@ class DenmarkEmigrationController extends Controller
     public function show($id)
     {
         //
-        $detail = DenmarkEmigration::findOrFail($id);
-//        return $detail;
-        return view('home.showrecord', compact('detail'));
     }
 
     /**
@@ -89,15 +81,5 @@ class DenmarkEmigrationController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function search( Request  $request)
-    {
-        $keywords = $request->search;
-        $q1 = DenmarkEmigration::search($keywords)->get();
-        $q2 = SwedishChurchEmigrationRecord::search($keywords)->get();
-        $records = $q1->union($q2);
-        return view('home.results', compact('records', 'keywords'));
-
     }
 }

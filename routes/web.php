@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
+use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
@@ -161,11 +163,14 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         ->name('home.users.edit');
         Route::put('/home/users/{user}', [HomeController::class, 'updateUser'])
         ->name('home.users.update');
-        Route::post('records/search', [DenmarkEmigrationController::class, 'search'])
-            ->name('records.search');
-        Route::get('/records', [DenmarkEmigrationController::class, 'index'])
+        Route::post('/search', [SearchController::class, 'search'])
+            ->name('search');
+        Route::get('SwedishChurchEmigrationRecord/', [SwedishChurchEmigrationRecordController::class, 'index'])
+            ->name('swedishchurchemigration');
+//        Route::get('SwedishChurchEmigrationRecord/{SwedishChurchEmigrationRecord}', [SwedishChurchEmigrationRecordController::class, 'show']);
+        Route::get('/records/{archive}', [SearchController::class, 'index'])
             ->name('records');
-        Route::get('/records/{id}', [DenmarkEmigrationController::class, 'show'])
+        Route::get('/records/{arch}/{id}', [SearchController::class, 'show'])
             ->name('records.show');
 
 

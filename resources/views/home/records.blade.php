@@ -3,9 +3,7 @@
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
         <section aria-labelledby="section-1-title">
-            <h2 class="text-white">
-                Den danska emigrantdatabasen
-            </h2>
+
             <div class="mt-8 flex flex-col">
                 <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
@@ -53,7 +51,7 @@
                                                                             </td>
                                                                             <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
                                                                      text-sm text-right font-medium sm:pr-6 lg:pr-8">
-                                                                                <a href="{{ route('records.show', $record) }}" class="inline-flex text-indigo-700
+                                                                                <a href="{{ route('records.show', [$record->archive,$record]) }}" class="inline-flex text-indigo-700
                                            items-center px-3 py-1.5 text-indigo-700">View</a>
                                                                             </td>
                                                                         </tr>
