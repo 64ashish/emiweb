@@ -28,7 +28,6 @@ class SearchController extends Controller
     {
         $keywords = $request->search;
         $q1 = DenmarkEmigration::search($keywords)->get()->load('archive');
-//        return $q1;
         $q2 = SwedishChurchEmigrationRecord::search($keywords)->get()->load('archive');
         $records = $q1->union($q2);
         return view('home.results', compact('records', 'keywords'));
