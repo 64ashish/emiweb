@@ -14,14 +14,20 @@ class SearchController extends Controller
     {
         if($archive == 1){
             $records = Archive::findOrFail($archive)->denmarkEmigrations()->paginate(100);
+            return view('home.denmarkemigration.records', compact('records'));
         }
+//
+//        if($archive == 5){
+//            $records = Archive::findOrFail($archive)->SwedishChurchEmigrationRecord()->paginate(100);
+//            return view('home.records', compact('records'));
+//        }
 
-        if($archive == 5){
-            $records = Archive::findOrFail($archive)->SwedishChurchEmigrationRecord()->paginate(100);
-        }
+//        if($archive == 1) {
+//            return view('home.denmarkemigration.search');
+//        }
 
 
-        return view('home.records', compact('records'));
+
 
     }
     public function search( Request  $request)

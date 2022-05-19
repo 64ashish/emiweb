@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DenmarkEmigration;
 use App\Models\SwedishChurchEmigrationRecord;
 use Illuminate\Http\Request;
+use Laravel\Scout\Engines\MeiliSearchEngine;
+use MeiliSearch\MeiliSearch;
 
 class DenmarkEmigrationController extends Controller
 {
@@ -17,6 +19,7 @@ class DenmarkEmigrationController extends Controller
     public function index()
     {
         //
+
         $records = DenmarkEmigration::paginate(100);
 
         return view('home.records', compact('records'));
@@ -54,7 +57,7 @@ class DenmarkEmigrationController extends Controller
         //
         $detail = DenmarkEmigration::findOrFail($id);
 //        return $detail;
-        return view('home.showrecord', compact('detail'));
+        return view('home.denmarkemigration.show', compact('detail'));
     }
 
     /**
@@ -91,13 +94,36 @@ class DenmarkEmigrationController extends Controller
         //
     }
 
-    public function search( Request  $request)
+    public function search( Request $request)
     {
-        $keywords = $request->search;
-        $q1 = DenmarkEmigration::search($keywords)->get();
-        $q2 = SwedishChurchEmigrationRecord::search($keywords)->get();
-        $records = $q1->union($q2);
-        return view('home.results', compact('records', 'keywords'));
+
+//        $query = $request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_place." ".$request->last_resident." ".$request->destination_country." ".$request->location;
+
+//        $query = $request->first_name." ".$request->last_name;
+
+
+
+        $results = DenmarkEmigration::search($request->first_name);
+        if (!empty($request->profession)) {
+            $results->where('profession', $request->profession);
+         }
+        if (!empty($request->birth_place)) {
+            $results->where('birth_place', $request->birth_place);
+        }
+        if (!empty($request->last_resident)) {
+            $results->where('last_resident', $request->last_resident);
+        }
+        if (!empty($request->destination_country)) {
+            $results->where('destination_country', $request->destination_country);
+        }
+        if (!empty($request->destination_city)) {
+            $results->where('destination_city', $request->destination_city);
+        }
+
+        $records =  $results->paginate(100);
+
+        return view('home.denmarkemigration.records', compact('records'));
+
 
     }
 }

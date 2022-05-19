@@ -24,31 +24,28 @@ class HomeController extends Controller
         }
 
         if(auth()->user()->hasRole(['regular user'])){
-            $groups = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
+            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
                 return $item['place'];
             }], $preserveKeys = true);
         }
 
 
         if(auth()->user()->hasRole(['subscriber'])){
-            $groups = Archive::where('id',1)
-                ->orWhere('id',5)
-                ->get()
-                ->groupBy(['category.name', function ($item) {
-                return $item['place'];
-            }], $preserveKeys = true);
+            $archives = Archive::withCount(['denmarkEmigrations'])->get()->load('category');
         }
 //        $user = auth()->user();
         $user = auth()->user();
 
+
+
 //        $catArchive = Archive::get()->groupBy('category.name');
 
 
-        $groups = Archive::where('id',1)->orWhere('id',5)->get()->groupBy(['category.name', function ($item) {
-            return $item['place'];
-        }], $preserveKeys = true);
-
-        return view('home.dashboard', compact('user','groups'));
+//        $groups = Archive::where('id',1)->orWhere('id',5)->get()->groupBy(['category.name', function ($item) {
+//            return $item['place'];
+//        }], $preserveKeys = true);
+//            return $archives;
+        return view('home.dashboard', compact('user','archives'));
     }
 
     public function user(User $user){

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('iceland_emmigration_records', function (Blueprint $table) {
+        Schema::create('iceland_emigration_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id')->default('5');
             $table->unsignedBigInteger('user_id');
@@ -22,12 +22,12 @@ return new class extends Migration
             $table->string('middle_name')->index()->nullable();
             $table->string('last_name')->index()->nullable();
             $table->string('original_name')->index()->nullable();
-            $table->date('date_of_birth')->index()->nullable();
+            $table->string('date_of_birth')->index()->nullable();
             $table->string('place_of_birth')->index()->nullable();
             $table->string('destination_country')->index()->nullable();
             $table->string('destination_location')->index()->nullable();
             $table->string('home_location')->index()->nullable();
-            $table->date('departure')->index()->nullable();
+            $table->string('departure')->index()->nullable();
             $table->string('profession')->index()->nullable();
             $table->string('travel_companion')->index()->nullable();
             $table->string('return_info')->index()->nullable();
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('civil_status')->index()->nullable();
             $table->string('partner_info')->index()->nullable();
             $table->string('children')->index()->nullable();
-            $table->date('death_date')->index()->nullable();
+            $table->string('death_date')->index()->nullable();
             $table->string('death_location')->index()->nullable();
             $table->string('member_of_church')->index()->nullable();
             $table->text('reference')->nullable();

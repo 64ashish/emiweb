@@ -7,11 +7,14 @@ use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
 use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\OrganizationArchiveController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
 use Illuminate\Support\Facades\Route;
@@ -133,6 +136,13 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::get('/dashboard', [DashboardController::class,'index'])
         ->name('dashboard');
 
+        // export archive records
+        Route::get('archives/{archive}/export', [ExportController::class, 'exportToFile'])
+            ->name('archives.export');
+//        Import archive records
+        Route::post('archives/{archive}/import', [ImportController::class, 'importFromFile'])
+            ->name('archives.import');
+
         Route::resource('/organizations', UserOrganizationController::class, ['only' => ['show','update']]);
 
 //        show user association table
@@ -154,6 +164,27 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
         Route::post('/users/{user}/sync-role', [StaffController::class, 'syncRole'])
             ->name('users.sync-role');
+
+        // show all record for specific archive
+        Route::get('/organization/{organization}/archives/{archive}/records', [OrganizationArchiveController::class, 'ShowRecords'])
+            ->name('organizations.archives.records');
+        //        show create new record on specific archive
+        Route::get('/organization/{organization}/archives/{archive}/records/create', [OrganizationArchiveController::class, 'create'])
+            ->name('organizations.archives.records.create');
+        //        create new record on specific archive
+        Route::post('/organization/{organization}/archives/{archive}/records', [OrganizationArchiveController::class, 'store'])
+            ->name('organizations.archives.records.store');
+        // show specific record
+        Route::get('/organization/{organization}/archives/{archive}/records/{id}', [OrganizationArchiveController::class, 'view'])
+            ->name('organizations.archives.show');
+        Route::get('/organization/{organization}/archives/{archive}/records/{record}/edit', [OrganizationArchiveController::class, 'edit'])
+            ->name('organizations.archives.record.edit');
+        Route::put('/organization/{organization}/archives/{archive}/records/{record}/update', [OrganizationArchiveController::class, 'update'])
+            ->name('organizations.archives.record.update');
+
+
+
+
     });
 
 //regular users and subscribers
@@ -172,6 +203,12 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
             ->name('records');
         Route::get('/records/{arch}/{id}', [SearchController::class, 'show'])
             ->name('records.show');
+
+        // denmark emigration stuff
+        Route::get('/danishemigration/show/{id}', [DenmarkEmigrationController::class, 'show'])
+            ->name('records.show');
+        Route::match(['get', 'post'],'/danishemigration/search', [DenmarkEmigrationController::class, 'search'])->name('danishemigration.search');
+
 
 
     });
