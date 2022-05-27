@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Archive;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
+use MongoDB\Driver\Session;
+use function Clue\StreamFilter\append;
 
 class HomeController extends Controller
 {
     //
     public function index()
     {
+
+
         if(auth()->user()->hasRole('super admin'))
         {
             return redirect('/admin');
@@ -24,17 +29,22 @@ class HomeController extends Controller
         }
 
         if(auth()->user()->hasRole(['regular user'])){
-            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
-                return $item['place'];
-            }], $preserveKeys = true);
+//            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
+//                return $item['place'];
+//            }], $preserveKeys = true);
+            $archives = Archive::where('id',1)->get()->load('category');
         }
 
 
         if(auth()->user()->hasRole(['subscriber'])){
-            $archives = Archive::withCount(['denmarkEmigrations'])->get()->load('category');
+            $archives = Archive::get()->append('record_total')->load('category');
         }
+//        return $archives;
 //        $user = auth()->user();
         $user = auth()->user();
+
+
+//        return auth()->user()->roles;
 
 
 
@@ -72,5 +82,21 @@ class HomeController extends Controller
         ]);
 //        return to dashboard
         return redirect('/home')->with('success', 'Password has been updated');
+    }
+
+
+    public function localSwitcher(Request $request)
+    {
+        $validate = $request->validate([
+            'language' => 'required|in:sv,en|max:2',
+        ]);
+
+        if($validate) {
+            App::setLocale($request->language);
+            session()->put('locale', App::getLocale());
+            return back();
+//            dd(app()->getLocale());
+        }
+
     }
 }

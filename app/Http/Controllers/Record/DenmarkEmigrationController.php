@@ -54,7 +54,6 @@ class DenmarkEmigrationController extends Controller
      */
     public function show($id)
     {
-        //
         $detail = DenmarkEmigration::findOrFail($id);
 //        return $detail;
         return view('home.denmarkemigration.show', compact('detail'));
@@ -103,7 +102,8 @@ class DenmarkEmigrationController extends Controller
 
 
 
-        $results = DenmarkEmigration::search($request->first_name);
+        $results = DenmarkEmigration::search($request->first_name." ".$request->last_name);
+        $keywords = $request->all();
         if (!empty($request->profession)) {
             $results->where('profession', $request->profession);
          }
@@ -122,7 +122,7 @@ class DenmarkEmigrationController extends Controller
 
         $records =  $results->paginate(100);
 
-        return view('home.denmarkemigration.records', compact('records'));
+        return view('home.denmarkemigration.records', compact('records', 'keywords'));
 
 
     }

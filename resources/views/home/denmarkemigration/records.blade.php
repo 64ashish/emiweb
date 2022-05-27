@@ -8,17 +8,23 @@
                 <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                     <div class="bg-white py-4 pl-4 pr-3 border-gray-300 shadow-sm">
                        <p class="text-left text-sm font-semibold text-gray-900 pb-4">
-                           Advanced Search
+                           {{ __('Advanced search') }} : Den danska emigrantdatabasen
                        </p>
+                        @if(isset($keywords))
+                            {!! Form::model($keywords,['route' => 'danishemigration.search'])  !!}
+                        @endif
+                        @if(!isset($keywords))
                         {!! Form::open(['route' => 'danishemigration.search'])  !!}
+                        @endif
+
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="first_name"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        First Name </label>
+                                        {{ __('First name') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
-                                        {!! Form::text('first_name', old('first_name'),
+                                        {!! Form::text('first_name', null,
                                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                                 sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                                                 'id' => 'first_name']) !!}
@@ -31,7 +37,7 @@
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="last_name"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        Last Name </label>
+                                        {{ __('Last name') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                         {!! Form::text('last_name', null,
@@ -47,7 +53,7 @@
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="profession"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        Profession </label>
+                                        {{ __('Profession') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                         {!! Form::text('profession', null,
@@ -63,7 +69,7 @@
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="birth_place"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        Place of Birth </label>
+                                        {{ __('Birth place') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                         {!! Form::text('birth_place', null,
@@ -79,7 +85,7 @@
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="last_resident"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        Last place of residence </label>
+                                        {{ __('Last resident') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                         {!! Form::text('last_resident', null,
@@ -95,7 +101,7 @@
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="destination_country"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        Destination Country </label>
+                                        {{ __('Destination country') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                         {!! Form::text('destination_country', null,
@@ -111,7 +117,7 @@
                                 <div class="sm:grid sm:grid-cols-3 sm:items-start">
                                     <label for="destination_city"
                                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        Destination Location/City </label>
+                                        {{ __('Destination city') }} </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                         {!! Form::text('destination_city', null,
@@ -128,7 +134,7 @@
                                     <button type="submit" class="inline-flex items-center px-4 py-2 border
                                     border-transparent text-base font-medium rounded-md shadow-sm text-white
                                     bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
-                                    focus:ring-offset-2 focus:ring-indigo-500">Search</button>
+                                    focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
 
                                 </div>
 
@@ -139,37 +145,39 @@
 
                         <div class="shadow-sm ring-1 ring-black ring-opacity-5">
 
-                            <table class="min-w-full border-separate" style="border-spacing: 0">
+                            <table class="min-w-full border-separate divide-gray-300" style="border-spacing: 0">
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900
-                                backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Full name</th>
+                                backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">{{ __('Full name') }}</th>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900
-                                backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Profession</th>
+                                backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">{{ __('Profession') }}</th>
                                     <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter sm:table-cell">Place of birth</th>
+                                backdrop-filter sm:table-cell">{{ __('Birth place') }}</th>
                                     <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter lg:table-cell">Last place of resident</th>
+                                backdrop-filter lg:table-cell">{{ __('Last resident') }}</th>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter">Record issue date</th>
+                                backdrop-filter">{{ __('Record date') }}</th>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 py-3.5 pr-4 pl-3 text-left backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
-                                        Destination
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
+                                backdrop-filter">
+                                        {{ __('Destination location') }}</th>
+
                                     </th>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 text-right py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
-                                        Action
+
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white">
                                 @foreach($records as $record)
-                                    <tr>
+                                    <tr class="odd:bg-white even:bg-gray-100">
                                         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
                                                                     font-medium text-gray-900 sm:pl-6 lg:pl-8">
                                             {{ $record->first_name }} {{ $record->last_name }}</td>
@@ -205,6 +213,8 @@
                 </div>
             </div>
         </section>
+
+
 
     </div>
 </x-app-layout>

@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
+        //        original name: scbe
         Schema::create('swedish_emigration_statistics_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id')->default('5');
+            $table->integer('old_id')->nullable();
+
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('9');
 
@@ -42,7 +44,6 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 

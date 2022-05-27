@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\RecordCount;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
 class SwedishChurchEmigrationRecord extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, RecordCount;
 
     protected $fillable = [
         'first_name','last_name','dob','gender','last_resident','from_province','profession','birth_place',

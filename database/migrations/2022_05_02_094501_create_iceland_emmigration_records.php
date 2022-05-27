@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
+//        original name ealand
         Schema::create('iceland_emigration_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id')->default('5');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('archive_id');
+            $table->integer('old_id')->nullable();
+
+            $table->unsignedBigInteger('user_id')->default('1');
+            $table->unsignedBigInteger('archive_id')->default('20');
             $table->string('first_name')->index()->nullable();
             $table->string('middle_name')->index()->nullable();
             $table->string('last_name')->index()->nullable();
@@ -43,11 +45,11 @@ return new class extends Migration
             $table->string('death_location')->index()->nullable();
             $table->string('member_of_church')->index()->nullable();
             $table->text('reference')->nullable();
-            $table->boolean('genealogy')->index()->nullable();
+            $table->string('genealogy')->index()->nullable();
             $table->string('source')->index()->nullable();
             $table->string('newspaper_info')->index()->nullable();
             $table->text('photo')->nullable();
-            $table->text('distction')->nullable();
+            $table->text('distinction')->nullable();
             $table->text('member_of_organization')->nullable();
             $table->text('comment')->nullable();
 
@@ -56,7 +58,6 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 

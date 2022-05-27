@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
 use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
 use App\Http\Controllers\SearchController;
@@ -30,12 +31,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
     Route::get('/', function () {
         return view('welcome');
     });
     Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
     ->name('home');
-
+    Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
+    ->name('local');
 
 
 
@@ -187,6 +190,8 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
     });
 
+
+
 //regular users and subscribers
 Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|regular user|subscriber',  'isActive'])
     ->group(function(){
@@ -206,8 +211,15 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
         // denmark emigration stuff
         Route::get('/danishemigration/show/{id}', [DenmarkEmigrationController::class, 'show'])
-            ->name('records.show');
+            ->name('danishemigration.show');
         Route::match(['get', 'post'],'/danishemigration/search', [DenmarkEmigrationController::class, 'search'])->name('danishemigration.search');
+
+
+//        DalslanningarBornInAmericaRecord
+
+        Route::get('/dbir/show/{id}', [DalslanningarBornInAmericaRecordController::class, 'show'])
+            ->name('dbir.show');
+        Route::match(['get', 'post'],'/dbir/search', [DalslanningarBornInAmericaRecordController::class, 'search'])->name('dbir.search');
 
 
 

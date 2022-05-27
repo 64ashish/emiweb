@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\RecordCount;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
 class DenmarkEmigration extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, RecordCount;
 
     protected $fillable = [
         'user_id','archive_id', 'organization_id','first_name','last_name','sex','age','birth_place','last_resident','profession','destination_city',

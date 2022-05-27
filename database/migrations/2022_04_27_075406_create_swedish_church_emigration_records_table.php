@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
+//        original name: emigration,emigrationpart2
         Schema::create('swedish_church_emigration_records', function (Blueprint $table) {
 //          table  emigration
             $table->id();
-            $table->unsignedBigInteger('organization_id')->default('5');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('archive_id');
+
+            $table->unsignedBigInteger('user_id')->default('1');
+            $table->unsignedBigInteger('archive_id')->default('13');
+
+            $table->integer('old_id')->nullable();
             $table->string('first_name')->index()->nullable();
             $table->string('last_name')->index()->nullable();
             $table->date('dob')->nullable();
@@ -83,7 +86,6 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
 
 
         });

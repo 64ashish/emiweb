@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
+//        original table: edenmark
         Schema::create('denmark_emigrations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id')->default('2');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('archive_id');
+            $table->unsignedBigInteger('user_id')->default('1');
+            $table->unsignedBigInteger('archive_id')->default('1');
+
+            $table->integer('old_id')->nullable();
             $table->string('first_name')->index();
             $table->string('last_name')->index();
             $table->text('sex')->nullable();
@@ -39,7 +41,6 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 

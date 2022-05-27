@@ -16,58 +16,150 @@
 
                             @if(count($records) > 0)
                             <table class="min-w-full border-separate" style="border-spacing: 0">
-                                <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900
-                                backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Full name</th>
-                                    <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter sm:table-cell">Place of birth</th>
-                                    <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter lg:table-cell">Last place of resident</th>
-                                    <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter">Record issue date</th>
-                                    <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 py-3.5 pr-4 pl-3 text-left backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
-                                        Destination
-                                    </th>
-                                    <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 text-right py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
-                                        Action
-                                    </th>
-                                </tr>
-                                </thead>
+
                                 <tbody class="bg-white">
                                 @foreach($records as $record)
-                                    <tr>
-                                        <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                    @if($record->archive->id == 1)
+                                        <tr  class="odd:bg-white even:bg-gray-100">
+                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
                                                                     font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                                            {{ $record->first_name }} {{ $record->last_name }} <p class="text-gray-400 text-xs">{{ $record->archive->name }}</p></td>
-                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500 hidden sm:table-cell">{{ $record->birth_place}}</td>
-                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500 hidden lg:table-cell">{{ $record->last_resident }}</td>
-                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500">{{ $record->traveled_on }}</td>
-                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                {{ $record->first_name }} {{ $record->last_name }}
+                                                <p class="text-indigo-700 text-xs">
+                                                    <a href="{{ route('records', $record->archive->id) }}">{{ $record->archive->name }}</a>
+                                                </p></td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden sm:table-cell">{{ __('Birth place') }}:<br> {{ $record->birth_place}}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden lg:table-cell">{{ __('Last resident') }}:<br> {{ $record->last_resident }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">{{ __('Record date') }}:<br>{{ $record->traveled_on }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                     text-gray-500">
-                                            {{  $record->destination_city }}, {{ $record->destination_country }}
-                                        </td>
-                                        <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                                {{ __('Destination') }}:<br> {{  $record->destination_city }}, {{ $record->destination_country }}
+                                            </td>
+                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
                                                                      text-sm text-right font-medium sm:pr-6 lg:pr-8">
-                                            @if($record->archive->id == 1)
-                                               <a href="{{ route('records.show', [$record->archive->id,$record]) }}" class="inline-flex text-indigo-700
-                                               items-center px-3 py-1.5 text-indigo-700">View</a>
-                                            @endif
-                                            @if($record->archive->id == 5)
                                                 <a href="{{ route('records.show', [$record->archive->id,$record]) }}" class="inline-flex text-indigo-700
-                                           items-center px-3 py-1.5 text-indigo-700">View</a>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                               items-center px-3 py-1.5 text-indigo-700">View</a>
+
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($record->archive->id == 5)
+                                        <tr  class="odd:bg-white even:bg-gray-100">
+                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                                                    font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                {{ $record->first_name }} {{ $record->last_name }}
+                                                <p class="text-indigo-700 text-xs">
+                                                    <a href="{{ route('records', $record->archive->id) }}">{{ $record->archive->name }}</a>
+                                                </p></td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden sm:table-cell">{{ __('Birth place') }}:<br> {{ $record->birth_place}}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden lg:table-cell">{{ __('Last resident') }}:<br> {{ $record->last_resident }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">{{ __('Record date') }}:<br>{{ $record->record_date }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">
+                                                {{ __('Destination country') }}:<br> {{ $record->destination_country }}
+                                            </td>
+                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                <a href="{{ route('records.show', [$record->archive->id,$record]) }}" class="inline-flex text-indigo-700
+                                               items-center px-3 py-1.5 text-indigo-700">View</a>
+
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($record->archive->id == 18)
+                                        <tr  class="odd:bg-white even:bg-gray-100">
+                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                                                    font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                {{ $record->first_name }} {{ $record->last_name }}
+                                                <p class="text-indigo-700 text-xs">
+                                                    <a href="{{ route('records', $record->archive->id) }}">{{ $record->archive->name }}</a>
+                                                </p></td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden sm:table-cell">{{ __('Birth place') }}:<br> {{ $record->birth_place}}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden lg:table-cell">{{ __('Birth date') }}:<br> {{ $record->birth_date }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">{{ __('Profession') }}:<br>{{ $record->profession }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">
+                                                {{ __('Death place') }} :<br> {{ $record->death_place }}
+                                            </td>
+                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                <a href="{{ route('records.show', [$record->archive->id,$record]) }}" class="inline-flex text-indigo-700
+                                               items-center px-3 py-1.5 text-indigo-700">View</a>
+
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($record->archive->id == 9)
+                                        <tr  class="odd:bg-white even:bg-gray-100">
+                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                                                    font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                {{ $record->first_name }} {{ $record->last_name }}
+                                                <p class="text-indigo-700 text-xs">
+                                                    <a href="{{ route('records', $record->archive->id) }}">{{ $record->archive->name }}</a>
+                                                </p></td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden sm:table-cell">{{ __('From province') }}:<br> {{ $record->from_province}}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden lg:table-cell">{{ __('Birth date') }}:<br> {{ $record->birth_year }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">{{ __('Profession') }}:<br>{{ $record->profession }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">
+                                                {{ __('Destination') }} :<br> {{ $record->destination }}
+                                            </td>
+                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                <a href="{{ route('records.show', [$record->archive->id,$record]) }}" class="inline-flex text-indigo-700
+                                               items-center px-3 py-1.5 text-indigo-700">View</a>
+
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($record->archive->id == 11)
+                                        <tr  class="odd:bg-white even:bg-gray-100">
+                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                                                    font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                {{ $record->first_name }} {{ $record->last_name }}
+                                                <p class="text-indigo-700 text-xs">
+                                                   <a href="{{ route('records', $record->archive->id) }}">{{ $record->archive->name }}</a>
+                                                </p></td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden sm:table-cell">{{ __('Home location') }}:<br> {{ $record->home_location }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500 hidden lg:table-cell">{{ __('Birth date') }}:<br> {{ $record->birth_year }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">{{ __('Profession') }}:<br>{{ $record->profession }}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                    text-gray-500">
+                                                {{ __('Destination') }} :<br> {{ $record->destination }}
+                                            </td>
+                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                <a href="{{ route('records.show', [$record->archive->id,$record]) }}" class="inline-flex text-indigo-700
+                                               items-center px-3 py-1.5 text-indigo-700">View</a>
+
+                                            </td>
+                                        </tr>
+                                    @endif
+
+
+
+
+
+
+
                                 @endforeach
 
                                 <!-- More people... -->

@@ -23,19 +23,58 @@ class OrganizationArchiveController extends Controller
 
     public function ShowRecords(Organization $organization, Archive $archive){
 
+
+
+
         $this->authorize('viewAny', $archive);
-// Den danska emigrantdatabasen
-        if( $archive->id == 1)
-        {
-            $records = DenmarkEmigration::paginate(100);
+//// Den danska emigrantdatabasen
+//        if( $archive->id == 1)
+//        {
+//            $records = DenmarkEmigration::paginate(100);
+//            return view('dashboard.denmarkemigration.index', compact('records', 'organization'));
+//        }
+//// Emigranter registrerade i svenska kyrkböcker
+//        if( $archive->id == 5)
+//        {
+//            $records = SwedishChurchEmigrationRecord::paginate(100);
+////            return $records;
+//            return view('dashboard.swedishchurchemigrationrecord.index', compact('records', 'organization'));
+//        }
+//        if( $archive->id == 9)
+//        {
+//            $records = SwedishChurchEmigrationRecord::paginate(100);
+////            return $records;
+//            return view('dashboard.scbe.records', compact('records', 'organization'));
+//        }
+
+
+        if($archive->id == 1){
+//            $records = Archive::findOrFail($archive->id)->denmarkEmigrations()->paginate(500);
+//            return view('home.denmarkemigration.records', compact('records'));
+                        $records = DenmarkEmigration::paginate(100);
             return view('dashboard.denmarkemigration.index', compact('records', 'organization'));
         }
-// Emigranter registrerade i svenska kyrkböcker
-        if( $archive->id == 5)
-        {
-            $records = SwedishChurchEmigrationRecord::paginate(100);
+
+        if($archive->id == 18){
+            $records = Archive::findOrFail($archive->id)->DalslanningarBornInAmericaRecord()->paginate(500);
 //            return $records;
-            return view('dashboard.swedishchurchemigrationrecord.index', compact('records', 'organization'));
+            return view('home.dbiar.records', compact('records'));
+        }
+//
+        if($archive->id == 5){
+            $records = Archive::findOrFail($archive->id)->SwedishChurchEmigrationRecord()->paginate(500);
+//            return $records;
+            return view('home.swechurchemi.records', compact('records'));
+        }
+
+        if($archive->id == 9){
+            $records = Archive::findOrFail($archive->id)->SwedishEmigrationStatisticsRecord()->paginate(500);
+            return view('home.swestatemi.records', compact('records'));
+        }
+
+        if($archive->id == 11){
+            $records = Archive::findOrFail($archive->id)->BrodernaLarssonArchiveRecords()->paginate(500);
+            return view('home.larsson.records', compact('records'));
         }
         abort(403);
 
