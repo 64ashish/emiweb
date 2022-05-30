@@ -214,70 +214,48 @@
                         </div>
                         <div  x-show="tab === 'images'">
                             <h3>Images</h3>
-                            <div x-data="{ imgModal : false, imgModalSrc : '', imgModalDesc : '' }">
-                                <template @img-modal.window="imgModal = true; imgModalSrc = $event.detail.imgModalSrc; imgModalDesc = $event.detail.imgModalDesc;" x-if="imgModal">
-                                    <div x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90" x-on:click.away="imgModalSrc = ''" class="p-2 fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center bg-black bg-opacity-75">
-                                        <div @click.away="imgModal = ''" class="flex flex-col max-w-3xl max-h-full overflow-auto">
-                                            <div class="z-50">
-                                                <button @click="imgModal = ''" class="float-right pt-2 pr-2 outline-none focus:outline-none">
-                                                    <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                                                        </path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="p-2">
-                                                <img :alt="imgModalSrc" class="object-contain h-1/2-screen" :src="imgModalSrc">
-                                                <p x-text="imgModalDesc" class="text-center text-white"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </template>
-                            </div>
+                            <div class="mt-8 flex flex-col">
+                                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                            <table class="min-w-full divide-y divide-gray-300">
+                                                <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Archive name</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Found on page</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link</th>
 
-                            <div x-data="{}" class="px-2">
-                                <div class="flex -mx-2">
-                                    <div class="w-1/6 px-2">
-                                        <div class="bg-gray-400">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: 'https://picsum.photos/640/480', imgModalDesc: 'Random Image One Description' })" class="cursor-pointer">
-                                                <img alt="Placeholder" class="object-fit w-full" src="https://picsum.photos/640/480">
-                                            </a>
-                                        </div>
-                                    </div>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="bg-white">
+                                                <!-- Odd row -->
+                                                <tr class="odd:bg-white even:bg-gray-100">
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">view</td>
 
-                                    <div class="w-1/6 px-2">
-                                        <div class="bg-gray-400">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: 'https://picsum.photos/640/480', imgModalDesc: '' })" class="cursor-pointer">
-                                                <img alt="Placeholder" class="object-fit w-full" src="https://picsum.photos/640/480">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/6 px-2">
-                                        <div class="bg-gray-400">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: 'https://picsum.photos/640/480', imgModalDesc: '' })" class="cursor-pointer">
-                                                <img alt="Placeholder" class="object-fit w-full" src="https://picsum.photos/640/480">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/6 px-2">
-                                        <div class="bg-gray-400">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: 'https://picsum.photos/640/480', imgModalDesc: '' })" class="cursor-pointer">
-                                                <img alt="Placeholder" class="object-fit w-full" src="https://picsum.photos/640/480">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/6 px-2">
-                                        <div class="bg-gray-400">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: 'https://picsum.photos/640/480', imgModalDesc: '' })" class="cursor-pointer">
-                                                <img alt="Placeholder" class="object-fit w-full" src="https://picsum.photos/640/480">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/6 px-2">
-                                        <div class="bg-gray-400">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: 'https://picsum.photos/640/480', imgModalDesc: '' })" class="cursor-pointer">
-                                                <img alt="Placeholder" class="object-fit w-full" src="https://picsum.photos/640/480">
-                                            </a>
+                                                </tr>
+                                                <tr class="odd:bg-white even:bg-gray-100">
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">view</td>
+
+                                                </tr>
+                                                <tr class="odd:bg-white even:bg-gray-100">
+                                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">view</td>
+
+                                                </tr>
+                                                <tr class="odd:bg-white even:bg-gray-100">
+                                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">view</td>
+                                                </tr>
+
+                                                <!-- More people... -->
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
