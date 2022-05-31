@@ -66,7 +66,7 @@ class SearchController extends Controller
             $q5 = BrodernaLarssonArchiveRecord::search($keywords)->get()->load('archive');
             $records = collect([$q1, $q2, $q3, $q4, $q5])->flatten();
         }
-        return DenmarkEmigration::search($keywords)->get()->load('archive');
+//        return DenmarkEmigration::search($keywords)->get()->load('archive');
 
 
 //        return SwedishEmigrationStatisticsRecord::search($keywords)->get()->load('archive');
