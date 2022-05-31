@@ -8,7 +8,7 @@
                 <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                     <div class="bg-white py-4 pl-4 pr-3 border-gray-300 shadow-sm">
                         <p class="text-left text-sm font-semibold text-gray-900 pb-4">
-                            {{ __('Advanced search') }}: Dalslänningar födda i Amerika
+                            Dalslänningar födda i Amerika
                         </p>
                         {!! Form::open(['route' => 'dbir.search'])  !!}
                         <div class="grid grid-cols-2 gap-4">
