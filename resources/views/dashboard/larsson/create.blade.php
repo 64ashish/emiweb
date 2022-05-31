@@ -11,10 +11,11 @@
 
                 {!! Form::open(['route' => ['organizations.archives.records.store',$organization, $archive]],['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
                 <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2">
+
                     @foreach($fields as $field)
 
                         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:border-gray-200 sm:pt-5 py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <label for="first_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            <label for="{{$field}}" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                 {{ __(ucfirst(str_replace('_', ' ', $field))) }}</label>
                             <div class="mt-1 sm:mt-0 sm:col-span-2">
 
@@ -29,6 +30,10 @@
                         </div>
 
                     @endforeach
+
+
+
+
 
                 </dl>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

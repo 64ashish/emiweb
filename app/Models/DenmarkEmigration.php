@@ -12,9 +12,26 @@ class DenmarkEmigration extends Model
     use HasFactory, Searchable, RecordCount;
 
     protected $fillable = [
-        'user_id','archive_id', 'organization_id','first_name','last_name','sex','age','birth_place','last_resident','profession','destination_city',
-        'destination_country','ship_name','traveled_on','contract_number','comment','secrecy','travel_type',
-        'source','dduid'
+        'user_id',
+        'archive_id',
+        'organization_id',
+        'first_name',
+        'last_name',
+        'sex',
+        'age',
+        'birth_place',
+        'last_resident',
+        'profession',
+        'destination_city',
+        'destination_country',
+        'ship_name',
+        'traveled_on',
+        'contract_number',
+        'comment',
+        'secrecy',
+        'travel_type',
+        'source',
+        'dduid'
     ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -105,7 +105,10 @@ class DenmarkEmigrationController extends Controller
         $results = DenmarkEmigration::search($request->first_name." ".$request->last_name);
 
 
-        $r= $results->get();
+//        $r= $results->get();
+//        $filterable = collect([$results->get()])->flatten();
+
+
 //        return $r->where('profession', '=', 'barn');
 
         $keywords = $request->all();

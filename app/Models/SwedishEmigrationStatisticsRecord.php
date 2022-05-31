@@ -14,24 +14,28 @@ class SwedishEmigrationStatisticsRecord extends Model
     protected $fillable = [
         'user_id',
         'archive_id',
-        'source',
-        'svar_batch_number',
-        'svar_image_number',
-        'from_year',
-        'from_province',
-        'from_parish',
-        'gender',
-        'civil_status',
-        'last_name',
         'first_name',
+        'last_name',
         'profession',
         'birth_year',
         'birth_month',
         'birth_day',
         'destination',
         'comments',
+        'from_year',
+        'from_province',
+        'from_parish',
+        'gender',
+        'civil_status',
         'family_number',
         'nationality',
+        'source',
+        'svar_batch_number',
+        'svar_image_number',
+
+
+
+
     ];
 
     public function archive()

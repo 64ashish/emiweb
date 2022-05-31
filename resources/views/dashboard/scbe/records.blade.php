@@ -34,32 +34,30 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                                                    <tbody class="bg-white">
-                                                                    @foreach($records as $record)
-                                                                        <tr>
-                                                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
-                                                                    font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                                                                                {{ $record->first_name }} {{ $record->last_name }}</td>
-                                                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500 hidden sm:table-cell">{{ $record->from_province}}</td>
-                                                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500 hidden lg:table-cell">{{ $record->from_year }}</td>
-                                                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500">{{ $record->birth_year }}</td>
-                                                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
-                                                                    text-gray-500">
-                                                                                {{  $record->destination }}
-                                                                            </td>
-                                                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
-                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
-                                                                                <a href="{{ route('records.show', ["9",$record]) }}" class="inline-flex text-indigo-700
-                                           items-center px-3 py-1.5 text-indigo-700">View</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-
-                                                                    <!-- More people... -->
-                                                                    </tbody>
+                                        <tbody class="bg-white">
+                                        @foreach($records as $record)
+                                            <tr>
+                                                <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                        font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                    {{ $record->first_name }} {{ $record->last_name }}</td>
+                                                <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                        text-gray-500 hidden sm:table-cell">{{ $record->from_province}}</td>
+                                                <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                        text-gray-500 hidden lg:table-cell">{{ $record->from_year }}</td>
+                                                <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                        text-gray-500">{{ $record->birth_year }}</td>
+                                                <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                        text-gray-500">
+                                                    {{  $record->destination }}
+                                                </td>
+                                                <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                         text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                    <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }}" class="inline-flex text-indigo-700
+               items-center px-3 py-1.5 text-indigo-700">View</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
                             </table>
                             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
                             {{ $records->links() }}
