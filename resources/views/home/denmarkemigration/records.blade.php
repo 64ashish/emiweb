@@ -130,8 +130,10 @@
                                     </div>
                                 </div>
 
-                                <div class="flex justify-center">
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 border
+                                <div class="sm:grid sm:grid-cols-3 items-start justify-items-start">
+                                    <span></span>
+                                    <span></span>
+                                    <button type="submit" class="inline-flex items-center px-8 py-2 border
                                     border-transparent text-base font-medium rounded-md shadow-sm text-white
                                     bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
                                     focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
@@ -141,7 +143,7 @@
                             </div>
                         {!! Form::close() !!}
                     </div>
-                    <div class="inline-block min-w-full py-2 align-middle">
+                    <div class="inline-block min-w-full py-8 align-middle">
 
                         <div class="shadow-sm ring-1 ring-black ring-opacity-5">
 
