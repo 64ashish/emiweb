@@ -20,23 +20,23 @@ return new class extends Migration
             $table->unsignedBigInteger('archive_id')->default('1');
 
             $table->integer('old_id')->nullable();
-            $table->string('first_name')->index();
-            $table->string('last_name')->index();
+            $table->string('first_name')->nullable()->index();
+            $table->string('last_name')->nullable()->index();
             $table->text('sex')->nullable();
-            $table->integer('age')->index()->nullable();
-            $table->string('birth_place')->index()->nullable();
-            $table->string('last_resident')->index()->nullable();
-            $table->string('profession')->index()->nullable();
-            $table->string('destination_city')->index()->nullable();
-            $table->string('destination_country')->index()->nullable();
+            $table->integer('age')->nullable()->index();
+            $table->string('birth_place')->nullable()->index();
+            $table->string('last_resident')->nullable()->index();
+            $table->string('profession')->nullable()->index();
+            $table->string('destination_city')->nullable()->index();
+            $table->string('destination_country')->nullable()->index();
             $table->text('ship_name')->nullable();
-            $table->date('traveled_on')->index()->nullable();
+            $table->string('traveled_on')->nullable()->index();
             $table->text('contract_number')->nullable();
             $table->longText('comment')->nullable();
-            $table->boolean('secrecy')->default(0);
-            $table->text('travel_type');
-            $table->text('source');
-            $table->text('dduid');
+            $table->boolean('secrecy')->nullable();
+            $table->text('travel_type')->nullable();
+            $table->text('source')->nullable();
+            $table->text('dduid')->nullable();
             $table->timestamps();
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');

@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-
+//        SwedeInAlaskaRecord
 //        original table sia
         Schema::create('swede_in_alaska_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('16');
-
-
             $table->integer('old_id')->nullable();
             $table->string('last_name')->nullable();
             $table->string('first_name')->nullable();
@@ -66,9 +64,7 @@ return new class extends Migration
             $table->string('death_location')->nullable();
             $table->string('source')->nullable();
             $table->mediumText('comments')->nullable();
-
             $table->timestamps();
-
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

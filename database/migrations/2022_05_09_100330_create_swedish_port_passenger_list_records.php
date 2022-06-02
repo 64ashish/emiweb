@@ -21,19 +21,19 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('4');
 
-            $table->string('last_name')->index()->nullable();
-            $table->string('first_name')->index()->nullable();
+            $table->string('last_name')->nullable()->index();
+            $table->string('first_name')->nullable()->index();
             $table->string('age')->nullable();
             $table->string('sex')->nullable();
-            $table->string('profession')->index()->nullable();
+            $table->string('profession')->nullable()->index();
             $table->string('departure_date')->nullable();
             $table->string('departure_parish')->nullable();
-            $table->string('destination')->index()->nullable();
-            $table->string('source_reference')->index()->nullable();
-            $table->string('departure_county')->index()->nullable();
-            $table->string('traveling_partners')->index()->nullable();
+            $table->string('destination')->nullable()->index();
+            $table->string('source_reference')->nullable()->index();
+            $table->string('departure_county')->nullable()->index();
+            $table->string('traveling_partners')->nullable()->index();
             $table->string('main_act')->nullable();
-            $table->string('departure_port')->index()->nullable();
+            $table->string('departure_port')->nullable()->index();
             $table->mediumText('comments')->nullable();
             $table->timestamps();
 

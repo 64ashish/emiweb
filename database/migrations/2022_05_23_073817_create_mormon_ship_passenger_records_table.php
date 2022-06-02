@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+//        MormonShipPassengerRecord
         // original table mormonships
         Schema::create('mormon_ship_passenger_records', function (Blueprint $table) {
             $table->id();

@@ -22,15 +22,14 @@ return new class extends Migration
             $table->integer('old_id')->nullable();
             $table->string('last_name')->nullable();
             $table->string('first_name')->nullable();
-            $table->date('birth_date')->nullable();
+            $table->string('birth_date')->nullable();
             $table->string('birth_place')->nullable();
-            $table->date('death_date')->nullable();
+            $table->string('death_date')->nullable();
             $table->string('death_place')->nullable();
             $table->string('profession')->nullable();
             $table->string('source_nr')->nullable();
             $table->mediumText('comments')->nullable();
-
-            $table->tinyInteger('Secrecy')->nullable();
+            $table->string('secrecy')->nullable();
 
             $table->timestamps();
 

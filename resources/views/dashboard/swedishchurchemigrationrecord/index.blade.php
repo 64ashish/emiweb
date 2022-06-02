@@ -38,7 +38,7 @@
                                     <tr>
                                         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
                                                                     font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                                            {{ $record->first_name }} {{ $record->last_name }}</td>
+                                            {{ $record->first_name }} {{ $record->last_name }}  </td>
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                     text-gray-500 hidden sm:table-cell">{{ $record->birth_place}}</td>
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
@@ -51,8 +51,13 @@
                                         </td>
                                         <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
                                                                      text-sm text-right font-medium sm:pr-6 lg:pr-8">
-                                            <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }}" class="inline-flex text-indigo-700
+                                            @if(auth()->user()->hasRole(['regular user', 'subscriber']))
+                                                <a href="{{ route('records.show', ['arch'=> $record->archive,'id'=>$record->id]) }}" class="inline-flex text-indigo-700
                                            items-center px-3 py-1.5 text-indigo-700">View</a>
+                                            @else
+                                                <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }}" class="inline-flex text-indigo-700
+                                           items-center px-3 py-1.5 text-indigo-700">View</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

@@ -22,25 +22,23 @@ return new class extends Migration
             $table->unsignedBigInteger('archive_id')->default('13');
 
             $table->integer('old_id')->nullable();
-            $table->string('first_name')->index()->nullable();
-            $table->string('last_name')->index()->nullable();
-            $table->date('dob')->nullable();
-            $table->string('gender')->index()->nullable();
-            $table->string('last_resident')->index()->nullable();
-            $table->string('from_province')->index()->nullable();
-            $table->string('profession')->index()->nullable();
-            $table->string('birth_place')->index()->nullable();
-            $table->string('civil_status')->index()->nullable();
-            $table->string('from_parish')->index()->nullable();
-            $table->string('birth_parish')->index()->nullable();
-            $table->string('hasFamily')->index()->nullable();
-            $table->date('record_date')->nullable();
-            $table->string('destination_country')->index()->nullable();
-            $table->boolean('secrecy')->default(0);
+            $table->string('first_name')->nullable()->index();
+            $table->string('last_name')->nullable()->index();
+            $table->string('dob')->nullable();
+            $table->string('gender')->nullable()->index();
+            $table->string('last_resident')->nullable()->index();
+            $table->string('from_province')->nullable()->index();
+            $table->string('profession')->nullable()->index();
+            $table->string('birth_place')->nullable()->index();
+            $table->string('civil_status')->nullable()->index();
+            $table->string('from_parish')->nullable()->index();
+            $table->string('birth_parish')->nullable()->index();
+            $table->string('hasFamily')->nullable()->index();
+            $table->string('record_date')->nullable();
+            $table->string('destination_country')->nullable()->index();
+            $table->string('secrecy')->nullable();
             $table->text('main_act')->nullable();
             $table->text('act_number')->nullable();
-//          table  emigration part 2
-
             $table->string('household_examination_volume')->nullable();
             $table->string('emigration_book_volume')->nullable();
             $table->string('emigration_book_note')->nullable();

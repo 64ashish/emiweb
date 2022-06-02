@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+
 //        original table: john_ericsson_papers
         Schema::create('john_ericssons_archive_records', function (Blueprint $table) {
             $table->id();
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('other_name')->nullable();
             $table->string('Description')->nullable();
-            $table->date('date')->nullable();
+            $table->string('date')->nullable();
             $table->integer('roll_no')->nullable();
             $table->string('file_name')->nullable();
 

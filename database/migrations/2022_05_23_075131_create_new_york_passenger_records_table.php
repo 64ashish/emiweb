@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('image_file_name')->nullable();
             $table->string('image_folder')->nullable();
             $table->string('prefix')->nullable();
-            $table->string('given')->nullable();
-            $table->string('surname')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('suffix')->nullable();
             $table->string('alias_prefix')->nullable();
             $table->string('alias_given')->nullable();

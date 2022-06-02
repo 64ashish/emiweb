@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+//        SwedishAmericanMemberRecord
 //        original table safa
         Schema::create('swedish_american_member_records', function (Blueprint $table) {
             $table->id();
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->string('page')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->date('birth_date')->nullable();
+            $table->string('birth_date')->nullable();
             $table->string('birth_parish')->nullable();
             $table->string('birth_county')->nullable();
             $table->string('lodge')->nullable();

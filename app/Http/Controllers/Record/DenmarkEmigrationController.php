@@ -96,20 +96,7 @@ class DenmarkEmigrationController extends Controller
     public function search( Request $request)
     {
 
-//        $query = $request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_place." ".$request->last_resident." ".$request->destination_country." ".$request->location;
-
-//        $query = $request->first_name." ".$request->last_name;
-
-
-
         $results = DenmarkEmigration::search($request->first_name." ".$request->last_name);
-
-
-//        $r= $results->get();
-//        $filterable = collect([$results->get()])->flatten();
-
-
-//        return $r->where('profession', '=', 'barn');
 
         $keywords = $request->all();
         if (!empty($request->profession)) {

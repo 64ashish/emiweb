@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('old_id')->nullable();
 
             $table->unsignedBigInteger('user_id')->default('1');
-            $table->unsignedBigInteger('archive_id')->default('21');
+            $table->unsignedBigInteger('archive_id')->default('20');
 
             $table->string('source_type')->nullable();
             $table->string('source_area')->nullable();
@@ -29,26 +29,26 @@ return new class extends Migration
             $table->string('source_place')->nullable();
             $table->integer('family_number')->nullable();
             $table->integer('number_in_emigration_book')->nullable();
-            $table->string('first_name')->index()->nullable();
-            $table->string('last_name')->index()->nullable();
-            $table->string('birth_date')->index()->nullable();
+            $table->string('first_name')->nullable()->index();
+            $table->string('last_name')->nullable()->index();
+            $table->string('birth_date')->nullable()->index();
             $table->string('sex')->nullable();
             $table->string('profession')->nullable();
-            $table->string('civil_status')->index()->nullable();
-            $table->date('registered_date')->nullable();
+            $table->string('civil_status')->nullable()->index();
+            $table->string('registered_date')->nullable();
             $table->string('from_date')->nullable();
-            $table->string('from_location')->index()->nullable();
-            $table->string('from_region')->index()->nullable();
-            $table->string('destination_location')->index()->nullable();
-            $table->string('destination_area')->index()->nullable();
-            $table->string('destination_county')->index()->nullable();
-            $table->string('destination_country')->index()->nullable();
+            $table->string('from_location')->nullable()->index();
+            $table->string('from_region')->nullable()->index();
+            $table->string('destination_location')->nullable()->index();
+            $table->string('destination_area')->nullable()->index();
+            $table->string('destination_county')->nullable()->index();
+            $table->string('destination_country')->nullable()->index();
             $table->mediumText('certificates')->nullable();
             $table->mediumText('comment')->nullable();
-            $table->tinyInteger('secrecy')->nullable();
+            $table->string('secrecy')->nullable();
             $table->string('signature')->nullable();
-            $table->string('birth_country')->index()->nullable();
-            $table->string('birth_location')->index()->nullable();
+            $table->string('birth_country')->nullable()->index();
+            $table->string('birth_location')->nullable()->index();
             $table->string('page_link')->nullable();
             $table->string('image_link')->nullable();
 

@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+//        VarmlandskaNewspaperNoticeRecord
 //        original table varmlandpaperitems
         Schema::create('varmlandska_newspaper_notice_records', function (Blueprint $table) {
             $table->id();

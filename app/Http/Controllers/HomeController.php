@@ -43,18 +43,8 @@ class HomeController extends Controller
 //        $user = auth()->user();
         $user = auth()->user();
 
+//        return $archives;
 
-//        return auth()->user()->roles;
-
-
-
-//        $catArchive = Archive::get()->groupBy('category.name');
-
-
-//        $groups = Archive::where('id',1)->orWhere('id',5)->get()->groupBy(['category.name', function ($item) {
-//            return $item['place'];
-//        }], $preserveKeys = true);
-//            return $archives;
         return view('home.dashboard', compact('user','archives'));
     }
 

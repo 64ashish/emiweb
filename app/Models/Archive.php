@@ -48,9 +48,94 @@ class Archive extends Model
         return $this->hasMany(BrodernaLarssonArchiveRecord::class);
     }
 
+    public function NorwayEmigrantRecords(){
+        return $this->hasMany(NorwayEmigrationRecord::class);
+    }
+
+    public function IcelandEmigrationRecords()
+    {
+        return $this->hasMany( IcelandEmigrationRecord::class);
+    }
+
+    public function SwedishAmericanChurchArchiveRecords()
+    {
+        return $this->hasMany(SwedishAmericanChurchArchiveRecord::class);
+    }
+
+    public function NewYorkPassengerRecords()
+    {
+        return $this->hasMany(NewYorkPassengerRecord::class);
+    }
+
+    public function SwedishPortPassengerListRecords()
+    {
+        return $this->hasMany(SwedishPortPassengerListRecord::class);
+    }
+
+    public function SwedishChurchImmigrantRecords()
+    {
+        return $this->hasMany(SwedishChurchImmigrantRecord::class);
+    }
+
+    public function SwedishEmigrantViaKristianiaRecords()
+    {
+        return $this->hasMany(SwedishEmigrantViaKristianiaRecord::class);
+    }
+
+    public function SwedishImmigrationStatisticsRecords()
+    {
+        return $this->hasMany(SwedishImmigrationStatisticsRecord::class);
+    }
+
+    public function LarssonEmigrantPopularRecords()
+    {
+        return $this->hasMany(LarssonEmigrantPopularRecord::class);
+    }
+
+    public function JohnEricssonsArchiveRecords()
+    {
+        return $this->hasMany(JohnEricssonsArchiveRecord::class);
+    }
+    public function MormonShipPassengerRecords()
+    {
+        return $this->hasMany(MormonShipPassengerRecord::class);
+    }
+
+    public function NorwegianChurchImmigrantRecords()
+    {
+        return $this->hasMany(NorwegianChurchImmigrantRecord::class);
+    }
+
+    public function SwedeInAlaskaRecords()
+    {
+        return $this->hasMany(SwedeInAlaskaRecord::class);
+    }
+
+    public function SwedishAmericanMemberRecords()
+    {
+        return $this->hasMany(SwedishAmericanMemberRecord::class);
+    }
+
+    public function VarmlandskaNewspaperNoticeRecords()
+    {
+        return $this->hasMany(VarmlandskaNewspaperNoticeRecord::class);
+    }
+
     public function getRecordTotalAttribute($id)
     {
         if( $this->id == 1){
+//            return DenmarkEmigration::count();
+            return 374572;
+        }
+        if( $this->id == 2){
+//            return DenmarkEmigration::count();
+            return 374572;
+        }
+        if( $this->id == 3){
+//            return DenmarkEmigration::count();
+            return 374572;
+        }
+        if( $this->id == 4){
 //            return DenmarkEmigration::count();
             return 374572;
         }
@@ -58,16 +143,66 @@ class Archive extends Model
 //            return SwedishChurchEmigrationRecord::count();
             return 947759;
         }
+        if( $this->id == 6){
+//            return SwedishChurchEmigrationRecord::count();
+            return 947759;
+        }
+        if( $this->id == 7){
+//            return SwedishChurchEmigrationRecord::count();
+            return 947759;
+        }
+        if( $this->id == 8){
+//            return SwedishChurchEmigrationRecord::count();
+            return 947759;
+        }
         if( $this->id == 9){
 //            return SwedishEmigrationStatisticsRecord::count();
             return 1577390;
         }
+        if( $this->id == 10){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 11){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 12){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 13){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 14){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 15){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 16){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+        if( $this->id == 17){
+//            return SwedishEmigrationStatisticsRecord::count();
+            return 1577390;
+        }
+
         if( $this->id == 18){
 //            return DalslanningarBornInAmericaRecord::count();
             return 5305;
 
         }
-        if( $this->id == 11){
+
+        if( $this->id == 20){
+//            return BrodernaLarssonArchiveRecord::count();
+            return 6111;
+        }
+        if( $this->id == 21){
 //            return BrodernaLarssonArchiveRecord::count();
             return 6111;
         }

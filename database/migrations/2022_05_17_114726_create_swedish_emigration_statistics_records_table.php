@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('birth_day')->nullable();
             $table->string('destination')->nullable();
             $table->mediumText('comments')->nullable();
-            $table->timestamp('last_modified')->nullable();
+            $table->string('last_modified')->nullable();
             $table->string('family_number')->nullable();
             $table->string('nationality')->nullable();
             $table->timestamps();

@@ -20,23 +20,23 @@ return new class extends Migration
             $table->unsignedBigInteger('archive_id')->default('2');  // default value 2
 
             $table->string('page')->nullable();
-            $table->string('last_name1')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('last_name2')->nullable();
             $table->string('first_name')->nullable();
-            $table->char('gender', 1)->nullable();
-            $table->char('civil_status', 1)->nullable();
-            $table->string('birth_date', 12)->nullable();
+            $table->string('gender')->nullable();
+            $table->string('civil_status')->nullable();
+            $table->string('birth_date')->nullable();
             $table->string('birth_parish')->nullable();
             $table->string('birth_province')->nullable();
-            $table->string('immigration_date', 12)->nullable();
+            $table->string('immigration_date')->nullable();
             $table->string('emigration_parish')->nullable();
             $table->string('emigration_province')->nullable();
-            $table->string('arrival_date_this_place', 12)->nullable();
+            $table->string('arrival_date_this_place')->nullable();
             $table->string('arrived_from_place')->nullable();
             $table->string('arrived_from_county')->nullable();
             $table->string('arrived_from_state')->nullable();
-            $table->string('death_date', 12)->nullable();
-            $table->string('family_nr', 10)->nullable();
+            $table->string('death_date')->nullable();
+            $table->string('family_nr')->nullable();
             $table->string('source')->nullable();
             $table->string('immigrated_to_place')->nullable();
             $table->string('immigrated_to_state')->nullable();
