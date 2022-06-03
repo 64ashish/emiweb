@@ -31,4 +31,18 @@ class JohnEricssonsArchiveRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+
+    public function toSearchableArray()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'other_name' => $this->other_name,
+            'Description' => $this->Description,
+            'date' => $this->date,
+            'roll_no' => $this->roll_no,
+            'file_name' => $this->file_name
+        ];
+    }
 }

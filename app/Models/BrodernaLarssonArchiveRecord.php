@@ -44,4 +44,24 @@ class BrodernaLarssonArchiveRecord extends Model
     }
 
 
+
+    public function toSearchableArray()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'home_location' => $this->home_location,
+            'home_parish' => $this->home_parish,
+            'home_county' => $this->home_county,
+            'home_country' => $this->home_country,
+            'letter_date' => $this->letter_date,
+            'gender' => $this->gender,
+            'profession' => $this->profession,
+            'geographical_extent' => $this->geographical_extent,
+            'archive_reference' => $this->archive_reference,
+            'source_code' => $this->source_code,
+            'archive_name' => $this->archive_name,
+            ];
+    }
+
 }
