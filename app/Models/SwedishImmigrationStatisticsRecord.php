@@ -42,4 +42,23 @@ class SwedishImmigrationStatisticsRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'profession' => $this->profession,
+            'last_name' => $this->last_name,
+            'from_country' => $this->from_country,
+            'comments' => $this->comments,
+            'nationality' => $this->nationality,
+            'source' => $this->source,
+            'civil_status' => $this->civil_status,
+            'to_province' => $this->to_province,
+            'to_parish' => $this->to_parish,
+            'birth_year' => $this->birth_year,
+            'sex' => $this->sex,
+            'to_year' => $this->to_year,
+        ];
+    }
 }

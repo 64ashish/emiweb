@@ -15,8 +15,8 @@ class NewYorkPassengerRecord extends Model
         'user_id',
         'archive_id',
         'old_id',
-        'given',
-        'surname',
+        'first_name',
+        'last_name',
         'suffix',
         'alias_prefix',
         'alias_given',
@@ -77,5 +77,30 @@ class NewYorkPassengerRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'first_name'=>$this->first_name,
+            'last_name'=>$this->last_name,
+            'suffix'=>$this->suffix,
+            'alias_prefix'=>$this->alias_prefix,
+            'alias_given'=>$this->alias_given,
+            'alias_surname'=>$this->alias_surname,
+            'alias_suffix'=>$this->alias_suffix,
+            'gender'=>$this->gender,
+            'nativity'=>$this->nativity,
+            'ethnicity_nationality'=>$this->ethnicity_nationality,
+            'last_residence'=>$this->last_residence,
+            'ship_name'=>$this->ship_name,
+            'place_of_origin'=>$this->place_of_origin,
+            'archive_location'=>$this->archive_location,
+            'destination'=>$this->destination,
+            'arrival_year' => $this->arrival_year,
+            'birth_year' => $this->birth_year,
+            'port_arrival_state' => $this->port_arrival_state,
+            'port_of_arrival' => $this->port_of_arrival,
+            'port_of_departure' => $this->port_of_departure
+        ];
 
 }

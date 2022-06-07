@@ -39,6 +39,10 @@ class SwedishChurchEmigrationRecord extends Model
             'profession' => $this->profession,
             'destination_country' => $this->destination_country,
             'from_parish' => $this->from_parish,
+            'act_number'=> $this->act_number,
+            'dob'=> $this->dob,
+            'from_province'=> $this->from_province,
+            'record_date'=> $this->record_date
         ];
     }
 }

@@ -27,7 +27,6 @@ class SwedishAmericanMemberRecord extends Model
         'state',
         'film_nr',
         'source',
-        'archive_id',
         'user_id'
     ];
 

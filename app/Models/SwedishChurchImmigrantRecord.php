@@ -59,4 +59,28 @@ class SwedishChurchImmigrantRecord extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function toSearchableArray()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'profession' => $this->profession,
+            'to_parish' => $this->to_parish,
+            'to_county' => $this->to_county,
+            'to_location' => $this->to_location,
+            'from_location' => $this->from_location,
+            'farm_name' => $this->farm_name,
+            'sex' => $this->sex,
+            'civil_status' => $this->civil_status,
+            'birth_parish' => $this->birth_parish,
+            'birth_county' => $this->birth_county,
+            'birth_location' => $this->birth_location,
+            'birth_country' => $this->birth_country,
+            'notes' => $this->notes,
+            'comment' => $this->comment,
+            'birth_date' => $this->birth_date,
+            'from_date' => $this->from_date,
+            'to_date' => $this->to_date
+            ];
+    }
 }

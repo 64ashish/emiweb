@@ -54,7 +54,10 @@ class SwedishEmigrationStatisticsRecord extends Model
             'last_resident' => $this->last_resident,
             'profession' => $this->profession,
             'destination' => $this->destination,
-
+            'birth_year' => $this->birth_year,
+            'civil_status' => $this->civil_status,
+            'from_year' => $this->from_year,
+            'nationality' => $this->nationality
             ];
     }
 }

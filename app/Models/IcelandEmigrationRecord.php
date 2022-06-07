@@ -51,4 +51,29 @@ class IcelandEmigrationRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'other_name' => $this->other_name,
+            'Description' => $this->Description,
+            'date' => $this->date,
+            'roll_no' => $this->roll_no,
+            'file_name' => $this->file_name,
+            'children'=> $this->children,
+            'date_of_birth'=> $this->date_of_birth,
+            'death_date'=> $this->death_date,
+            'death_location'=> $this->death_location,
+            'departure'=> $this->departure,
+            'destination_country'=> $this->destination_country,
+            'destination_location'=> $this->destination_location,
+            'home_location'=> $this->home_location,
+            'place_of_birth'=> $this->place_of_birth,
+            'profession'=> $this->profession,
+            'return_info'=> $this->return_info,
+            'travel_method'=> $this->travel_method
+        ];
+    }
 }
