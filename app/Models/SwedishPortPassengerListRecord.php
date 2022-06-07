@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Traits\RecordCount;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class SwedishPortPassengerListRecord extends Model
 {
-    use HasFactory, RecordCount;
+    use HasFactory, RecordCount, Searchable;
 
     protected $fillable = [
         'old_id',
