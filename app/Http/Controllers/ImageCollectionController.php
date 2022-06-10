@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Archive;
 use App\Models\ImageCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Image;
 
 class ImageCollectionController extends Controller
@@ -52,9 +53,13 @@ class ImageCollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ImageCollection $ImageCollection)
     {
         //
+
+        $images = Storage::disk('s3')->allFiles('collections/1');
+
+        return view('dashboard.imagecollection.view', compact('ImageCollection', 'images'));
     }
 
     /**
@@ -89,5 +94,34 @@ class ImageCollectionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function upload(Request $request, ImageCollection $ImageCollection)
+    {
+
+//        return $request->image->getClientOriginalName();
+
+//        return $request->all();
+
+        $folder = 'collections/'.$ImageCollection->id;
+//
+        try {
+            foreach ($request->images as $image){
+                $path = $image->storeAs(
+                    $folder,
+                    $image->getClientOriginalName(),
+                    's3'
+                );
+            }
+
+            return redirect(route('ImageCollections.show', $ImageCollection));
+
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
+        }
+
+
+
     }
 }

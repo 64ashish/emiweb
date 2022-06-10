@@ -149,7 +149,13 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::post('archives/{archive}/import', [ImportController::class, 'importFromFile'])
             ->name('archives.import');
 
-        Route::resource('archives/{archive}/ImageCollections', ImageCollectionController::class);
+        Route::resource('/ImageCollections', ImageCollectionController::class, ['except' => ['create','store']]);
+        Route::get('archives/{archive}/ImageCollections', [ImageCollectionController::class, 'create'])
+        ->name('ImageCollections.create');
+        Route::post('archives/{archive}/ImageCollections', [ImageCollectionController::class, 'store'])
+        ->name('ImageCollections.store');
+        Route::post('/ImageCollections/{ImageCollection}/upload', [ImageCollectionController::class, 'upload'])
+            ->name('ImageCollections.upload');
 
         Route::resource('/organizations', UserOrganizationController::class, ['only' => ['show','update']]);
 
