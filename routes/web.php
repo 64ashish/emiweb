@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageCollectionController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
@@ -131,6 +132,8 @@ use Illuminate\Support\Facades\Route;
 
             Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
                 ->name('organizations.users.sync');      // sync user to organization
+
+
         });
 
 //    organization users
@@ -145,6 +148,14 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 //        Import archive records
         Route::post('archives/{archive}/import', [ImportController::class, 'importFromFile'])
             ->name('archives.import');
+
+        Route::resource('/ImageCollections', ImageCollectionController::class, ['except' => ['create','store']]);
+        Route::get('archives/{archive}/ImageCollections', [ImageCollectionController::class, 'create'])
+        ->name('ImageCollections.create');
+        Route::post('archives/{archive}/ImageCollections', [ImageCollectionController::class, 'store'])
+        ->name('ImageCollections.store');
+        Route::post('/ImageCollections/{ImageCollection}/upload', [ImageCollectionController::class, 'upload'])
+            ->name('ImageCollections.upload');
 
         Route::resource('/organizations', UserOrganizationController::class, ['only' => ['show','update']]);
 
