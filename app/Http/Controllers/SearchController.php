@@ -158,7 +158,24 @@ class SearchController extends Controller
             $q3 = DalslanningarBornInAmericaRecord::search($keywords)->get()->load('archive');
             $q4 = SwedishEmigrationStatisticsRecord::search($keywords)->get()->load('archive');
             $q5 = BrodernaLarssonArchiveRecord::search($keywords)->get()->load('archive');
-            $records = collect([$q1, $q2, $q3, $q4, $q5])->flatten();
+
+            $q6 = SwedishAmericanChurchArchiveRecord::search($keywords)->get()->load('archive');
+            $q7 = NewYorkPassengerRecord::search($keywords)->get()->load('archive');
+            $q8 = SwedishPortPassengerListRecord::search($keywords)->get()->load('archive');
+            $q9 = SwedishChurchImmigrantRecord::search($keywords)->get()->load('archive');
+            $q10 = SwedishEmigrantViaKristianiaRecord::search($keywords)->get()->load('archive');
+            $q11 = SwedishImmigrationStatisticsRecord::search($keywords)->get()->load('archive');
+            $q12 = LarssonEmigrantPopularRecord::search($keywords)->get()->load('archive');
+            $q13 = JohnEricssonsArchiveRecord::search($keywords)->get()->load('archive');
+            $q14 = NorwegianChurchImmigrantRecord::search($keywords)->get()->load('archive');
+            $q15 = MormonShipPassengerRecord::search($keywords)->get()->load('archive');
+            $q16 = SwedishAmericanMemberRecord::search($keywords)->get()->load('archive');
+            $q17 = SwedeInAlaskaRecord::search($keywords)->get()->load('archive');
+            $q18 = VarmlandskaNewspaperNoticeRecord::search($keywords)->get()->load('archive');
+            $q19 = NorwayEmigrationRecord::search($keywords)->get()->load('archive');
+            $q20 = IcelandEmigrationRecord::search($keywords)->get()->load('archive');
+
+            $records = collect([$q1, $q2, $q3, $q4, $q5, $q6, $q7, $q8, $q9, $q10, $q11, $q12, $q13, $q14, $q15, $q16, $q17, $q18, $q19, $q20 ])->flatten();
         }
 //        return DenmarkEmigration::search($keywords)->get()->load('archive');
 
