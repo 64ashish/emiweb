@@ -96,26 +96,30 @@ class DenmarkEmigrationController extends Controller
     public function search( Request $request)
     {
 
-        $results = DenmarkEmigration::search($request->first_name." ".$request->last_name);
+
+        $results = DenmarkEmigration::search($request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_place." ".$request->last_resident." ".$request->destination_country." ".$request->destination_city);
 
         $keywords = $request->all();
+        /**
         if (!empty($request->profession)) {
-            $results->where('profession', $request->profession);
+            $results->where('profession',  'LIKE', '%'. $request->profession . '%');
          }
         if (!empty($request->birth_place)) {
-            $results->where('birth_place', $request->birth_place);
+            $results->where('birth_place', 'LIKE', '%'. $request->birth_place . '%');
         }
         if (!empty($request->last_resident)) {
-            $results->where('last_resident', $request->last_resident);
+            $results->where('last_resident', 'LIKE', '%'. $request->last_resident . '%');
         }
         if (!empty($request->destination_country)) {
-            $results->where('destination_country', $request->destination_country);
+            $results->where('destination_country', 'LIKE', '%'. $request->destination_country . '%');
         }
         if (!empty($request->destination_city)) {
-            $results->where('destination_city', $request->destination_city);
+            $results->where('destination_city', 'LIKE', '%'. $request->destination_city . '%');
         }
+ **/
 
-        $records =  $results->paginate(100);
+        $records =  $results->get();
+
 
         return view('home.denmarkemigration.records', compact('records', 'keywords'));
 

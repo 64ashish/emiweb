@@ -4,3 +4,4 @@
 /database/factories/*
 /database/seeders/*
 .env
+**/.DS_Store

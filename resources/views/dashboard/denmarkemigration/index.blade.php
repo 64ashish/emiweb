@@ -3,9 +3,149 @@
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
         <section aria-labelledby="section-1-title">
-            <a class="text-white" href="{{ route('ImageCollections.create', request('archive')->id) }}">
+@role('organization admin')
+            <a class="text-white" href="{{ route('ImageCollections.create', request('archive')) }}">
                 Create album
             </a>
+@endrole
+            <div class="bg-white py-4 pl-4 pr-3 border-gray-300 shadow-sm">
+                <p class="text-left text-sm font-semibold text-gray-900 pb-4">
+                    {{ __('Advanced search') }} : Den danska emigrantdatabasen
+                </p>
+                @if(isset($keywords))
+                    {!! Form::model($keywords,['route' => 'danishemigration.search'])  !!}
+                @endif
+                @if(!isset($keywords))
+                    {!! Form::open(['route' => 'danishemigration.search'])  !!}
+                @endif
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="first_name"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('First name') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('first_name', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'first_name']) !!}
+                            @error('first_name')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="last_name"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Last name') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('last_name', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'last_name']) !!}
+                            @error('last_name')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="profession"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Profession') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('profession', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'profession']) !!}
+                            @error('profession')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="birth_place"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Birth place') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('birth_place', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'birth_place']) !!}
+                            @error('birth_place')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="last_resident"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Last resident') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('last_resident', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'last_resident']) !!}
+                            @error('last_resident')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="destination_country"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Destination country') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('destination_country', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'destination_country']) !!}
+                            @error('destination_country')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="destination_city"
+                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Destination city') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                            {!! Form::text('destination_city', null,
+                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'destination_city']) !!}
+                            @error('destination_city')
+                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                            </p>@enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 items-start justify-items-start">
+                        <span></span>
+                        <span></span>
+                        <button type="submit" class="inline-flex items-center px-8 py-2 border
+                                    border-transparent text-base font-medium rounded-md shadow-sm text-white
+                                    bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                    focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
+
+                    </div>
+
+                </div>
+                {!! Form::close() !!}
+            </div>
+
             <div class="mt-8 flex flex-col">
 
                 <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
@@ -71,9 +211,10 @@
                                 </tbody>
                             </table>
                             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                                {{ $records->links() }}
+                               
                             </div>
                         </div>
+                        {{ $records->links() }}
 
                     </div>
                 </div>
