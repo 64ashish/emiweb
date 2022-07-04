@@ -52,93 +52,18 @@
                         </div>
                     </div>
 
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="profession"
-                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Profession') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                    @include('dashboard._filtersattributes')
 
-                            {!! Form::text('profession', null,
-                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'profession']) !!}
-                            @error('profession')
-                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                            </p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="birth_place"
-                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Birth place') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                            {!! Form::text('birth_place', null,
-                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'birth_place']) !!}
-                            @error('birth_place')
-                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                            </p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="last_resident"
-                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Last resident') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                            {!! Form::text('last_resident', null,
-                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'last_resident']) !!}
-                            @error('last_resident')
-                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                            </p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="destination_country"
-                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Destination country') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                            {!! Form::text('destination_country', null,
-                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'destination_country']) !!}
-                            @error('destination_country')
-                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                            </p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="destination_city"
-                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Destination city') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                            {!! Form::text('destination_city', null,
-                                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'destination_city']) !!}
-                            @error('destination_city')
-                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                            </p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 items-start justify-items-start">
+                    <div class="sm:flex justify-around">
                         <span></span>
-                        <span></span>
-                        <button type="submit" class="inline-flex items-center px-8 py-2 border
+                        <button type="submit" name="action" value="search" class="inline-flex items-center px-8 py-2 border
                                     border-transparent text-base font-medium rounded-md shadow-sm text-white
                                     bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
                                     focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
+                        <button type="submit" name="action" value="filter" class="inline-flex items-center px-8 py-2 border
+                                    border-transparent text-base font-medium rounded-md shadow-sm text-white
+                                    bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                    focus:ring-offset-2 focus:ring-indigo-500">{{ __('Filter') }}</button>
 
                     </div>
 
@@ -148,12 +73,15 @@
 
             <div class="mt-8 flex flex-col">
 
-                <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+{{--                <div class="">--}}
 
-                    <div class="inline-block min-w-full py-2 align-middle">
-                        <div class="shadow-sm ring-1 ring-black ring-opacity-5">
+{{--                    <div class="inline-block min-w-full py-2 align-middle">--}}
+{{--                        <div class="shadow-sm ring-1 ring-black ring-opacity-5 overflow-hidden">--}}
+                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
 
-                            <table class="min-w-full border-separate" style="border-spacing: 0">
+                            <table class="min-w-full table-auto border-separate" style="border-spacing: 0">
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
@@ -195,13 +123,13 @@
                                             {{  $record->destination_city }}, {{ $record->destination_country }}
                                         </td>
                                         <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
-                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                                         text-sm text-right font-medium sm:pr-6 lg:pr-8">
                                             @if(auth()->user()->hasRole(['regular user', 'subscriber']))
                                                 <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="inline-flex text-indigo-700
-                                           items-center px-3 py-1.5 text-indigo-700">View</a>
+                                               items-center px-3 py-1.5 text-indigo-700">{{ __('Read more') }}</a>
                                             @else
                                                 <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }}" class="inline-flex text-indigo-700
-                                           items-center px-3 py-1.5 text-indigo-700">View</a>
+                                               items-center px-3 py-1.5 text-indigo-700">{{ __('Read more') }}</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -211,7 +139,7 @@
                                 </tbody>
                             </table>
                             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                               
+
                             </div>
                         </div>
                         {{ $records->links() }}

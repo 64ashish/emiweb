@@ -9,9 +9,10 @@
                     <p class="text-left text-sm font-semibold text-white pb-4">
                         Emigranter i norska kyrkböcker
                     </p>
-                    <div class="inline-block min-w-full py-2 align-middle">
-                        <div class="shadow-sm ring-1 ring-black ring-opacity-5">
-                            <table class="min-w-full border-separate" style="border-spacing: 0">
+                    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                <table class="min-w-full border-separate" style="border-spacing: 0">
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
@@ -64,13 +65,13 @@
                                           <p class="max-w-xs truncate ...">{{  $record->civil_status }}</p>
                                         </td>
                                         <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
-                                                                     text-sm text-right font-medium sm:pr-6 lg:pr-8">
+                                                                         text-sm text-right font-medium sm:pr-6 lg:pr-8">
                                             @if(auth()->user()->hasRole(['regular user', 'subscriber']))
                                                 <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="inline-flex text-indigo-700
-                                           items-center px-3 py-1.5 text-indigo-700">View</a>
+                                               items-center px-3 py-1.5 text-indigo-700">{{ __('Read more') }}</a>
                                             @else
                                                 <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }}" class="inline-flex text-indigo-700
-                                           items-center px-3 py-1.5 text-indigo-700">View</a>
+                                               items-center px-3 py-1.5 text-indigo-700">{{ __('Read more') }}</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -79,8 +80,9 @@
                                 <!-- More people... -->
                                 </tbody>
                             </table>
-                            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                                {{ $records->links() }}
+                                <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                                    {{ $records->links() }}
+                                </div>
                             </div>
                         </div>
 

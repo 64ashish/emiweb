@@ -24,112 +24,137 @@ use App\Models\SwedishImmigrationStatisticsRecord;
 use App\Models\SwedishPortPassengerListRecord;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
 use Illuminate\Http\Request;
+use Laravel\Scout\Engines\MeiliSearchEngine;
+use MeiliSearch\Client as MeiliSearchClient;
+
 
 class SearchController extends Controller
 {
+    public function __construct(MeiliSearchClient $meilisearch)
+    {
+        $this->meilisearch = $meilisearch;
+    }
     //
     public function index($archive)
     {
-
-
         switch($archive) {
             case(1):
                 $records = DenmarkEmigration::with('archive')->paginate(100);
+                $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
                 $viewfile = 'dashboard.denmarkemigration.index';
                 break;
 
             case(2):
                 $records = SwedishAmericanChurchArchiveRecord::with('archive')->paginate(100);
+                $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
                 break;
 
             case(3):
                 $records = NewYorkPassengerRecord::with('archive')->paginate(100);
+                $filterAttributes = $this->meilisearch->index('new_york_passenger_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.NewYorkPassengerRecord.records';
                 break;
 
             case(4):
                 $records = SwedishPortPassengerListRecord::with('archive')->paginate(100);
+                $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
                 break;
 
             case(5):
                 $records = SwedishChurchEmigrationRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swedish_church_emigration_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.swedishchurchemigrationrecord.index';
                 break;
 
             case(6):
                 $records = SwedishChurchImmigrantRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swedish_church_immigrant_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
                 break;
 
             case(7):
                 $records = SwedishEmigrantViaKristianiaRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
                 break;
 
             case(8):
                 $records = SwedishImmigrationStatisticsRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swedish_immigration_statistics_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
                 break;
 
             case(9):
                 $records = SwedishEmigrationStatisticsRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swedish_emigration_statistics_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.scbe.records';
                 break;
 
             case(10):
                 $records = LarssonEmigrantPopularRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
                 break;
 
             case(11):
                 $records = BrodernaLarssonArchiveRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.larsson.records';
                 break;
 
             case(12):
                 $records = JohnEricssonsArchiveRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('john_ericssons_archive_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
                 break;
 
             case(13):
                 $records = NorwegianChurchImmigrantRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('norwegian_church_immigrant_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
                 break;
 
             case(14):
                 $records = MormonShipPassengerRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('mormon_ship_passenger_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.MormonShipPassengerRecord.records';
                 break;
 
             case(15):
                 $records = SwedishAmericanMemberRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swedish_american_member_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
                 break;
 
             case(16):
                 $records = SwedeInAlaskaRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('swede_in_alaska_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
                 break;
 
             case(17):
                 $records = VarmlandskaNewspaperNoticeRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('varmlandska_newspaper_notice_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
                 break;
 
             case(18):
                 $records = DalslanningarBornInAmericaRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.dbiar.records';
                 break;
 
             case(20):
                 $records = NorwayEmigrationRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('norway_emigration_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.norwayemigrationrecord.records';
                 break;
 
             case(21):
                 $records = IcelandEmigrationRecord::with('archive')->paginate(500);
+                $filterAttributes = $this->meilisearch->index('iceland_emigration_records')->getFilterableAttributes();
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
                 break;
 
@@ -138,7 +163,7 @@ class SearchController extends Controller
         }
 
 
-        return view($viewfile, compact('records'));
+        return view($viewfile, compact('records', 'filterAttributes'));
 
 
 

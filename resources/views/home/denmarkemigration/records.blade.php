@@ -50,93 +50,18 @@
                                     </div>
                                 </div>
 
-                                <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                                    <label for="profession"
-                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        {{ __('Profession') }} </label>
-                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
+                                @include('dashboard._filtersattributes')
 
-                                        {!! Form::text('profession', null,
-                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                                'id' => 'profession']) !!}
-                                        @error('profession')
-                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                                        </p>@enderror
-                                    </div>
-                                </div>
-
-                                <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                                    <label for="birth_place"
-                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        {{ __('Birth place') }} </label>
-                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                                        {!! Form::text('birth_place', null,
-                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                                'id' => 'birth_place']) !!}
-                                        @error('birth_place')
-                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                                        </p>@enderror
-                                    </div>
-                                </div>
-
-                                <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                                    <label for="last_resident"
-                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        {{ __('Last resident') }} </label>
-                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                                        {!! Form::text('last_resident', null,
-                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                                'id' => 'last_resident']) !!}
-                                        @error('last_resident')
-                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                                        </p>@enderror
-                                    </div>
-                                </div>
-
-                                <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                                    <label for="destination_country"
-                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        {{ __('Destination country') }} </label>
-                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                                        {!! Form::text('destination_country', null,
-                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                                'id' => 'destination_country']) !!}
-                                        @error('destination_country')
-                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                                        </p>@enderror
-                                    </div>
-                                </div>
-
-                                <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                                    <label for="destination_city"
-                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                        {{ __('Destination city') }} </label>
-                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
-
-                                        {!! Form::text('destination_city', null,
-                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                                'id' => 'destination_city']) !!}
-                                        @error('destination_city')
-                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
-                                        </p>@enderror
-                                    </div>
-                                </div>
-
-                                <div class="sm:grid sm:grid-cols-3 items-start justify-items-start">
+                                <div class="sm:flex justify-around">
                                     <span></span>
-                                    <span></span>
-                                    <button type="submit" class="inline-flex items-center px-8 py-2 border
+                                    <button type="submit" name="action" value="search" class="inline-flex items-center px-8 py-2 border
                                     border-transparent text-base font-medium rounded-md shadow-sm text-white
                                     bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
                                     focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
+                                    <button type="submit" name="action" value="filter" class="inline-flex items-center px-8 py-2 border
+                                    border-transparent text-base font-medium rounded-md shadow-sm text-white
+                                    bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                    focus:ring-offset-2 focus:ring-indigo-500">{{ __('Filter') }}</button>
 
                                 </div>
 

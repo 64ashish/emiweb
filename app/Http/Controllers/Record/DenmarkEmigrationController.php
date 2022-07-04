@@ -7,10 +7,16 @@ use App\Models\DenmarkEmigration;
 use App\Models\SwedishChurchEmigrationRecord;
 use Illuminate\Http\Request;
 use Laravel\Scout\Engines\MeiliSearchEngine;
+use MeiliSearch\Client as MeiliSearchClient;
+use MeiliSearch\Endpoints\Indexes;
 use MeiliSearch\MeiliSearch;
 
 class DenmarkEmigrationController extends Controller
 {
+    public function __construct(MeiliSearchClient $meilisearch)
+    {
+        $this->meilisearch = $meilisearch;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -95,33 +101,46 @@ class DenmarkEmigrationController extends Controller
 
     public function search( Request $request)
     {
+        if($request->action === "filter")
+        {
+            $inputQuery = $request->first_name." ".$request->last_name;
+        }
+        if($request->action === "search")
+        {
+            $inputQuery = $request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_place." ".$request->last_resident." ".$request->destination_country." ".$request->destination_city;
+        }
 
 
-        $results = DenmarkEmigration::search($request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_place." ".$request->last_resident." ".$request->destination_country." ".$request->destination_city);
+        $records = DenmarkEmigration::search($inputQuery, function (Indexes $meilisearch, $query, $options) use ($request){
+            if($request->action === "filter") {
+                if (!empty($request->profession)) {
+                    $options['filter'] = ['profession="' . $request->profession . '"'];
+                }
+                if (!empty($request->birth_place)) {
+                    $options['filter'] = ['birth_place="' . $request->birth_place . '"'];
+                }
+                if (!empty($request->last_resident)) {
+                    $options['filter'] = ['last_resident="' . $request->last_resident . '"'];
+                }
+                if (!empty($request->destination_country)) {
+                    $options['filter'] = ['destination_country="' . $request->destination_country . '"'];
+                }
+                if (!empty($request->destination_city)) {
+                    $options['filter'] = ['destination_city="' . $request->destination_city . '"'];
+                }
+            }
+
+
+
+            return $meilisearch->search($query, $options);
+        })->get();
 
         $keywords = $request->all();
-        /**
-        if (!empty($request->profession)) {
-            $results->where('profession',  'LIKE', '%'. $request->profession . '%');
-         }
-        if (!empty($request->birth_place)) {
-            $results->where('birth_place', 'LIKE', '%'. $request->birth_place . '%');
-        }
-        if (!empty($request->last_resident)) {
-            $results->where('last_resident', 'LIKE', '%'. $request->last_resident . '%');
-        }
-        if (!empty($request->destination_country)) {
-            $results->where('destination_country', 'LIKE', '%'. $request->destination_country . '%');
-        }
-        if (!empty($request->destination_city)) {
-            $results->where('destination_city', 'LIKE', '%'. $request->destination_city . '%');
-        }
- **/
 
-        $records =  $results->get();
+        $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
 
 
-        return view('home.denmarkemigration.records', compact('records', 'keywords'));
+        return view('home.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes'));
 
 
     }

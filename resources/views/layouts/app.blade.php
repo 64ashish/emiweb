@@ -17,13 +17,13 @@
             <div class="flex items-center">
                 @role('organization admin')
                 <a href="{{ route('dashboard')  }}"  aria-current="page">
-                    <img src="/images/logo.png" class="hidden lg:inline-block	">
+                    <img src="/images/emiweb-w.svg" class="hidden lg:inline-block	h-5">
                     <img src="/images/emiweb-mobile-logo.png" class=" lg:hidden">
                 </a>
                 @endrole
                 @if(auth()->user()->hasRole('regular user|subscriber'))
                     <a href="{{ route('home')  }}"  aria-current="page">
-                        <img src="/images/logo.png" class="hidden lg:inline-block	">
+                        <img src="/images/emiweb-w.svg" class="hidden lg:inline-block	h-5">
                         <img src="/images/emiweb-mobile-logo.png" class=" lg:hidden">
                     </a>
                 @endif
@@ -111,7 +111,7 @@
 
     </header>
     <main class="-mt-24 pb-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <x-flash-message></x-flash-message>
             </div>
@@ -131,7 +131,7 @@
 </body>
 <script>
   window.markerConfig = {
-    destination: '62be9bd71643fb2ce067dea4', 
+    destination: '62be9bd71643fb2ce067dea4',
     source: 'snippet'
   };
 </script>

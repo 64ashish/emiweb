@@ -92,11 +92,11 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
-                    <div class="inline-block min-w-full py-2 align-middle">
+                    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
 
-                        <div class="shadow-sm ring-1 ring-black ring-opacity-5">
-
-                            <table class="min-w-full border-separate" style="border-spacing: 0">
+                                <table class="min-w-full table-auto border-separate" style="border-spacing: 0">
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50
@@ -157,6 +157,7 @@
                                 {{ $records->links() }}
                             </div>
                         </div>
+                    </div>
 
                     </div>
                 </div>
