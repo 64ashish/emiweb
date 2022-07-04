@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Record;
 use App\Http\Controllers\Controller;
 use App\Models\DalslanningarBornInAmericaRecord;
 use Illuminate\Http\Request;
+use MeiliSearch\Client as MeiliSearchClient;
+use MeiliSearch\Endpoints\Indexes;
 
 class DalslanningarBornInAmericaRecordController extends Controller
 {
+    public function __construct(MeiliSearchClient $meilisearch)
+    {
+        $this->meilisearch = $meilisearch;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -88,20 +94,36 @@ class DalslanningarBornInAmericaRecordController extends Controller
 
     public function search( Request $request )
     {
-//        return $request->all();
+        $inputFields = $request->except('_token', 'first_name', 'last_name','action' );
 
-
-        $results = DalslanningarBornInAmericaRecord::search($request->first_name." ".$request->last_name);
-
-        if (!empty($request->profession)) {
-            $results->where('profession', $request->profession);
+        if($request->action === "filter")
+        {
+            $inputQuery = $request->first_name." ".$request->last_name;
         }
-        if (!empty($request->birth_place)) {
-            $results->where('birth_place', $request->birth_place);
+        if($request->action === "search")
+        {
+            $inputQuery = $request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_date." ".$request->birth_place." ".$request->death_date." ".$request->death_place." ".$request->source_nr;
         }
 
-        $records = $results->paginate(100);
 
-        return view('home.dbiar.records', compact('records'))->with($request-all());
+        $records = DalslanningarBornInAmericaRecord::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+                if($request->action === "filter") {
+                    foreach($inputFields as  $fieldname => $fieldvalue){
+                        if(!empty($fieldvalue)) {
+                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
+                        }
+                    }
+                }
+
+                return $meilisearch->search($query, $options);
+            })->paginate();
+
+
+        $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
+        $keywords = $request->all();
+
+        return view('dashboard.dbiar.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
     }
 }
+

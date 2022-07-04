@@ -13,12 +13,14 @@ use App\Http\Controllers\ImageCollectionController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
+use App\Http\Controllers\Record\SwedishAmericanChurchArchiveRecordController;
 use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
+use App\Models\SwedishAmericanChurchArchiveRecord;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -227,6 +229,14 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::get('/dbir/show/{id}', [DalslanningarBornInAmericaRecordController::class, 'show'])
             ->name('dbir.show');
         Route::match(['get', 'post'],'/dbir/search', [DalslanningarBornInAmericaRecordController::class, 'search'])->name('dbir.search');
+
+//        SwedishAmericanChurchArchiveRecord
+        Route::match(['get', 'post'],'/sacar/search', [SwedishAmericanChurchArchiveRecordController::class, 'search'])->name('sacar.search');
+
+
+
+
+
 
 
 
