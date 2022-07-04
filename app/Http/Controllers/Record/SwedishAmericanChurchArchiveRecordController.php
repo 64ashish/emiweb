@@ -20,48 +20,48 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
     public function search( Request $request )
     {
 
-        SwedishAmericanChurchArchiveRecord::where('gender', 'K')->update(['gender'=> 'female']);
-        SwedishAmericanChurchArchiveRecord::where('gender', 'M')->update(['gender'=> 'male']);
-        return "done";
+//        SwedishAmericanChurchArchiveRecord::where('gender', 'K')->update(['gender'=> 'female']);
+//        SwedishAmericanChurchArchiveRecord::where('gender', 'M')->update(['gender'=> 'male']);
+//        return "done";
 
-//        $inputFields = $request->except('_token', 'first_name', 'last_name','action' );
-//
-//
-//
-//        if($request->action === "filter")
-//        {
-//            $inputQuery = $request->first_name." ".$request->last_name;
-//        }
-//        if($request->action === "search")
-//        {
-//
-//            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
-//        }
-
-//        foreach($inputFields as  $fieldname => $fieldvalue){
-//            if(!empty($fieldvalue)) {
-//                echo $fieldname." - ". $fieldvalue.", ";
-//            }
-//        }
+        $inputFields = $request->except('_token', 'first_name', 'last_name','action' );
 
 
-//        $records = SwedishAmericanChurchArchiveRecord::search($inputQuery,
-//            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//                if($request->action === "filter") {
-//                    foreach($inputFields as  $fieldname => $fieldvalue){
-//                        if(!empty($fieldvalue)) {
-//                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
-//                        }
-//                    }
-//                }
-//
-//                return $meilisearch->search($query, $options);
-//            })->paginate();
-//
-//
-//        $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
-//        $keywords = $request->all();
-//
-//        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
+
+        if($request->action === "filter")
+        {
+            $inputQuery = $request->first_name." ".$request->last_name;
+        }
+        if($request->action === "search")
+        {
+
+            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
+        }
+
+        foreach($inputFields as  $fieldname => $fieldvalue){
+            if(!empty($fieldvalue)) {
+                echo $fieldname." - ". $fieldvalue.", ";
+            }
+        }
+
+
+        $records = SwedishAmericanChurchArchiveRecord::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+                if($request->action === "filter") {
+                    foreach($inputFields as  $fieldname => $fieldvalue){
+                        if(!empty($fieldvalue)) {
+                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
+                        }
+                    }
+                }
+
+                return $meilisearch->search($query, $options);
+            })->paginate();
+
+
+        $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
+        $keywords = $request->all();
+
+        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
     }
 }
