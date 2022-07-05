@@ -38,11 +38,11 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
             $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
         }
 
-        foreach($inputFields as  $fieldname => $fieldvalue){
-            if(!empty($fieldvalue)) {
-                echo $fieldname." - ". $fieldvalue.", ";
-            }
-        }
+//        foreach($inputFields as  $fieldname => $fieldvalue){
+//            if(!empty($fieldvalue)) {
+//                echo $fieldname." - ". $fieldvalue.", ";
+//            }
+//        }
 
 
         $records = SwedishAmericanChurchArchiveRecord::search($inputQuery,
