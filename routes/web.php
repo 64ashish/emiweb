@@ -11,21 +11,32 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageCollectionController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\Record\BrodernaLarssonArchiveRecordController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
+use App\Http\Controllers\Record\IcelandEmigrationRecordController;
+use App\Http\Controllers\Record\JohnEricssonsArchiveRecordController;
+use App\Http\Controllers\Record\LarssonEmigrantPopularRecordController;
+use App\Http\Controllers\Record\MormonShipPassengerRecordController;
 use App\Http\Controllers\Record\NewYorkPassengerRecordController;
+use App\Http\Controllers\Record\NorwayEmigrationRecordController;
+use App\Http\Controllers\Record\NorwegianChurchImmigrantRecordController;
+use App\Http\Controllers\Record\SwedeInAlaskaRecordController;
 use App\Http\Controllers\Record\SwedishAmericanChurchArchiveRecordController;
+use App\Http\Controllers\Record\SwedishAmericanMemberRecordController;
 use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
 use App\Http\Controllers\Record\SwedishChurchImmigrantRecordController;
 use App\Http\Controllers\Record\SwedishEmigrantViaKristianiaRecordController;
 use App\Http\Controllers\Record\SwedishEmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishImmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishPortPassengerListRecordController;
+use App\Http\Controllers\Record\VarmlandskaNewspaperNoticeRecordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
+use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
 use Illuminate\Support\Facades\Route;
 
@@ -252,6 +263,26 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::match(['get', 'post'],'/sisrc/search', [SwedishImmigrationStatisticsRecordController::class, 'search'])->name('sisrc.search');
 
         Route::match(['get', 'post'],'/sesrc/search', [SwedishEmigrationStatisticsRecordController::class, 'search'])->name('sesrc.search');
+
+        Route::match(['get', 'post'],'/leprc/search', [LarssonEmigrantPopularRecordController::class, 'search'])->name('leprc.search');
+
+        Route::match(['get', 'post'],'/blarc/search', [BrodernaLarssonArchiveRecordController::class, 'search'])->name('blarc.search');
+
+        Route::match(['get', 'post'],'/jear/search', [JohnEricssonsArchiveRecordController::class, 'search'])->name('jear.search');
+
+        Route::match(['get', 'post'],'/ncirc/search', [NorwegianChurchImmigrantRecordController::class, 'search'])->name('ncirc.search');
+
+        Route::match(['get', 'post'],'/msprc/search', [MormonShipPassengerRecordController::class, 'search'])->name('msprc.search');
+
+        Route::match(['get', 'post'],'/samrc/search', [SwedishAmericanMemberRecordController::class, 'search'])->name('samrc.search');
+
+        Route::match(['get', 'post'],'/siarc/search', [SwedeInAlaskaRecordController::class, 'search'])->name('siarc.search');
+
+        Route::match(['get', 'post'],'/vnnrc/search', [VarmlandskaNewspaperNoticeRecordController::class, 'search'])->name('vnnrc.search');
+
+        Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
+
+        Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
 
 
 
