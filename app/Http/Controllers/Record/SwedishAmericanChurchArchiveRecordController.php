@@ -20,33 +20,22 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
     public function search( Request $request )
     {
 
-//        SwedishAmericanChurchArchiveRecord::where('gender', 'female')->update(['gender'=> 'K']);
-//        SwedishAmericanChurchArchiveRecord::where('gender', 'male')->update(['gender'=> 'M']);
-//        return "done";
-
+//        get the input data ready
         $inputFields = $request->except('_token', 'first_name', 'last_name','action' );
-
-
-
+//        prepare for filter
         if($request->action === "filter")
         {
             $inputQuery = $request->first_name." ".$request->last_name;
         }
+//        prepare for search
         if($request->action === "search")
         {
-
             $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
         }
 
-//        foreach($inputFields as  $fieldname => $fieldvalue){
-//            if(!empty($fieldvalue)) {
-//                echo $fieldname." - ". $fieldvalue.", ";
-//            }
-//        }
-
-
         $records = SwedishAmericanChurchArchiveRecord::search($inputQuery,
             function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
                 if($request->action === "filter") {
                     foreach($inputFields as  $fieldname => $fieldvalue){
                         if(!empty($fieldvalue)) {
@@ -54,14 +43,13 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
                         }
                     }
                 }
-
                 return $meilisearch->search($query, $options);
             })->paginate();
-
-
+//        get the filter attributes
         $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
+//        get the keywords again
         $keywords = $request->all();
-
+//        return view
         return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
     }
 }

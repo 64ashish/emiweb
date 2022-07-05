@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Record;
 use App\Http\Controllers\Controller;
 use App\Models\DalslanningarBornInAmericaRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use MeiliSearch\Client as MeiliSearchClient;
 use MeiliSearch\Endpoints\Indexes;
 
@@ -102,7 +103,7 @@ class DalslanningarBornInAmericaRecordController extends Controller
         }
         if($request->action === "search")
         {
-            $inputQuery = $request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_date." ".$request->birth_place." ".$request->death_date." ".$request->death_place." ".$request->source_nr;
+            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
         }
 
 

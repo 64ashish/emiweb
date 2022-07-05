@@ -77,7 +77,7 @@ class SearchController extends Controller
             case(7):
                 $records = SwedishEmigrantViaKristianiaRecord::with('archive')->paginate(500);
                 $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
-                $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
+                $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
                 break;
 
             case(8):

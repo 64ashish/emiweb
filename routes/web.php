@@ -13,8 +13,14 @@ use App\Http\Controllers\ImageCollectionController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
+use App\Http\Controllers\Record\NewYorkPassengerRecordController;
 use App\Http\Controllers\Record\SwedishAmericanChurchArchiveRecordController;
 use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
+use App\Http\Controllers\Record\SwedishChurchImmigrantRecordController;
+use App\Http\Controllers\Record\SwedishEmigrantViaKristianiaRecordController;
+use App\Http\Controllers\Record\SwedishEmigrationStatisticsRecordController;
+use App\Http\Controllers\Record\SwedishImmigrationStatisticsRecordController;
+use App\Http\Controllers\Record\SwedishPortPassengerListRecordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
@@ -233,6 +239,19 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 //        SwedishAmericanChurchArchiveRecord
         Route::match(['get', 'post'],'/sacar/search', [SwedishAmericanChurchArchiveRecordController::class, 'search'])->name('sacar.search');
 
+        Route::match(['get', 'post'],'/nypr/search', [NewYorkPassengerRecordController::class, 'search'])->name('nypr.search');
+
+        Route::match(['get', 'post'],'/spplr/search', [SwedishPortPassengerListRecordController::class, 'search'])->name('spplr.search');
+
+        Route::match(['get', 'post'],'/scerc/search', [SwedishChurchEmigrationRecordController::class, 'search'])->name('scerc.search');
+
+        Route::match(['get', 'post'],'/scirc/search', [SwedishChurchImmigrantRecordController::class, 'search'])->name('scirc.search');
+
+        Route::match(['get', 'post'],'/sevkrc/search', [SwedishEmigrantViaKristianiaRecordController::class, 'search'])->name('sevkrc.search');
+
+        Route::match(['get', 'post'],'/sisrc/search', [SwedishImmigrationStatisticsRecordController::class, 'search'])->name('sisrc.search');
+
+        Route::match(['get', 'post'],'/sesrc/search', [SwedishEmigrationStatisticsRecordController::class, 'search'])->name('sesrc.search');
 
 
 

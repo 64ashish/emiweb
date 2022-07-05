@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
-use App\Models\NewYorkPassengerRecord;
+use App\Models\SwedishPortPassengerListRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use MeiliSearch\Client as MeiliSearchClient;
 use MeiliSearch\Endpoints\Indexes;
 
-class NewYorkPassengerRecordController extends Controller
+class SwedishPortPassengerListRecordController extends Controller
 {
     //
     public function __construct(MeiliSearchClient $meilisearch)
@@ -33,7 +33,7 @@ class NewYorkPassengerRecordController extends Controller
             $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
         }
 
-        $records = NewYorkPassengerRecord::search($inputQuery,
+        $records = SwedishPortPassengerListRecord::search($inputQuery,
             function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
 //            run the filter
                 if($request->action === "filter") {
@@ -46,10 +46,10 @@ class NewYorkPassengerRecordController extends Controller
                 return $meilisearch->search($query, $options);
             })->paginate();
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('new_york_passenger_records')->getFilterableAttributes();
+        $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 //        return view
-        return view('dashboard.NewYorkPassengerRecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
+        return view('dashboard.SwedishPortPassengerListRecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
     }
 }
