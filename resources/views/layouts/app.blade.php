@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script src="{{ mix('js/app.js') }}" defer></script>
+
 </head>
 <body class="h-full">
 <div class="min-h-full">

@@ -982,9 +982,6 @@ select {
 .justify-around {
   justify-content: space-around;
 }
-.justify-items-start {
-  justify-items: start;
-}
 .gap-4 {
   gap: 1rem;
 }
