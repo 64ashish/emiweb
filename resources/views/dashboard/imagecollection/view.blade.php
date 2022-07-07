@@ -10,8 +10,8 @@
                 <ul class="grid grid-cols-3 gap-4">
                     @foreach($images as $image)
                     <li class="h-80">
-                        <div x-data="{ items: ['foo', 'bar'] }">
-                            <button type="button" @click="$clipboard(items)">Copy to Clipboard</button>
+                        <div x-data="{ image: '{{ $image }}' }">
+                            <button type="button" @click="$clipboard(image)">Copy to Clipboard</button>
                         </div>
                         <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image) }}" >
                     </li>

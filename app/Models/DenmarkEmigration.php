@@ -58,4 +58,6 @@ class DenmarkEmigration extends Model
             'ship_name' => $this->ship_name,
             ];
     }
+
+
 }

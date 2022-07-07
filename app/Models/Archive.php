@@ -126,6 +126,12 @@ class Archive extends Model
         return $this->hasMany(VarmlandskaNewspaperNoticeRecord::class);
     }
 
+    public function ImagesInArchive()
+    {
+        return $this->hasMany(ImagesInArchive::class);
+    }
+
+
     public function getRecordTotalAttribute($id)
     {
         if( $this->id == 1){
@@ -213,6 +219,8 @@ class Archive extends Model
         }
             return 0;
     }
+
+
 
 
 }

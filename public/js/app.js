@@ -5137,11 +5137,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_ryangjchandler_alpine_clipboard__WEBPACK_IMPORTED_MODULE_1__["default"]);
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_ryangjchandler_alpine_clipboard__WEBPACK_IMPORTED_MODULE_1__["default"].configure({
-  onCopy: function onCopy() {
-    console.log('Copied!');
-  }
-}));
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 window.Alpine.start();
 
