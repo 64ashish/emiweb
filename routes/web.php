@@ -51,7 +51,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
     Route::get('/', function () {
         return view('welcome');
     });
@@ -60,9 +59,11 @@ use Illuminate\Support\Facades\Route;
     Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
 
-
-
-
+//=================================================
+Route::get('/myadmin', function () {
+    return view('admin.index');
+});
+//=================================================
 
 // super user urls
     Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
@@ -290,11 +291,5 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
 
         Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
-
-
-
-
-
-
 
     });
