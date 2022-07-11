@@ -56,8 +56,9 @@ class ImageCollectionController extends Controller
     public function show(ImageCollection $ImageCollection)
     {
         //
+//        return ;
 
-        $images = Storage::disk('s3')->allFiles('collections/1');
+        $images = Storage::disk('s3')->allFiles('collections/'.$ImageCollection->id);
 
         return view('dashboard.imagecollection.view', compact('ImageCollection', 'images'));
     }
@@ -107,11 +108,8 @@ class ImageCollectionController extends Controller
 //
         try {
             foreach ($request->images as $image){
-                $path = $image->storeAs(
-                    $folder,
-                    $image->getClientOriginalName(),
-                    's3'
-                );
+
+                $image->storePubliclyAs($folder,$image->getClientOriginalName(),  's3');
             }
 
             return redirect(route('ImageCollections.show', $ImageCollection));
