@@ -7,7 +7,13 @@
             <div class="border-b border-gray-200">
                 <div class="sm:items-baseline"  x-data="{ tab: 'details' }">
 
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Archive name') }}</h3>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 flex">{{ __('Archive name') }}
+                            <span x-data="{ person: 'archives/{{ $archive->id }}/records/{{ $detail->id }}'}">
+                                <svg  @click="$clipboard(person)" xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                                </svg>
+                            </span>
+                        </h3>
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ $archive->name }}</p>
 
 
