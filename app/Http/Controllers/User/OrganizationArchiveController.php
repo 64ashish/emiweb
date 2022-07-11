@@ -164,7 +164,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
                 break;
 
             case(2):
@@ -173,8 +172,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(3):
@@ -183,8 +180,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(4):
@@ -193,8 +188,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(5):
@@ -203,8 +196,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(6):
@@ -214,8 +205,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(7):
@@ -224,8 +213,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(8):
@@ -234,8 +221,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
 
@@ -245,8 +230,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(10):
@@ -255,8 +238,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(11):
@@ -265,8 +246,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(12):
@@ -275,8 +254,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(13):
@@ -285,8 +262,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(14):
@@ -295,8 +270,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(15):
@@ -305,8 +278,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(16):
@@ -315,8 +286,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(17):
@@ -325,8 +294,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(18):
@@ -336,8 +303,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(20):
@@ -347,8 +312,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
             case(21):
@@ -358,8 +321,6 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $images = $archive->ImagesInArchive->where('record_id', $id);
-
                 break;
 
 
@@ -367,7 +328,7 @@ class OrganizationArchiveController extends Controller
                 abort(403);
         }
 
-        return view('dashboard.show', compact('detail', 'fields', 'archive','images'));
+        return view('dashboard.show', compact('detail', 'fields', 'archive'));
 
 
     }
