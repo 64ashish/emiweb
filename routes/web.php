@@ -51,6 +51,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
     Route::get('/', function () {
         return view('welcome');
     });
@@ -59,11 +60,9 @@ use Illuminate\Support\Facades\Route;
     Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
 
-//=================================================
-Route::get('/myadmin', function () {
-    return view('admin.index');
-});
-//=================================================
+
+
+
 
 // super user urls
     Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
@@ -177,8 +176,6 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::post('/ImageCollections/{ImageCollection}/upload', [ImageCollectionController::class, 'upload'])
             ->name('ImageCollections.upload');
 
-
-
         Route::resource('/organizations', UserOrganizationController::class, ['only' => ['show','update']]);
 
 //        show user association table
@@ -217,11 +214,6 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
             ->name('organizations.archives.record.edit');
         Route::put('/organization/{organization}/archives/{archive}/records/{record}/update', [OrganizationArchiveController::class, 'update'])
             ->name('organizations.archives.record.update');
-
-
-        //        image association to record
-        Route::post('archives/{archive}/records/{id}/image/create', [\App\Http\Controllers\ImagesInArchiveController::class, 'create'])
-            ->name('record.image');
     });
 
 
@@ -291,5 +283,11 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
 
         Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
+
+
+
+
+
+
 
     });

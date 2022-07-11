@@ -4,8 +4,9 @@
         <!-- Left column -->
         <div class="grid grid-cols-1 gap-4 lg:col-span-2">
             <section aria-labelledby="section-1-title">
+
                 <div class="rounded-lg overflow-hidden ">
-                    <div class="py-6">
+                    <div class="p-6">
                         <ul role="list" class=" grid grid-cols-3 gap-8">
                             @foreach($archives as $archive)
                                 <li class="bg-white p-8 rounded-lg flex flex-col {{ $archive->Record_Total==0 ? "opacity-50" : "" }}">
@@ -40,6 +41,7 @@
                             @endforeach
 
                         </ul>
+
                     </div>
                 </div>
             </section>
