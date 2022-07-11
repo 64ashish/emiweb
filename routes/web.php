@@ -61,11 +61,6 @@ Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'ind
 Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
 
-//=================================================
-Route::get('/myadmin', function () {
-    return view('admin.index');
-});
-//=================================================
 
 // super user urls
 Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
