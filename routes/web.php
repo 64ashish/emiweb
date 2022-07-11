@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageCollectionController;
-use App\Http\Controllers\ImagesInArchiveController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Record\BrodernaLarssonArchiveRecordController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
@@ -32,7 +31,6 @@ use App\Http\Controllers\Record\SwedishEmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishImmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishPortPassengerListRecordController;
 use App\Http\Controllers\Record\VarmlandskaNewspaperNoticeRecordController;
-use App\Http\Controllers\RelativeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
@@ -53,115 +51,116 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
     ->name('home');
-    Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
+Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
 
-
-
-
+//=================================================
+Route::get('/myadmin', function () {
+    return view('admin.index');
+});
+//=================================================
 
 // super user urls
-    Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
-        ->name('admin.')
-        ->prefix('admin')
-        ->group(function(){
-            Route::get('/', [AdminController::class, 'index'])->name('index');
-            Route::resource('/roles', RoleContorller::class);
-            Route::post('/roles/{role}/permissions', [RoleContorller::class, 'updatePermission'])
-                ->name('roles.permissions');
-            Route::delete('/roles/{role}/permissions/{permission}', [RoleContorller::class, 'revokePermission'])
-                ->name('roles.permissions.revoke');
-            Route::resource('/permissions', PermissionController::class);
+Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function(){
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::resource('/roles', RoleContorller::class);
+        Route::post('/roles/{role}/permissions', [RoleContorller::class, 'updatePermission'])
+            ->name('roles.permissions');
+        Route::delete('/roles/{role}/permissions/{permission}', [RoleContorller::class, 'revokePermission'])
+            ->name('roles.permissions.revoke');
+        Route::resource('/permissions', PermissionController::class);
 
-            Route::get('/users', [UserController::class, 'index'])
-                ->name('users.index');
-            Route::put('/users/{user}/update', [UserController::class, 'update'])
-                ->name('users.update');
-            Route::get('/users/{user}/edit', [UserController::class, 'edit'])
-                ->name('users.edit');
-            Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
-                ->name('users.sync-role');
+        Route::get('/users', [UserController::class, 'index'])
+            ->name('users.index');
+        Route::put('/users/{user}/update', [UserController::class, 'update'])
+            ->name('users.update');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+            ->name('users.edit');
+        Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
+            ->name('users.sync-role');
 //            Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate']);
 //            Route::get('/leave-impersonate', 'UsersController@leaveImpersonate')
 //                ->name('users.leave-impersonate');
 
-            Route::resource('/categories', CategoryController::class);
+        Route::resource('/categories', CategoryController::class);
 
-            Route::resource('categories.archives', ArchiveController::class,
+        Route::resource('categories.archives', ArchiveController::class,
             ['except' => ['index']]);
 
-            Route::get('/archives/', [ArchiveController::class, 'index'])
-                ->name('archives.index');
+        Route::get('/archives/', [ArchiveController::class, 'index'])
+            ->name('archives.index');
 
-            Route::get('/archives/{archive}/show', [ArchiveController::class, 'show'])
-                ->name('archives.show');
+        Route::get('/archives/{archive}/show', [ArchiveController::class, 'show'])
+            ->name('archives.show');
 
-            Route::get('/archives/{archive}/edit', [ArchiveController::class, 'edit'])
-                ->name('archives.edit');
+        Route::get('/archives/{archive}/edit', [ArchiveController::class, 'edit'])
+            ->name('archives.edit');
 
-            Route::resource('/organizations', OrganizationController::class);
-            Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
-                ->name('organizations.archive.sync');
+        Route::resource('/organizations', OrganizationController::class);
+        Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
+            ->name('organizations.archive.sync');
 
-            Route::post('/organizations/{organization}/users/search', [UserController::class, 'search'])
+        Route::post('/organizations/{organization}/users/search', [UserController::class, 'search'])
             ->name('organizations.users.search');
 
-            Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
-                ->name('organizations.users.sync');
-        });
+        Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
+            ->name('organizations.users.sync');
+    });
 
 
 
 //    emiweb office urls
-    Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
-        ->name('emiweb.')
-        ->prefix('emiweb')
-        ->group(function(){
-            Route::get('/', [AdminController::class, 'index'])->name('index'); // get to emiweb dashboard
+Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
+    ->name('emiweb.')
+    ->prefix('emiweb')
+    ->group(function(){
+        Route::get('/', [AdminController::class, 'index'])->name('index'); // get to emiweb dashboard
 //            categories
-            Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index'); // show all categories
-            Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show'); // show one categories
+        Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index'); // show all categories
+        Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show'); // show one categories
 //            Archives
-            Route::get('/archives', [ArchiveController::class, 'index'])->name('archives.index'); // show all categories
-            Route::get('/archives/{archive}', [ArchiveController::class, 'show'])->name('archives.show'); // show one categories
+        Route::get('/archives', [ArchiveController::class, 'index'])->name('archives.index'); // show all categories
+        Route::get('/archives/{archive}', [ArchiveController::class, 'show'])->name('archives.show'); // show one categories
 
 
-            Route::get('/users', [UserController::class, 'index'])
-                ->name('users.index');
+        Route::get('/users', [UserController::class, 'index'])
+            ->name('users.index');
 
-            Route::put('/users/{user}/update', [UserController::class, 'update'])
-                ->name('users.update');
-            Route::get('/users/{user}/edit', [UserController::class, 'edit'])
-                ->name('users.edit');
+        Route::put('/users/{user}/update', [UserController::class, 'update'])
+            ->name('users.update');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+            ->name('users.edit');
 
-            Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
-                ->name('users.sync-role');
+        Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
+            ->name('users.sync-role');
 
 //            organization stuff
-            Route::resource('/organizations', OrganizationController::class);
-            Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
-                ->name('organizations.archive.sync');
+        Route::resource('/organizations', OrganizationController::class);
+        Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
+            ->name('organizations.archive.sync');
 //
-            Route::post('/organizations/{organization}/users/search', [UserController::class, 'search'])
-                ->name('organizations.users.search');      // search user
+        Route::post('/organizations/{organization}/users/search', [UserController::class, 'search'])
+            ->name('organizations.users.search');      // search user
 
-            Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
-                ->name('organizations.users.sync');      // sync user to organization
+        Route::post('/organizations/{organization}/users/{user}/sync-user', [UserController::class, 'syncWithOrganization'])
+            ->name('organizations.users.sync');      // sync user to organization
 
 
-        });
+    });
 
 //    organization users
 Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff',  'isActive'])
     ->group(function(){
         Route::get('/dashboard', [DashboardController::class,'index'])
-        ->name('dashboard');
+            ->name('dashboard');
 
         // export archive records
         Route::get('archives/{archive}/export', [ExportController::class, 'exportToFile'])
@@ -172,9 +171,9 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
         Route::resource('/ImageCollections', ImageCollectionController::class, ['except' => ['create','store']]);
         Route::get('archives/{archive}/ImageCollections', [ImageCollectionController::class, 'create'])
-        ->name('ImageCollections.create');
+            ->name('ImageCollections.create');
         Route::post('archives/{archive}/ImageCollections', [ImageCollectionController::class, 'store'])
-        ->name('ImageCollections.store');
+            ->name('ImageCollections.store');
         Route::post('/ImageCollections/{ImageCollection}/upload', [ImageCollectionController::class, 'upload'])
             ->name('ImageCollections.upload');
 
@@ -221,10 +220,8 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
 
         //        image association to record
-        Route::post('archives/{archive}/records/{id}/image/create', [ImagesInArchiveController::class, 'create'])
+        Route::post('archives/{archive}/records/{id}/image/create', [\App\Http\Controllers\ImagesInArchiveController::class, 'create'])
             ->name('record.image');
-        Route::post('archives/{archive}/records/{id}/relatives/create', [RelativeController::class, 'create'])
-        ->name('relatives.create');
     });
 
 
@@ -233,9 +230,9 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|regular user|subscriber',  'isActive'])
     ->group(function(){
         Route::get('/home/users/{user}', [HomeController::class, 'user'])
-        ->name('home.users.edit');
+            ->name('home.users.edit');
         Route::put('/home/users/{user}', [HomeController::class, 'updateUser'])
-        ->name('home.users.update');
+            ->name('home.users.update');
         Route::post('/search', [SearchController::class, 'search'])
             ->name('search');
         Route::get('SwedishChurchEmigrationRecord/', [SwedishChurchEmigrationRecordController::class, 'index'])
@@ -294,11 +291,5 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
 
         Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
-
-
-
-
-
-
 
     });
