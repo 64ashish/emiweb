@@ -386,7 +386,10 @@ class SearchController extends Controller
                 abort(403);
         }
 
-        return view('home.showrecord', compact('detail', 'fields'));
+        $relatives = $detail->archive->relatives->where('record_id', $id);
+        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
+
+        return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images'));
 
     }
 
