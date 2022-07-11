@@ -57,6 +57,26 @@
                             <div class="mt-8 flex flex-col">
                                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                        {!! Form::open(['route' => ['relatives.create',$archive, $detail->id]]) !!}
+                                        <div class="flex pb-4">
+
+                                            {{ Form::text('relative_info',null,
+                                                                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                                   'id' => 'relative_info']) }}
+
+                                            {{ Form::text('relationship_type',null,
+                                                                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                                   'id' => 'relationship_type']) }}
+
+                                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
+                                                                 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+                                                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Relationship
+                                            </button>
+
+                                        </div>
+                                        {!! Form::close() !!}
                                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                                             <table class="min-w-full divide-y divide-gray-300">
                                                 <thead class="bg-gray-50">
@@ -72,15 +92,18 @@
                                                 </thead>
                                                 <tbody class="bg-white">
                                                 <!-- Odd row -->
+                                                @foreach($relatives as $relative)
                                                 <tr class="odd:bg-white even:bg-gray-100">
-                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Mother</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $relative->full_name }}</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->relationship }}</td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>
                                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Visa</a>
+                                                        <a href=" {{ route('records.show', ['arch'=> $relative->archive,'id'=>$relative->item_id]) }} " class="text-indigo-600 hover:text-indigo-900">
+                                                            Visa</a>
                                                     </td>
                                                 </tr>
+                                                @endforeach
                                                 <tr class="odd:bg-white even:bg-gray-100">
                                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
                                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>

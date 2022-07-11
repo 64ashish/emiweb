@@ -165,6 +165,7 @@ class OrganizationArchiveController extends Controller
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 $images = $archive->ImagesInArchive->where('record_id', $id);
+
                 break;
 
             case(2):
@@ -367,7 +368,9 @@ class OrganizationArchiveController extends Controller
                 abort(403);
         }
 
-        return view('dashboard.show', compact('detail', 'fields', 'archive','images'));
+        $relatives = $archive->relatives->where('record_id', $id);
+
+        return view('dashboard.show', compact('detail', 'fields', 'archive','images','relatives'));
 
 
     }

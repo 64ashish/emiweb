@@ -804,11 +804,11 @@ select {
 .h-12 {
   height: 3rem;
 }
-.h-full {
-  height: 100%;
-}
 .h-10 {
   height: 2.5rem;
+}
+.h-full {
+  height: 100%;
 }
 .h-0 {
   height: 0px;

@@ -130,7 +130,7 @@
                                                 <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="inline-flex text-indigo-700
                                                items-center px-3 py-1.5 text-indigo-700">{{ __('Read more') }}</a>
                                             @else
-                                                <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }}" class="inline-flex text-indigo-700
+                                                <a href="{{ route('organizations.archives.show', [$organization, $record->archive,$record]) }} " class="inline-flex text-indigo-700
                                                items-center px-3 py-1.5 text-indigo-700">{{ __('Read more') }}</a>
                                             @endif
                                         </td>

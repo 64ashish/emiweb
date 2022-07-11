@@ -14,7 +14,6 @@ class ImagesInArchiveController extends Controller
 
         $data =  $request->all() + ['collection_id'=>explode('/', $request->image_name)[1],'record_id'=>$id];
 
-
         $archive->ImagesInArchive()->create($data);
 
         return redirect()->back();

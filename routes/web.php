@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageCollectionController;
+use App\Http\Controllers\ImagesInArchiveController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Record\BrodernaLarssonArchiveRecordController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Record\SwedishEmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishImmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishPortPassengerListRecordController;
 use App\Http\Controllers\Record\VarmlandskaNewspaperNoticeRecordController;
+use App\Http\Controllers\RelativeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
@@ -219,8 +221,10 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
 
         //        image association to record
-        Route::post('archives/{archive}/records/{id}/image/create', [\App\Http\Controllers\ImagesInArchiveController::class, 'create'])
+        Route::post('archives/{archive}/records/{id}/image/create', [ImagesInArchiveController::class, 'create'])
             ->name('record.image');
+        Route::post('archives/{archive}/records/{id}/relatives/create', [RelativeController::class, 'create'])
+        ->name('relatives.create');
     });
 
 

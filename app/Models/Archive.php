@@ -131,6 +131,10 @@ class Archive extends Model
         return $this->hasMany(ImagesInArchive::class);
     }
 
+    public function relatives(){
+        return $this->hasMany(Relatives::class);
+    }
+
 
     public function getRecordTotalAttribute($id)
     {
