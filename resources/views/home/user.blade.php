@@ -72,5 +72,8 @@
         </div>
     </div>
 
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+
+    </div>
 
 </x-app-layout>

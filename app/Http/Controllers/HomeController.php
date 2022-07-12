@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\Driver\Session;
+use Stripe\Subscription;
 use function Clue\StreamFilter\append;
 
 class HomeController extends Controller
@@ -50,6 +51,14 @@ class HomeController extends Controller
 
     public function user(User $user){
 //        return $user;
+        //        authorize action
+
+        if(auth()->user()->hasRole(['regular user']) or auth()->user()->hasRole(['subscriber'])){
+            $this->authorize('update', $user);
+        }
+
+        return \Laravel\Cashier\Subscription::
+
         return view('home.user', compact('user'));
     }
 

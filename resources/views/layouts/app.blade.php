@@ -93,11 +93,16 @@
                             </div>
                         </div>
                     </li>
-                    <li class="pl-8">
+                    <li class="px-8">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit">{{ __('Logout') }}</button>
                         </form>
+                    </li>
+                    <li>
+                        <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
+                        Subscription
+                        </a>
                     </li>
                 </ul>
             </div>
