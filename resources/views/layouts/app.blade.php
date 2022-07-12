@@ -8,6 +8,7 @@
     <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
 
 {{--    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
@@ -93,11 +94,16 @@
                             </div>
                         </div>
                     </li>
-                    <li class="pl-8">
+                    <li class="px-8">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit">{{ __('Logout') }}</button>
                         </form>
+                    </li>
+                    <li>
+                        <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
+                        Subscription
+                        </a>
                     </li>
                 </ul>
             </div>

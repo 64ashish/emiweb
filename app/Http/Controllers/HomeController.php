@@ -7,7 +7,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
-use MongoDB\Driver\Session;
+
+//use Laravel\Cashier\Subscription;
+use Laravel\Cashier\Cashier;
+use Stripe\Stripe;
+use Stripe\Subscription;
 use function Clue\StreamFilter\append;
 
 class HomeController extends Controller
@@ -50,7 +54,20 @@ class HomeController extends Controller
 
     public function user(User $user){
 //        return $user;
-        return view('home.user', compact('user'));
+        //        authorize action
+
+        if(auth()->user()->hasRole(['regular user']) or auth()->user()->hasRole(['subscriber'])){
+            $this->authorize('update', $user);
+        }
+
+//        return $user->hasStripeId() ? "true" : "false";
+
+//        $user->createAsStripeCustomer();
+
+        $stripe = Cashier::stripe();
+        $plans = $stripe->products->all();
+        $intent = $user->createSetupIntent();
+        return view('home.user', compact('user', 'plans', 'intent'));
     }
 
     public function updateUser(Request $request, User $user){

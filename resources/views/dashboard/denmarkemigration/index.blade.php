@@ -2,7 +2,7 @@
     <!-- Main 3 column grid -->
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
-        <section  class="pt-6" aria-labelledby="section-1-title">
+        <section class="pt-6" aria-labelledby="section-1-title">
             @role('organization admin')
             <a class="text-white" href="{{ route('ImageCollections.create', request('archive')) }}">
                 Create album
@@ -72,11 +72,6 @@
             </div>
 
             <div x-cloak class="mt-8 flex flex-col">
-
-                {{--                <div class="">--}}
-
-                {{--                    <div class="inline-block min-w-full py-2 align-middle">--}}
-                {{--                        <div class="shadow-sm ring-1 ring-black ring-opacity-5 overflow-hidden">--}}
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
