@@ -8,6 +8,7 @@
     <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
 
 {{--    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
