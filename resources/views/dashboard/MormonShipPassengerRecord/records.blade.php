@@ -2,11 +2,11 @@
     <!-- Main 3 column grid -->
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
-        <section aria-labelledby="section-1-title">
+        <section class="pt-6" aria-labelledby="section-1-title">
 
-            <div class="bg-white py-4 pl-4 pr-3 border-gray-300 shadow-sm">
+            <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
-                    {{ __('Advanced search') }} : Mormonska passagerarlistor
+                    {{ __('Advanced search') }}: Mormonska passagerarlistor
                 </p>
                 @if(auth()->user()->hasRole('regular user|subscriber'))
                     @if(isset($keywords))
@@ -70,9 +70,7 @@
 
             </div>
 
-            <div class="mt-8 flex flex-col">
-                <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
-
+            <div x-cloak class="mt-8">
                     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
@@ -145,7 +143,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </section>
 

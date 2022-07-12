@@ -2,7 +2,7 @@
     <!-- Main 3 column grid -->
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
-        <section  class="pt-6" aria-labelledby="section-1-title">
+        <section class="pt-6" aria-labelledby="section-1-title">
             @role('organization admin')
             <a class="text-white" href="{{ route('ImageCollections.create', request('archive')) }}">
                 Create album
