@@ -10,6 +10,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "http-interop/http-factory-guzzle": "^1.2",
         "lab404/laravel-impersonate": "^1.7",
+        "laravel/cashier": "^13.12",
         "laravel/fortify": "^1.11",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",

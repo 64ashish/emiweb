@@ -41,6 +41,7 @@ use App\Http\Controllers\User\UserOrganizationController;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Subscription;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,6 @@ Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'ind
     ->name('home');
 Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
-
 
 // super user urls
 Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
@@ -291,5 +291,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
 
         Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
+
+//        Route::get();
 
     });
