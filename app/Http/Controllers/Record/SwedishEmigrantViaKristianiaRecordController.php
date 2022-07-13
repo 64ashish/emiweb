@@ -46,7 +46,7 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
                 return $meilisearch->search($query, $options);
             })->paginate();
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records`')->getFilterableAttributes();
+        $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 //        return view

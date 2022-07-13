@@ -70,7 +70,8 @@
 
             </div>
 
-            <div x-cloak class="mt-8">
+            @if(isset($records))
+                <div class="mt-8 flex flex-col">
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
                         <div class="shadow-sm ring-1 ring-black ring-opacity-5">
@@ -145,6 +146,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </section>
 
     </div>
