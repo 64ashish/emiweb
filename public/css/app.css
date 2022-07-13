@@ -834,6 +834,9 @@ select {
 .h-80 {
   height: 20rem;
 }
+.h-96 {
+  height: 24rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1143,6 +1146,9 @@ select {
 .border-0 {
   border-width: 0px;
 }
+.border-4 {
+  border-width: 4px;
+}
 .border-t {
   border-top-width: 1px;
 }
@@ -1439,6 +1445,9 @@ select {
 }
 .pb-5 {
   padding-bottom: 1.25rem;
+}
+.pl-8 {
+  padding-left: 2rem;
 }
 .text-left {
   text-align: left;

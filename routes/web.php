@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
@@ -67,12 +68,14 @@ Route::middleware(['auth','isActive'])->post('/language', [HomeController::class
 //    return auth()->user()->redirectToBillingPortal();
 //});
 
-Route::post('/subscribe',function (Request $request){
-//    dd($request->all());
-    auth()->user()->newSubscription('cashier', $request->plan)->create($request->paymentMethod);
+//Route::post('/subscribe',function (Request $request){
+////    dd($request->all());
+//    auth()->user()->newSubscription('cashier', $request->plan)->quantity(5)->create($request->paymentMethod);
+//
+//    return "subscription created";
+//});
 
-    return "subscription created";
-});
+
 
 // super user urls
 Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
@@ -306,4 +309,8 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
 //        Route::get();
 
+
+// subscription stuff
+        Route::post('/subscribe', [SubscriptionController::class, 'store'])
+            ->name('subscribe.create');
     });

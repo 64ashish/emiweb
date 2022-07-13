@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Cashier;
 
 class SubscriptionController extends Controller
 {
@@ -36,6 +38,38 @@ class SubscriptionController extends Controller
     public function store(Request $request)
     {
         //
+//        dd($request->all());
+        // get auth user
+        $user = auth()->user();
+
+//        product name
+        if($request->plan === "price_1LKiPZG9lZTwpgcPGNTI9VZn")
+            {
+                $product = "prod_M2o1kJWe69bLhW";
+            }
+        if($request->plan === "price_1LKKOmG9lZTwpgcPIkYhO5EG")
+        {
+            $product = "prod_M2PDzlnwXjwU6b";
+        }
+        $stripefy = $user->createOrGetStripeCustomer();
+
+//        return $user->subscriptions;
+        // check if user already has active subscription to this plan
+        if ($user->subscription($product)) {
+            return redirect()->back()->with('Alert','You are already subscribed to this subscription');
+            return "you are already subscribed to this item";
+        }else {
+            if(auth()->user()->newSubscription($product, $request->plan)->create($request->paymentMethod)){
+                $user->syncRoles('subscriber');
+            }
+            return "you are not a subscriber";
+        }
+
+        return redirect()->back();
+
+
+
+
     }
 
     /**

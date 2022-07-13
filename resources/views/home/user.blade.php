@@ -82,26 +82,15 @@
 
 
             <div  class="p-5">
-                @if(!$user->hasStripeId())
+                @if(!$user->subscribed('cashier'))
                     <div>
                         You are using free subscription
                     </div>
                 @endif
 
+
                     <form action="/subscribe" method="post" id="payment-form" data-secret="{{ $intent->client_secret }}">
                         @csrf
-
-{{--                    Yearly--}}
-{{--                    {!! Form::radio('name', 'price_1LKKOmG9lZTwpgcPIkYhO5EG'); !!}<br>--}}
-
-{{--                    3 Months--}}
-{{--                    {!! Form::radio('name', 'price_1LKKOmG9lZTwpgcPIkYhO5EG'); !!}<br>--}}
-
-
-{{--                    <input id="card-holder-name" type="text">--}}
-
-{{--                    <!-- Stripe Elements Placeholder -->--}}
-{{--                    <div id="card-element"></div>--}}
                     <div class="form-row">
                         <label for="cardholder-name">Cardholder's Name</label>
                         <div>
