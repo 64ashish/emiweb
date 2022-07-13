@@ -118,12 +118,12 @@ class SwedishChurchEmigrationRecordController extends Controller
                     }
                 }
                 return $meilisearch->search($query, $options);
-            })->paginate();
+            })->paginate(100);
 //        get the filter attributes
         $filterAttributes = $this->meilisearch->index('swedish_church_emigration_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 //        return view
-        return view('dashboard.swedishchurchemigrationrecord.index', compact('records',  'keywords','filterAttributes'))->with($request->all());
+        return view('dashboard.swedishchurchemigrationrecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
     }
 }

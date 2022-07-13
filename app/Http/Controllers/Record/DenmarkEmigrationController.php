@@ -133,14 +133,14 @@ class DenmarkEmigrationController extends Controller
 
 
             return $meilisearch->search($query, $options);
-        })->get();
+        })->paginate('100');
 
         $keywords = $request->all();
 
         $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
 
 
-        return view('home.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes'));
+        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes'));
 
 
     }
