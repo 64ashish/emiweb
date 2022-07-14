@@ -37,36 +37,36 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-//        dd($request->all());
+
+
         // get auth user
         $user = auth()->user();
 
 //        product name
         if($request->plan === "price_1LKiPZG9lZTwpgcPGNTI9VZn")
             {
-                $product = "prod_M2o1kJWe69bLhW";
+                $product = "3 Months";
             }
         if($request->plan === "price_1LKKOmG9lZTwpgcPIkYhO5EG")
         {
-            $product = "prod_M2PDzlnwXjwU6b";
+            $product = "Regular Subscription";
         }
-        $stripefy = $user->createOrGetStripeCustomer();
-
-//        return $user->subscriptions;
-        // check if user already has active subscription to this plan
-        if ($user->subscription($product)) {
-
-            return redirect()->back()->with('Alert','You are already subscribed to this subscription');
-
-        }else {
-            if(auth()->user()->newSubscription($product, $request->plan)->create($request->paymentMethod)){
-                $user->syncRoles('subscriber');
+//      first create stripe customer
+        if($user->createOrGetStripeCustomer()){
+//            check if subscription already exist or not
+            if ($user->subscription($product)) {
+                return redirect()->back()->with('Danger','You are already subscribed to this subscription');
+            }else {
+//                if it doesnt exist, process and if process is success, update privilages
+                $customer = Cashier::findBillable($user->stripe_id);
+                if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
+                    $user->syncRoles('subscriber');
+                }
             }
-
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('Success','You are already subscribed to this subscription');
+
 
 
 
@@ -116,7 +116,7 @@ class SubscriptionController extends Controller
     public function destroy()
     {
         //
-        $user = auth()->user();
+         $user = auth()->user();
          $sub_name = $user->subscriptions->first()->name;
          $user->subscription($sub_name)->cancel();
          return redirect()->back();

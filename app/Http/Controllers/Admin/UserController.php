@@ -9,6 +9,7 @@ use App\Traits\RoleBasedRedirect;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Cashier\Subscription;
 use Laravel\Fortify\Fortify;
 use Spatie\Permission\Models\Role;
 
@@ -210,25 +211,19 @@ class UserController extends Controller
 //
     }
 
+    public function subscribers()
+    {
+        $subscriptions =  Subscription::query()->active()->get();
+//        return $subscriptions;
+        return view('admin.users.subscriptions', compact('subscriptions'));
+    }
 
-//    /**
-//     * @param User $user
-//     * @return \Illuminate\Http\RedirectResponse
-//     */
-//    public function impersonate(User $user)
-//    {
-//        auth()->user()->impersonate($user);
-//
-//        return redirect()->route('home.index');
-//    }
-//
-//
-//    public function leaveImpersonate()
-//    {
-//        auth()->user()->leaveImpersonation();
-//
-//        return redirect()->route('home.index');
-//    }
+    public function subscriptionCancel(User $user)
+    {
+        $sub_name = $user->subscriptions->first()->name;
+        $user->subscription($sub_name)->cancel();
+        return redirect()->back()->with('Success', 'Subscription is now cancelled');
+    }
 
 
 

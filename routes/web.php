@@ -151,8 +151,17 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isAct
         Route::get('/users/{user}/edit', [UserController::class, 'edit'])
             ->name('users.edit');
 
+
+
         Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
             ->name('users.sync-role');
+
+//        list all subscribed users
+        Route::get('/users/with-subscriptions', [UserController::class, 'subscribers'])
+            ->name('users.subscribers');
+
+        Route::get('/users/{user}/with-subscriptions/cancel', [UserController::class, 'subscriptionCancel'])
+            ->name('users.subscribers.cancel');
 
 //            organization stuff
         Route::resource('/organizations', OrganizationController::class);

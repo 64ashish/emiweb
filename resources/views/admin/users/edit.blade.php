@@ -59,6 +59,8 @@
                                 @error('password')
                                 <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                                 </p>@enderror
+
+
                             </dd>
 
                         </div>
@@ -77,8 +79,22 @@
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Plan</h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">These are the user details.</p>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Below is the plan the user is subscribed to</p>
             </div>
+
+            <div class="px-4 py-5 sm:px-6">
+                <ul>
+                    @foreach($user->subscriptions()->active()->get() as $subscription)
+                    <li>{{ $subscription->name }} <br> Start Date: {{ $subscription->created_at->format('Y.m.d') }} <br>
+                        Ends on: @if($subscription->ends_at) {{ $subscription->ends_at->format('Y.m.d') }} @else Subscription not cancelled @endif <br>
+                        <a href="{{ route('emiweb.users.subscribers.cancel', $subscription->user) }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
+                                 shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700
+                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel subscription</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+
 
 
 
