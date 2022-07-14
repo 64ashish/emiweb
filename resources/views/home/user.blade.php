@@ -82,11 +82,7 @@
 
 
             <div  class="p-5">
-                @if(!$user->subscribed('cashier'))
-                    <div>
-                        You are using free subscription
-                    </div>
-                @endif
+                    <a href="{{ route('subscribe.cancel') }}">Cancel your subscription</a>
 
 
                     <form action="/subscribe" method="post" id="payment-form" data-secret="{{ $intent->client_secret }}">
