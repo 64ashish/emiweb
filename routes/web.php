@@ -313,4 +313,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 // subscription stuff
         Route::post('/subscribe', [SubscriptionController::class, 'store'])
             ->name('subscribe.create');
+        Route::get('/subscribe/cancel', [SubscriptionController::class,'destroy'])
+            ->name('subscribe.cancel');
     });
+

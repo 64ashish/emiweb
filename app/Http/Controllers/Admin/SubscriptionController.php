@@ -56,13 +56,14 @@ class SubscriptionController extends Controller
 //        return $user->subscriptions;
         // check if user already has active subscription to this plan
         if ($user->subscription($product)) {
+
             return redirect()->back()->with('Alert','You are already subscribed to this subscription');
-            return "you are already subscribed to this item";
+
         }else {
             if(auth()->user()->newSubscription($product, $request->plan)->create($request->paymentMethod)){
                 $user->syncRoles('subscriber');
             }
-            return "you are not a subscriber";
+
         }
 
         return redirect()->back();
@@ -112,8 +113,13 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
         //
+        $user = auth()->user();
+         $sub_name = $user->subscriptions->first()->name;
+         $user->subscription($sub_name)->cancel();
+         return redirect()->back();
+
     }
 }
