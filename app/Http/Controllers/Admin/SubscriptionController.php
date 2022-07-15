@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
+use Laravel\Cashier\Subscription;
 
 class SubscriptionController extends Controller
 {
@@ -105,6 +106,20 @@ class SubscriptionController extends Controller
     public function update(Request $request, $id)
     {
         //
+//        return $request->all();
+//        get first subscription
+        $user = auth()->user();
+//        return $user->subscriptions()->active()->first()->items->first();
+        $CurrentPlan = $user->subscriptions()->active()->first()->items->first();
+//        $user->subscription($CurrentPlan->name)->swap($request->plan);
+        $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
+
+//        price_1LKKOmG9lZTwpgcPIkYhO5EG
+
+//        $user->subscription($CurrentPlan->name)->swap($request->plan);
+        return redirect()->back();
+//        cancel it
+//        add new subscription
     }
 
     /**
@@ -115,7 +130,6 @@ class SubscriptionController extends Controller
      */
     public function destroy()
     {
-        //
          $user = auth()->user();
          $sub_name = $user->subscriptions->first()->name;
          $user->subscription($sub_name)->cancel();
