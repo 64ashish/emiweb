@@ -78,7 +78,7 @@
  "Nationality":  "Nationalitet" ,
  "Archive reference":  "Arkivreferens" ,
  "Source code": "Källkod" ,
- "Archive name":  "Arkivnamn" ,
+ "Archive":  "Arkiv" ,
  "Letter date": "Brevdatum" ,
  "Gender":  "Kön" ,
  "Profession": "Yrke" ,
@@ -98,5 +98,6 @@
  "Death date":  "Dödsdatum" ,
  "Death place": "Dödsplats" ,
  "Source nr": "Källnr",
- "Advanced search":"Avancerad sök"
+ "Advanced search":"Avancerad sök",
+ "Search in all archives":"Sök i alla arkiv"
 }

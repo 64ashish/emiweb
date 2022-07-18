@@ -44,6 +44,7 @@ use App\Models\SwedishAmericanChurchArchiveRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Subscription;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,9 +57,7 @@ use Laravel\Cashier\Subscription;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AuthenticatedSessionController::class, 'create']);
 Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
     ->name('home');
 Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
