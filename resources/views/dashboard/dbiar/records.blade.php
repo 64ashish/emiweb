@@ -55,7 +55,7 @@
                                     border-transparent text-base font-medium rounded-md shadow-sm text-white
                                     bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
                                     focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
-                        <button type="submit" name="action" value="filter" class="inline-flex items-center px-8 py-2 border
+                        <button type="submit" name="action" value="filter" class="hidden inline-flex items-center px-8 py-2 border
                                     border-transparent text-base font-medium rounded-md shadow-sm text-white
                                     bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
                                     focus:ring-offset-2 focus:ring-indigo-500">{{ __('Filter') }}</button>

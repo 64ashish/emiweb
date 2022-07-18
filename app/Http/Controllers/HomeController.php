@@ -64,6 +64,9 @@ class HomeController extends Controller
 
 //        $user->createAsStripeCustomer();
 
+        $user = auth()->user();
+//        return  $user->subscriptions()->active()->first();
+
         $stripe = Cashier::stripe();
         $plans = $stripe->products->all();
         $intent = $user->createSetupIntent();

@@ -35,76 +35,78 @@
                 @endif
                 {!! Form::open([ 'route'=>'local' ]) !!}
                 <ul class="pl-16 text-white font-bold inline-flex">
-                    <li><button name="language" value="sv" type="submit">SV</button> /</li>
-                    <li class="px-1"><button name="language" value="en" type="submit">EN</button> </li>
+                    <li><button name="language" value="sv" type="submit">Svenska</button> /</li>
+                    <li class="px-1"><button name="language" value="en" type="submit">English</button> </li>
                 </ul>
                 {!! Form::close() !!}
             </div>
-            <div>
-                <ul class="font-bold inline-flex text-white">
-                    <li class="pr-8">
-                        <div class="max-w-md w-full mx-auto flex justify-end" x-data="{ openSearch: false }">
-                            <div @click="openSearch = true; $nextTick(() => $refs.input.focus())"
-                                 class="flex items-center space-x-3 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <div class="flex w-1/2">
+                <div class="max-w-md w-full mx-auto flex justify-center" x-data="{ openSearch: false }">
+                    <div @click="openSearch = true; $nextTick(() => $refs.input.focus())"
+                         class="flex items-center space-x-3 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span class="text-white font-normal	">Sök</span>
+                    </div>
+                    {{--                            search starts from here --}}
+
+                    <div x-show="openSearch" x-transition:enter="ease-out duration-300"
+                         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                         x-transition:leave="transition ease-in duration-75"
+                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                         class="fixed inset-0 z-20 overflow-y-auto p-4 sm:p-6 md:p-20" role="dialog"
+                         aria-modal="true" style="display:none">
+
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"
+                             aria-hidden="true"></div>
+
+                        <div x-transition:enter="ease-out duration-300"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="ease-in duration-200"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 opacity-100 scale-100"
+                             class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+                            <div class="relative" @click.away="openSearch = false">
+                                <!-- Heroicon name: solid/search -->
+                                <svg class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                     fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                          clip-rule="evenodd" />
                                 </svg>
-                                <span class="text-white">Sök</span>
-                            </div>
-                            {{--                            search starts from here --}}
 
-                            <div x-show="openSearch" x-transition:enter="ease-out duration-300"
-                                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                 x-transition:leave="transition ease-in duration-75"
-                                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                 class="fixed inset-0 z-20 overflow-y-auto p-4 sm:p-6 md:p-20" role="dialog"
-                                 aria-modal="true" style="display:none">
-
-                                <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"
-                                     aria-hidden="true"></div>
-
-                                <div x-transition:enter="ease-out duration-300"
-                                     x-transition:enter-start="opacity-0 scale-95"
-                                     x-transition:enter-end="opacity-100 scale-100"
-                                     x-transition:leave="ease-in duration-200"
-                                     x-transition:leave-start="opacity-100 scale-100"
-                                     x-transition:leave-end="opacity-0 opacity-100 scale-100"
-                                     class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-                                    <div class="relative" @click.away="openSearch = false">
-                                        <!-- Heroicon name: solid/search -->
-                                        <svg class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
-                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                             fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                  clip-rule="evenodd" />
-                                        </svg>
-
-                                        {!! Form::open(['route' => 'search']) !!}
-                                        <input x-ref="input" name="search" type="text"
-                                               class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                               placeholder="{{ __('Search') }}..." aria-expanded="false"
-                                               aria-controls="options">
-                                        <input type="submit" hidden />
-                                        {!! Form::close() !!}
-                                    </div>
-                                </div>
+                                {!! Form::open(['route' => 'search']) !!}
+                                <input x-ref="input" name="search" type="text"
+                                       class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                       placeholder="{{ __('Search in all archives') }}..." aria-expanded="false"
+                                       aria-controls="options">
+                                <input type="submit" hidden />
+                                {!! Form::close() !!}
                             </div>
                         </div>
+                    </div>
+                </div>
+                <ul class="font-bold inline-flex text-white shrink-0">
+
+                    @if(auth()->user()->hasRole('regular user|subscriber'))
+                    <li class="font-normal">
+                        <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
+                            Subscription
+                        </a>
                     </li>
-                    <li class="px-8">
+                    @endif
+                    <li class="pl-8">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit">{{ __('Logout') }}</button>
                         </form>
                     </li>
-                    <li>
-                        <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
-                        Subscription
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </div>
