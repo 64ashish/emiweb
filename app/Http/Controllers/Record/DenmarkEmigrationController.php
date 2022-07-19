@@ -137,10 +137,24 @@ class DenmarkEmigrationController extends Controller
 
         $keywords = $request->all();
 
+//        return $keywords;
+
         $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
 
+        $model =new DenmarkEmigration();
+        $fields = collect($model->getFillable())
+            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+            ->flatten();
 
-        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes'));
+        $advancedFields = $fields->diff($filterAttributes)->flatten();
+
+        $defaultColumns = $model->defaultTableColumns();
+
+        $populated_fields = collect(array_filter($request->except(['first_name','last_name','action','_token','query', 'page']), 'strlen'))->except($defaultColumns)->keys();
+
+//        return $populated_fields;
+
+        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'));
 
 
     }
