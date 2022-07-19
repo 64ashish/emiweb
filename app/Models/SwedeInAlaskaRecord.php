@@ -67,4 +67,17 @@ class SwedeInAlaskaRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'birth_location',
+            'birth_country',
+            'gender',
+            'to_america_location',
+            'arrival_date_alaska',
+            'profession',
+            'address',
+            'civil_status',
+        ];
+    }
 }

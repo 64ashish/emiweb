@@ -56,4 +56,15 @@ class SwedishPortPassengerListRecord extends Model
             'main_act' => $this->main_act
         ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'age',
+            'sex',
+            'profession',
+            'departure_date',
+            'destination',
+            'departure_county',
+        ];
+    }
 }

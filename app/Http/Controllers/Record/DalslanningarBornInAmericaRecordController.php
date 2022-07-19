@@ -122,9 +122,18 @@ class DalslanningarBornInAmericaRecordController extends Controller
 
 
         $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
+        $model = new DalslanningarBornInAmericaRecord();
+        $fields = collect($model->getFillable())
+            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+            ->flatten();
+
+        $advancedFields = $fields->diff($filterAttributes)->flatten();
+
+        $defaultColumns = $model->defaultTableColumns();
+        $populated_fields = collect(array_filter($request->except(['first_name','last_name','action','_token','query', 'page']), 'strlen'))->except($defaultColumns)->keys();
         $keywords = $request->all();
 
-        return view('dashboard.dbiar.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
+        return view('dashboard.dbiar.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
     }
 }
 

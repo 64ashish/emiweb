@@ -60,4 +60,15 @@ class SwedishEmigrationStatisticsRecord extends Model
             'nationality' => $this->nationality
             ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'profession',
+            'destination',
+            'from_province',
+            'gender',
+            'civil_status',
+            'nationality',
+        ];
+    }
 }

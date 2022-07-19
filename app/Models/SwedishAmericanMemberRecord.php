@@ -37,4 +37,15 @@ class SwedishAmericanMemberRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'birth_date',
+            'birth_parish',
+            'birth_county',
+            'place',
+            'state',
+            'lodge',
+        ];
+    }
 }

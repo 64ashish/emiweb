@@ -35,4 +35,14 @@ class DalslanningarBornInAmericaRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'birth_date',
+            'birth_place',
+            'death_date',
+            'death_place',
+            'profession',
+        ];
+    }
 }

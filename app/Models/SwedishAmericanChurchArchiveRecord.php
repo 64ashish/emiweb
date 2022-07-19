@@ -79,4 +79,15 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'immigration_year' => $this->immigration_year
         ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'last_name2',
+            'gender',
+            'civil_status',
+            'emigration_province',
+            'arrived_from_county',
+            'immigrated_to_state',
+        ];
+    }
 }

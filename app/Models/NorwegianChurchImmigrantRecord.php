@@ -64,4 +64,15 @@ class NorwegianChurchImmigrantRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'sex',
+            'profession',
+            'from_country',
+            'to_location',
+            'birth_location',
+            'baptism_location',
+        ];
+    }
 }

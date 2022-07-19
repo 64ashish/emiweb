@@ -103,4 +103,15 @@ class NewYorkPassengerRecord extends Model
             'port_of_departure' => $this->port_of_departure
         ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'gender',
+            'ethnicity_nationality',
+            'birthday',
+            'port_of_departure',
+            'place_of_origin',
+            'destination'
+        ];
+    }
 }
