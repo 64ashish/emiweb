@@ -42,8 +42,6 @@ class DenmarkEmigration extends Model
     }
 
 
-
-
     public function toSearchableArray()
     {
         return [
@@ -57,6 +55,17 @@ class DenmarkEmigration extends Model
             'destination_country' => $this->destination_country,
             'ship_name' => $this->ship_name,
             ];
+    }
+
+    public function defaultTableColumns(){
+        return [
+            'birth_place',
+            'sex',
+            'last_resident',
+            'profession',
+            'destination_city',
+            'destination_country',
+        ];
     }
 
 
