@@ -51,4 +51,15 @@ class MormonShipPassengerRecord extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function defaultTableColumns(){
+        return [
+            'nationality',
+            'residence',
+            'residence_country',
+            'profession',
+            'destination',
+            'gender',
+        ];
+    }
+
 }

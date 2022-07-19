@@ -64,4 +64,15 @@ class BrodernaLarssonArchiveRecord extends Model
             ];
     }
 
+    public function defaultTableColumns(){
+        return [
+            'home_country',
+            'gender',
+            'home_county',
+            'profession',
+            'geographical_extent',
+            'language',
+        ];
+    }
+
 }

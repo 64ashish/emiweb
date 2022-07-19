@@ -45,4 +45,16 @@ class SwedishChurchEmigrationRecord extends Model
             'record_date'=> $this->record_date
         ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'dob',
+            'gender',
+            'last_resident',
+            'from_province',
+            'profession',
+            'civil_status',
+            'destination_country'
+        ];
+    }
 }

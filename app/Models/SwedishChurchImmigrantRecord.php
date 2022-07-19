@@ -83,4 +83,15 @@ class SwedishChurchImmigrantRecord extends Model
             'to_date' => $this->to_date
             ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'profession',
+            'to_location',
+            'from_location',
+            'sex',
+            'civil_status',
+            'birth_country',
+        ];
+    }
 }

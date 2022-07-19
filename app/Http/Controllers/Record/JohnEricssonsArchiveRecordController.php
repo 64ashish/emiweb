@@ -50,6 +50,14 @@ class JohnEricssonsArchiveRecordController extends Controller
 //        get the keywords again
         $keywords = $request->all();
 //        return view
-        return view('dashboard.JohnEricssonsArchiveRecord.records', compact('records',  'keywords','filterAttributes'))->with($request->all());
+        $model = new JohnEricssonsArchiveRecord();
+        $fields = collect($model->getFillable())
+            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+            ->flatten();
+        $advancedFields = $fields->diff($filterAttributes)->flatten();
+        $defaultColumns = $model->defaultTableColumns();
+        $populated_fields = collect(array_filter($request->except(['first_name','last_name','action','_token','query', 'page']), 'strlen'))->except($defaultColumns)->keys();
+
+        return view('dashboard.JohnEricssonsArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
     }
 }

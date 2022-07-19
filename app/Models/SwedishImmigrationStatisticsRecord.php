@@ -61,4 +61,16 @@ class SwedishImmigrationStatisticsRecord extends Model
             'to_year' => $this->to_year,
         ];
     }
+
+    public function defaultTableColumns(){
+        return [ 'profession',
+            'birth_year',
+            'from_country',
+            'nationality',
+            'civil_status',
+            'to_year',
+            'to_province',];
+    }
+
+
 }

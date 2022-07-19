@@ -76,4 +76,15 @@ class IcelandEmigrationRecord extends Model
             'travel_method'=> $this->travel_method
         ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'date_of_birth',
+            'place_of_birth',
+            'destination_country',
+            'destination_location',
+            'home_location',
+            'profession',
+        ];
+    }
 }

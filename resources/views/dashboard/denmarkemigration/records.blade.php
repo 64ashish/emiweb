@@ -136,12 +136,12 @@
 
                             </div>
                         </div>
-                        {{ $records->appends(array('action' => $keywords['action']))->links() }}
+                        {{ $records->appends(request()->except(['_token']))->links() }}
 
                     </div>
                 </div>
             </div>
-            @endif
+        @endif
         </section>
 
     </div>

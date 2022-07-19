@@ -33,4 +33,14 @@ class LarssonEmigrantPopularRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'profession',
+            'home_location',
+            'home_parish',
+            'home_province',
+            'letter_date',
+        ];
+    }
 }

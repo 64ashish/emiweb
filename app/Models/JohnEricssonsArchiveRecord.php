@@ -45,4 +45,13 @@ class JohnEricssonsArchiveRecord extends Model
             'file_name' => $this->file_name
         ];
     }
+
+    public function defaultTableColumns(){
+        return [
+            'other_name',
+            'Description',
+            'date',
+            'roll_no',
+        ];
+    }
 }

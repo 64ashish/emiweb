@@ -50,4 +50,15 @@ class NorwayEmigrationRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'birth_place',
+            'sex',
+            'from_location',
+            'profession',
+            'destination_location',
+            'destination_country',
+        ];
+    }
 }

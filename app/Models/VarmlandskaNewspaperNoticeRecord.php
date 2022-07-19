@@ -43,4 +43,15 @@ class VarmlandskaNewspaperNoticeRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function defaultTableColumns(){
+        return [
+            'newspaper',
+            'article_year',
+            'places',
+            'death_parish',
+            'death_country',
+            'birth_location'
+        ];
+    }
 }
