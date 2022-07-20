@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Archive;
 use App\Models\User;
+use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
@@ -117,18 +118,47 @@ class HomeController extends Controller
             'language' => 'required|in:sv,en|max:2',
         ]);
 
-//        return $request->action;
+//        return $request->all();
+
+
+
+
         if($validate) {
             App::setLocale($request->language);
             session()->put('locale', App::getLocale());
-            if($request->action === "search" or $request->action === "filter"){
-                $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
-            }else{
-//                return $request->action;
-                $url = url()->previous();
-            }
 
-            return redirect()->to($url);
+           return  redirect('/')->with('success', 'language reloaded');
+
+//            if($request->action === "search" or $request->action === "filter"){
+////                return redirect()->to();
+//
+//
+//            }
+//            if($request->action) {
+//                $url = back();
+//            }
+//
+//            if(!$request->action) {
+//                $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
+//            }
+//            $url = back();
+
+//            return url()->to($url, http_build_query(request()->except(['_token','language'])));
+
+//            return $final;
+
+//            return redirect()->to($url);
+
+
+//            return $url;
+
+//            return redirect($url, '302', request()->except(['_token']));
+//            return redirect()->to(url()->previous(), request()->except(['_token']));
+
+//            $inputs = request()->except(['_token']);
+//            return back()->withInput($inputs);
+//            return $url;
+
 //            dd(app()->getLocale());
         }
 
