@@ -101,6 +101,8 @@ class DenmarkEmigrationController extends Controller
 
     public function search( Request $request)
     {
+
+
         if($request->action === "filter")
         {
             $inputQuery = $request->first_name." ".$request->last_name;

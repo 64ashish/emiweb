@@ -15,7 +15,7 @@
     </div>
 @endforeach
 </div>
-<h4 class="py-4">Advanced Fields</h4>
+<h4 class="py-4">{{ __("Advanced search") }}</h4>
 <div class="grid grid-cols-2 gap-4">
 
 @foreach($advancedFields as $advancedField)

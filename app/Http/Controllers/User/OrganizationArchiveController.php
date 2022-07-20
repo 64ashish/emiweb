@@ -1067,7 +1067,7 @@ class OrganizationArchiveController extends Controller
                     abort(403);
             }
 
-            return redirect('/dashboard')->with('success', 'The record was updated!');
+            return redirect('organization/'.$organization->id.'/archives/'.$archive->id.'/records/'.$record)->with('success', 'The record was updated!');
 
         }
 

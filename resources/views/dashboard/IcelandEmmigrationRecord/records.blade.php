@@ -6,7 +6,7 @@
 
             <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
-                    {{ __('Advanced search') }}:  Den åländska emigrantdatabasen
+                    {{ __('Search in') }}   Den åländska emigrantdatabasen
                 </p>
 
                     @if(isset($keywords))

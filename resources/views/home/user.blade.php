@@ -81,7 +81,7 @@
 
 
             @if($user->subscriptions()->active()->first())
-                <div class="px-4 sm:px-6">
+                <div class="px-4 sm:px-6 mb-6">
                     <form action="/subscribe/{{ $user->subscriptions()->active()->first()->id }}/update" method="post" id="payment-form" data-secret="{{ $intent->client_secret }}">
                         @csrf
                         <div class="form-row">
@@ -144,6 +144,20 @@
                                 </div>
                             </div>
                     </form>
+                </div>
+                <div class="border-t border-gray-200  px-4 py-5 ">
+                    @if($user->subscriptions()->active()->first()->ends_at)
+                       Your subscription ends on {{ $user->subscriptions()->active()->first()->ends_at->format('Y.m.d') }}
+                    @else
+                        <div class="flex flex-col items-center">
+                            <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2">{{ __('Cancel subscription') }}</div>
+                            <a href="{{ route('subscribe.cancel') }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
+                                 shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700
+                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
+                        </div>
+
+                    @endif
+
                 </div>
             @else
                 <div class="px-4 sm:px-6">
@@ -281,7 +295,6 @@
                         </div>
 
                     {!! Form::close() !!}
-
                 </div>
             @endif
         </div>
