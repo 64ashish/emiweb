@@ -2,17 +2,17 @@
     <div class="grid grid-cols-2 gap-x-5">
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">User Information</h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">These are the user details.</p>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('User information') }}</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('These are the user details for your account') }}</p>
             </div>
             <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">
                     <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">Full name</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Full name') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->name }}</dd>
                     </div>
                     <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">Email</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Email') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->email }}</dd>
                     </div>
                     @if(auth()->user()->hasRole('organization admin | organization stuff'))
@@ -38,7 +38,7 @@
 
                     <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 
-                        <dt class="text-sm font-medium text-gray-500">Current Password</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Current password') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
 
                             {{ Form::password('current_password', ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
@@ -48,7 +48,7 @@
                             <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                             </p>@enderror
                         </dd>
-                        <dt class="text-sm font-medium text-gray-500">New Password</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('New password') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {{ Form::password('password', ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                 sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
@@ -63,8 +63,7 @@
                     <div class="px-4 py-3 text-right sm:px-6">
                         <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
                              shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update
-                            Password</button>
+                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{{ __('Update password') }}</button>
                     </div>
                     {!! Form::close() !!}
                 </dl>
@@ -74,8 +73,8 @@
 
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Subscription</h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">Below is your plan</p>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }}</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Below is your plan') }}</p>
             </div>
 
 
@@ -103,10 +102,10 @@
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
-                                                <span class="font-medium">/3 months</span>
+                                                <span class="font-medium">/3 {{__('months')}}</span>
                                             </div>
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>Renews at 175 SEK / 3 months</p>
+                                                <p>{{ __('Renews at 175 SEK /months') }}</p>
                                             </div>
                                         </label>
                                     </div>
@@ -127,10 +126,10 @@
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
-                                                <span class="font-medium">/year</span>
+                                                <span class="font-medium">/{{__('year')}}</span>
                                             </div>
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>Renews at 300 SEK / year</p>
+                                                <p>{{ __('Renews at 300 SEK /year') }}</p>
                                             </div>
                                         </label>
                                     </div>
@@ -140,7 +139,7 @@
                                     <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
                                     shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
                                     focus:outline-none">
-                                        Change Subscription
+                                        {{__('Change subscription')}}
                                     </button>
                                 </div>
                             </div>
@@ -170,10 +169,10 @@
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
-                                                <span class="font-medium">/3 months</span>
+                                                <span class="font-medium">/3 {{__('months')}}</span>
                                             </div>
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>Renews at 175 SEK / 3 months</p>
+                                                <p>{{ __('Renews at 175 SEK /months') }}</p>
                                             </div>
                                         </label>
                                     </div>
@@ -194,10 +193,10 @@
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
-                                                <span class="font-medium">/year</span>
+                                                <span class="font-medium">/{{__('year')}}</span>
                                             </div>
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>Renews at 300 SEK / year</p>
+                                                <p>{{ __('Renews at 300 SEK /year') }}</p>
                                             </div>
                                         </label>
                                     </div>

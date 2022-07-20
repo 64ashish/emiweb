@@ -9,7 +9,7 @@
                 </p>
 
 
-                @if(auth()->user()->hasRole('regular user|subscriber'))
+
                 @if(isset($keywords))
                 {!! Form::model($keywords,['route' => 'dbir.search']) !!}
                 @endif
@@ -52,20 +52,20 @@
                     @include('dashboard._filtersattributes')
 
                     <div class="sm:flex justify-around pt-4">
-                        <span></span>
+
                         <button type="submit" name="action" value="search" class="inline-flex items-center px-8 py-2 border
                                         border-transparent text-base font-medium rounded-md shadow-sm text-white
-                                        bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                        {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
                                         focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
                         <button type="submit" name="action" value="filter" class="hidden inline-flex items-center px-8 py-2 border
                                         border-transparent text-base font-medium rounded-md shadow-sm text-white
-                                        bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                        {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
                                         focus:ring-offset-2 focus:ring-indigo-500">{{ __('Filter') }}</button>
 
                     </div>
 
                 {!! Form::close() !!}
-                @endif
+
 
             </div>
             @if(isset($records))
@@ -97,37 +97,72 @@
                                     </tr>
                                     </thead>
                                     <tbody class="bg-white">
-                                    @foreach($records as $record)
-
-                                        <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
-
-                                            <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
+                                    @if(auth()->user()->hasRole('organization admin|organization staff') )
+                                        @foreach($records as $record)
+                                            <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
+                                                <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
                                                                         font-medium  sm:pl-6 lg:pl-8">
-                                                <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
-                                                    {{ $record->first_name }} {{ $record->last_name }}
-                                                </a>
-                                            </td>
-                                            @foreach($defaultColumns as $column)
-                                                <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+
+                                                    <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=>$record->id]) }}" class="block">
+                                                        {{ $record->first_name }} {{ $record->last_name }}
+                                                    </a>
+                                                </td>
+                                                @foreach($defaultColumns as $column)
+                                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                          hidden sm:table-cell">
-                                                    <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
-                                                        {{ $record[$column]}}
-                                                    </a>
-                                                </td>
-                                            @endforeach
+                                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=>$record->id]) }}" class="block">
+                                                            {{ $record[$column]}}
+                                                        </a>
+                                                    </td>
+                                                @endforeach
 
-                                            @foreach($populated_fields as $pop_fields)
-                                                <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                @foreach($populated_fields as $pop_fields)
+                                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                         hidden sm:table-cell">
+                                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=>$record->id]) }}" class="block">
+                                                            {{ $record[$pop_fields]}}
+                                                        </a>
+                                                    </td>
+                                                @endforeach
+
+                                            </tr>
+
+                                        @endforeach
+                                    @endif
+
+                                    @if(auth()->user()->hasRole('regular user|subscriber') )
+                                        @foreach($records as $record)
+
+                                            <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
+                                                <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
+                                                                        font-medium  sm:pl-6 lg:pl-8">
+
                                                     <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
-                                                        {{ $record[$pop_fields]}}
+                                                        {{ $record->first_name }} {{ $record->last_name }}
                                                     </a>
                                                 </td>
-                                            @endforeach
+                                                @foreach($defaultColumns as $column)
+                                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                         hidden sm:table-cell">
+                                                        <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
+                                                            {{ $record[$column]}}
+                                                        </a>
+                                                    </td>
+                                                @endforeach
 
-                                        </tr>
+                                                @foreach($populated_fields as $pop_fields)
+                                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                                                        hidden sm:table-cell">
+                                                        <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
+                                                            {{ $record[$pop_fields]}}
+                                                        </a>
+                                                    </td>
+                                                @endforeach
 
-                                    @endforeach
+                                            </tr>
+
+                                        @endforeach
+                                    @endif
 
                                     <!-- More people... -->
                                     </tbody>

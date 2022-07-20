@@ -17,7 +17,7 @@
 <body class="h-full">
 <div class="min-h-full">
 
-    <header class="pb-28 pt-12 bg-indigo-600 ">
+    <header class="pb-28 pt-12 {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }}   ">
         {{--        for desktop--}}
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 flex justify-between">
             <div class="flex items-center">
