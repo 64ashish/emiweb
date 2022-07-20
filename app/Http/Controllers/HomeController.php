@@ -117,11 +117,16 @@ class HomeController extends Controller
             'language' => 'required|in:sv,en|max:2',
         ]);
 
-//        return $request->all();
+//        return $request->action;
         if($validate) {
             App::setLocale($request->language);
             session()->put('locale', App::getLocale());
-            $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
+            if(!$request->action){
+                $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
+            }else{
+                $url = url()->previous();
+            }
+
 //            return redirect($url, '302', request()->except(['_token']));
 //            return redirect()->to(url()->previous(), request()->except(['_token']));
 

@@ -102,6 +102,7 @@ class DenmarkEmigrationController extends Controller
     public function search( Request $request)
     {
 
+//        return $request->all();
 
         if($request->action === "filter")
         {
