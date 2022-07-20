@@ -121,18 +121,13 @@ class HomeController extends Controller
         if($validate) {
             App::setLocale($request->language);
             session()->put('locale', App::getLocale());
-            if(!$request->action){
+            if($request->action === "search" or $request->action === "filter"){
                 $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
             }else{
+//                return $request->action;
                 $url = url()->previous();
             }
 
-//            return redirect($url, '302', request()->except(['_token']));
-//            return redirect()->to(url()->previous(), request()->except(['_token']));
-
-//            $inputs = request()->except(['_token']);
-//            return back()->withInput($inputs);
-//            return $url;
             return redirect()->to($url);
 //            dd(app()->getLocale());
         }
