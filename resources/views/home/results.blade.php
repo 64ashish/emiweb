@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
         <section aria-labelledby="section-1-title">
-            <h2 class="text-white">
+            <h2 class="text-gray-900 ">
                 Your search for "<strong>{{ $keywords }}</strong>" returned {{ count($records) }} results.
             </h2>
             <div class="mt-8 flex flex-col">

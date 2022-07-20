@@ -8,7 +8,7 @@
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
                     {{ __('Search in') }}  Immigranter registrerade i svenska kyrkböcker
                 </p>
-                @if(auth()->user()->hasRole('regular user|subscriber'))
+
                     @if(isset($keywords))
                         {!! Form::model($keywords,['route' => 'scirc.search'])  !!}
                     @endif
@@ -63,7 +63,7 @@
 
                         </div>
                     {!! Form::close() !!}
-                @endif
+
 
 
             </div>

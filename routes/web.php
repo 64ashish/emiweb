@@ -258,7 +258,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
             ->name('home.users.update');
         Route::put('/home/users/{user}/cancel_sub', [HomeController::class, 'endSubscription'])
             ->name('home.users.endsubscription');
-        Route::post('/search', [SearchController::class, 'search'])
+        Route::match(['get', 'post'],'/search', [SearchController::class, 'search'])
             ->name('search');
         Route::get('SwedishChurchEmigrationRecord/', [SwedishChurchEmigrationRecordController::class, 'index'])
             ->name('swedishchurchemigration');
