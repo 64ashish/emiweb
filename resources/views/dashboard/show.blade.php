@@ -127,33 +127,7 @@
                                                     </td>
                                                 </tr>
                                                 @endforeach
-                                                <tr class="odd:bg-white even:bg-gray-100">
-                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Mother</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Visa</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd:bg-white even:bg-gray-100">
-                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Mother</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Visa</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd:bg-white even:bg-gray-100">
-                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Jane Doe</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Mother</td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Malmö</td>
-                                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Visa</a>
-                                                    </td>
-                                                </tr>
+
 
                                                 <!-- More people... -->
                                                 </tbody>
@@ -210,43 +184,32 @@
 
                                         </div>
                                         {!! Form::close() !!}
-                                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                            <table class="min-w-full divide-y divide-gray-300">
-                                                <thead class="bg-gray-50">
-                                                <tr>
-                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Context</th>
-                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link</th>
-
-                                                </tr>
-                                                </thead>
-                                                <tbody class="bg-white">
-                                                <!-- Odd row -->
-                                            @foreach($images as $image)
-                                                <tr class="odd:bg-white even:bg-gray-100">
-                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $image->context }}
-                                                    <img target="_blank" src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"
-                                                    class="h-10">
-                                                    </td>
-
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        <a href="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"  class="text-indigo-600 hover:text-indigo-900">
-                                                            View full image
-                                                        </a>
-
-                                                        <a  class="text-indigo-600 hover:text-indigo-900" target="_blank" href="{{ route('ImageCollections.show', $image->collection_id) }}">
-                                                            View collection
-                                                        </a>
-
-                                                    </td>
-
-                                                </tr>
-                                            @endforeach
+                                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg"
+                                             >
+                                            <div class="grid grid-cols-5 gap-6" >
+                                                @foreach($images as $image)
 
 
-                                                <!-- More people... -->
-                                                </tbody>
-                                            </table>
+                                                    <img x-lightbox="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"
+                                                         src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}">
+
+{{--                                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}">--}}
+
+
+
+                                                @endforeach
+                                            </div>
+
+
+
                                         </div>
+
+
+
+
+
+
+
                                     </div>
                                 </div>
                             </div>
