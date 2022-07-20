@@ -101,6 +101,8 @@ class DenmarkEmigrationController extends Controller
 
     public function search( Request $request)
     {
+
+
         if($request->action === "filter")
         {
             $inputQuery = $request->first_name." ".$request->last_name;
@@ -135,6 +137,8 @@ class DenmarkEmigrationController extends Controller
             return $meilisearch->search($query, $options);
         })->paginate('100');
 
+//        return $records->get(1)->archive->id;
+
         $keywords = $request->all();
 
 //        return $keywords;
@@ -142,6 +146,8 @@ class DenmarkEmigrationController extends Controller
         $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
 
         $model = new DenmarkEmigration();
+
+
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

@@ -33,7 +33,7 @@
     </div>
     <div class="hidden md:block md:flex-none md:w-1/2">
         <img class="w-full h-full object-cover"
-             src="{{ asset('images/profile.jpg') }}"
+             src="{{ asset('images/hero-emiweb.jpeg') }}"
              alt="welcome">
     </div>
 </div>

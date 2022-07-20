@@ -17,23 +17,23 @@
 <body class="h-full">
 <div class="min-h-full">
 
-    <header class="pb-28 pt-12 bg-indigo-600 ">
+    <header class="pb-10 pt-10 {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }}   ">
         {{--        for desktop--}}
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 flex justify-between">
             <div class="flex items-center">
-                @role('organization admin')
+                @if(auth()->user()->hasRole('organization admin|organization staff'))
                 <a href="{{ route('dashboard')  }}" aria-current="page">
                     <img src="/images/emiweb-w.svg" class="hidden lg:inline-block	h-5">
                     <img src="/images/emiweb-mobile-logo.png" class=" lg:hidden">
                 </a>
-                @endrole
+                @endif
                 @if(auth()->user()->hasRole('regular user|subscriber'))
                     <a href="{{ route('home')  }}" aria-current="page">
                         <img src="/images/emiweb-w.svg" class="hidden lg:inline-block	h-5">
                         <img src="/images/emiweb-mobile-logo.png" class=" lg:hidden">
                     </a>
                 @endif
-                {!! Form::open([ 'route'=>'local' ]) !!}
+                {!! Form::open([ 'route'=>['local', http_build_query(request()->except(['_token']))] ]) !!}
                 <ul class="pl-16 text-white font-bold inline-flex">
                     <li><button name="language" value="sv" type="submit">Svenska</button> /</li>
                     <li class="px-1"><button name="language" value="en" type="submit">English</button> </li>
@@ -96,7 +96,7 @@
                     @if(auth()->user()->hasRole('regular user|subscriber'))
                     <li class="font-normal">
                         <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
-                            Subscription
+                            {{ __('Account') }}
                         </a>
                     </li>
                     @endif
@@ -118,7 +118,7 @@
         </div>
 
     </header>
-    <main class="-mt-24 pb-8">
+    <main class=" pb-8">
         <div class="mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <x-flash-message></x-flash-message>

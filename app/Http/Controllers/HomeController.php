@@ -20,36 +20,42 @@ class HomeController extends Controller
     public function index()
     {
 
-
-        if(auth()->user()->hasRole('super admin'))
+        if(auth()->check())
         {
-            return redirect('/admin');
-        }
-        if(auth()->user()->hasRole(['emiweb admin', 'emiweb staff'])){
-            return redirect('/emiweb');
-        }
-        if(auth()->user()->hasRole(['organization admin', 'organization staff'])){
-            return redirect('/dashboard');
-        }
+            if(auth()->user()->hasRole('super admin'))
+            {
+                return redirect('/admin');
+            }
+            if(auth()->user()->hasRole(['emiweb admin', 'emiweb staff'])){
+                return redirect('/emiweb');
+            }
+            if(auth()->user()->hasRole(['organization admin', 'organization staff'])){
+                return redirect('/dashboard');
+            }
 
-        if(auth()->user()->hasRole(['regular user'])){
+            if(auth()->user()->hasRole(['regular user'])){
 //            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
 //                return $item['place'];
 //            }], $preserveKeys = true);
-            $archives = Archive::where('id',1)->get()->load('category');
-        }
+                $archives = Archive::where('id',1)->get()->load('category');
+            }
 
 
-        if(auth()->user()->hasRole(['subscriber'])){
-            $archives = Archive::get()->append('record_total')->load('category');
-        }
+            if(auth()->user()->hasRole(['subscriber'])){
+                $archives = Archive::get()->append('record_total')->load('category');
+            }
 //        return $archives;
 //        $user = auth()->user();
-        $user = auth()->user();
+            $user = auth()->user();
 
 //        return $archives;
 
-        return view('home.dashboard', compact('user','archives'));
+            return view('home.dashboard', compact('user','archives'));
+        }else{
+            return redirect()->to('/login');
+        }
+
+
     }
 
     public function user(User $user){
@@ -95,16 +101,34 @@ class HomeController extends Controller
     }
 
 
+//    public function endSubscription(User $user){
+//
+//        $this->authorize('update', $user);
+//        $sub_name = $user->subscriptions->first()->name;
+//        $user->subscription($sub_name)->cancel();
+//        return redirect()->back()->with('Success', 'Subscription is now cancelled');
+//
+//    }
+
+
     public function localSwitcher(Request $request)
     {
         $validate = $request->validate([
             'language' => 'required|in:sv,en|max:2',
         ]);
 
+//        return $request->all();
         if($validate) {
             App::setLocale($request->language);
             session()->put('locale', App::getLocale());
-            return back();
+            $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
+//            return redirect($url, '302', request()->except(['_token']));
+//            return redirect()->to(url()->previous(), request()->except(['_token']));
+
+//            $inputs = request()->except(['_token']);
+//            return back()->withInput($inputs);
+//            return $url;
+            return redirect()->to($url);
 //            dd(app()->getLocale());
         }
 

@@ -85,11 +85,27 @@
             <div class="px-4 py-5 sm:px-6">
                 <ul>
                     @foreach($user->subscriptions()->active()->get() as $subscription)
-                    <li>{{ $subscription->name }} <br> Start Date: {{ $subscription->created_at->format('Y.m.d') }} <br>
-                        Ends on: @if($subscription->ends_at) {{ $subscription->ends_at->format('Y.m.d') }} @else Subscription not cancelled @endif <br>
-                        <a href="{{ route('emiweb.users.subscribers.cancel', $subscription->user) }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
+                    <li>
+                        <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
+                            Subscription plan: {{ $subscription->name }}
+                        </div>
+
+                        @if($subscription->ends_at)
+                            <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
+                            Your subscription ends on {{ $subscription->ends_at->format('Y.m.d') }}
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center">
+                                <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2">{{ __('Cancel subscription') }}</div>
+                                <a href="{{ route('emiweb.users.subscribers.cancel', $subscription->user) }}"
+                                   class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
                                  shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700
-                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel subscription</a>
+                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
+                            </div>
+
+                        @endif
+
+
                     </li>
                     @endforeach
                 </ul>

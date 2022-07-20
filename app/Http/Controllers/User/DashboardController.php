@@ -18,14 +18,25 @@ class  DashboardController extends Controller
 
             $user = auth()->user()->load('roles', 'organization','organization.archives.category');
 
+        if(!$user->organization)
+        {
+            $user->syncRoles('regular user');
+            return redirect('/home');
+        }else{
+            $catArchives = $user->organization->archives->groupBy('category.name');
+//            return $catArchive;
+
+//            dd($catArchive);
+//            $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
+//                return $item['place'];
+//            }], $preserveKeys = true);
+            //        return $result;
+            return view('dashboard.dashboard', compact('catArchives'));
+        }
 
 
-            $catArchive = $user->organization->archives->groupBy('category.name');
-            $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
-                return $item['place'];
-            }], $preserveKeys = true);
-    //        return $result;
-            return view('dashboard.dashboard', compact('groups'));
+
+
 
 
 //

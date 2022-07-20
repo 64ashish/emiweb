@@ -56,8 +56,8 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [AuthenticatedSessionController::class, 'create']);
+Route::get('/', [HomeController::class,'index']);
+//Route::get('/login', [AuthenticatedSessionController::class, 'create']);
 Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
     ->name('home');
 Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
@@ -256,6 +256,8 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
             ->name('home.users.edit');
         Route::put('/home/users/{user}', [HomeController::class, 'updateUser'])
             ->name('home.users.update');
+        Route::put('/home/users/{user}/cancel_sub', [HomeController::class, 'endSubscription'])
+            ->name('home.users.endsubscription');
         Route::post('/search', [SearchController::class, 'search'])
             ->name('search');
         Route::get('SwedishChurchEmigrationRecord/', [SwedishChurchEmigrationRecordController::class, 'index'])
