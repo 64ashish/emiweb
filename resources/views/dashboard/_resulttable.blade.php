@@ -9,17 +9,17 @@
                 <table class="min-w-full table-auto border-separate" style="border-spacing: 0">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
+                        <th scope="col" class=" border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
                                 backdrop-filter sm:table-cell">Full name</th>
                         @foreach($defaultColumns as $column)
-                            <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
+                            <th scope="col" class=" border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
                                 backdrop-filter sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $column))) }} </th>
                         @endforeach
 
                         @foreach($populated_fields as $pop_fields)
-                            <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50
+                            <th scope="col" class=" border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
                                 backdrop-filter sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }} </th>
                         @endforeach
