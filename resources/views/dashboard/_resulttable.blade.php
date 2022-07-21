@@ -10,18 +10,15 @@
                     <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter sm:table-cell">Full name</th>
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">Full name</th>
                         @foreach($defaultColumns as $column)
                             <th scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $column))) }} </th>
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $column))) }} </th>
                         @endforeach
 
                         @foreach($populated_fields as $pop_fields)
                             <th scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
-                                backdrop-filter sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }} </th>
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }} </th>
                         @endforeach
 
                     </tr>
