@@ -1,7 +1,7 @@
 
 
 @if (session('success'))
-    <div id="flashBox" class="rounded-md bg-green-50 p-4">
+    <div id="flashBox" class="rounded-md bg-green-50 p-4" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">
         <div class="flex">
             <div class="flex-shrink-0">
                 <!-- Heroicon name: solid/check-circle -->
@@ -14,7 +14,7 @@
             </div>
             <div class="ml-3 flex items-center">
 
-                <h3 class="text-sm font-medium text-green-800"> {{ Session::get('success')  }}</h3>
+                <h3 class="text-sm font-medium text-green-800"> {{ __(Session::get('success'))   }}</h3>
 
             </div>
         </div>
@@ -22,7 +22,7 @@
 @endif
 
 @if (session('error'))
-    <div class="rounded-md bg-red-50 p-4">
+    <div class="rounded-md bg-red-50 p-4" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">
         <div class="flex">
             <div class="flex-shrink-0 ">
                 <!-- Heroicon name: solid/x-circle -->
@@ -34,7 +34,7 @@
                 </lord-icon>
             </div>
             <div class="ml-3 flex items-center">
-                <h3 class="text-sm font-medium text-red-800"> {{ Session::get('error')  }}</h3>
+                <h3 class="text-sm font-medium text-red-800"> {{ __(Session::get('error'))  }}</h3>
 
             </div>
         </div>

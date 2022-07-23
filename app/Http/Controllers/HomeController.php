@@ -127,7 +127,7 @@ class HomeController extends Controller
             App::setLocale($request->language);
             session()->put('locale', App::getLocale());
 
-           return  redirect('/')->with('success', 'language reloaded');
+           return  redirect('/')->with('success', 'Language has been switched');
 
 //            if($request->action === "search" or $request->action === "filter"){
 ////                return redirect()->to();
