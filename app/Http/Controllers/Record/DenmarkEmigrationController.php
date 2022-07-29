@@ -144,18 +144,18 @@ class DenmarkEmigrationController extends Controller
 //            return $meilisearch->search($query, $options);
 //        })->paginate('100');
 
-        $records = DenmarkEmigration::search($inputQuery,
-            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                if($request->action === "filter") {
-                    foreach($inputFields as  $fieldname => $fieldvalue){
-                        if(!empty($fieldvalue)) {
-                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
-                        }
-                    }
-                }
-                return $meilisearch->search($query, $options);
-            })->paginate(100);
+//        $records = DenmarkEmigration::search($inputQuery,
+//            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+////            run the filter
+//                if($request->action === "filter") {
+//                    foreach($inputFields as  $fieldname => $fieldvalue){
+//                        if(!empty($fieldvalue)) {
+//                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
+//                        }
+//                    }
+//                }
+//                return $meilisearch->search($query, $options);
+//            })->paginate(100);
 
         $records = DenmarkEmigration::search($inputQuery,
             function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
@@ -166,9 +166,9 @@ class DenmarkEmigrationController extends Controller
                     }
                 }
                 return $meilisearch->search($query, $options);
-            })->get();
+            })->paginate(100);
 
-        return $records;
+//        return $records;
 
         $keywords = $request->all();
 
