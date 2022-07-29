@@ -31,6 +31,31 @@
                                 </div>
 
                             </div>
+                            @if(  !empty($detail->source_hfl_batch_number) &&  !empty($detail->source_hfl_image_number))
+                            <a href="https://sok.riksarkivet.se/bildvisning/{{ $detail->source_hfl_batch_number }}_{{ $detail->source_hfl_image_number }}"
+                               class="inline-flex items-center px-6 ml-2 py-1.5 border border-transparent text-xs font-medium
+                            rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                            focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            target="_blank">{{ __('Original hfl/fsb') }}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                            @endif
+
+                            @if(  !empty($detail->source_in_out_batch_number) && !empty($detail->source_in_out_image_number))
+                                <a href="https://sok.riksarkivet.se/bildvisning/{{ $detail->source_in_out_batch_number }}_{{ $detail->source_in_out_image_number }}"
+                                   class="inline-flex items-center px-6 ml-2 py-1.5 border border-transparent text-xs font-medium
+                            rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                            focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                   target="_blank">{{ __('Original flyttlängd') }}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </a>
+                            @endif
+
+
                         </div>
 
 
