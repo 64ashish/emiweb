@@ -38,20 +38,20 @@ class HomeController extends Controller
 //            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
 //                return $item['place'];
 //            }], $preserveKeys = true);
-                $archives = Archive::where('id',1)->get()->load('category');
+                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
             }
 
 
             if(auth()->user()->hasRole(['subscriber'])){
-                $archives = Archive::get()->append('record_total')->load('category');
+                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
             }
 //        return $archives;
 //        $user = auth()->user();
             $user = auth()->user();
 
-//        return $archives;
+//        return $catArchives;
 
-            return view('home.dashboard', compact('user','archives'));
+            return view('home.dashboard', compact('user','catArchives'));
         }else{
             return redirect()->to('/login');
         }

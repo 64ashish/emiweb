@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DenmarkEmigration;
 use App\Models\SwedishChurchEmigrationRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Engines\MeiliSearchEngine;
 use MeiliSearch\Client as MeiliSearchClient;
 use MeiliSearch\Endpoints\Indexes;
@@ -104,41 +105,70 @@ class DenmarkEmigrationController extends Controller
 
 //        return $request->all();
 
+        //        get the input data ready
+        $inputFields = $request->except('_token', 'first_name', 'last_name','action' );
+
         if($request->action === "filter")
         {
             $inputQuery = $request->first_name." ".$request->last_name;
         }
         if($request->action === "search")
         {
-            $inputQuery = $request->first_name." ".$request->last_name." ".$request->profession." ".$request->birth_place." ".$request->last_resident." ".$request->destination_country." ".$request->destination_city;
+            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
         }
 
 
-        $records = DenmarkEmigration::search($inputQuery, function (Indexes $meilisearch, $query, $options) use ($request){
-            if($request->action === "filter") {
-                if (!empty($request->profession)) {
-                    $options['filter'] = ['profession="' . $request->profession . '"'];
-                }
-                if (!empty($request->birth_place)) {
-                    $options['filter'] = ['birth_place="' . $request->birth_place . '"'];
-                }
-                if (!empty($request->last_resident)) {
-                    $options['filter'] = ['last_resident="' . $request->last_resident . '"'];
-                }
-                if (!empty($request->destination_country)) {
-                    $options['filter'] = ['destination_country="' . $request->destination_country . '"'];
-                }
-                if (!empty($request->destination_city)) {
-                    $options['filter'] = ['destination_city="' . $request->destination_city . '"'];
-                }
-            }
 
 
+//        $records = DenmarkEmigration::search($inputQuery, function (Indexes $meilisearch, $query, $options) use ($request){
+//            if($request->action === "filter") {
+//                if (!empty($request->profession)) {
+//                    $options['filter'] = ['profession="' . $request->profession . '"'];
+//                }
+//                if (!empty($request->birth_place)) {
+//                    $options['filter'] = ['birth_place="' . $request->birth_place . '"'];
+//                }
+//                if (!empty($request->last_resident)) {
+//                    $options['filter'] = ['last_resident="' . $request->last_resident . '"'];
+//                }
+//                if (!empty($request->destination_country)) {
+//                    $options['filter'] = ['destination_country="' . $request->destination_country . '"'];
+//                }
+//                if (!empty($request->destination_city)) {
+//                    $options['filter'] = ['destination_city="' . $request->destination_city . '"'];
+//                }
+//            }
+//
+//
+//
+//            return $meilisearch->search($query, $options);
+//        })->paginate('100');
 
-            return $meilisearch->search($query, $options);
-        })->paginate('100');
+        $records = DenmarkEmigration::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                if($request->action === "filter") {
+                    foreach($inputFields as  $fieldname => $fieldvalue){
+                        if(!empty($fieldvalue)) {
+                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
+                        }
+                    }
+                }
+                return $meilisearch->search($query, $options);
+            })->paginate(100);
 
-//        return $records->get(1)->archive->id;
+        $records = DenmarkEmigration::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            filter anyway
+                foreach($inputFields as  $fieldname => $fieldvalue){
+                    if(!empty($fieldvalue)) {
+                        $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
+                    }
+                }
+                return $meilisearch->search($query, $options);
+            })->get();
+
+        return $records;
 
         $keywords = $request->all();
 
