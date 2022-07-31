@@ -21,7 +21,7 @@ class NorwayEmigrationRecordController extends Controller
     {
 
 //        get the input data ready
-        $inputFields = $request->except('_token', 'first_name', 'last_name', 'action');
+        $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
 //        prepare for filter
         if ($request->action === "filter") {
             $inputQuery = $request->first_name . " " . $request->last_name;
@@ -31,18 +31,26 @@ class NorwayEmigrationRecordController extends Controller
             $inputQuery = Arr::join($request->except('_token', 'action'), ' ');
         }
 
-        $records = NorwayEmigrationRecord::search($inputQuery,
-            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields) {
-//            run the filter
-                if ($request->action === "filter") {
-                    foreach ($inputFields as $fieldname => $fieldvalue) {
-                        if (!empty($fieldvalue)) {
-                            $options['filter'] = ['"' . $fieldname . '"="' . $fieldvalue . '"'];
-                        }
-                    }
-                }
-                return $meilisearch->search($query, $options);
-            })->paginate();
+        $result = NorwayEmigrationRecord::search($inputQuery);
+
+        //        get the search result prepared
+        if($request->action === "search"){
+            $records = $result->paginate(100);
+        }
+
+//      filter the thing and get the results ready
+        if($request->action === "filter"){
+
+
+            $filtered = $result->get();
+
+            foreach($inputFields as  $fieldname => $fieldvalue){
+                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
+            }
+            $records = $filtered->paginate(100);
+
+        }
+
 //        get the filter attributes
         $filterAttributes = $this->meilisearch->index('norway_emigration_records')->getFilterableAttributes();
 //        get the keywords again

@@ -95,7 +95,7 @@ class DalslanningarBornInAmericaRecordController extends Controller
 
     public function search( Request $request )
     {
-        $inputFields = $request->except('_token', 'first_name', 'last_name','action' );
+        $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
 
         if($request->action === "filter")
         {
@@ -107,18 +107,24 @@ class DalslanningarBornInAmericaRecordController extends Controller
         }
 
 
-        $records = DalslanningarBornInAmericaRecord::search($inputQuery,
-            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-                if($request->action === "filter") {
-                    foreach($inputFields as  $fieldname => $fieldvalue){
-                        if(!empty($fieldvalue)) {
-                            $options['filter'] = ['"'.$fieldname.'"="' . $fieldvalue . '"'];
-                        }
-                    }
-                }
+        $result = DalslanningarBornInAmericaRecord::search($inputQuery);
 
-                return $meilisearch->search($query, $options);
-            })->paginate();
+        if($request->action === "search"){
+            $records = $result->paginate(100);
+        }
+
+//      filter the thing and get the results ready
+        if($request->action === "filter"){
+
+
+            $filtered = $result->get();
+
+            foreach($inputFields as  $fieldname => $fieldvalue){
+                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
+            }
+            $records = $filtered->paginate(100);
+
+        }
 
 
         $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();

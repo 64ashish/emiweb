@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\RecordCount;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -56,5 +57,10 @@ class SwedishChurchEmigrationRecord extends Model
             'civil_status',
             'destination_country'
         ];
+    }
+
+    public function getDobAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 }
