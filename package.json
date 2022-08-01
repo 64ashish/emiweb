@@ -19,6 +19,7 @@
         "tailwindcss": "^3.0.23"
     },
     "dependencies": {
+        "@alpinejs/mask": "^3.10.3",
         "@edsardio/alpine-lightbox": "^1.0.7",
         "@ryangjchandler/alpine-clipboard": "^2.2.0",
         "alpinejs": "^3.10.2"

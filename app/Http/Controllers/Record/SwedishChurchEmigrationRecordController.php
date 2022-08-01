@@ -94,6 +94,8 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function search( Request $request )
     {
 
+//        return $request->all();
+
 //        get the input data ready
         $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
 //        prepare for filter

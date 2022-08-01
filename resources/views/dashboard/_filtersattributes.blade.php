@@ -5,11 +5,17 @@
                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
             {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }} </label>
         <div class="mt-1 sm:mt-0 sm:col-span-2">
-
+            @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
+                {!! Form::text($filterAttribute, null,
+                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                   'id' => $filterAttribute, 'x-mask'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
+            @else
             {!! Form::text($filterAttribute, null,
                     ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                     'id' => $filterAttribute]) !!}
+            @endif
 
         </div>
     </div>
@@ -25,10 +31,19 @@
             {{ __(ucfirst(str_replace('_', ' ', $advancedField))) }} </label>
         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
-            {!! Form::text($advancedField, null,
+            @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
+                {!! Form::text($advancedField, null,
+                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                   'id' => $advancedField, 'x-mask'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
+            @else
+                {!! Form::text($advancedField, null,
                     ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                     'id' => $advancedField]) !!}
+            @endif
+
+
 
         </div>
     </div>
