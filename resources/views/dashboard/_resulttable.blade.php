@@ -30,14 +30,14 @@
                                 <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
                                                                         font-medium  sm:pl-6 lg:pl-8">
 
-                                    <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=>$record->id]) }}" class="block">
+                                    <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
                                         {{ $record->first_name }} {{ $record->last_name }}
                                     </a>
                                 </td>
                                 @foreach($defaultColumns as $column)
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                          hidden sm:table-cell">
-                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=>$record->id]) }}" class="block">
+                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                             {{ $record[$column]}}
                                         </a>
                                     </td>
@@ -46,7 +46,7 @@
                                 @foreach($populated_fields as $pop_fields)
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                         hidden sm:table-cell">
-                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=>$record->id]) }}" class="block">
+                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                             {{ $record[$pop_fields]}}
                                         </a>
                                     </td>
@@ -64,14 +64,14 @@
                                 <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
                                                                         font-medium  sm:pl-6 lg:pl-8">
 
-                                    <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
+                                    <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">
                                         {{ $record->first_name }} {{ $record->last_name }}
                                     </a>
                                 </td>
                                 @foreach($defaultColumns as $column)
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                          hidden sm:table-cell">
-                                        <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
+                                        <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">
                                             {{ $record[$column]}}
                                         </a>
                                     </td>
@@ -80,7 +80,7 @@
                                 @foreach($populated_fields as $pop_fields)
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                         hidden sm:table-cell">
-                                        <a href="{{ route('records.show', ['arch'=> $record->archive->id,'id'=>$record->id]) }}" class="block">
+                                        <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">
                                             {{ $record[$pop_fields]}}
                                         </a>
                                     </td>

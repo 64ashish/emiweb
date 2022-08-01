@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
 use App\Models\SwedishChurchEmigrationRecord;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use MeiliSearch\Client as MeiliSearchClient;
@@ -95,19 +96,22 @@ class SwedishChurchEmigrationRecordController extends Controller
     {
 
 //        return $request->all();
-
+//        return Carbon::parse($request->dob)->format('Y/m/d');
 //        get the input data ready
         $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
 //        prepare for filter
-        if($request->action === "filter")
-        {
-            $inputQuery = $request->first_name." ".$request->last_name;
-        }
-//        prepare for search
-        if($request->action === "search")
-        {
-            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
-        }
+        $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
+
+//        return $inputQuery;
+//        if($request->action === "filter")
+//        {
+//            $inputQuery = $request->first_name." ".$request->last_name;
+//        }
+////        prepare for search
+//        if($request->action === "search")
+//        {
+//            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
+//        }
 
         $result = SwedishChurchEmigrationRecord::search($inputQuery);
 
@@ -120,16 +124,99 @@ class SwedishChurchEmigrationRecordController extends Controller
         if($request->action === "filter"){
 
 
-            $filtered = $result->get();
+            $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
+                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                        $options['limit'] = 10000;
+//                        foreach($inputFields as  $fieldname => $fieldvalue) {
+////                            if (!(str_contains(str_replace('_', ' ', $fieldname), 'date') or $fieldname !== "dob"))
+////                            {
+////                                if (!empty($fieldvalue)) {
+////                                    $options['filter'] = ['"' . $fieldname . '"="' . $fieldvalue . '"'];
+////                                }
+////                            }
+////                            if (!empty($fieldvalue)) {
+////                                $options['filter'] = ['"' . $fieldname . '"="' . $fieldvalue . '"'];
+////                            }
+//                        }
 
-//            return $inputFields;
+                    return $meilisearch->search($query, $options);
+                })->raw();
 
-            foreach($inputFields as  $fieldname => $fieldvalue){
-                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
+            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+
+
+            $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults);
+
+//            return $inputFields ;
+
+            foreach($inputFields as  $fieldname => $fieldvalue) {
+//                $records =  $records->where($fieldname,  [$fieldvalue]);
+
+                if((str_contains(str_replace('_', ' ', $fieldname), 'date') or $fieldname === "dob") )
+                {
+
+//                    return $filtered->filter(function ($filter ) use ($fieldname,$fieldvalue ) {
+//                        return $filter->where($fieldname,Carbon::parse($fieldvalue)->format('Y/m/d'));
+//                    });
+//                    $filtered =  $filtered->$fieldname->eq(Carbon::parse($fieldvalue)->format('Y/m/d'));
+//                    $result = $result->where($fieldname,Carbon::parse($fieldvalue)->format('Y/m/d'));
+                     $result->whereDate($fieldname, Carbon::parse($fieldvalue)->format('Y/m/d'));
+                }
+                $result->where($fieldname, $fieldvalue);
+
             }
-            $records = $filtered->paginate(100);
+//            return $inputFields;
+//            $result->whereDate('dob', '1867/10/21');
+            $records = $result->paginate(100);
+
+//            return $idFromResults;
+
+
+
+//            $total = $result->paginate(100)->total();
+//            return $result->paginate($total*100)->;
+//            $filtered = collect($result->paginate($total*100)->get('data'));
+
+//            return $filtered;
+
+//            foreach($inputFields as  $fieldname => $fieldvalue) {
+//                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
+//            }
+
+
+
+
+//            return $filtered->where();
+
+//            foreach($inputFields as  $fieldname => $fieldvalue){
+//
+////                $filtered =  $filtered->where('id',6454);
+//                if((str_contains(str_replace('_', ' ', $fieldname), 'date') or $fieldname === "dob") )
+//                {
+//
+////                    return $filtered->filter(function ($filter ) use ($fieldname,$fieldvalue ) {
+////                        return $filter->where($fieldname,$fieldvalue);
+////                    });
+////                    $filtered =  $filtered->$fieldname->eq(Carbon::parse($fieldvalue)->format('Y/m/d'));
+//                    $filtered = $filtered->where($fieldname, $fieldvalue);
+//
+//                }else{
+//                    $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
+//                }
+////                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
+//
+//            }
+
+            ;
+
+
 
         }
+
+//        $records = $filtered->paginate(10);
+//
+//        return $records;
 
 
 

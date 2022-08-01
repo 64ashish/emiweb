@@ -9,7 +9,7 @@
                 {!! Form::text($filterAttribute, null,
                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $filterAttribute, 'x-mask'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
+                   'id' => $filterAttribute, 'x-mask' => "9999/99/99",'placeholder' => "YYYY/MM/DD",]) !!}
             @else
             {!! Form::text($filterAttribute, null,
                     ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
@@ -35,7 +35,7 @@
                 {!! Form::text($advancedField, null,
                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $advancedField, 'x-mask'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
+                   'id' => $advancedField, 'x-mask.date'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
             @else
                 {!! Form::text($advancedField, null,
                     ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
