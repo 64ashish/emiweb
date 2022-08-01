@@ -6,7 +6,7 @@
             {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }} </label>
         <div class="mt-1 sm:mt-0 sm:col-span-2">
             @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
-                {!! Form::text($filterAttribute, null,
+                {!! Form::date($filterAttribute, null,
                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                    'id' => $filterAttribute, 'x-mask' => "9999/99/99",'placeholder' => "YYYY/MM/DD",]) !!}
@@ -32,7 +32,7 @@
         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
             @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
-                {!! Form::text($advancedField, null,
+                {!! Form::date($advancedField, null,
                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                    'id' => $advancedField, 'x-mask.date'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
