@@ -135,7 +135,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         if($request->action === "filter")
         {
 //            $inputQuery = $request->first_name." ".$request->last_name;
-            $inputQuery="";
+            $inputQuery=$request->first_name." ".$request->last_name;
         }
 //        prepare for search
         if($request->action === "search")
