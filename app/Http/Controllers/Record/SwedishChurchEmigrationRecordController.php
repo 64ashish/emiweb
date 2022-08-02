@@ -122,7 +122,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         }
 
         $remove_keys =Arr::prepend(Arr::flatten($date_keys), ['_token', 'action']);
-        $remove_keys_for_inputs = Arr::prepend(Arr::flatten($date_keys), ['_token', 'first_name', 'last_name','action' ]);
+        $remove_keys_for_inputs = Arr::prepend(Arr::flatten($date_keys), ['_token', 'action' ]);
 
 
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys_for_inputs)));
@@ -131,7 +131,17 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
 
-        $inputQuery = Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
+
+        if($request->action === "filter")
+        {
+//            $inputQuery = $request->first_name." ".$request->last_name;
+            $inputQuery="";
+        }
+//        prepare for search
+        if($request->action === "search")
+        {
+            $inputQuery = Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
+        }
 
 
 
@@ -152,6 +162,8 @@ class SwedishChurchEmigrationRecordController extends Controller
                         $options['limit'] = 10000;
                     return $meilisearch->search($query, $options);
                 })->raw();
+
+//            return $melieRaw;
 
             $idFromResults = collect($melieRaw['hits'])->pluck('id');
 
