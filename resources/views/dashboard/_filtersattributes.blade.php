@@ -6,10 +6,21 @@
             {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }} </label>
         <div class="mt-1 sm:mt-0 sm:col-span-2">
             @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
-                {!! Form::date($filterAttribute, null,
-                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                <div class="flex gap-2">
+                    {!! Form::text("array_".$filterAttribute."[year]", null,
+                   ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $filterAttribute, 'x-mask' => "9999/99/99",'placeholder' => "YYYY/MM/DD",]) !!}
+                   'id' => $filterAttribute."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
+                    {!! Form::text("array_".$filterAttribute."[month]", null,
+                   ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                   'id' => $filterAttribute."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
+                    {!! Form::text("array_".$filterAttribute."[day]", null,
+                   ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                   'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
+                </div>
+
             @else
             {!! Form::text($filterAttribute, null,
                     ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
@@ -32,10 +43,20 @@
         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
             @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
-                {!! Form::date($advancedField, null,
-                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                <div class="flex gap-2">
+                    {!! Form::text("array_".$advancedField."[year]", null,
+                   ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $advancedField, 'x-mask.date'=>"9999/99/99", 'placeholder' => "YYYY/MM/DD"]) !!}
+                   'id' => $advancedField."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
+                    {!! Form::text("array_".$advancedField."[month]", null,
+                   ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                   'id' => $advancedField."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
+                    {!! Form::text("array_".$advancedField."[day]", null,
+                   ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                   'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
+                </div>
             @else
                 {!! Form::text($advancedField, null,
                     ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500

@@ -886,6 +886,12 @@ select {
 .w-0 {
   width: 0px;
 }
+.w-32 {
+  width: 8rem;
+}
+.w-24 {
+  width: 6rem;
+}
 .min-w-full {
   min-width: 100%;
 }
@@ -1024,6 +1030,9 @@ select {
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-2 {
+  gap: 0.5rem;
 }
 .gap-x-5 {
   -moz-column-gap: 1.25rem;

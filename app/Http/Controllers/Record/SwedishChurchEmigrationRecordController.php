@@ -7,8 +7,10 @@ use App\Models\SwedishChurchEmigrationRecord;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use MeiliSearch\Client as MeiliSearchClient;
 use MeiliSearch\Endpoints\Indexes;
+use Psr\Log\NullLogger;
 
 class SwedishChurchEmigrationRecordController extends Controller
 {
@@ -92,26 +94,46 @@ class SwedishChurchEmigrationRecordController extends Controller
         //
     }
 
+
+
+
     public function search( Request $request )
     {
 
-//        return $request->all();
-//        return Carbon::parse($request->dob)->format('Y/m/d');
-//        get the input data ready
-        $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
-//        prepare for filter
-        $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
+        $r = array_intersect_key(Arr::whereNotNull($request->all()),
+            array_flip(preg_grep('/^array_/', array_keys(Arr::whereNotNull($request->all())))));
 
-//        return $inputQuery;
-//        if($request->action === "filter")
-//        {
-//            $inputQuery = $request->first_name." ".$request->last_name;
-//        }
-////        prepare for search
-//        if($request->action === "search")
-//        {
-//            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
-//        }
+        $date_keys = [];
+
+
+
+
+        foreach($r as $r => $dates){
+
+            $date_keys[] = $r;
+            if(count(Arr::whereNotNull(Arr::flatten($dates))) > 0){
+                $field = Str::of($r)->after('array_');
+                $year = !is_null($dates['year'])?$dates['year']:"0001";
+                $month = !is_null($dates['month'])?$dates['month']:"01";
+                $day = !is_null($dates['day'])?$dates['day']:"01";
+                $request->merge([ "$field" => $year."/".$month."/".$day]);
+            }
+
+        }
+
+        $remove_keys =Arr::prepend(Arr::flatten($date_keys), ['_token', 'action']);
+        $remove_keys_for_inputs = Arr::prepend(Arr::flatten($date_keys), ['_token', 'first_name', 'last_name','action' ]);
+
+
+        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys_for_inputs)));
+
+//        return $date_keys;
+
+
+
+        $inputQuery = Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
+
+
 
         $result = SwedishChurchEmigrationRecord::search($inputQuery);
 
@@ -128,18 +150,6 @@ class SwedishChurchEmigrationRecordController extends Controller
                 function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
 //            run the filter
                         $options['limit'] = 10000;
-//                        foreach($inputFields as  $fieldname => $fieldvalue) {
-////                            if (!(str_contains(str_replace('_', ' ', $fieldname), 'date') or $fieldname !== "dob"))
-////                            {
-////                                if (!empty($fieldvalue)) {
-////                                    $options['filter'] = ['"' . $fieldname . '"="' . $fieldvalue . '"'];
-////                                }
-////                            }
-////                            if (!empty($fieldvalue)) {
-////                                $options['filter'] = ['"' . $fieldname . '"="' . $fieldvalue . '"'];
-////                            }
-//                        }
-
                     return $meilisearch->search($query, $options);
                 })->raw();
 
@@ -150,22 +160,35 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 //            return $inputFields ;
 
+            $inputs_for_filter = $request->except( ['_token', 'first_name', 'last_name','action' ]);
+//
+//            return $inputs_for_filter;
+
             foreach($inputFields as  $fieldname => $fieldvalue) {
 //                $records =  $records->where($fieldname,  [$fieldvalue]);
 
-                if((str_contains(str_replace('_', ' ', $fieldname), 'date') or $fieldname === "dob") )
-                {
+//                echo $r;
 
-//                    return $filtered->filter(function ($filter ) use ($fieldname,$fieldvalue ) {
-//                        return $filter->where($fieldname,Carbon::parse($fieldvalue)->format('Y/m/d'));
-//                    });
-//                    $filtered =  $filtered->$fieldname->eq(Carbon::parse($fieldvalue)->format('Y/m/d'));
-//                    $result = $result->where($fieldname,Carbon::parse($fieldvalue)->format('Y/m/d'));
-                     $result->whereDate($fieldname, Carbon::parse($fieldvalue)->format('Y/m/d'));
+                if(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
+                {
+//
+//                    echo $fieldvalue;
+                   $date_to_filter = Carbon::createFromFormat('Y/m/d', $fieldvalue);
+                   if($date_to_filter->dayOfYear != 1)
+                   {
+                       $result->whereDate($fieldname, Carbon::parse($fieldvalue)->format('Y/m/d'));
+                   }
+                   else{
+                       $result->whereYear($fieldname, Carbon::createFromFormat('Y/m/d', $fieldvalue));
+                   }
+                }else{
+                    $result->where($fieldname, $fieldvalue);
                 }
-                $result->where($fieldname, $fieldvalue);
+
+//
 
             }
+//            exit;
 //            return $inputFields;
 //            $result->whereDate('dob', '1867/10/21');
             $records = $result->paginate(100);
@@ -233,7 +256,9 @@ class SwedishChurchEmigrationRecordController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
-        $populated_fields = collect(array_filter($request->except(['first_name','last_name','action','_token','query', 'page']), 'strlen'))->except($defaultColumns)->keys();
+//        $populated_fields = collect($request->except(['first_name','last_name','action','_token','query', 'page']))->except($defaultColumns)->keys();
+        $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
+//        return $populated_fields;
 //        return view
         return view('dashboard.swedishchurchemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
     }
