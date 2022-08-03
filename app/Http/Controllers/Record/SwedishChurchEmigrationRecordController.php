@@ -97,11 +97,14 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
 
+
     public function search( Request $request )
     {
 
-        $r = array_intersect_key(Arr::whereNotNull($request->all()),
-            array_flip(preg_grep('/^array_/', array_keys(Arr::whereNotNull($request->all())))));
+//       return ;
+        $all_request = $request->all();
+        $r = array_intersect_key(Arr::whereNotNull($all_request),
+            array_flip(preg_grep('/^array_/', array_keys(Arr::whereNotNull($all_request)))));
 
         $date_keys = [];
 
@@ -116,16 +119,20 @@ class SwedishChurchEmigrationRecordController extends Controller
                 $year = !is_null($dates['year'])?$dates['year']:"0001";
                 $month = !is_null($dates['month'])?$dates['month']:"01";
                 $day = !is_null($dates['day'])?$dates['day']:"01";
-                $request->merge([ "$field" => $year."/".$month."/".$day]);
+                $request->merge([ "$field" => Carbon::createFromDate($year , $month, $day )]);
             }
 
         }
+
+//        return $request->array_dob;
 
         $remove_keys =Arr::prepend(Arr::flatten($date_keys), ['_token', 'action']);
         $remove_keys_for_inputs = Arr::prepend(Arr::flatten($date_keys), ['_token', 'action' ]);
 
 
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys_for_inputs)));
+
+//        return $inputFields;
 
 //        return $date_keys;
 
@@ -135,7 +142,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         if($request->action === "filter")
         {
 //            $inputQuery = $request->first_name." ".$request->last_name;
-            $inputQuery=$request->first_name." ".$request->last_name;
+            $inputQuery=Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
         }
 //        prepare for search
         if($request->action === "search")
@@ -159,7 +166,7 @@ class SwedishChurchEmigrationRecordController extends Controller
             $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
                 function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
 //            run the filter
-                        $options['limit'] = 10000;
+                        $options['limit'] = 1000000;
                     return $meilisearch->search($query, $options);
                 })->raw();
 
@@ -177,23 +184,29 @@ class SwedishChurchEmigrationRecordController extends Controller
 //            return $inputs_for_filter;
 
             foreach($inputFields as  $fieldname => $fieldvalue) {
-//                $records =  $records->where($fieldname,  [$fieldvalue]);
 
-//                echo $r;
 
                 if(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
                 {
-//
-//                    echo $fieldvalue;
-                   $date_to_filter = Carbon::createFromFormat('Y/m/d', $fieldvalue);
-                   if($date_to_filter->dayOfYear != 1)
-                   {
-                       $result->whereDate($fieldname, Carbon::parse($fieldvalue)->format('Y/m/d'));
-                   }
-                   else{
-                       $result->whereYear($fieldname, Carbon::createFromFormat('Y/m/d', $fieldvalue));
-                   }
-                }else{
+
+                   if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
+                    {
+                        $result->whereDate($fieldname, $fieldvalue->format('Y/m/d'));
+                    }
+
+                   if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
+                    {
+                        $result->whereYear($fieldname,$fieldvalue->format('Y'))
+                            ->whereMonth($fieldname,$fieldvalue->format('m'));
+                    }
+
+                   if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
+                    {
+                        $result->whereYear($fieldname,$fieldvalue->format('Y'));
+                    }
+
+                }
+                else{
                     $result->where($fieldname, $fieldvalue);
                 }
 
