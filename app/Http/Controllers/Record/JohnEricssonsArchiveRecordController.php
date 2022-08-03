@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
 use App\Models\JohnEricssonsArchiveRecord;
+use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use MeiliSearch\Client as MeiliSearchClient;
@@ -12,6 +13,7 @@ use MeiliSearch\Endpoints\Indexes;
 class JohnEricssonsArchiveRecordController extends Controller
 {
     //
+    use SearchOrFilter;
     public function __construct(MeiliSearchClient $meilisearch)
     {
         $this->meilisearch = $meilisearch;
@@ -20,54 +22,51 @@ class JohnEricssonsArchiveRecordController extends Controller
     public function search( Request $request )
     {
 
-//        get the input data ready
-        $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
-//        prepare for filter
-        if($request->action === "filter")
-        {
-            $inputQuery = $request->first_name." ".$request->last_name;
-        }
-//        prepare for search
-        if($request->action === "search")
-        {
-            $inputQuery = Arr::join( $request->except('_token', 'action'), ' ');
-        }
-
-        $result = JohnEricssonsArchiveRecord::search($inputQuery);
+        $all_request = $request->all();
+        $carbonize_dates = $this->CarbonizeDates($all_request);
+        $request->merge($carbonize_dates['field_data']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
+        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
+        $inputQuery=Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
 
 
-//        get the search result prepared
+//        if search was being performed
         if($request->action === "search"){
+            $result = JohnEricssonsArchiveRecord::search($inputQuery);
             $records = $result->paginate(100);
         }
-
 //      filter the thing and get the results ready
         if($request->action === "filter"){
-
-
-            $filtered = $result->get();
-
-            foreach($inputFields as  $fieldname => $fieldvalue){
-                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
-            }
-            $records = $filtered->paginate(100);
-
+            $melieRaw = JohnEricssonsArchiveRecord::search($inputQuery,
+                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                    $options['limit'] = 1000000;
+                    return $meilisearch->search($query, $options);
+                })->raw();
+            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+            $result = JohnEricssonsArchiveRecord::whereIn('id', $idFromResults);
+//            filter is performed here
+            $records = $this->FilterQuery($inputFields, $result, $all_request);
         }
 
-
-//        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('john_ericssons_archive_records')->getFilterableAttributes();
+        $filterAttributes = $this->meilisearch
+            ->index('john_ericssons_archive_records')
+            ->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
-//        return view
+
         $model = new JohnEricssonsArchiveRecord();
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
-        $populated_fields = collect(array_filter($request->except(['first_name','last_name','action','_token','query', 'page']), 'strlen'))->except($defaultColumns)->keys();
 
-        return view('dashboard.JohnEricssonsArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
+        $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
+
+        return view('dashboard.JohnEricssonsArchiveRecord.records',
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))
+            ->with($request->all());
     }
+
 }

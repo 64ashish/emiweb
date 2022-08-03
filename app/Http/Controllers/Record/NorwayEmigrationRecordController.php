@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
 use App\Models\NorwayEmigrationRecord;
+use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use MeiliSearch\Client as MeiliSearchClient;
@@ -11,6 +12,8 @@ use MeiliSearch\Endpoints\Indexes;
 
 class NorwayEmigrationRecordController extends Controller
 {
+    use SearchOrFilter;
+
     //
     public function __construct(MeiliSearchClient $meilisearch)
     {
@@ -19,22 +22,19 @@ class NorwayEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
+        $all_request = $request->all();
+        $carbonize_dates = $this->CarbonizeDates($all_request);
+        $request->merge($carbonize_dates['field_data']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
+        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
+        $inputQuery=Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
 
-//        get the input data ready
-        $inputFields = Arr::whereNotNull($request->except('_token', 'first_name', 'last_name','action' ));
-//        prepare for filter
-        if ($request->action === "filter") {
-            $inputQuery = $request->first_name . " " . $request->last_name;
-        }
-//        prepare for search
-        if ($request->action === "search") {
-            $inputQuery = Arr::join($request->except('_token', 'action'), ' ');
-        }
 
-        $result = NorwayEmigrationRecord::search($inputQuery);
+
 
         //        get the search result prepared
         if($request->action === "search"){
+            $result = NorwayEmigrationRecord::search($inputQuery);
             $records = $result->paginate(100);
         }
 
@@ -42,12 +42,16 @@ class NorwayEmigrationRecordController extends Controller
         if($request->action === "filter"){
 
 
-            $filtered = $result->get();
-
-            foreach($inputFields as  $fieldname => $fieldvalue){
-                $filtered =  $filtered->whereIn($fieldname, $fieldvalue);
-            }
-            $records = $filtered->paginate(100);
+            $melieRaw = NorwayEmigrationRecord::search($inputQuery,
+                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                    $options['limit'] = 1000000;
+                    return $meilisearch->search($query, $options);
+                })->raw();
+            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+            $result = NorwayEmigrationRecord::whereIn('id', $idFromResults);
+//            filter is performed here
+            $records = $this->FilterQuery($inputFields, $result, $all_request);
 
         }
 
@@ -62,7 +66,7 @@ class NorwayEmigrationRecordController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
-        $populated_fields = collect(array_filter($request->except(['first_name','last_name','action','_token','query', 'page']), 'strlen'))->except($defaultColumns)->keys();
+        $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
 //        return view
         return view('dashboard.norwayemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
     }
