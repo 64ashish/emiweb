@@ -865,6 +865,12 @@ select {
 .w-6 {
   width: 1.5rem;
 }
+.w-24 {
+  width: 6rem;
+}
+.w-14 {
+  width: 3.5rem;
+}
 .w-12 {
   width: 3rem;
 }
@@ -874,9 +880,6 @@ select {
 .w-10 {
   width: 2.5rem;
 }
-.w-14 {
-  width: 3.5rem;
-}
 .w-48 {
   width: 12rem;
 }
@@ -885,12 +888,6 @@ select {
 }
 .w-0 {
   width: 0px;
-}
-.w-32 {
-  width: 8rem;
-}
-.w-24 {
-  width: 6rem;
 }
 .min-w-full {
   min-width: 100%;
@@ -1025,14 +1022,14 @@ select {
 .gap-4 {
   gap: 1rem;
 }
+.gap-2 {
+  gap: 0.5rem;
+}
 .gap-6 {
   gap: 1.5rem;
 }
 .gap-8 {
   gap: 2rem;
-}
-.gap-2 {
-  gap: 0.5rem;
 }
 .gap-x-5 {
   -moz-column-gap: 1.25rem;

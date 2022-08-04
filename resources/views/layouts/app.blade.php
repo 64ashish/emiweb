@@ -49,7 +49,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        <span class="text-white font-normal	">Sök</span>
+                        <span class="text-white font-normal	">{{ __('Search in all archives') }}</span>
                     </div>
                     {{--                            search starts from here --}}
 

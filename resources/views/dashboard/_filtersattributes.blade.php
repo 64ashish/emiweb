@@ -32,44 +32,61 @@
     </div>
 @endforeach
 </div>
-<h4 class="py-4">{{ __("Advanced search") }}</h4>
-<div class="grid grid-cols-2 gap-4">
+<div  x-data="{ expanded: false }">
+    <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center">
 
-@foreach($advancedFields as $advancedField)
-    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-        <label for="{{ $advancedField }}"
-               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-            {{ __(ucfirst(str_replace('_', ' ', $advancedField))) }} </label>
-        <div class="mt-1 sm:mt-0 sm:col-span-2">
+           <span x-show="expanded">
+               {{ __("Hide advanced search") }}
+           </span>
+            <span x-show="! expanded">
 
-            @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
-                <div class="flex gap-2">
-                    {!! Form::text("array_".$advancedField."[year]", null,
-                   ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $advancedField."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
-                    {!! Form::text("array_".$advancedField."[month]", null,
-                   ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $advancedField."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
-                    {!! Form::text("array_".$advancedField."[day]", null,
-                   ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                   sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                   'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
+            {{ __("Show advanced search") }}
+           </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+
+
+    </a>
+    <div class="grid grid-cols-2 gap-4" x-show="expanded" x-collapse.duration.1000ms>
+
+        @foreach($advancedFields as $advancedField)
+            <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                <label for="{{ $advancedField }}"
+                       class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                    {{ __(ucfirst(str_replace('_', ' ', $advancedField))) }} </label>
+                <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                    @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
+                        <div class="flex gap-2">
+                            {!! Form::text("array_".$advancedField."[year]", null,
+                           ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $advancedField."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
+                            {!! Form::text("array_".$advancedField."[month]", null,
+                           ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $advancedField."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
+                            {!! Form::text("array_".$advancedField."[day]", null,
+                           ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
+                        </div>
+                    @else
+                        {!! Form::text($advancedField, null,
+                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                            'id' => $advancedField]) !!}
+                    @endif
+
+
+
                 </div>
-            @else
-                {!! Form::text($advancedField, null,
-                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                    'id' => $advancedField]) !!}
-            @endif
-
-
-
-        </div>
+            </div>
+        @endforeach
     </div>
-@endforeach
 </div>
+
 
 <div class="sm:flex justify-around pt-4">
 
