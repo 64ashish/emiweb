@@ -67,8 +67,10 @@ class NorwayEmigrationRecordController extends Controller
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
+        $archive_name = $model::findOrFail(1)->archive->name;
+
 //        return view
-        return view('dashboard.norwayemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
+        return view('dashboard.norwayemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
     }
 
 }

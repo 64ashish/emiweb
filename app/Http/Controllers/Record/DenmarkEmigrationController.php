@@ -106,6 +106,7 @@ class DenmarkEmigrationController extends Controller
     public function search( Request $request)
     {
 
+
         $all_request = $request->all();
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
@@ -147,8 +148,8 @@ class DenmarkEmigrationController extends Controller
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
-
-        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'));
+        $archive_name = $model::findOrFail(1)->archive->name;
+        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
 
 
     }

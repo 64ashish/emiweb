@@ -68,6 +68,8 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
 //        return view
-        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
-    }
+        $archive_name = $model::findOrFail(1)->archive->name;
+        $archive_name = $model::findOrFail(1)->archive->name;
+
+        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'));    }
 }

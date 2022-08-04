@@ -124,6 +124,8 @@
                 <x-flash-message></x-flash-message>
             </div>
 
+
+
             {{ $slot }}
 
 

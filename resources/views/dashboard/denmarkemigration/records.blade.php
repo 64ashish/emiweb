@@ -1,5 +1,13 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
+    <div>
+        @if(Route::currentRouteName() === "records")
+        Home / {{ $archive_name }} / Search
+        @else
+        Home / {{ $archive_name }} / Results
+        @endif
+    </div>
+
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
         <section class="pt-6" aria-labelledby="section-1-title" >

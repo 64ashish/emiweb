@@ -186,8 +186,11 @@ class SearchController extends Controller
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
+        $archive_name = Archive::findOrFail($archive)->name;
 
-        return view($viewfile, compact('filterAttributes', 'advancedFields'));
+//        return $archi->name;
+
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive_name'));
 
 
 

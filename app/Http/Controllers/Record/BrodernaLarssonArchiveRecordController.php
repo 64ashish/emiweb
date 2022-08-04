@@ -77,7 +77,9 @@ class BrodernaLarssonArchiveRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
 
         $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
-        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields'))->with($request->all());
+        $archive_name = $model::findOrFail(1)->archive->name;
+
+        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
 
     }
 

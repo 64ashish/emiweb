@@ -265,6 +265,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 //        Route::get('SwedishChurchEmigrationRecord/{SwedishChurchEmigrationRecord}', [SwedishChurchEmigrationRecordController::class, 'show']);
         Route::get('/records/{archive}', [SearchController::class, 'index'])
             ->name('records');
+
         Route::get('/records/{arch}/{id}', [SearchController::class, 'show'])
             ->name('records.show');
 
