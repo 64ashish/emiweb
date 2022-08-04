@@ -1528,6 +1528,9 @@ select {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+.text-\[18px\] {
+  font-size: 18px;
+}
 .font-semibold {
   font-weight: 600;
 }

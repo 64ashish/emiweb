@@ -13,7 +13,7 @@
                                 @foreach($archives as $archive)
                                     <li class="bg-white p-8 rounded-lg flex flex-col {{ $archive->Record_Total==0 ? "opacity-50" : "" }}">
 
-                                        <div class="font-bold text-xl	">{{ $archive->category->name }}</div>
+                                        <div class="font-bold text-lg	">{{ $archive->category->name }}</div>
                                         <div class="text-lg pb-3">{{ $archive->name }}</div>
 
                                         <div class="flex justify-between mt-auto pt-6 items-center">
