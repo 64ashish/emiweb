@@ -1,12 +1,6 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
-    <div>
-        @if(Route::currentRouteName() === "records")
-        Home / {{ $archive_name }} / Search
-        @else
-        Home / {{ $archive_name }} / Results
-        @endif
-    </div>
+    @include('dashboard._breadcrumb')
 
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->

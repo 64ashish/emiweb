@@ -196,7 +196,9 @@ class OrganizationArchiveController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
 
-        return view($viewfile, compact('filterAttributes', 'advancedFields','organization'));
+        $archive_name = $archive->name;
+
+        return view($viewfile, compact('filterAttributes', 'advancedFields','organization', 'archive_name'));
 
     }
 

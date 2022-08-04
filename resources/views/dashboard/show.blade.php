@@ -1,6 +1,7 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
-    <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
+    {{ __('Hem') }} /  {{ $archive->name  }} / {{ $detail->first_name }} {{ $detail->last_name }}
+    <div class="grid pt-6 grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
 
         <div class="bg-white shadow overflow-hidden sm:rounded-lg px-4 py-5 sm:px-6">
