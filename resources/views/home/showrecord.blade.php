@@ -1,9 +1,7 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
     @include('dashboard._breadcrumb')
-    <div>
-        {{ __('Hem') }} /  {{ $detail->archive->name }} / {{ $detail->first_name }} {{ $detail->last_name }}
-    </div>
+
     <div class="pt-6 grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
 

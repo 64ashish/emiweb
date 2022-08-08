@@ -9,6 +9,6 @@
 
         @else
 
-        <a href="/home">{{ __('Hem') }}</a>  / <a href="{{ route('records',$archive) }}">{{ $archive->name }}</a>  / {{ __('result') }}
+        <a href="/home">{{ __('Hem') }}</a>   / {{ __('search') }} / {{ __('result') }}
     @endif
 </div>
