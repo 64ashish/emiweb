@@ -16,7 +16,9 @@
                     @if(!isset($keywords))
                         {!! Form::open(['route' => 'danishemigration.search']) !!}
                     @endif
-
+                    <h4>
+                        Standard Search
+                    </h4>
                     <div class="grid grid-cols-2 gap-4 pb-4">
                         <div class="sm:grid sm:grid-cols-3 sm:items-start">
                             <label for="first_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">

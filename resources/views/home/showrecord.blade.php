@@ -1,5 +1,6 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
+    @include('dashboard._breadcrumb')
     <div>
         {{ __('Hem') }} /  {{ $detail->archive->name }} / {{ $detail->first_name }} {{ $detail->last_name }}
     </div>
