@@ -60,8 +60,8 @@ class SwedishChurchEmigrationRecord extends Model
         ];
     }
 
-    public function getDobAttribute($value)
-    {
-        return Carbon::parse($value)->format('Y/m/d');
-    }
+//    public function getDobAttribute($value)
+//    {
+//        return Carbon::parse($value)->format('Y/m/d');
+//    }
 }
