@@ -144,7 +144,7 @@ class Archive extends Model
         }
         if( $this->id == 2){
 //            return DenmarkEmigration::count();
-            return ceil(31208/1000)*1000;
+            return ceil(556473/1000)*1000;
         }
         if( $this->id == 3){
 //            return DenmarkEmigration::count();
