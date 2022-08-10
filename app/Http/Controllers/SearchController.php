@@ -23,13 +23,18 @@ use App\Models\SwedishEmigrationStatisticsRecord;
 use App\Models\SwedishImmigrationStatisticsRecord;
 use App\Models\SwedishPortPassengerListRecord;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
+use App\Traits\UniversalQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Engines\MeiliSearchEngine;
 use MeiliSearch\Client as MeiliSearchClient;
+use MeiliSearch\Endpoints\Indexes;
+use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 
 
 class SearchController extends Controller
 {
+    use UniversalQuery;
     public function __construct(MeiliSearchClient $meilisearch)
     {
         $this->meilisearch = $meilisearch;
@@ -197,43 +202,40 @@ class SearchController extends Controller
     }
     public function search( Request  $request)
     {
-        $keywords = $request->search;
-        $q1 = DenmarkEmigration::search($keywords)->get()->load('archive');
+//        return $request->fullUrlIs(['full_name']);
+
+        $inputFields = Arr::whereNotNull($request->except('_token'));
+        $keywords = $request->except('_token');
+
+        $records = collect([
+            'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields)->count(),
+            'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields)->count(),
+            'New Yorks passagerarlistor'=> $this->QueryNewYorkPassengerRecord($inputFields)->count(),
+            'Passagerarlistor för svenska hamnar'=> $this->QuerySwedishPortPassengerListRecord($inputFields)->count(),
+            'Emigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchEmigrationRecord($inputFields)->count(),
+            'Immigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchImmigrantRecord($inputFields)->count(),
+            'Svenskar över Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields)->count(),
+            'SCB Immigranter'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields)->count(),
+            'SCB Emigranter'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields)->count(),
+            'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields)->count(),
+            'Bröderna Larssons arkiv'=> $this->QueryLarssonEmigrantPopularRecord($inputFields)->count(),
+            'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields)->count(),
+            'Immigranter i norska kyrkböcker'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields)->count(),
+            'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields)->count(),
+            'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields)->count(),
+            'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields)->count(),
+            'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields)->count(),
+            'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields)->count(),
+            'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields)->count(),
+            'Den åländska emigrantdatabasen'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields)->count(),
 
 
-        if(auth()->user()->hasRole('regular user'))
-        {
-            $records = $q1;
-        }
-        else{
-            $q2 = SwedishChurchEmigrationRecord::search($keywords)->get()->load('archive');
-            $q3 = DalslanningarBornInAmericaRecord::search($keywords)->get()->load('archive');
-            $q4 = SwedishEmigrationStatisticsRecord::search($keywords)->get()->load('archive');
-            $q5 = BrodernaLarssonArchiveRecord::search($keywords)->get()->load('archive');
-
-            $q6 = SwedishAmericanChurchArchiveRecord::search($keywords)->get()->load('archive');
-            $q7 = NewYorkPassengerRecord::search($keywords)->get()->load('archive');
-            $q8 = SwedishPortPassengerListRecord::search($keywords)->get()->load('archive');
-            $q9 = SwedishChurchImmigrantRecord::search($keywords)->get()->load('archive');
-            $q10 = SwedishEmigrantViaKristianiaRecord::search($keywords)->get()->load('archive');
-            $q11 = SwedishImmigrationStatisticsRecord::search($keywords)->get()->load('archive');
-            $q12 = LarssonEmigrantPopularRecord::search($keywords)->get()->load('archive');
-            $q13 = JohnEricssonsArchiveRecord::search($keywords)->get()->load('archive');
-            $q14 = NorwegianChurchImmigrantRecord::search($keywords)->get()->load('archive');
-            $q15 = MormonShipPassengerRecord::search($keywords)->get()->load('archive');
-            $q16 = SwedishAmericanMemberRecord::search($keywords)->get()->load('archive');
-            $q17 = SwedeInAlaskaRecord::search($keywords)->get()->load('archive');
-            $q18 = VarmlandskaNewspaperNoticeRecord::search($keywords)->get()->load('archive');
-            $q19 = NorwayEmigrationRecord::search($keywords)->get()->load('archive');
-            $q20 = IcelandEmigrationRecord::search($keywords)->get()->load('archive');
-
-            $records = collect([$q1, $q2, $q3, $q4, $q5, $q6, $q7, $q8, $q9, $q10, $q11, $q12, $q13, $q14, $q15, $q16, $q17, $q18, $q19, $q20 ])->flatten();
-        }
-//        return DenmarkEmigration::search($keywords)->get()->load('archive');
 
 
-//        return SwedishEmigrationStatisticsRecord::search($keywords)->get()->load('archive');
-//        return $records ;
+            ]);
+
+//        return $records['Den danska emigrantdatabasen'];
+
         return view('home.results', compact('records', 'keywords'));
 
     }

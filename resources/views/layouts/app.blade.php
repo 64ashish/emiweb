@@ -72,19 +72,47 @@
                              class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <div class="relative" @click.away="openSearch = false">
                                 <!-- Heroicon name: solid/search -->
-                                <svg class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
-                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                     fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                          clip-rule="evenodd" />
-                                </svg>
+
 
                                 {!! Form::open(['route' => 'search']) !!}
-                                <input x-ref="input" name="search" type="text"
-                                       class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                       placeholder="{{ __('Search in all archives') }}..." aria-expanded="false"
-                                       aria-controls="options">
+
+                                <div class="flex items-center flex-wrap p-5">
+                                    <label
+                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                            aria-expanded="false"
+                                            aria-controls="options">{{ __('First name') }}</label>
+                                    <input x-ref="input" name="first_name" type="text"
+                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                           placeholder="{{ __('Last name') }}..." aria-expanded="false"
+                                           aria-controls="options">
+
+                                    <label
+                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                            aria-expanded="false"
+                                            aria-controls="options">{{ __('Last name') }}</label>
+                                    <input x-ref="input" name="last_name" type="text"
+                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-42text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                           placeholder="{{ __('Last name') }}..." aria-expanded="false"
+                                           aria-controls="options">
+
+                                    <label
+                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                            aria-expanded="false"
+                                            aria-controls="options">{{ __('Född år') }}</label>
+                                    <input x-ref="input" name="year" type="text"
+                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                           placeholder="{{ __('Född år') }}..." aria-expanded="false"
+                                           aria-controls="options">
+
+                                    <label
+                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                            aria-expanded="false"
+                                            aria-controls="options">{{ __('Född församling') }}</label>
+                                    <input x-ref="input" name="parish" type="text"
+                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                           placeholder="{{ __('Född församling') }}..." aria-expanded="false"
+                                           aria-controls="options">
+                                </div>
                                 <input type="submit" hidden />
                                 {!! Form::close() !!}
                             </div>
