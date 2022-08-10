@@ -38,7 +38,7 @@ trait UniversalQuery{
         if(!empty($input['first_name'])){ $result->where('first_name',$input['first_name']); }
         if(!empty($input['last_name'])){ $result->where('last_name',$input['last_name']); }
         if(!empty($input['parish'])){ $result->where('birth_parish',$input['parish']); }
-        if(!empty($input['year'])){ $result->where('year',$input['year']); }
+        if(!empty($input['year'])){ $result->where('dob',$input['year']); }
         return $result->get();
     }
 
@@ -146,7 +146,7 @@ trait UniversalQuery{
             $result->where('birth_parish', $input['parish']);
         }
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['yaer']);
+            $result->where('birth_date', $input['year']);
         }
         return $result->get();
     }
