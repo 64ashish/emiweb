@@ -57,6 +57,20 @@ class DenmarkEmigration extends Model
             ];
     }
 
+
+    public function defaultSearchFields(){
+        return [
+            'first_name',
+            'last_name',
+            'sex',
+            'birth_place',
+            'profession',
+            'destination_city',
+            'destination_country'
+        ];
+    }
+
+
     public function defaultTableColumns(){
         return [
             'birth_place',

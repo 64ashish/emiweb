@@ -84,6 +84,27 @@ class SwedishChurchImmigrantRecord extends Model
             ];
     }
 
+    public function defaultSearchFields()
+    {
+        return [
+        'first_name',
+        'last_name',
+        'profession',
+        'to_parish',
+        'to_county',
+        'to_date',
+        'to_location',
+        'from_location',
+        'from_date',
+        'sex',
+        'birth_date',
+        'birth_parish',
+        'birth_county',
+        'birth_location',
+        'birth_country'
+            ];
+    }
+
     public function defaultTableColumns(){
         return [
             'profession',

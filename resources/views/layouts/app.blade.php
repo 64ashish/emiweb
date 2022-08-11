@@ -70,52 +70,55 @@
                              x-transition:leave-start="opacity-100 scale-100"
                              x-transition:leave-end="opacity-0 opacity-100 scale-100"
                              class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-                            <div class="relative" @click.away="openSearch = false">
-                                <!-- Heroicon name: solid/search -->
+                            <div>
+                                <div class="relative" @click.away="openSearch = false">
+                                    <!-- Heroicon name: solid/search -->
 
 
-                                {!! Form::open(['route' => 'search']) !!}
+                                    {!! Form::open(['route' => 'search']) !!}
 
-                                <div class="flex items-center flex-wrap p-5">
-                                    <label
-                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                            aria-expanded="false"
-                                            aria-controls="options">{{ __('First name') }}</label>
-                                    <input x-ref="input" name="first_name" type="text"
-                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                           placeholder="{{ __('Last name') }}..." aria-expanded="false"
-                                           aria-controls="options">
+                                    <div class="flex items-center flex-wrap p-5">
+                                        <label
+                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                aria-expanded="false"
+                                                aria-controls="options">{{ __('First name') }}</label>
+                                        <input x-ref="input" name="first_name" type="text"
+                                               class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               placeholder="{{ __('Last name') }}..." aria-expanded="false"
+                                               aria-controls="options">
 
-                                    <label
-                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                            aria-expanded="false"
-                                            aria-controls="options">{{ __('Last name') }}</label>
-                                    <input x-ref="input" name="last_name" type="text"
-                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-42text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                           placeholder="{{ __('Last name') }}..." aria-expanded="false"
-                                           aria-controls="options">
+                                        <label
+                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                aria-expanded="false"
+                                                aria-controls="options">{{ __('Last name') }}</label>
+                                        <input x-ref="input" name="last_name" type="text"
+                                               class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-42text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               placeholder="{{ __('Last name') }}..." aria-expanded="false"
+                                               aria-controls="options">
 
-                                    <label
-                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                            aria-expanded="false"
-                                            aria-controls="options">{{ __('Född år') }}</label>
-                                    <input x-ref="input" name="year" type="text"
-                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                           placeholder="{{ __('Född år') }}..." aria-expanded="false"
-                                           aria-controls="options">
+                                        <label
+                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                aria-expanded="false"
+                                                aria-controls="options">{{ __('Född år') }}</label>
+                                        <input x-ref="input" name="year" type="text"
+                                               class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               placeholder="{{ __('Född år') }}..." aria-expanded="false"
+                                               aria-controls="options">
 
-                                    <label
-                                            class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                            aria-expanded="false"
-                                            aria-controls="options">{{ __('Född församling') }}</label>
-                                    <input x-ref="input" name="parish" type="text"
-                                           class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                           placeholder="{{ __('Född församling') }}..." aria-expanded="false"
-                                           aria-controls="options">
+                                        <label
+                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                aria-expanded="false"
+                                                aria-controls="options">{{ __('Född församling') }}</label>
+                                        <input x-ref="input" name="parish" type="text"
+                                               class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               placeholder="{{ __('Född församling') }}..." aria-expanded="false"
+                                               aria-controls="options">
+                                    </div>
+                                    <button type="submit" hidden />
+                                    {!! Form::close() !!}
                                 </div>
-                                <input type="submit" hidden />
-                                {!! Form::close() !!}
                             </div>
+
                         </div>
                     </div>
                 </div>

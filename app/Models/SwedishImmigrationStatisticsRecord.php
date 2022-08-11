@@ -62,6 +62,21 @@ class SwedishImmigrationStatisticsRecord extends Model
         ];
     }
 
+    public function defaultSearchFields()
+    {
+        return [
+            'first_name',
+            'profession',
+            'last_name',
+            'birth_year',
+            'from_country',
+            'nationality',
+            'sex',
+            'to_province',
+            'to_parish',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [ 'profession',
             'birth_year',

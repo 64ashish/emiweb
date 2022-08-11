@@ -42,6 +42,19 @@ class SwedishEmigrationStatisticsRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+    public function defaultSearchFields()
+    {
+        return [
+                'first_name',
+                'last_name',
+                'profession',
+                'birth_year',
+                'birth_month',
+                'from_year',
+                'gender',
+                'nationality',
+        ];
+    }
 
         public function toSearchableArray()
     {

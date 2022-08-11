@@ -134,13 +134,17 @@ class DenmarkEmigrationController extends Controller
         }
 
 
-        $filterAttributes = $this->meilisearch
-            ->index('denmark_emigrations')
-            ->getFilterableAttributes();
+
 //        get the keywords again
         $keywords = $request->all();
 
         $model = new DenmarkEmigration();
+
+//        $filterAttributes = $this->meilisearch
+//            ->index('denmark_emigrations')
+//            ->getFilterableAttributes();
+
+        $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

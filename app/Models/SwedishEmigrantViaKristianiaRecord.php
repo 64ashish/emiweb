@@ -41,6 +41,18 @@ class SwedishEmigrantViaKristianiaRecord extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function defaultSearchFields()
+    {
+        return [
+            'first_name',
+            'last_name',
+            'profession',
+            'home_location',
+            'destination',
+            'departure_date',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'profession',

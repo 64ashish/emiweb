@@ -104,6 +104,17 @@ class NewYorkPassengerRecord extends Model
         ];
     }
 
+    public function defaultSearchFields(){
+        return [
+            'first_name',
+            'last_name',
+            'gender',
+            'nativity',
+            'birth_date',
+            'archive_location',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'gender',

@@ -80,6 +80,24 @@ class SwedishAmericanChurchArchiveRecord extends Model
         ];
     }
 
+    public function defaultSearchFields()
+    {
+        return [
+            'first_name',
+            'last_name',
+            'gender',
+            'birth_date',
+            'birth_parish',
+            'birth_province',
+            'immigration_date',
+            'emigration_parish',
+            'emigration_province',
+            'arrival_date_this_place',
+            'arrived_from_county',
+            'arrived_from_state'
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'last_name2',

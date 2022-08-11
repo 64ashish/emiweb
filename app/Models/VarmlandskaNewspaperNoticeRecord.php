@@ -44,6 +44,17 @@ class VarmlandskaNewspaperNoticeRecord extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function defaultSearchFields()
+    {
+        return [
+            'first_name',
+            'last_name',
+            'places',
+            'birth_year',
+            'birth_location',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'newspaper',

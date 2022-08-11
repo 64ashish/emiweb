@@ -57,6 +57,22 @@ class SwedishPortPassengerListRecord extends Model
         ];
     }
 
+    public function defaultSearchFields()
+    {
+        return [
+            'first_name',
+            'last_name',
+            'age',
+            'sex',
+            'profession',
+            'departure_date',
+            'departure_parish',
+            'destination',
+            'departure_county',
+            'departure_port',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'age',

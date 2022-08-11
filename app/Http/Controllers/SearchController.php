@@ -187,6 +187,7 @@ class SearchController extends Controller
                 abort(403);
         }
 
+
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();

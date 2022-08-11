@@ -51,6 +51,23 @@ class NorwayEmigrationRecord extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function defaultSearchFields(){
+        return [
+            'first_name',
+            'last_name',
+            'birth_date',
+            'sex',
+            'profession',
+            'from_date',
+            'from_location',
+            'from_region',
+            'destination_location',
+            'destination_county',
+            'destination_country',
+            'birth_country',
+            'birth_location',
+        ];
+    }
     public function defaultTableColumns(){
         return [
             'birth_place',

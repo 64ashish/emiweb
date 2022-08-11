@@ -46,6 +46,17 @@ class JohnEricssonsArchiveRecord extends Model
         ];
     }
 
+    public function defaultSearchFields(){
+        return [
+            'first_name',
+            'last_name',
+            'other_name',
+            'Description',
+            'date',
+            'roll_no',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'other_name',

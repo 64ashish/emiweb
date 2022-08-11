@@ -65,6 +65,26 @@ class NorwegianChurchImmigrantRecord extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function defaultSearchFields(){
+        return [
+            'first_name',
+            'last_name',
+            'birth_date',
+            'sex',
+            'profession',
+            'from_country',
+            'to_date',
+            'to_location',
+            'birth_location',
+            'baptism_date',
+            'baptism_location',
+            'birth_country',
+            'baptism_country',
+            'from_county',
+            'from_location',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'sex',

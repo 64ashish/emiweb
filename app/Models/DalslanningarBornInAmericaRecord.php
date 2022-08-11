@@ -38,10 +38,11 @@ class DalslanningarBornInAmericaRecord extends Model
 
     public function defaultTableColumns(){
         return [
+
+            'first_name',
+            'last_name',
             'birth_date',
             'birth_place',
-            'death_date',
-            'death_place',
             'profession',
         ];
     }

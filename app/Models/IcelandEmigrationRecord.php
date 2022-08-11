@@ -77,6 +77,19 @@ class IcelandEmigrationRecord extends Model
         ];
     }
 
+    public function defaultSearchFields(){
+        return [
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'place_of_birth',
+            'destination_country',
+            'destination_location',
+            'departure',
+            'profession'
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'date_of_birth',
