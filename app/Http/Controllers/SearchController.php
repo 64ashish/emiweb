@@ -218,7 +218,7 @@ class SearchController extends Controller
             'SCB Immigranter'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields)->count(),
             'SCB Emigranter'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields)->count(),
             'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields)->count(),
-            'Bröderna Larssons arkiv'=> $this->QueryLarssonEmigrantPopularRecord($inputFields)->count(),
+            'Bröderna Larssons arkiv'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields)->count(),
             'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields)->count(),
             'Immigranter i norska kyrkböcker'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields)->count(),
             'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields)->count(),

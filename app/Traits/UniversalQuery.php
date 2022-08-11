@@ -27,18 +27,19 @@ trait UniversalQuery{
 
     private function QueryDenmarkEmigration( $input){
         $result = DenmarkEmigration::query();
-        if(!empty($input['first_name'])){ $result->where('first_name',$input['first_name']); }
-        if(!empty($input['last_name'])){ $result->where('last_name',$input['last_name']); }
+        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%' ); }
+        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%'); }
+
         return $result->get();
 
     }
 
     private function QuerySwedishChurchEmigrationRecord( $input){
         $result = SwedishChurchEmigrationRecord::query();
-        if(!empty($input['first_name'])){ $result->where('first_name',$input['first_name']); }
-        if(!empty($input['last_name'])){ $result->where('last_name',$input['last_name']); }
-        if(!empty($input['parish'])){ $result->where('birth_parish',$input['parish']); }
-        if(!empty($input['year'])){ $result->where('dob',$input['year']); }
+        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%' ); }
+        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%' ); }
+        if(!empty($input['parish'])){ $result->where('birth_parish', 'LIKE','%'. $input['parish'].'%' ); }
+        if(!empty($input['year'])){ $result->where('dob', 'LIKE','%'. $input['year'].'%' ); }
         return $result->get();
     }
 
@@ -46,13 +47,13 @@ trait UniversalQuery{
     {
         $result = DalslanningarBornInAmericaRecord::query();
         if (!empty($input['first_name'])) {
-            $result->Where('first_name', $input['first_name']);
+            $result->Where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->Where('last_name', $input['last_name']);
+            $result->Where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -61,16 +62,16 @@ trait UniversalQuery{
     {
         $result = SwedishEmigrationStatisticsRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['parish'])) {
-            $result->where('from_parish', $input['parish']);
+            $result->where('from_parish',  'LIKE','%'. $input['parish'].'%');
         }
         if (!empty($input['year'])) {
-            $result->where('birth_year', $input['year']);
+            $result->where('birth_year',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -79,13 +80,13 @@ trait UniversalQuery{
     {
         $result = BrodernaLarssonArchiveRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['parish'])) {
-            $result->where('home_parish', $input['parish']);
+            $result->where('home_parish',  'LIKE','%'. $input['parish'].'%');
         }
 
         return $result->get();
@@ -94,8 +95,8 @@ trait UniversalQuery{
     private function QuerySwedishPortPassengerListRecord($input)
     {
         $result = SwedishPortPassengerListRecord::query();
-        if(!empty($input['first_name'])){ $result->where('first_name',$input['first_name']); }
-        if(!empty($input['last_name'])){ $result->where('last_name',$input['last_name']); }
+        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%'); }
+        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%'); }
         return $result->get();
     }
 
@@ -103,16 +104,16 @@ trait UniversalQuery{
     {
         $result = SwedishAmericanChurchArchiveRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['parish'])) {
-            $result->where('birth_parish', $input['birth_parish']);
+            $result->where('birth_parish',  'LIKE','%'. $input['parish'].'%');
         }
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -121,14 +122,14 @@ trait UniversalQuery{
     {
         $result = NewYorkPassengerRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('birth_year', $input['year']);
+            $result->where('birth_year',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -137,16 +138,16 @@ trait UniversalQuery{
     {
         $result = SwedishChurchImmigrantRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['parish'])) {
-            $result->where('birth_parish', $input['parish']);
+            $result->where('birth_parish',  'LIKE','%'. $input['parish'].'%');
         }
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -155,10 +156,10 @@ trait UniversalQuery{
     {
         $result = SwedishEmigrantViaKristianiaRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         return $result->get();
     }
@@ -167,14 +168,14 @@ trait UniversalQuery{
     {
         $result = SwedishImmigrationStatisticsRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('birth_year', $input['year']);
+            $result->where('birth_year',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -183,13 +184,13 @@ trait UniversalQuery{
     {
         $result = LarssonEmigrantPopularRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['parish'])) {
-            $result->where('home_parish', $input['parish']);
+            $result->where('home_parish',  'LIKE','%'. $input['parish'].'%');
         }
         return $result->get();
     }
@@ -198,10 +199,10 @@ trait UniversalQuery{
     {
         $result = JohnEricssonsArchiveRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         return $result->get();
     }
@@ -210,14 +211,14 @@ trait UniversalQuery{
     {
         $result = NorwegianChurchImmigrantRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -226,10 +227,10 @@ trait UniversalQuery{
     {
         $result = MormonShipPassengerRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         return $result->get();
@@ -239,16 +240,16 @@ trait UniversalQuery{
     {
         $result = SwedishAmericanMemberRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
         if (!empty($input['parish'])) {
-            $result->where('birth_parish', $input['parish']);
+            $result->where('birth_parish',  'LIKE','%'. $input['parish'].'%');
         }
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -257,14 +258,14 @@ trait UniversalQuery{
     {
         $result = SwedeInAlaskaRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -273,14 +274,14 @@ trait UniversalQuery{
     {
         $result = VarmlandskaNewspaperNoticeRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('birth_year', $input['year']);
+            $result->where('birth_year',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -289,14 +290,14 @@ trait UniversalQuery{
     {
         $result = NorwayEmigrationRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('birth_date', $input['year']);
+            $result->where('birth_date',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
@@ -305,14 +306,14 @@ trait UniversalQuery{
     {
         $result = IcelandEmigrationRecord::query();
         if (!empty($input['first_name'])) {
-            $result->where('first_name', $input['first_name']);
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
         }
         if (!empty($input['last_name'])) {
-            $result->where('last_name', $input['last_name']);
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
         }
 
         if (!empty($input['year'])) {
-            $result->where('date_of_birth', $input['year']);
+            $result->where('date_of_birth',  'LIKE','%'. $input['year'].'%');
         }
         return $result->get();
     }
