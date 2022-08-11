@@ -112,7 +112,7 @@ class DenmarkEmigrationController extends Controller
         $request->merge($carbonize_dates['field_data']);
         $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
-        $inputQuery=Arr::join( $request->except(Arr::flatten($remove_keys)), ' ');
+        $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
 
         if($request->action === "search"){
