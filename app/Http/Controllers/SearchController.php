@@ -227,7 +227,7 @@ class SearchController extends Controller
             'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields)->count(),
             'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields)->count(),
             'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields)->count(),
-            'Den åländska emigrantdatabasen'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields)->count(),
+            'Den åländska emigrantdatabasen'=> $this->QueryIcelandEmigrationRecord($inputFields)->count(),
 
 
 
