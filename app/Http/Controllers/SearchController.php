@@ -417,10 +417,11 @@ class SearchController extends Controller
 
         $relatives = $detail->archive->relatives->where('record_id', $id);
         $images = $detail->archive->ImagesInArchive->where('record_id', $id);
+        $archive_details = Archive::find($arch);
 
 //        return $relatives->isEmpty();
 
-        return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images'));
+        return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
 
     }
 
