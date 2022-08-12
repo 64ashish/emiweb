@@ -58,11 +58,12 @@ class SwedishAmericanMemberRecordController extends Controller
 
 
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('swedish_american_member_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('swedish_american_member_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
         $model = new SwedishAmericanMemberRecord();
+        $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

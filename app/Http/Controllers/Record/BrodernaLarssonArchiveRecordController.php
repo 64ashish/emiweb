@@ -62,12 +62,14 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
         }
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 //        return view
 
         $model = new BrodernaLarssonArchiveRecord();
+        $filterAttributes = collect($model->defaultSearchFields());
+
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();

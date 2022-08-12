@@ -129,10 +129,11 @@ class DalslanningarBornInAmericaRecordController extends Controller
         }
 
 
-        $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
         $model = new DalslanningarBornInAmericaRecord();
+        $filterAttributes = collect($model->defaultSearchFields());
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();

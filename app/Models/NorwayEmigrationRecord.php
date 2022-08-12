@@ -53,8 +53,8 @@ class NorwayEmigrationRecord extends Model
 
     public function defaultSearchFields(){
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'birth_date',
             'sex',
             'profession',

@@ -44,8 +44,8 @@ class SwedishEmigrantViaKristianiaRecord extends Model
     public function defaultSearchFields()
     {
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'profession',
             'home_location',
             'destination',

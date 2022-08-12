@@ -59,13 +59,15 @@ class SwedishChurchEmigrationRecordController extends Controller
             $records = $this->FilterQuery($inputFields, $result, $all_request);
         }
 
-        $filterAttributes = $this->meilisearch
-            ->index('swedish_church_emigration_records')
-            ->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch
+//            ->index('swedish_church_emigration_records')
+//            ->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
         $model = new SwedishChurchEmigrationRecord();
+
+        $filterAttributes = collect($model->defaultSearchFields());
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();

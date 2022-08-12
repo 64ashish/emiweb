@@ -53,12 +53,14 @@ class SwedishPortPassengerListRecordController extends Controller
         }
 
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
 
         $model = new SwedishPortPassengerListRecord();
+
+        $filterAttributes = collect($model->defaultSearchFields());
 
 
         $fields = collect($model->getFillable())

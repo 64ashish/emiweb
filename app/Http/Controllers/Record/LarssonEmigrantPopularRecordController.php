@@ -58,10 +58,11 @@ class LarssonEmigrantPopularRecordController extends Controller
 
 
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
         $model = new LarssonEmigrantPopularRecord();
+        $filterAttributes = collect($model->defaultSearchFields());
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();

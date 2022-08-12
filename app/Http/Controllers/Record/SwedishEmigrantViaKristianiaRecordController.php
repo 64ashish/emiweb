@@ -51,11 +51,13 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
         }
 
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
         $model = new SwedishEmigrantViaKristianiaRecord();
+
+        $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

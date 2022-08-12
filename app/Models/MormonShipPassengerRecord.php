@@ -53,8 +53,8 @@ class MormonShipPassengerRecord extends Model
 
     public function defaultSearchFields(){
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'nationality',
             'residence',
             'residence_country',

@@ -71,8 +71,8 @@ class SwedeInAlaskaRecord extends Model
     public function defaultSearchFields()
     {
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'birth_location',
             'birth_country',
             'birth_date',

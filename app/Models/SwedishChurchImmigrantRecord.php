@@ -87,8 +87,8 @@ class SwedishChurchImmigrantRecord extends Model
     public function defaultSearchFields()
     {
         return [
-        'first_name',
-        'last_name',
+//        'first_name',
+//        'last_name',
         'profession',
         'to_parish',
         'to_county',

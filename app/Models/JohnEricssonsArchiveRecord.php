@@ -48,8 +48,8 @@ class JohnEricssonsArchiveRecord extends Model
 
     public function defaultSearchFields(){
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'other_name',
             'Description',
             'date',

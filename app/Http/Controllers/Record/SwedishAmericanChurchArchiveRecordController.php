@@ -55,11 +55,12 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         }
 
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
         $model = new SwedishAmericanChurchArchiveRecord();
+        $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

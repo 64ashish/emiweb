@@ -55,11 +55,12 @@ class SwedeInAlaskaRecordController extends Controller
         }
 
 //        get the filter attributes
-        $filterAttributes = $this->meilisearch->index('swede_in_alaska_records')->getFilterableAttributes();
+//        $filterAttributes = $this->meilisearch->index('swede_in_alaska_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
         $model = new SwedeInAlaskaRecord();
+        $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

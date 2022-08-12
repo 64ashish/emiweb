@@ -47,8 +47,8 @@ class VarmlandskaNewspaperNoticeRecord extends Model
     public function defaultSearchFields()
     {
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'places',
             'birth_year',
             'birth_location',

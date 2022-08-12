@@ -65,9 +65,10 @@ class SwedishImmigrationStatisticsRecord extends Model
     public function defaultSearchFields()
     {
         return [
-            'first_name',
+//            'first_name',
+//            'last_name',
             'profession',
-            'last_name',
+
             'birth_year',
             'from_country',
             'nationality',

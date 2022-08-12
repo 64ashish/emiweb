@@ -41,8 +41,8 @@ class SwedishAmericanMemberRecord extends Model
     public function defaultSearchFields()
     {
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'birth_date',
             'birth_parish',
             'birth_county',
