@@ -15,13 +15,19 @@
                                         @foreach($archives as $archive)
                                             <li class="odd:bg-white even:bg-gray-100 px-6 py-4">
                                                 <div class="flex justify-between">
-                                                    <div>{{ $archive->name }}</div>
+                                                    <div class="flex items-center">
+                                                        <div class="pr-2">{{ $archive->name }}</div>
+                                                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                                            {{ $archive->getRecordTotalAttribute($archive->id) }}
+                                                            Records
+                                                        </span>
+
+                                                    </div>
+
                                                     <a href="{{ route('records', $archive) }}">
                                                         {{ __('View Archive') }} </a>
                                                 </div>
-                                                <span class=" text-sm text-gray-500 ">
-                                                    {{ $archive->getRecordTotalAttribute($archive->id) }} Records
-                                                </span>
+
                                             </li>
                                         @endforeach
                                     </ul>

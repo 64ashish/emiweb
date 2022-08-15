@@ -43,13 +43,15 @@
             <div class="flex w-1/2">
                 <div class="max-w-md w-full mx-auto flex justify-center" x-data="{ openSearch: false }">
                     <div @click="openSearch = true; $nextTick(() => $refs.input.focus())"
-                         class="flex items-center space-x-3 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                         class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4
+                         font-medium rounded-full text-indigo-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2
+                         focus:ring-offset-2 focus:ring-indigo-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        <span class="text-white font-normal	">{{ __('Search in all archives') }}</span>
+                        <span class="text-indigo-600 font-normal	">{{ __('Search in all archives') }}</span>
                     </div>
                     {{--                            search starts from here --}}
 
@@ -122,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <ul class="font-bold inline-flex text-white shrink-0">
+                <ul class="font-bold inline-flex items-center text-white shrink-0">
 
                     @if(auth()->user()->hasRole('regular user|subscriber'))
                     <li class="font-normal">

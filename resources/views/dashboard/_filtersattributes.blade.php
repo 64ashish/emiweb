@@ -88,7 +88,7 @@
 </div>
 
 
-<div class="sm:flex justify-around pt-4">
+<div class="sm:flex justify-end pt-4 gap-x-5">
 
     <button type="submit" name="action" value="search" class="inline-flex items-center px-8 py-2 border
                                         border-transparent text-base font-medium rounded-md shadow-sm text-white

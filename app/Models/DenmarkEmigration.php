@@ -60,8 +60,8 @@ class DenmarkEmigration extends Model
 
     public function defaultSearchFields(){
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'sex',
             'birth_place',
             'profession',
