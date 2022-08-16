@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 use MeiliSearch\Client as MeiliSearchClient;
 use MeiliSearch\Endpoints\Indexes;
 
-class SwedishPortPassengerListRecordController extends Controller
+class  SwedishPortPassengerListRecordController extends Controller
 {
     //
     use SearchOrFilter;

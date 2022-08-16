@@ -27,28 +27,31 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $all_request = $request->all();
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action', 'page']);
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
+
+
+        $melieRaw = SwedishAmericanChurchArchiveRecord::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                $options['limit'] = 1000000;
+                return $meilisearch->search($query, $options);
+            })->raw();
+        $idFromResults = collect($melieRaw['hits'])->pluck('id');
+        $result = SwedishAmericanChurchArchiveRecord::whereIn('id', $idFromResults)
+            ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
 
 
 
 //        get the search result prepared
         if($request->action === "search"){
-            $result = SwedishAmericanChurchArchiveRecord::search($inputQuery);
             $records = $result->paginate(100);
         }
 
 //      filter the thing and get the results ready
         if($request->action === "filter"){
-            $melieRaw = SwedishAmericanChurchArchiveRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = SwedishAmericanChurchArchiveRecord::whereIn('id', $idFromResults);
+
 //            filter is performed here
             $records = $this->FilterQuery($inputFields, $result, $all_request);
 
@@ -70,7 +73,6 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
 //        return view
         $archive_name = $model::findOrFail(1)->archive->name;
-        $archive_name = $model::findOrFail(1)->archive->name;
 
-        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'));    }
+        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'));    }
 }

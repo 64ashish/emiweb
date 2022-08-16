@@ -24,31 +24,33 @@ class IcelandEmigrationRecordController extends Controller
         $all_request = $request->all();
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action', 'page']);
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+
+        $melieRaw = IcelandEmigrationRecord::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                $options['limit'] = 1000000;
+                return $meilisearch->search($query, $options);
+            })->raw();
+        $idFromResults = collect($melieRaw['hits'])->pluck('id');
+        $result = IcelandEmigrationRecord::whereIn('id', $idFromResults);
+
 //        if search was being performed
         if($request->action === "search"){
-            $result = IcelandEmigrationRecord::search($inputQuery);
             $records = $result->paginate(100);
         }
 
 //      filter the thing and get the results ready
-        if($request->action === "filter"){
+
             if($request->action === "filter"){
-                $melieRaw = IcelandEmigrationRecord::search($inputQuery,
-                    function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                        $options['limit'] = 1000000;
-                        return $meilisearch->search($query, $options);
-                    })->raw();
-                $idFromResults = collect($melieRaw['hits'])->pluck('id');
-                $result = IcelandEmigrationRecord::whereIn('id', $idFromResults);
+
 //            filter is performed here
                 $records = $this->FilterQuery($inputFields, $result, $all_request);
             }
-        }
+
 //        get the filter attributes
 //        $filterAttributes = $this->meilisearch->index('iceland_emigration_records')->getFilterableAttributes();
 //        get the keywords again

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\RecordCount;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -107,5 +108,10 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'arrived_from_county',
             'immigrated_to_state',
         ];
+    }
+
+    public function getBirthDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 }
