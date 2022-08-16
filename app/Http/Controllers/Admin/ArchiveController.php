@@ -72,9 +72,10 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Archive $archive)
     {
         // put html editor
+        return view('admin.archives.edit', compact('archive'));
     }
 
     /**
@@ -84,9 +85,11 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArchiveRequest $archiveRequest,  Archive $archive)
     {
         //
+        $archive->update($archiveRequest->all());
+        return redirect('/admin/archives')->with('success', 'Archive Updated!');
     }
 
     /**

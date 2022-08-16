@@ -115,6 +115,9 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isAct
         Route::get('/archives/{archive}/edit', [ArchiveController::class, 'edit'])
             ->name('archives.edit');
 
+        Route::put('/archives/{archive}/update', [ArchiveController::class, 'update'])
+            ->name('archives.update');
+
         Route::resource('/organizations', OrganizationController::class);
         Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
             ->name('organizations.archive.sync');
