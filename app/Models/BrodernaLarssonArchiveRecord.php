@@ -66,6 +66,20 @@ class BrodernaLarssonArchiveRecord extends Model
 
     public function defaultTableColumns(){
         return [
+            'first_name',
+            'last_name',
+            'home_location',
+            'home_parish',
+            'home_county',
+            'home_country',
+            'gender',
+            'profession',
+        ];
+    }
+
+    public function defaultSearchFields(){
+        return [
+
 //            'first_name',
 //            'last_name',
             'home_location',
@@ -73,7 +87,7 @@ class BrodernaLarssonArchiveRecord extends Model
             'home_county',
             'home_country',
             'gender',
-            'profession',
+            'profession'
         ];
     }
 

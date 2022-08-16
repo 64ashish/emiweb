@@ -33,36 +33,38 @@ class SwedishChurchEmigrationRecordController extends Controller
     {
 
         $all_request = $request->all();
+//        return $all_request;
         $carbonize_dates = $this->CarbonizeDates($all_request);
+//        return $carbonize_dates;
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action','page']);
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
+//        return $inputFields;
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
+
+        $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                $options['limit'] = 1000000;
+                return $meilisearch->search($query, $options);
+            })->raw();
+        $idFromResults = collect($melieRaw['hits'])->pluck('id');
+        $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`dob`, '%Y-%m-%d')) IS NOT NULL");
+
 
 
 //        if search was being performed
         if($request->action === "search"){
-            $result = SwedishChurchEmigrationRecord::search($inputQuery);
+//                return "search";
             $records = $result->paginate(100);
         }
 //      filter the thing and get the results ready
         if($request->action === "filter"){
-            $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                        $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults);
-//            filter is performed here
+//                return $inputFields;
             $records = $this->FilterQuery($inputFields, $result, $all_request);
         }
 
-//        $filterAttributes = $this->meilisearch
-//            ->index('swedish_church_emigration_records')
-//            ->getFilterableAttributes();
-//        get the keywords again
+
         $keywords = $request->all();
 
         $model = new SwedishChurchEmigrationRecord();

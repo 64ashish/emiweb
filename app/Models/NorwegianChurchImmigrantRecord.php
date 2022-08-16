@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\RecordCount;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -94,5 +95,11 @@ class NorwegianChurchImmigrantRecord extends Model
             'birth_location',
             'baptism_location',
         ];
+    }
+
+//    protected $dates = ['birth_date'];
+    public function getBirthDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 }

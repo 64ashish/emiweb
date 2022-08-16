@@ -24,11 +24,24 @@ class NorwegianChurchImmigrantRecordController extends Controller
     {
 
         $all_request = $request->all();
+
+//        return $all_request;
         $carbonize_dates = $this->CarbonizeDates($all_request);
-        $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
+         $request->merge($carbonize_dates['field_data']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action','page']);
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
+
+
+        $melieRaw = NorwegianChurchImmigrantRecord::search($inputQuery,
+            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                $options['limit'] = 1000000;
+                return $meilisearch->search($query, $options);
+            })->raw();
+        $idFromResults = collect($melieRaw['hits'])->pluck('id');
+        $result = NorwegianChurchImmigrantRecord::whereIn('id', $idFromResults)
+            ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
 
 
 
@@ -36,20 +49,12 @@ class NorwegianChurchImmigrantRecordController extends Controller
 
         //        get the search result prepared
         if($request->action === "search"){
-            $result = NorwegianChurchImmigrantRecord::search($inputQuery);
             $records = $result->paginate(100);
         }
 
 //      filter the thing and get the results ready
         if($request->action === "filter"){
-            $melieRaw = NorwegianChurchImmigrantRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = NorwegianChurchImmigrantRecord::whereIn('id', $idFromResults);
+//            return $inputFields;
 //            filter is performed here
             $records = $this->FilterQuery($inputFields, $result, $all_request);
         }

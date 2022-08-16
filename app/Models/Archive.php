@@ -11,7 +11,7 @@ class Archive extends Model
     use HasFactory, HasRoles;
 
     protected $fillable = [
-        'name', 'detail','place'
+        'name', 'detail','place','total_records'
     ];
 
     public function category()

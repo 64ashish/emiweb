@@ -23,12 +23,15 @@ trait SearchOrFilter
                 $date_keys[] = $r;
                 $field = Str::of($r)->after('array_');
 
+
+
                 if (count(Arr::whereNotNull(Arr::flatten($dates))) > 0) {
                     $field_data["$field"] = Carbon::createFromDate(
-                        !is_null($dates['year']) ? $dates['year'] : "0001",
-                        !is_null($dates['month']) ? $dates['month'] : "01",
-                        !is_null($dates['day']) ? $dates['day'] : "01"
+                        array_key_exists('year', $dates) ? $dates['year'] : "0001",
+                        array_key_exists('month', $dates) ? $dates['month'] : "01",
+                        array_key_exists('day', $dates) ? $dates['day'] : "01"
                     );
+
                 }
             }
         }
@@ -45,11 +48,12 @@ trait SearchOrFilter
 //        return $inputFields;
         foreach($inputFields as  $fieldname => $fieldvalue) {
 //            for dates
-            if(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
+//            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
+            if((str_contains(str_replace('_', ' ', $fieldname), 'date') or str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
             {
                 if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
                 {
-                    $result->whereDate($fieldname, $fieldvalue->format('Y/m/d'));
+                    $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
                 }
 
                 if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
@@ -66,6 +70,7 @@ trait SearchOrFilter
             }
 //            for everything else
             else{
+
                 $result->where($fieldname, $fieldvalue);
             }
         }
