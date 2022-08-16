@@ -18,7 +18,7 @@
                                                     <div class="flex items-center">
                                                         <div class="pr-2">{{ $archive->name }}</div>
                                                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                                                            {{ $archive->getRecordTotalAttribute($archive->id) }}
+                                                            {{ $archive->total_records }}
                                                             Records
                                                         </span>
 
