@@ -114,7 +114,7 @@
  "months": "månader",
  "year": "år",
  "500 SEK /year":"500 SEK /år",
- "Renews at 175 SEK /months":"Förnyas för 300 SEK /månader",
+ "Renews at 175 SEK /months":"Förnyas för 175 SEK /månader",
  "Renews at 300 SEK /year":"Förnyas för 300 SEK /år",
  "Change subscription":"Ändra abonnemangsform",
  "Cancel subscription":"Avsluta abonnemang",
@@ -124,5 +124,8 @@
  "results": "resultat",
  "Home": "Hem",
  "Exact search":  "Exakt sökning",
- "Language has been switched":"Språket är nu ändrat"
+ "Wide search":  "Bred sökning",
+ "Language has been switched":"Språket är nu ändrat",
+ "Show advanced search": "Visa avancerad sök",
+ "We're currently searching through over 8 million records, hang on!": "Vi söker just nu igenom över 8 miljoner personer, håll ut!"
 }

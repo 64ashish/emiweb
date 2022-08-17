@@ -205,7 +205,10 @@ class SearchController extends Controller
     {
 //        return $request->fullUrlIs(['full_name']);
 
+
+
         $inputFields = Arr::whereNotNull($request->except('_token'));
+//        return $inputFields;
         $keywords = $request->except('_token');
 
         $records = collect([
@@ -230,12 +233,8 @@ class SearchController extends Controller
             'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields)->count(),
             'Den åländska emigrantdatabasen'=> $this->QueryIcelandEmigrationRecord($inputFields)->count(),
 
-
-
-
             ]);
 
-//        return $records['Den danska emigrantdatabasen'];
 
         return view('home.results', compact('records', 'keywords'));
 

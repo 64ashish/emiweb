@@ -20,15 +20,10 @@
                                 <tbody class="bg-white">
                                 @foreach($records as $key => $value)
                                     @if($value > 0)
-                                        <tr  class="odd:bg-white even:bg-gray-100">
-                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
-                                                                            font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                                               {{ $key }}
-                                            </td>
-                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
-                                                                            font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                        <tr  class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
+
                                                    @include('home._uniresulttable')
-                                            </td>
+
                                         </tr>
                                     @endif
                                 @endforeach

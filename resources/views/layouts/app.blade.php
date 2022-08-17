@@ -11,7 +11,6 @@
     <script src="https://js.stripe.com/v3/"></script>
 
 
-{{--    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
 </head>
 
 <body class="h-full">
@@ -73,20 +72,23 @@
                              x-transition:leave-end="opacity-0 opacity-100 scale-100"
                              class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <div>
-                                <div class="relative" @click.away="openSearch = false">
+                                <div class="relative" @click.away="openSearch = false" x-data="{ reveal: false }">
                                     <!-- Heroicon name: solid/search -->
 
 
-                                    {!! Form::open(['route' => 'search']) !!}
+
+                                    <form action="{{ route('search') }}" method="POST"  x-on:submit="reveal = true" >
+                                        @csrf
 
                                     <div class="flex items-center flex-wrap p-5">
+
                                         <label
                                                 class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('First name') }}</label>
-                                        <input x-ref="input" name="first_name" type="text"
+                                        <input x-ref="input" name="first_name" type="text" required
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
-                                               placeholder="{{ __('Last name') }}..." aria-expanded="false"
+                                               placeholder="{{ __('First name') }}..." aria-expanded="false"
                                                aria-controls="options">
 
                                         <label
@@ -115,9 +117,32 @@
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('Född församling') }}..." aria-expanded="false"
                                                aria-controls="options">
+
+
+
                                     </div>
-                                    <button type="submit" hidden />
-                                    {!! Form::close() !!}
+                                    <div class="p-5 flex justify-end">
+                                        <button type="submit" class="items-center px-8 py-2 border
+                                        border-transparent text-base font-medium rounded-md shadow-sm text-white
+                                         bg-indigo-600  hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                        focus:ring-offset-2 focus:ring-indigo-500"  >{{ __('Search') }}</button>
+
+                                    </div>
+
+
+                                    </form>
+                                    <div class="p-5 flex" x-show="reveal">
+                                        <div>
+                                            <lord-icon
+                                                    src="{{ asset('lordie/search-loader.json') }}"
+                                                    trigger="loop"
+                                                    colors="primary:#166534"
+                                                    style="width:30px;height:30px">
+                                            </lord-icon>
+                                        </div>
+                                        <p>{{ __("We're currently searching through over 8 million records, hang on!") }}</p>
+                                    </div>
+
                                 </div>
                             </div>
 

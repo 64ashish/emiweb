@@ -167,36 +167,13 @@
 
 
                             <div x-data="{selectedPrice: 0}" class="md:flex md:justify-center md:space-x-6 my-8">
+
                                 <div x-on:click="selectedPrice = 0 "
-                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6 mb-8 md:mb-0"
+                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
                                      :class="selectedPrice === 0 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
                                     <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
                                          x-bind:class="selectedPrice === 0 ? 'border-indigo-500' : 'border-gray-700'">
                                     <span x-show="selectedPrice === 0" x-cloak
-                                          class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="plan" id="standard" class="appearance-none opacity-0"
-                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" checked="">
-                                        <label for="standard">
-
-                                            <div class="font-bold text-gray-900 pr-6">
-                                                <span class="text-2xl lg:text-3xl">175</span>
-                                                <span class="text-lg lg:text-xl">SEK</span>
-                                                <span class="font-medium">/3 {{__('months')}}</span>
-                                            </div>
-                                            <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>{{ __('Renews at 175 SEK /months') }}</p>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div x-on:click="selectedPrice = 1 "
-                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     :class="selectedPrice === 1 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
-                                    <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 1 ? 'border-indigo-500' : 'border-gray-700'">
-                                    <span x-show="selectedPrice === 1" x-cloak
                                           class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
                                     </div>
                                     <div>
@@ -211,6 +188,30 @@
                                             </div>
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
                                                 <p>{{ __('Renews at 300 SEK /year') }}</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div x-on:click="selectedPrice = 1 "
+                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6 mb-8 md:mb-0"
+                                     :class="selectedPrice === 1 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
+                                    <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
+                                         x-bind:class="selectedPrice === 1 ? 'border-indigo-500' : 'border-gray-700'">
+                                    <span x-show="selectedPrice === 1" x-cloak
+                                          class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="plan" id="standard" class="appearance-none opacity-0"
+                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" checked="">
+                                        <label for="standard">
+
+                                            <div class="font-bold text-gray-900 pr-6">
+                                                <span class="text-2xl lg:text-3xl">175</span>
+                                                <span class="text-lg lg:text-xl">SEK</span>
+                                                <span class="font-medium">/3 {{__('months')}}</span>
+                                            </div>
+                                            <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
+                                                <p>{{ __('Renews at 175 SEK /months') }}</p>
                                             </div>
                                         </label>
                                     </div>
