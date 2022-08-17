@@ -55,8 +55,16 @@
 
 
             </div>
-            @if(isset($records))
+            @if(isset($records) and $records->count() > 0)
+
                 @include('dashboard._resulttable')
+            @else
+                <div class="pt-6">
+                    {{ __('Your search returned no results') }}
+
+
+                </div>
+
             @endif
         </section>
     </div>

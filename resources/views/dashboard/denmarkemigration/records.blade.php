@@ -16,9 +16,7 @@
                     @if(!isset($keywords))
                         {!! Form::open(['route' => 'danishemigration.search']) !!}
                     @endif
-                    <h4>
-                        {{ __('Standard Search') }}
-                    </h4>
+
                     <div class="grid grid-cols-2 gap-4 pb-4">
                         <div class="sm:grid sm:grid-cols-3 sm:items-start">
                             <label for="first_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
@@ -64,12 +62,13 @@
 
            @include('dashboard._resulttable')
         @else
-            <div>
-               Your search returned no results!
+            <div class="pt-6">
+                {{ __('Your search returned no results') }}
+
 
             </div>
 
-            @endif
+        @endif
         </section>
 
     </div>
