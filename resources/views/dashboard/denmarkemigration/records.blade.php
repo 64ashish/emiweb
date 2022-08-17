@@ -17,7 +17,7 @@
                         {!! Form::open(['route' => 'danishemigration.search']) !!}
                     @endif
                     <h4>
-                        Standard Search
+                        {{ __('Standard Search') }}
                     </h4>
                     <div class="grid grid-cols-2 gap-4 pb-4">
                         <div class="sm:grid sm:grid-cols-3 sm:items-start">
@@ -60,9 +60,16 @@
 
             </div>
 
-        @if(isset($records))
+        @if(isset($records) and $records->count() > 0)
+
            @include('dashboard._resulttable')
-        @endif
+        @else
+            <div>
+               Your search returned no results!
+
+            </div>
+
+            @endif
         </section>
 
     </div>
