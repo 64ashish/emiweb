@@ -145,7 +145,7 @@ class DalslanningarBornInAmericaRecordController extends Controller
         $advancedFields = $fields->diff($filterAttributes)->flatten();
 
         $defaultColumns = $model->defaultTableColumns();
-        $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
+        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive->name;
 
 

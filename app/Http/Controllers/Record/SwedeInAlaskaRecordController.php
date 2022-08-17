@@ -69,7 +69,7 @@ class SwedeInAlaskaRecordController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
-        $populated_fields = collect($inputFields)->except($defaultColumns)->keys();
+        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
 //        return view
         $archive_name = $model::findOrFail(1)->archive->name;
         return view('dashboard.SwedeInAlaskaRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
