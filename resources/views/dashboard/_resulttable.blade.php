@@ -1,8 +1,12 @@
 
 <div class="mt-8 flex flex-col" x-init="document.getElementById('results').scrollIntoView()">
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8" id="results">
+
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <h4 class="pb-6"> {{ __("Your search returned") ." ". $records->total()." ". __("results") }}
+            </h4>
             <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+
 
 
 

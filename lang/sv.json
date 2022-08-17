@@ -130,5 +130,7 @@
  "We're currently searching through over 8 million records, hang on!": "Vi söker just nu igenom över 8 miljoner personer, håll ut!",
  "Standard Search": "Standardsök",
  "Hide advanced search": "Göm avancerad sök",
- "Your search returned no results": "Sökningen gav inga resultat"
+ "Your search returned no results": "Sökningen gav inga resultat",
+ "Your search returned": "Din sökning gav "
+
 }
