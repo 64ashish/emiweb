@@ -54,7 +54,7 @@
                                x-on:click.prevent="tab = 'details'"
                                href="#">Details</a>
 {{--                            @if(empty($relatives))--}}
-                            @if(!$relatives->isEmpty())
+                            @if($detail->relatives->count() > 0)
                             <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm" :class="{ 'border-indigo-500 text-indigo-600 ': tab === 'relatives' }"
                                x-on:click.prevent="tab = 'relatives'"
@@ -100,7 +100,10 @@
                                                 <thead class="bg-gray-50">
                                                 <tr>
                                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ __('Full name') }}</th>
-                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Relationship') }}</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Birth date') }}</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('From parish') }}</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('From province') }}</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Destination') }}</th>
                                                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                                         <span class="sr-only">{{ __('View') }}</span>
                                                     </th>
@@ -108,12 +111,15 @@
                                                 </thead>
                                                 <tbody class="bg-white">
                                                 <!-- Odd row -->
-                                                @foreach($relatives as $relative)
+                                                @foreach($detail->relatives as $relative)
                                                     <tr class="odd:bg-white even:bg-gray-100">
-                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $relative->full_name }}</td>
-                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->relationship_type }}</td>
+                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $relative->first_name." ".$relative->last_name }}</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->dob }}</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->from_parish }}</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->from_province }}</td>
+                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->destination_country }}</td>
                                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                            <a href=" {{ route('records.show', ['arch'=> $relative->archive,'id'=>$relative->item_id]) }} " class="text-indigo-600 hover:text-indigo-900">
+                                                            <a href=" {{ route('records.show', ['arch'=> $relative['archive'],'id'=>$relative->id]) }} " class="text-indigo-600 hover:text-indigo-900">
                                                                 Visa</a>
                                                         </td>
                                                     </tr>

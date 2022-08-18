@@ -280,6 +280,12 @@ class SearchController extends Controller
             case(5):
                 $model = new SwedishChurchEmigrationRecord();
                 $detail = SwedishChurchEmigrationRecord::findOrFail($id);
+                $detail->relatives = SwedishChurchEmigrationRecord::where('main_act', $detail->main_act)
+                    ->whereNot('id', $detail->id)
+                    ->where('from_parish', $detail->from_parish)
+                    ->where('record_date', $detail->record_date)
+                    ->get();
+//                return $detail->relatives->count();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
