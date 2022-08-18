@@ -54,7 +54,7 @@
                                x-on:click.prevent="tab = 'details'"
                                href="#">Details</a>
 {{--                            @if(empty($relatives))--}}
-                            @if($detail->relatives->count() > 0)
+                            @if( $detail->relatives != null and $detail->relatives->count() > 0)
                             <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm" :class="{ 'border-indigo-500 text-indigo-600 ': tab === 'relatives' }"
                                x-on:click.prevent="tab = 'relatives'"
@@ -90,6 +90,7 @@
                             </div>
                         </div>
 
+                        @if( $detail->relatives != null and $detail->relatives->count() > 0)
                         <div  x-show="tab === 'relatives'">
                             <h3>Relatives</h3>
                             <div class="mt-8 flex flex-col">
@@ -133,6 +134,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <div  x-show="tab === 'images'">
                             <h3>Media</h3>
