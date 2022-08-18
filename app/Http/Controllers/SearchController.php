@@ -354,6 +354,7 @@ class SearchController extends Controller
             case(14):
                 $model = new MormonShipPassengerRecord();
                 $detail = MormonShipPassengerRecord::findOrFail($id);
+//                return $detail;
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();

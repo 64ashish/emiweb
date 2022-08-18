@@ -12,9 +12,11 @@ class SwedishChurchEmigrationRecord extends Model
 {
     use HasFactory, Searchable, RecordCount;
 
+    protected $hidden = [''];
+
     protected $fillable = [
         'first_name','last_name','dob','gender','last_resident','from_province','profession','birth_place',
-        'civil_status','from_parish','birth_parish','hasFamily','record_date','destination_country','secrecy',
+        'civil_status','from_parish','birth_parish','has_family','record_date','destination_country','secrecy',
         'main_act','act_number','household_examination_volume','emigration_book_volume','emigration_book_note',
         'immigration_note','immigration_date','work_certificate_note','memo','year_act_number','supplement_reference','
         number_in_emigration_book','before_parish','before_province','before_location','before_country','before_year','
@@ -84,4 +86,6 @@ class SwedishChurchEmigrationRecord extends Model
     {
         return Carbon::parse($value)->format('Y-m-d');
     }
+
+
 }
