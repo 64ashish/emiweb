@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Archive;
+use App\Models\BevaringensLevnadsbeskrivningarRecord;
 use App\Models\BrodernaLarssonArchiveRecord;
 use App\Models\DalslanningarBornInAmericaRecord;
 use App\Models\DenmarkEmigration;
@@ -183,6 +184,13 @@ class SearchController extends Controller
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
                 break;
 
+            case(22):
+//                $records = IcelandEmigrationRecord::with('archive')->paginate(500);
+//                $filterAttributes = $this->meilisearch->index('iceland_emigration_records')->getFilterableAttributes();
+                $model = new BevaringensLevnadsbeskrivningarRecord();
+                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
+                break;
+
             default:
                 abort(403);
         }
@@ -295,6 +303,12 @@ class SearchController extends Controller
 //                fix all date values for this table
                 $model = new SwedishChurchImmigrantRecord();
                 $detail = SwedishChurchImmigrantRecord::findOrFail($id);
+                $detail->relatives = SwedishChurchImmigrantRecord::where('main_act', $detail->main_act)
+                    ->whereNot('id', $detail->id)
+                    ->where('to_parish', $detail->to_parish)
+                    ->where('to_date', $detail->to_date)
+                    ->where('to_county', $detail->to_county)
+                    ->get();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -352,6 +366,12 @@ class SearchController extends Controller
             case(13):
                 $model = new NorwegianChurchImmigrantRecord();
                 $detail = NorwegianChurchImmigrantRecord::findOrFail($id);
+                $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
+                    ->where('family_nr', $detail->family_nr)
+                    ->where('source_area', $detail->source_area)
+                    ->where('to_date', $detail->to_date)
+                    ->where('to_fylke', $detail->to_fylke)
+                    ->get();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -403,6 +423,12 @@ class SearchController extends Controller
 
                 $model = new NorwayEmigrationRecord();
                 $detail = NorwayEmigrationRecord::findOrFail($id);
+                $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
+                    ->where('family_nr', $detail->family_nr)
+                    ->where('source_area', $detail->source_area)
+                    ->where('from_date', $detail->record_date)
+                    ->where('from_fylke', $detail->from_fylke)
+                    ->get();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Archive;
+use App\Models\Category;
 use App\Models\User;
 use http\Url;
 use Illuminate\Http\Request;
@@ -43,7 +44,8 @@ class HomeController extends Controller
 
 
             if(auth()->user()->hasRole(['subscriber'])){
-                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
+//                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
+                $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
             }
 //        return $archives;
 //        $user = auth()->user();
