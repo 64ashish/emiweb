@@ -39,7 +39,10 @@ class HomeController extends Controller
 //            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
 //                return $item['place'];
 //            }], $preserveKeys = true);
-                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
+//                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
+//                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
+//                $allcats = Category::where('id',8)->with('archives')->has('archives')->first();
+                $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
             }
 
 
@@ -47,7 +50,7 @@ class HomeController extends Controller
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
                 $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
             }
-//        return $archives;
+//        return $catArchives;
 //        $user = auth()->user();
             $user = auth()->user();
 

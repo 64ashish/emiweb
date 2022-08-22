@@ -24,15 +24,20 @@ class ArchivePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user, Archive $archive)
     {
         //
         if($user->hasRole('subscriber')){
             return true;
         }
 
-        // return true if user is regular and archive id is 1
-        return true;
+        if($user->hasRole(['organization admin', 'organization staff']) and $user->organization->archives->contains('id', $archive->id))
+        {
+            return true;
+        }
+
+
+        return false;
 
 
     }
@@ -48,6 +53,7 @@ class ArchivePolicy
     {
         //
 
+//        dd( $archive);
 
         if($user->hasRole(['organization admin', 'organization staff']) and $user->organization->archives->contains('id', $archive->id))
         {
@@ -59,6 +65,11 @@ class ArchivePolicy
         }
 
         // return true if user is regular and archive id is 1
+
+        if(auth()->user()->hasRole(['regular user']) and ($archive->id == 1)){
+            return true;
+        }
+
         return false;
     }
 
