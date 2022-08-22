@@ -26,6 +26,7 @@ class SwedishChurchEmigrationRecord extends Model
         'from_parish',
         'civil_status',
         'birth_parish',
+        'birth_province',
         'has_family',
         'record_date',
         'destination_country',
@@ -68,7 +69,8 @@ class SwedishChurchEmigrationRecord extends Model
         'source_hfl_batch_number',
         'source_hfl_image_number',
         'source_in_out_batch_number',
-        'source_in_out_image_number'];
+        'source_in_out_image_number'
+    ];
 
 
     public function archive(){
