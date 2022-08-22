@@ -25,7 +25,6 @@ class SwedishChurchEmigrationRecord extends Model
         'from_location',
         'from_parish',
         'civil_status',
-        'from_parish',
         'birth_parish',
         'has_family',
         'record_date',

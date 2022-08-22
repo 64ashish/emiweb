@@ -23,10 +23,10 @@
  "Before from act nr":"Tidigare utflyttningsaktnr",
  "Before from date":"Tidigare utflyttningsdatum",
  "Before from parish":"Tidigare utflyttningsförsamling",
- "Before location":"Utfl ort",
- "Before parish":"Innan församling",
- "Before province":"Utfl län",
- "Before year":"Utfl år",
+ "Before location":"Infl ort",
+ "Before parish":"Infl församling",
+ "Before province":"Infl län",
+ "Before year":"Infl år",
  "Below is your plan":"Nedan ser du din abonnemangsform",
  "Birth country":"Födelseland",
  "Birth county":"Födelselän",
@@ -321,3 +321,11 @@
  "Roll no":"Rulle nr",
  "Created by":"Skapad av"
 }
+
+
+
+
+
+
+
+
