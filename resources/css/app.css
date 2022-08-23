@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .striped div:nth-child(4n + 3),
+    .striped div:nth-child(4n + 4){
+        @apply bg-gray-100
+    }
+}
+
 [x-cloak] {
     display: none;
 }

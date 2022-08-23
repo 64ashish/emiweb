@@ -1804,6 +1804,10 @@ select {
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
+.striped div:nth-child(4n + 3), .striped div:nth-child(4n + 4) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
 
 [x-cloak] {
     display: none;
