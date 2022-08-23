@@ -100,4 +100,8 @@ class IcelandEmigrationRecord extends Model
             'profession',
         ];
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

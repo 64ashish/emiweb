@@ -103,4 +103,8 @@ class SwedeInAlaskaRecord extends Model
     {
         return Carbon::parse($value)->format('Y-m-d');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

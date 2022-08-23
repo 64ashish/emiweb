@@ -65,4 +65,8 @@ class JohnEricssonsArchiveRecord extends Model
             'roll_no',
         ];
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

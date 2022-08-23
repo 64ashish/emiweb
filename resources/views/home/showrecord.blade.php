@@ -84,9 +84,18 @@
                                             </dd>
                                         </div>
                                     @endforeach
-
-
                                 </dl>
+                                @if(!empty($detail->user->organization))
+                                    <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+                                        <h3 class="text-sm text-gray-500">Archive ownership</h3>
+                                        <div>
+                                            <div>Archive Owner:</div><div>{{ $detail->user->organization->name }}</div>
+                                            <div>Email:</div><div>{{ $detail->user->organization->email }}</div>
+                                            <div>Telephone</div><div>{{ $detail->user->organization->phone }}</div>
+                                        </div>
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
 

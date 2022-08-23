@@ -125,4 +125,7 @@ class NewYorkPassengerRecord extends Model
             'destination'
         ];
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

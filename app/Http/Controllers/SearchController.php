@@ -265,7 +265,7 @@ class SearchController extends Controller
 
         switch($arch) {
             case(1):
-                $detail = DenmarkEmigration::findOrFail($id);
+                $detail = DenmarkEmigration::with('user.organization')->findOrFail($id);
                 $model = new DenmarkEmigration();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -273,7 +273,7 @@ class SearchController extends Controller
                 break;
 
             case(2):
-                $detail = SwedishAmericanChurchArchiveRecord::findOrFail($id);
+                $detail = SwedishAmericanChurchArchiveRecord::with('user.organization')->findOrFail($id);
                 $model = new SwedishAmericanChurchArchiveRecord();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -281,7 +281,7 @@ class SearchController extends Controller
                 break;
 
             case(3):
-                $detail = NewYorkPassengerRecord::findOrFail($id);
+                $detail = NewYorkPassengerRecord::with('user.organization')->findOrFail($id);
                 $model = new NewYorkPassengerRecord();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -289,7 +289,7 @@ class SearchController extends Controller
                 break;
 
             case(4):
-                $detail = SwedishPortPassengerListRecord::findOrFail($id);
+                $detail = SwedishPortPassengerListRecord::with('user.organization')->findOrFail($id);
                 $model = new SwedishPortPassengerListRecord();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -298,7 +298,7 @@ class SearchController extends Controller
 
             case(5):
                 $model = new SwedishChurchEmigrationRecord();
-                $detail = SwedishChurchEmigrationRecord::findOrFail($id);
+                $detail = SwedishChurchEmigrationRecord::with('user.organization')->findOrFail($id);
                 $detail->relatives = SwedishChurchEmigrationRecord::where('main_act', $detail->main_act)
                     ->whereNot('id', $detail->id)
                     ->where('from_parish', $detail->from_parish)
@@ -313,7 +313,7 @@ class SearchController extends Controller
             case(6):
 //                fix all date values for this table
                 $model = new SwedishChurchImmigrantRecord();
-                $detail = SwedishChurchImmigrantRecord::findOrFail($id);
+                $detail = SwedishChurchImmigrantRecord::with('user.organization')->findOrFail($id);
                 $detail->relatives = SwedishChurchImmigrantRecord::where('main_act', $detail->main_act)
                     ->whereNot('id', $detail->id)
                     ->where('to_parish', $detail->to_parish)
@@ -327,7 +327,7 @@ class SearchController extends Controller
 
             case(7):
                 $model = new SwedishEmigrantViaKristianiaRecord();
-                $detail = SwedishEmigrantViaKristianiaRecord::findOrFail($id);
+                $detail = SwedishEmigrantViaKristianiaRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -335,7 +335,7 @@ class SearchController extends Controller
 
             case(8):
                 $model = new SwedishImmigrationStatisticsRecord();
-                $detail = SwedishImmigrationStatisticsRecord::findOrFail($id);
+                $detail = SwedishImmigrationStatisticsRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -344,7 +344,7 @@ class SearchController extends Controller
 
             case(9):
                 $model = new SwedishEmigrationStatisticsRecord();
-                $detail = SwedishEmigrationStatisticsRecord::findOrFail($id);
+                $detail = SwedishEmigrationStatisticsRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -352,7 +352,7 @@ class SearchController extends Controller
 
             case(10):
                 $model = new LarssonEmigrantPopularRecord();
-                $detail = LarssonEmigrantPopularRecord::findOrFail($id);
+                $detail = LarssonEmigrantPopularRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -360,7 +360,7 @@ class SearchController extends Controller
 
             case(11):
                 $model = new BrodernaLarssonArchiveRecord();
-                $detail = BrodernaLarssonArchiveRecord::findOrFail($id);
+                $detail = BrodernaLarssonArchiveRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -368,7 +368,7 @@ class SearchController extends Controller
 
             case(12):
                 $model = new JohnEricssonsArchiveRecord();
-                $detail = JohnEricssonsArchiveRecord::findOrFail($id);
+                $detail = JohnEricssonsArchiveRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -376,7 +376,7 @@ class SearchController extends Controller
 
             case(13):
                 $model = new NorwegianChurchImmigrantRecord();
-                $detail = NorwegianChurchImmigrantRecord::findOrFail($id);
+                $detail = NorwegianChurchImmigrantRecord::with('user.organization')->findOrFail($id);
                 $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
                     ->where('family_nr', $detail->family_nr)
                     ->where('source_area', $detail->source_area)
@@ -390,7 +390,7 @@ class SearchController extends Controller
 
             case(14):
                 $model = new MormonShipPassengerRecord();
-                $detail = MormonShipPassengerRecord::findOrFail($id);
+                $detail = MormonShipPassengerRecord::with('user.organization')->findOrFail($id);
 //                return $detail;
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -399,7 +399,7 @@ class SearchController extends Controller
 
             case(15):
                 $model = new SwedishAmericanMemberRecord();
-                $detail = SwedishAmericanMemberRecord::findOrFail($id);
+                $detail = SwedishAmericanMemberRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -407,7 +407,7 @@ class SearchController extends Controller
 
             case(16):
                 $model = new SwedeInAlaskaRecord();
-                $detail = SwedeInAlaskaRecord::findOrFail($id);
+                $detail = SwedeInAlaskaRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -415,7 +415,7 @@ class SearchController extends Controller
 
             case(17):
                 $model = new VarmlandskaNewspaperNoticeRecord();
-                $detail = VarmlandskaNewspaperNoticeRecord::findOrFail($id);
+                $detail = VarmlandskaNewspaperNoticeRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -424,7 +424,7 @@ class SearchController extends Controller
             case(18):
 
                 $model = new DalslanningarBornInAmericaRecord();
-                $detail = DalslanningarBornInAmericaRecord::findOrFail($id);
+                $detail = DalslanningarBornInAmericaRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -433,7 +433,7 @@ class SearchController extends Controller
             case(20):
 
                 $model = new NorwayEmigrationRecord();
-                $detail = NorwayEmigrationRecord::findOrFail($id);
+                $detail = NorwayEmigrationRecord::with('user.organization')->findOrFail($id);
                 $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
                     ->where('family_nr', $detail->family_nr)
                     ->where('source_area', $detail->source_area)
@@ -448,7 +448,7 @@ class SearchController extends Controller
             case(21):
 
                 $model = new IcelandEmigrationRecord();
-                $detail = IcelandEmigrationRecord::findOrFail($id);
+                $detail = IcelandEmigrationRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -464,6 +464,8 @@ class SearchController extends Controller
         $archive_details = Archive::find($arch);
 
 //        return $relatives->isEmpty();
+
+//        return $detail;
 
         return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
 

@@ -78,4 +78,7 @@ class NorwayEmigrationRecord extends Model
             'destination_country',
         ];
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
