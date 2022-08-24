@@ -72,11 +72,11 @@
                              x-transition:leave-end="opacity-0 opacity-100 scale-100"
                              class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <div>
-                                <div class="relative" @click.away="openSearch = false" x-data="{ reveal: false }">
+                                <div class="relative" @click.away="openSearch = false"
+                                     x-data="{ reveal: false,
+                                     buttonDisable:true,
+                                     f:null, l:null, y:null, p:null }">
                                     <!-- Heroicon name: solid/search -->
-
-
-
                                     <form action="{{ route('search') }}" method="POST"  x-on:submit="reveal = true" >
                                         @csrf
 
@@ -86,7 +86,9 @@
                                                 class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('First name') }}</label>
-                                        <input x-ref="input" name="first_name" type="text" required
+                                        <input x-ref="input" x-model="f"
+                                               x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
+                                               name="first_name" type="text"
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('First name') }}..." aria-expanded="false"
                                                aria-controls="options">
@@ -95,7 +97,8 @@
                                                 class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('Last name') }}</label>
-                                        <input x-ref="input" name="last_name" type="text"
+                                        <input x-ref="input" name="last_name" type="text" x-model="l"
+                                               x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-42text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('Last name') }}..." aria-expanded="false"
                                                aria-controls="options">
@@ -104,7 +107,8 @@
                                                 class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('Född år') }}</label>
-                                        <input x-ref="input" name="year" type="text"
+                                        <input x-ref="input" name="year" type="text" x-model="y"
+                                               x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('Född år') }}..." aria-expanded="false"
                                                aria-controls="options">
@@ -113,7 +117,8 @@
                                                 class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('Född församling') }}</label>
-                                        <input x-ref="input" name="parish" type="text"
+                                        <input x-ref="input" name="parish" type="text" x-model="p"
+                                               x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('Född församling') }}..." aria-expanded="false"
                                                aria-controls="options">
@@ -122,11 +127,10 @@
 
                                     </div>
                                     <div class="p-5 flex justify-end">
-                                        <button type="submit" class="items-center px-8 py-2 border
+                                        <button type="submit" x-bind:disabled="buttonDisable"  class="items-center disabled:opacity-50 px-8 py-2 border
                                         border-transparent text-base font-medium rounded-md shadow-sm text-white
                                          bg-indigo-600  hover:bg-indigo-700 focus:outline-none focus:ring-2
                                         focus:ring-offset-2 focus:ring-indigo-500"  >{{ __('Search') }}</button>
-
                                     </div>
 
 
@@ -198,6 +202,14 @@
         </div>
     </footer>
 </div>
+<script>
+    function checkButton(){
+        // return {
+        //     buttonStatus:false,
+        //
+        // }
+    }
+</script>
 </body>
 <script>
     window.markerConfig = {

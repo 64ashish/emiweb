@@ -215,9 +215,18 @@ class SearchController extends Controller
 
 
 
+
+
         $inputFields = Arr::whereNotNull($request->except('_token'));
 //        return $inputFields;
         $keywords = $request->except('_token');
+
+////        run this for test only
+//        $records = collect([
+//            'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields)->count()
+//        ]);
+
+//        run this for production
 
         if(auth()->user()->hasRole(['regular user'])){
             $records = collect([
@@ -226,26 +235,26 @@ class SearchController extends Controller
         }
         else{
             $records = collect([
-                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields)->count(),
-                'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields)->count(),
-                'New Yorks passagerarlistor'=> $this->QueryNewYorkPassengerRecord($inputFields)->count(),
-                'Passagerarlistor för svenska hamnar'=> $this->QuerySwedishPortPassengerListRecord($inputFields)->count(),
-                'Emigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchEmigrationRecord($inputFields)->count(),
-                'Immigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchImmigrantRecord($inputFields)->count(),
-                'Svenskar över Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields)->count(),
-                'SCB Immigranter'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields)->count(),
-                'SCB Emigranter'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields)->count(),
-                'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields)->count(),
-                'Bröderna Larssons arkiv'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields)->count(),
-                'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields)->count(),
-                'Immigranter i norska kyrkböcker'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields)->count(),
-                'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields)->count(),
-                'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields)->count(),
-                'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields)->count(),
-                'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields)->count(),
-                'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields)->count(),
-                'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields)->count(),
-                'Den åländska emigrantdatabasen'=> $this->QueryIcelandEmigrationRecord($inputFields)->count(),
+                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields),
+                'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields),
+                'New Yorks passagerarlistor'=> $this->QueryNewYorkPassengerRecord($inputFields),
+                'Passagerarlistor för svenska hamnar'=> $this->QuerySwedishPortPassengerListRecord($inputFields),
+                'Emigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchEmigrationRecord($inputFields),
+                'Immigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchImmigrantRecord($inputFields),
+                'Svenskar över Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields),
+                'SCB Immigranter'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields),
+                'SCB Emigranter'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields),
+                'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields),
+                'Bröderna Larssons arkiv'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields),
+                'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields),
+                'Immigranter i norska kyrkböcker'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields),
+                'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields),
+                'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields),
+                'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields),
+                'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
+                'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields),
+                'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields),
+                'Den åländska emigrantdatabasen'=> $this->QueryIcelandEmigrationRecord($inputFields),
 
             ]);
         }

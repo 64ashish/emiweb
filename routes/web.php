@@ -35,6 +35,7 @@ use App\Http\Controllers\Record\SwedishPortPassengerListRecordController;
 use App\Http\Controllers\Record\VarmlandskaNewspaperNoticeRecordController;
 use App\Http\Controllers\RelativeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SendEmailsController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
 use App\Http\Controllers\User\StaffController;
@@ -57,6 +58,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 Route::get('/', [HomeController::class,'index']);
+//Route::get('/mail', [SendEmailsController::class, 'sendTest']);
 //Route::get('/login', [AuthenticatedSessionController::class, 'create']);
 Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
     ->name('home');

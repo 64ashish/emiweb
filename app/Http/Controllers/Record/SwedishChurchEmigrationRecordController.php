@@ -42,25 +42,26 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $inputFields;
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
-        $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
-            function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                $options['limit'] = 1000000;
-                return $meilisearch->search($query, $options);
-            })->raw();
-        $idFromResults = collect($melieRaw['hits'])->pluck('id');
-        $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`dob`, '%Y-%m-%d')) IS NOT NULL");
+//        return $inputQuery;
+
 
 
 
 //        if search was being performed
         if($request->action === "search"){
-//                return "search";
+          $result = SwedishChurchEmigrationRecord::search($inputQuery);
             $records = $result->paginate(100);
         }
 //      filter the thing and get the results ready
         if($request->action === "filter"){
-//                return $inputFields;
+            $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
+                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//            run the filter
+                    $options['limit'] = 1000000;
+                    return $meilisearch->search($query, $options);
+                })->raw();
+            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+            $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`dob`, '%Y-%m-%d')) IS NOT NULL");
             $records = $this->FilterQuery($inputFields, $result, $all_request);
         }
 

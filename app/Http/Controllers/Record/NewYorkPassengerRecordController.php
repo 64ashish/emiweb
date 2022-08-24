@@ -39,7 +39,6 @@ class NewYorkPassengerRecordController extends Controller
 
 //      filter the thing and get the results ready
         if($request->action === "filter"){
-
             $melieRaw = NewYorkPassengerRecord::search($inputQuery,
                 function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
 //            run the filter
