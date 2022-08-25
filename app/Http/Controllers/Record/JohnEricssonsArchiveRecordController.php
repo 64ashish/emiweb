@@ -29,25 +29,26 @@ class JohnEricssonsArchiveRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
-
-//        if search was being performed
-        if($request->action === "search"){
-            $result = JohnEricssonsArchiveRecord::search($inputQuery);
-            $records = $result->paginate(100);
-        }
-//      filter the thing and get the results ready
-        if($request->action === "filter"){
-            $melieRaw = JohnEricssonsArchiveRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = JohnEricssonsArchiveRecord::whereIn('id', $idFromResults);
-//            filter is performed here
-            $records = $this->FilterQuery($inputFields, $result, $all_request);
-        }
+        $result = JohnEricssonsArchiveRecord::query();
+        $records = $this->FilterQuery($inputFields, $result, $all_request);
+////        if search was being performed
+//        if($request->action === "search"){
+//            $result = JohnEricssonsArchiveRecord::search($inputQuery);
+//            $records = $result->paginate(100);
+//        }
+////      filter the thing and get the results ready
+//        if($request->action === "filter"){
+//            $melieRaw = JohnEricssonsArchiveRecord::search($inputQuery,
+//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+////            run the filter
+//                    $options['limit'] = 1000000;
+//                    return $meilisearch->search($query, $options);
+//                })->raw();
+//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+//            $result = JohnEricssonsArchiveRecord::whereIn('id', $idFromResults);
+////            filter is performed here
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//        }
 
 //        $filterAttributes = $this->meilisearch
 //            ->index('john_ericssons_archive_records')

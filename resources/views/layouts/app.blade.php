@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
     <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -110,6 +111,7 @@
                                         <input x-ref="input" name="year" type="text" x-model="y"
                                                x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               size="20" maxlength="4"
                                                placeholder="{{ __('Född år') }}..." aria-expanded="false"
                                                aria-controls="options">
 

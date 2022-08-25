@@ -33,300 +33,457 @@ trait UniversalQuery{
     }
 
     private function QueryDenmarkEmigration( $input){
-//        $result = DenmarkEmigration::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
+        $result = DenmarkEmigration::query();
+        $exec = 0;
 
-        $meliesearchraw = DenmarkEmigration::search($query_raw)->simplePaginateRaw(100);
-//        $ids = collect($meliesearchraw['hits'])->pluck('id');
-//        $result = DenmarkEmigration::whereIn('id', $ids);
-//        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%' ); }
-//        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%'); }
+        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%');
+        $exec = $exec+1;
+        }
+        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%');
+        $exec = $exec+1;
+        }
 
-        return $meliesearchraw['nbHits'];
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
 
     }
 
     private function QuerySwedishChurchEmigrationRecord( $input){
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
+        $result = SwedishChurchEmigrationRecord::query();
+        $exec = 0;
+        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%');
+        $exec = $exec+1;
+        }
+        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%');
+        $exec = $exec+1;
+        }
+        if(!empty($input['parish'])){ $result->where('birth_parish', 'LIKE','%'. $input['parish'].'%');
+        $exec = $exec+1;
+        }
+        if(!empty($input['year'])){ $result->whereYear('dob', $input['year'] ); }
 
-        $meliesearchraw = SwedishChurchEmigrationRecord::search($query_raw)->simplePaginateRaw(100);
-
-
-        return $meliesearchraw['nbHits'];
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryDalslanningarBornInAmericaRecord($input)
     {
         $result = DalslanningarBornInAmericaRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = DalslanningarBornInAmericaRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
+        if (!empty($input['first_name'])) {
+            $result->Where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
 
+        }
+        if (!empty($input['last_name'])) {
+            $result->Where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
 
-        return $meliesearchraw['nbHits'];
+        }
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_date',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishEmigrationStatisticsRecord($input)
     {
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = SwedishEmigrationStatisticsRecord::search($query_raw)->simplePaginateRaw(100);
+        $result = SwedishEmigrationStatisticsRecord::query();
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['parish'])) {
+            $result->where('from_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_year',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryBrodernaLarssonArchiveRecord($input)
     {
         $result = BrodernaLarssonArchiveRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = BrodernaLarssonArchiveRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
+
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['parish'])) {
+            $result->where('home_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
 
 
-        return $meliesearchraw['nbHits'];
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishPortPassengerListRecord($input)
     {
-//        $result = SwedishPortPassengerListRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
+        $result = SwedishPortPassengerListRecord::query();
+        $exec = 0;
+        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%');
+        $exec = $exec+1;
+        }
+        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%');
+        $exec = $exec+1;
+        }
 
-//        dd($query_raw);
-//
-        $meliesearchraw = SwedishPortPassengerListRecord::search($query_raw)
-            ->simplePaginateRaw(100);
-//        dd($meliesearchraw->total());
-//        $ids = collect($meliesearchraw['hits'])->pluck('id');
-//        $result = SwedishPortPassengerListRecord::whereIn('id', $ids);
-//        if(!empty($input['first_name'])){ $result->where('first_name', 'LIKE','%'. $input['first_name'].'%'); }
-//        if(!empty($input['last_name'])){ $result->where('last_name', 'LIKE','%'. $input['last_name'].'%'); }
-        return $meliesearchraw['nbHits'];
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishAmericanChurchArchiveRecord($input)
     {
+        $result = SwedishAmericanChurchArchiveRecord::query();
+        $exec = 0;
 
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
 
-//        dd($query_raw);
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
 
-        $meliesearchraw = SwedishAmericanChurchArchiveRecord::search($query_raw)->simplePaginateRaw(100);
+        }
+        if (!empty($input['parish'])) {
+            $result->where('birth_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
 
-//        dd($meliesearchraw);
+        }
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_date', $input['year']);
+            $exec = $exec+1;
+        }
 
-        return $meliesearchraw['nbHits'];
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryNewYorkPassengerRecord($input)
     {
+        $result = NewYorkPassengerRecord::query();
+        $exec = 0;
 
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = NewYorkPassengerRecord::search($query_raw)->simplePaginateRaw(100);
-//        $ids = collect($meliesearchraw['hits'])->pluck('id');
-//        $result = NewYorkPassengerRecord::whereIn('id', $ids);
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
 
-        return $meliesearchraw['nbHits'];
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_year', $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishChurchImmigrantRecord($input)
     {
         $result = SwedishChurchImmigrantRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
+        $exec = 0;
 
-        $meliesearchraw = SwedishChurchImmigrantRecord::search($query_raw)->simplePaginateRaw(100);
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
 
-        return $meliesearchraw['nbHits'];
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['parish'])) {
+            $result->where('birth_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['year'])) {
+            $result->where('birth_date',  $input['year']);
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishEmigrantViaKristianiaRecord($input)
     {
         $result = SwedishEmigrantViaKristianiaRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = SwedishEmigrantViaKristianiaRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishImmigrationStatisticsRecord($input)
     {
         $result = SwedishImmigrationStatisticsRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = SwedishImmigrationStatisticsRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_year',   $input['year']);
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryLarssonEmigrantPopularRecord($input)
     {
         $result = LarssonEmigrantPopularRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = LarssonEmigrantPopularRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['parish'])) {
+            $result->where('home_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryJohnEricssonsArchiveRecord($input)
     {
         $result = JohnEricssonsArchiveRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = JohnEricssonsArchiveRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryNorwegianChurchImmigrantRecord($input)
     {
         $result = NorwegianChurchImmigrantRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = NorwegianChurchImmigrantRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_date',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryMormonShipPassengerRecord($input)
     {
         $result = MormonShipPassengerRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = MormonShipPassengerRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedishAmericanMemberRecord($input)
     {
         $result = SwedishAmericanMemberRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = SwedishAmericanMemberRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['parish'])) {
+            $result->where('birth_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['year'])) {
+            $result->where('birth_date',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QuerySwedeInAlaskaRecord($input)
     {
         $result = SwedeInAlaskaRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = SwedeInAlaskaRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_date',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryVarmlandskaNewspaperNoticeRecord($input)
     {
         $result = VarmlandskaNewspaperNoticeRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = VarmlandskaNewspaperNoticeRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_year',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryNorwayEmigrationRecord($input)
     {
         $result = NorwayEmigrationRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = NorwayEmigrationRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_date', $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
     private function QueryIcelandEmigrationRecord($input)
     {
         $result = IcelandEmigrationRecord::query();
-        $first_name = $input['first_name'] ?? "";
-        $last_name = $input['last_name'] ?? "";
-        $year = $input['year'] ?? "";
-        $parish = $input['parish'] ?? "";
-        $query_raw = trim($first_name." ".$last_name." ".$year." ".$parish);
-//
-        $meliesearchraw = IcelandEmigrationRecord::search($query_raw)->simplePaginateRaw(100);
+        $exec = 0;
 
-        return $meliesearchraw['nbHits'];
+        if (!empty($input['first_name'])) {
+            $result->where('first_name',  'LIKE','%'. $input['first_name'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->where('last_name',  'LIKE','%'. $input['last_name'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('date_of_birth',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->get('id')->count();}else { return 0; }
     }
 
 

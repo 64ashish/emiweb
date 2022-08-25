@@ -2032,10 +2032,6 @@ select {
   color: transparent;
 }
 
-.disabled\:opacity-75:disabled {
-  opacity: 0.75;
-}
-
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
 }

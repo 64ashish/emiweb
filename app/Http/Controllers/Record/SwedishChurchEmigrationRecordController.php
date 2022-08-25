@@ -45,25 +45,27 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $inputQuery;
 
 
+        $result = SwedishChurchEmigrationRecord::query();
 
+        $records = $this->FilterQuery($inputFields, $result, $all_request);
 
-//        if search was being performed
-        if($request->action === "search"){
-          $result = SwedishChurchEmigrationRecord::search($inputQuery);
-            $records = $result->paginate(100);
-        }
-//      filter the thing and get the results ready
-        if($request->action === "filter"){
-            $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`dob`, '%Y-%m-%d')) IS NOT NULL");
-            $records = $this->FilterQuery($inputFields, $result, $all_request);
-        }
+////        if search was being performed
+//        if($request->action === "search"){
+//          $result = SwedishChurchEmigrationRecord::query();
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//        }
+////      filter the thing and get the results ready
+//        if($request->action === "filter"){
+//            $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
+//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+////            run the filter
+//                    $options['limit'] = 1000000;
+//                    return $meilisearch->search($query, $options);
+//                })->raw();
+//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+//            $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`dob`, '%Y-%m-%d')) IS NOT NULL");
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//        }
 
 
         $keywords = $request->all();

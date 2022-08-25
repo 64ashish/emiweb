@@ -30,26 +30,28 @@ class VarmlandskaNewspaperNoticeRecordController extends Controller
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
 
-
-        //        get the search result prepared
-        if($request->action === "search"){
-            $result = VarmlandskaNewspaperNoticeRecord::search($inputQuery);
-            $records = $result->paginate(100);
-        }
-
-//      filter the thing and get the results ready
-        if($request->action === "filter"){
-            $melieRaw = VarmlandskaNewspaperNoticeRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = VarmlandskaNewspaperNoticeRecord::whereIn('id', $idFromResults);
-//            filter is performed here
-            $records = $this->FilterQuery($inputFields, $result, $all_request);
-        }
+        $result = VarmlandskaNewspaperNoticeRecord::query();
+        $records = $this->FilterQuery($inputFields, $result, $all_request);
+//
+//        //        get the search result prepared
+//        if($request->action === "search"){
+//            $result = VarmlandskaNewspaperNoticeRecord::search($inputQuery);
+//            $records = $result->paginate(100);
+//        }
+//
+////      filter the thing and get the results ready
+//        if($request->action === "filter"){
+//            $melieRaw = VarmlandskaNewspaperNoticeRecord::search($inputQuery,
+//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+////            run the filter
+//                    $options['limit'] = 1000000;
+//                    return $meilisearch->search($query, $options);
+//                })->raw();
+//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+//            $result = VarmlandskaNewspaperNoticeRecord::whereIn('id', $idFromResults);
+////            filter is performed here
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//        }
 
 
 //        get the filter attributes

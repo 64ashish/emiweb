@@ -31,31 +31,34 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
-        return $inputQuery;
+//        return $inputQuery;
+
+        $result = SwedishAmericanChurchArchiveRecord::query();
+        $records = $this->FilterQuery($inputFields, $result, $all_request);
 
 //        get the search result prepared
-        if($request->action === "search"){
-            $result = SwedishAmericanChurchArchiveRecord::search($inputQuery);
-            $records = $result->paginate(100);
-        }
-
-//      filter the thing and get the results ready
-        if($request->action === "filter"){
-
-            $melieRaw = SwedishAmericanChurchArchiveRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = SwedishAmericanChurchArchiveRecord::whereIn('id', $idFromResults)
-                ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
-
-//            filter is performed here
-            $records = $this->FilterQuery($inputFields, $result, $all_request);
-
-        }
+//        if($request->action === "search"){
+//            $result = SwedishAmericanChurchArchiveRecord::search($inputQuery);
+//            $records = $result->paginate(100);
+//        }
+//
+////      filter the thing and get the results ready
+//        if($request->action === "filter"){
+//
+//            $melieRaw = SwedishAmericanChurchArchiveRecord::search($inputQuery,
+//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+////            run the filter
+//                    $options['limit'] = 1000000;
+//                    return $meilisearch->search($query, $options);
+//                })->raw();
+//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+//            $result = SwedishAmericanChurchArchiveRecord::whereIn('id', $idFromResults)
+//                ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
+//
+////            filter is performed here
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//
+//        }
 
 //        get the filter attributes
 //        $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();

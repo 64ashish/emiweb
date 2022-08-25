@@ -116,24 +116,25 @@ class DenmarkEmigrationController extends Controller
 
 //        return $inputFields;
 
-
-        if($request->action === "search"){
-            $result = DenmarkEmigration::search($inputQuery);
-            $records = $result->paginate(100);
-        }
+        $result = DenmarkEmigration::query();
+        $records = $this->FilterQuery($inputFields, $result, $all_request);
+//        if($request->action === "search"){
+//
+//
+//        }
 //      filter the thing and get the results ready
-        if($request->action === "filter"){
-            $melieRaw = DenmarkEmigration::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = DenmarkEmigration::whereIn('id', $idFromResults);
-//            filter is performed here
-            $records = $this->FilterQuery($inputFields, $result, $all_request);
-        }
+//        if($request->action === "filter"){
+////            $melieRaw = DenmarkEmigration::search($inputQuery,
+////                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+//////            run the filter
+////                    $options['limit'] = 1000000;
+////                    return $meilisearch->search($query, $options);
+////                })->raw();
+////            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+////            $result = DenmarkEmigration::whereIn('id', $idFromResults);
+////            filter is performed here
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//        }
 
 
 

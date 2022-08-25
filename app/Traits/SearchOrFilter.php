@@ -45,7 +45,7 @@ trait SearchOrFilter
 
     private function FilterQuery( $inputFields, $result, $all_request)
     {
-//        return $inputFields;
+
         foreach($inputFields as  $fieldname => $fieldvalue) {
 //            for dates
 //            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
@@ -70,10 +70,49 @@ trait SearchOrFilter
             }
 //            for everything else
             else{
+                if($all_request['action']==="filter"){
+                    $result->where($fieldname, $fieldvalue);
+                }
+                if($all_request['action']==="search"){
+                    $result->where($fieldname, 'LIKE' ,  "%{$fieldvalue}%");
+                }
 
-                $result->where($fieldname, $fieldvalue);
             }
         }
         return $result->paginate(100);
     }
+
+//    private function SearchQuery( $inputFields, $result, $all_request) {
+////        return ;
+////        return "this is coming from search query";
+//        foreach($inputFields as  $fieldname => $fieldvalue) {
+////            for dates
+////            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
+//            if((str_contains(str_replace('_', ' ', $fieldname), 'date') or str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
+//            {
+//                if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
+//                {
+//                    $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
+//                }
+//
+//                if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
+//                {
+//                    $result->whereYear($fieldname,$fieldvalue->format('Y'))
+//                        ->whereMonth($fieldname,$fieldvalue->format('m'));
+//                }
+//
+//                if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
+//                {
+//                    $result->whereYear($fieldname,$fieldvalue->format('Y'));
+//                }
+//
+//            }
+////            for everything else
+//            else{
+//
+//
+//            }
+//        }
+//        return $result->paginate(100);
+//    }
 }

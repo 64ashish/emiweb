@@ -230,32 +230,31 @@ class SearchController extends Controller
 
         if(auth()->user()->hasRole(['regular user'])){
             $records = collect([
-                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields)->count()
+                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields)
             ]);
         }
         else{
             $records = collect([
-                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields),
-                'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields),
-                'New Yorks passagerarlistor'=> $this->QueryNewYorkPassengerRecord($inputFields),
-                'Passagerarlistor för svenska hamnar'=> $this->QuerySwedishPortPassengerListRecord($inputFields),
                 'Emigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchEmigrationRecord($inputFields),
                 'Immigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchImmigrantRecord($inputFields),
-                'Svenskar över Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields),
                 'SCB Immigranter'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields),
                 'SCB Emigranter'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields),
-                'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields),
-                'Bröderna Larssons arkiv'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields),
-                'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields),
                 'Immigranter i norska kyrkböcker'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields),
-                'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields),
-                'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields),
-                'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields),
-                'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
-                'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields),
                 'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields),
                 'Den åländska emigrantdatabasen'=> $this->QueryIcelandEmigrationRecord($inputFields),
-
+                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields), //fix for dob
+                'New Yorks passagerarlistor'=> $this->QueryNewYorkPassengerRecord($inputFields),
+                'Passagerarlistor för svenska hamnar'=> $this->QuerySwedishPortPassengerListRecord($inputFields), //gives 500 error
+                'Svenskar över Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields),
+                'Bröderna Larssons arkiv'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields),//fix for dob
+                'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields), //fix for dob
+                'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields),
+                'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields),
+                'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields),
+                'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields),
+                'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields), //fix for dob
+                'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
+                'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
             ]);
         }
 

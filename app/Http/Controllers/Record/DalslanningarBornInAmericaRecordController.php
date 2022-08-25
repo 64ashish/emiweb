@@ -107,33 +107,34 @@ class DalslanningarBornInAmericaRecordController extends Controller
 
 
 
+        $result = DalslanningarBornInAmericaRecord::query();
+        $records = $this->FilterQuery($inputFields, $result, $all_request);
 
 
 
-
-
-        if($request->action === "search"){
-            $result = DalslanningarBornInAmericaRecord::search($inputQuery);
-            $records = $result->paginate(100);
-        }
-
-//      filter the thing and get the results ready
-        if($request->action === "filter"){
-
-            $melieRaw = DalslanningarBornInAmericaRecord::search($inputQuery,
-                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//            run the filter
-                    $options['limit'] = 1000000;
-                    return $meilisearch->search($query, $options);
-                })->raw();
-            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-            $result = DalslanningarBornInAmericaRecord::whereIn('id', $idFromResults)
-                ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
-
-//            filter is performed here
-            $records = $this->FilterQuery($inputFields, $result, $all_request);
-
-        }
+//
+//        if($request->action === "search"){
+//            $result = DalslanningarBornInAmericaRecord::search($inputQuery);
+//            $records = $result->paginate(100);
+//        }
+//
+////      filter the thing and get the results ready
+//        if($request->action === "filter"){
+//
+//            $melieRaw = DalslanningarBornInAmericaRecord::search($inputQuery,
+//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
+////            run the filter
+//                    $options['limit'] = 1000000;
+//                    return $meilisearch->search($query, $options);
+//                })->raw();
+//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
+//            $result = DalslanningarBornInAmericaRecord::whereIn('id', $idFromResults)
+//                ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
+//
+////            filter is performed here
+//            $records = $this->FilterQuery($inputFields, $result, $all_request);
+//
+//        }
 
 
 //        $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();

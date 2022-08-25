@@ -33,7 +33,7 @@
 @endforeach
 </div>
 <div  x-data="{ expanded: false }">
-    <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center">
+    <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center cursor-pointer">
 
            <span x-show="expanded">
                {{ __("Hide advanced search") }}
