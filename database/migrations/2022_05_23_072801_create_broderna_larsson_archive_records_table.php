@@ -19,7 +19,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('11');  // default value 11
-
             $table->integer('old_id');
             $table->string('archive_reference')->nullable();
             $table->string('source_code')->nullable();

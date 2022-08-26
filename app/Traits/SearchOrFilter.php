@@ -74,6 +74,10 @@ trait SearchOrFilter
                     $result->where($fieldname, $fieldvalue);
                 }
                 if($all_request['action']==="search"){
+//
+                    if($fieldname === 'first_name' or  $fieldname === 'last_name')
+                        $result->whereFullText($fieldname, $fieldvalue);
+                    }else{
                     $result->where($fieldname, 'LIKE' ,  "%{$fieldvalue}%");
                 }
 

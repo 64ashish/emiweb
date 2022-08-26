@@ -52,13 +52,13 @@
                             <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm" :class="{ 'border-indigo-500 text-indigo-600 ': tab === 'details' }"
                                x-on:click.prevent="tab = 'details'"
-                               href="#">Details</a>
+                               href="#">{{ __('Details') }}</a>
 {{--                            @if(empty($relatives))--}}
                             @if( $detail->relatives != null and $detail->relatives->count() > 0)
                             <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm" :class="{ 'border-indigo-500 text-indigo-600 ': tab === 'relatives' }"
                                x-on:click.prevent="tab = 'relatives'"
-                               href="#">Relatives</a>
+                               href="#">{{ __('Relatives') }}</a>
                             @endif
 
                             @if(!$images->isEmpty())
@@ -87,11 +87,10 @@
                                 </dl>
                                 @if(!empty($detail->user->organization))
                                     <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-                                        <h3 class="text-sm text-gray-500">Archive ownership</h3>
 
-                                            <div>Owner Name: {{ $detail->user->organization->name }}</div>
-                                            <div>Email: {{ $detail->user->organization->email }}</div>
-                                            <div>Telephone: {{ $detail->user->organization->phone }}</div>
+                                            <div>{{ __('Archive owner') }}: {{ $detail->user->organization->name }}</div>
+                                            <div>{{ __('Email') }}: {{ $detail->user->organization->email }}</div>
+                                            <div>{{ __('Telephone') }}: {{ $detail->user->organization->phone }}</div>
 
                                     </div>
                                 @endif

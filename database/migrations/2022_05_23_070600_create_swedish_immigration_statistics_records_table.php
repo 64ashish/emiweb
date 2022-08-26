@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('9');  // default value 9
+
             $table->integer('old_id')->nullable();
             $table->string('source')->nullable();
             $table->string('svar_batch_nr')->nullable();

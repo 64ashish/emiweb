@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('3');  // default value 3
+
             $table->integer('old_id')->nullable();
             $table->string('image_file_name')->nullable();
             $table->string('image_folder')->nullable();

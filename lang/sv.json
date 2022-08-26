@@ -319,5 +319,9 @@
  "Other name":"Annat namn",
  "Description":"Beskrivning",
  "Roll no":"Rulle nr",
- "Created by":"Skapad av"
+ "Created by":"Skapad av",
+ "Details": "Detaljer",
+ "Relatives": "Släktskap",
+ "Archive owner": "Arkivägare",
+ "Telephone": "Telefon"
 }

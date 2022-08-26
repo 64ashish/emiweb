@@ -20,7 +20,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('9');
-
             $table->string('source')->nullable();
             $table->string('svar_batch_number')->nullable();
             $table->string('svar_image_number')->nullable();

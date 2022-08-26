@@ -17,7 +17,6 @@ return new class extends Migration
         Schema::create('iceland_emigration_records', function (Blueprint $table) {
             $table->id();
             $table->integer('old_id')->nullable();
-
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('21');
             $table->string('first_name')->nullable()->index();

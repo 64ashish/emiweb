@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('2');  // default value 2
-
             $table->string('page')->nullable();
             $table->string('last_name')->nullable();
             $table->string('last_name2')->nullable();
