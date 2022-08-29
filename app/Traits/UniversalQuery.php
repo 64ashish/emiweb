@@ -44,7 +44,8 @@ trait UniversalQuery{
         }
 
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
 
     }
 
@@ -62,7 +63,8 @@ trait UniversalQuery{
         }
         if(!empty($input['year'])){ $result->whereYear('dob', $input['year'] ); }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryDalslanningarBornInAmericaRecord($input)
@@ -84,7 +86,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishEmigrationStatisticsRecord($input)
@@ -112,7 +115,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryBrodernaLarssonArchiveRecord($input)
@@ -137,7 +141,8 @@ trait UniversalQuery{
         }
 
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishPortPassengerListRecord($input)
@@ -151,7 +156,8 @@ trait UniversalQuery{
         $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishAmericanChurchArchiveRecord($input)
@@ -179,7 +185,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryNewYorkPassengerRecord($input)
@@ -203,7 +210,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishChurchImmigrantRecord($input)
@@ -230,7 +238,8 @@ trait UniversalQuery{
             $result->where('birth_date',  $input['year']);
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishEmigrantViaKristianiaRecord($input)
@@ -249,7 +258,8 @@ trait UniversalQuery{
 
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishImmigrationStatisticsRecord($input)
@@ -272,7 +282,8 @@ trait UniversalQuery{
             $result->whereYear('birth_year',   $input['year']);
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryLarssonEmigrantPopularRecord($input)
@@ -296,7 +307,8 @@ trait UniversalQuery{
 
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryJohnEricssonsArchiveRecord($input)
@@ -315,7 +327,8 @@ trait UniversalQuery{
 
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryNorwegianChurchImmigrantRecord($input)
@@ -339,7 +352,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryMormonShipPassengerRecord($input)
@@ -359,7 +373,8 @@ trait UniversalQuery{
         }
 
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedishAmericanMemberRecord($input)
@@ -387,7 +402,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QuerySwedeInAlaskaRecord($input)
@@ -411,7 +427,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryVarmlandskaNewspaperNoticeRecord($input)
@@ -435,7 +452,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryNorwayEmigrationRecord($input)
@@ -459,7 +477,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
     private function QueryIcelandEmigrationRecord($input)
@@ -483,7 +502,8 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->count('id');}else { return 0; }
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
 
