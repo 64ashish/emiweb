@@ -33,7 +33,7 @@ trait UniversalQuery{
     }
 
     private function QueryDenmarkEmigration( $input){
-        $result = DenmarkEmigration::query();
+        $result = DenmarkEmigration::select('id');
         $exec = 0;
 
         if(!empty($input['first_name'])){ $result->whereFullText('first_name', $input['first_name']);
@@ -44,12 +44,12 @@ trait UniversalQuery{
         }
 
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
 
     }
 
     private function QuerySwedishChurchEmigrationRecord( $input){
-        $result = SwedishChurchEmigrationRecord::query();
+        $result = SwedishChurchEmigrationRecord::select('id');
         $exec = 0;
         if(!empty($input['first_name'])){ $result->whereFullText('first_name', $input['first_name']);
         $exec = $exec+1;
@@ -62,12 +62,12 @@ trait UniversalQuery{
         }
         if(!empty($input['year'])){ $result->whereYear('dob', $input['year'] ); }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryDalslanningarBornInAmericaRecord($input)
     {
-        $result = DalslanningarBornInAmericaRecord::query();
+        $result = DalslanningarBornInAmericaRecord::select('id');
         $exec = 0;
         if (!empty($input['first_name'])) {
             $result->whereFullText('first_name', $input['first_name']);
@@ -84,12 +84,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishEmigrationStatisticsRecord($input)
     {
-        $result = SwedishEmigrationStatisticsRecord::query();
+        $result = SwedishEmigrationStatisticsRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -112,12 +112,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryBrodernaLarssonArchiveRecord($input)
     {
-        $result = BrodernaLarssonArchiveRecord::query();
+        $result = BrodernaLarssonArchiveRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -137,12 +137,12 @@ trait UniversalQuery{
         }
 
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishPortPassengerListRecord($input)
     {
-        $result = SwedishPortPassengerListRecord::query();
+        $result = SwedishPortPassengerListRecord::select('id');
         $exec = 0;
         if(!empty($input['first_name'])){ $result->whereFullText('first_name', $input['first_name']);
         $exec = $exec+1;
@@ -151,12 +151,12 @@ trait UniversalQuery{
         $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishAmericanChurchArchiveRecord($input)
     {
-        $result = SwedishAmericanChurchArchiveRecord::query();
+        $result = SwedishAmericanChurchArchiveRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -179,12 +179,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryNewYorkPassengerRecord($input)
     {
-        $result = NewYorkPassengerRecord::query();
+        $result = NewYorkPassengerRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -203,12 +203,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishChurchImmigrantRecord($input)
     {
-        $result = SwedishChurchImmigrantRecord::query();
+        $result = SwedishChurchImmigrantRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -230,12 +230,12 @@ trait UniversalQuery{
             $result->where('birth_date',  $input['year']);
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishEmigrantViaKristianiaRecord($input)
     {
-        $result = SwedishEmigrantViaKristianiaRecord::query();
+        $result = SwedishEmigrantViaKristianiaRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -249,12 +249,12 @@ trait UniversalQuery{
 
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishImmigrationStatisticsRecord($input)
     {
-        $result = SwedishImmigrationStatisticsRecord::query();
+        $result = SwedishImmigrationStatisticsRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -272,12 +272,12 @@ trait UniversalQuery{
             $result->whereYear('birth_year',   $input['year']);
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryLarssonEmigrantPopularRecord($input)
     {
-        $result = LarssonEmigrantPopularRecord::query();
+        $result = LarssonEmigrantPopularRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -296,12 +296,12 @@ trait UniversalQuery{
 
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryJohnEricssonsArchiveRecord($input)
     {
-        $result = JohnEricssonsArchiveRecord::query();
+        $result = JohnEricssonsArchiveRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -315,12 +315,12 @@ trait UniversalQuery{
 
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryNorwegianChurchImmigrantRecord($input)
     {
-        $result = NorwegianChurchImmigrantRecord::query();
+        $result = NorwegianChurchImmigrantRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -339,12 +339,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryMormonShipPassengerRecord($input)
     {
-        $result = MormonShipPassengerRecord::query();
+        $result = MormonShipPassengerRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -359,12 +359,12 @@ trait UniversalQuery{
         }
 
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedishAmericanMemberRecord($input)
     {
-        $result = SwedishAmericanMemberRecord::query();
+        $result = SwedishAmericanMemberRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -387,12 +387,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QuerySwedeInAlaskaRecord($input)
     {
-        $result = SwedeInAlaskaRecord::query();
+        $result = SwedeInAlaskaRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -411,12 +411,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryVarmlandskaNewspaperNoticeRecord($input)
     {
-        $result = VarmlandskaNewspaperNoticeRecord::query();
+        $result = VarmlandskaNewspaperNoticeRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -435,12 +435,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryNorwayEmigrationRecord($input)
     {
-        $result = NorwayEmigrationRecord::query();
+        $result = NorwayEmigrationRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -459,12 +459,12 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
     private function QueryIcelandEmigrationRecord($input)
     {
-        $result = IcelandEmigrationRecord::query();
+        $result = IcelandEmigrationRecord::select('id');
         $exec = 0;
 
         if (!empty($input['first_name'])) {
@@ -483,7 +483,7 @@ trait UniversalQuery{
             $exec = $exec+1;
         }
 
-        if($exec>=1){return $result->get('id')->count();}else { return 0; }
+        if($exec>=1){return $result->count('id');}else { return 0; }
     }
 
 

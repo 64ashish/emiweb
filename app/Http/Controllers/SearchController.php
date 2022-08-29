@@ -27,6 +27,7 @@ use App\Models\VarmlandskaNewspaperNoticeRecord;
 use App\Traits\UniversalQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Engines\MeiliSearchEngine;
 use MeiliSearch\Client as MeiliSearchClient;
 use MeiliSearch\Endpoints\Indexes;
@@ -211,22 +212,16 @@ class SearchController extends Controller
     }
     public function search( Request  $request)
     {
-//        return $request->fullUrlIs(['full_name']);
-
-
-
-
-
         $inputFields = Arr::whereNotNull($request->except('_token'));
-//        return $inputFields;
+////        return $inputFields;
         $keywords = $request->except('_token');
 
 ////        run this for test only
-//        $records = collect([
-//            'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields)->count()
-//        ]);
-
-//        run this for production
+////        $records = collect([
+////            'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields)->count()
+////        ]);
+////
+////        run this for production
 
         if(auth()->user()->hasRole(['regular user'])){
             $records = collect([
@@ -257,19 +252,18 @@ class SearchController extends Controller
                 'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
             ]);
         }
-
-
-
         return view('home.results', compact('records', 'keywords'));
 
     }
+
+
     public function show($arch, $id){
         $archive = Archive::find($arch);
 
-//        return Archive::find($arch)->first();
+////        return Archive::find($arch)->first();
 
         $this->authorize('view', $archive);
-        //        if authorized, do the thing
+////        if authorized, do the thing
 
         switch($arch) {
             case(1):
@@ -312,14 +306,14 @@ class SearchController extends Controller
                     ->where('from_parish', $detail->from_parish)
                     ->where('record_date', $detail->record_date)
                     ->get();
-//                return $detail->relatives->count();
+////                return $detail->relatives->count();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
 
             case(6):
-//                fix all date values for this table
+////                fix all date values for this table
                 $model = new SwedishChurchImmigrantRecord();
                 $detail = SwedishChurchImmigrantRecord::with('user.organization')->findOrFail($id);
                 $detail->relatives = SwedishChurchImmigrantRecord::where('main_act', $detail->main_act)
@@ -399,7 +393,7 @@ class SearchController extends Controller
             case(14):
                 $model = new MormonShipPassengerRecord();
                 $detail = MormonShipPassengerRecord::with('user.organization')->findOrFail($id);
-//                return $detail;
+////                return $detail;
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -471,9 +465,9 @@ class SearchController extends Controller
         $images = $detail->archive->ImagesInArchive->where('record_id', $id);
         $archive_details = Archive::find($arch);
 
-//        return $relatives->isEmpty();
+////        return $relatives->isEmpty();
 
-//        return $detail;
+////        return $detail;
 
         return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
 
