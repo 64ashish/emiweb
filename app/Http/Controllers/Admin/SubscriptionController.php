@@ -62,6 +62,8 @@ class SubscriptionController extends Controller
                 $customer = Cashier::findBillable($user->stripe_id);
                 if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
                     $user->syncRoles('subscriber');
+                    // send email here
+
                 }
             }
         }
@@ -114,6 +116,8 @@ class SubscriptionController extends Controller
 //        $user->subscription($CurrentPlan->name)->swap($request->plan);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
 
+        // send email here
+
 //        price_1LKKOmG9lZTwpgcPIkYhO5EG
 
 //        $user->subscription($CurrentPlan->name)->swap($request->plan);
@@ -133,6 +137,8 @@ class SubscriptionController extends Controller
          $user = auth()->user();
          $sub_name = $user->subscriptions->first()->name;
          $user->subscription($sub_name)->cancel();
+
+         // send email here
          return redirect()->back();
 
     }

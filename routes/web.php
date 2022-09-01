@@ -25,6 +25,7 @@ use App\Http\Controllers\Record\NorwayEmigrationRecordController;
 use App\Http\Controllers\Record\NorwegianChurchImmigrantRecordController;
 use App\Http\Controllers\Record\SwedeInAlaskaRecordController;
 use App\Http\Controllers\Record\SwedishAmericanChurchArchiveRecordController;
+use App\Http\Controllers\Record\SwedishAmericanJubileeRecordController;
 use App\Http\Controllers\Record\SwedishAmericanMemberRecordController;
 use App\Http\Controllers\Record\SwedishChurchEmigrationRecordController;
 use App\Http\Controllers\Record\SwedishChurchImmigrantRecordController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Subscription;
@@ -60,10 +62,38 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 Route::get('/', [HomeController::class,'index']);
 Route::get('/mail', [SendEmailsController::class, 'sendTest']);
 //Route::get('/login', [AuthenticatedSessionController::class, 'create']);
-Route::middleware(['auth','isActive'])->get('/home', [HomeController::class,'index'])
+Route::middleware(['auth','isActive','verified'])->get('/home', [HomeController::class,'index'])
     ->name('home');
-Route::middleware(['auth','isActive'])->post('/language', [HomeController::class,'localSwitcher'])
+Route::middleware(['auth','isActive', 'verified'])->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
+
+
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/home');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+
+
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+//    Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
+//    Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+//    Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
+
+});
 
 //Route::get('/billing-portal', function (Request $request) {
 //    return auth()->user()->redirectToBillingPortal();
@@ -79,7 +109,7 @@ Route::middleware(['auth','isActive'])->post('/language', [HomeController::class
 
 
 // super user urls
-Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
+Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
     ->name('admin.')
     ->prefix('admin')
     ->group(function(){
@@ -134,7 +164,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isAct
 
 
 //    emiweb office urls
-Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
+Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb staff',  'isActive'])
     ->name('emiweb.')
     ->prefix('emiweb')
     ->group(function(){
@@ -182,7 +212,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff',  'isAct
     });
 
 //    organization users
-Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff',  'isActive'])
+Route::middleware(['auth',  'verified', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff',  'isActive'])
     ->group(function(){
         Route::get('/dashboard', [DashboardController::class,'index'])
             ->name('dashboard');
@@ -255,7 +285,7 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
 
 
 //regular users and subscribers
-Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|regular user|subscriber',  'isActive'])
+Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|regular user|subscriber',  'isActive'])
     ->group(function(){
         Route::get('/home/users/{user}', [HomeController::class, 'user'])
             ->name('home.users.edit');
@@ -322,6 +352,8 @@ Route::middleware(['auth', 'role:super admin|emiweb admin|emiweb staff|organizat
         Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
 
         Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
+
+        Route::match(['get', 'post'],'/sajr/search', [SwedishAmericanJubileeRecordController::class, 'search'])->name('sajr.search');
 
 //        Route::get();
 

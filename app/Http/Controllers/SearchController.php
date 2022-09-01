@@ -16,6 +16,7 @@ use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
+use App\Models\SwedishAmericanJubileeRecord;
 use App\Models\SwedishAmericanMemberRecord;
 use App\Models\SwedishChurchEmigrationRecord;
 use App\Models\SwedishChurchImmigrantRecord;
@@ -192,6 +193,11 @@ class SearchController extends Controller
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
                 break;
 
+            case(23):
+                $model = new SwedishAmericanJubileeRecord();
+                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
+                break;
+
             default:
                 abort(403);
         }
@@ -203,7 +209,6 @@ class SearchController extends Controller
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $archive = Archive::findOrFail($archive);
 
-//        return $archi->name;
 
         return view($viewfile, compact('filterAttributes', 'advancedFields','archive'));
 
@@ -250,6 +255,7 @@ class SearchController extends Controller
                 'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields), //fix for dob
                 'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
                 'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
+                'Svenskamerikanska jubileumsskrifter'=> $this->QuerySwedishAmericanJubileeRecord($inputFields)
             ]);
         }
         return view('home.results', compact('records', 'keywords'));
@@ -451,6 +457,15 @@ class SearchController extends Controller
 
                 $model = new IcelandEmigrationRecord();
                 $detail = IcelandEmigrationRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(23):
+
+                $model = new SwedishAmericanJubileeRecord();
+                $detail = SwedishAmericanJubileeRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();

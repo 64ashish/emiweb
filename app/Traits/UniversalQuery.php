@@ -14,6 +14,7 @@ use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
+use App\Models\SwedishAmericanJubileeRecord;
 use App\Models\SwedishAmericanMemberRecord;
 use App\Models\SwedishChurchEmigrationRecord;
 use App\Models\SwedishChurchImmigrantRecord;
@@ -499,6 +500,32 @@ trait UniversalQuery{
 
         if (!empty($input['year'])) {
             $result->whereYear('date_of_birth',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
+    }
+
+
+    private function QuerySwedishAmericanJubileeRecord($input)
+    {
+        $result = SwedishAmericanJubileeRecord::select('id');
+        $exec = 0;
+
+        if (!empty($input['title'])) {
+            $result->whereFullText('title', $input['title']);
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['description'])) {
+            $result->whereFullText('description',  $input['description']);
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('date_created',  $input['year']);
             $exec = $exec+1;
         }
 
