@@ -61,12 +61,12 @@
                                href="#">{{ __('Relatives') }}</a>
                             @endif
 
-                            @if(!$images->isEmpty())
+{{--                            @if(!$images->isEmpty())--}}
                             <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm"
                                :class="{ ' border-indigo-500 text-indigo-600 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
                                href="#">Media</a>
-                            @endif
+{{--                            @endif--}}
                         </nav>
                     </div>
                     <div class="py-4">
@@ -151,41 +151,44 @@
                                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 
                                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                            <table class="min-w-full divide-y divide-gray-300">
-                                                <thead class="bg-gray-50">
-                                                <tr>
-                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Context</th>
-                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link</th>
+                                            <iframe src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url('archives/'.$detail->id.'/documents/'.$detail->file_name) }}"
+                                                    style="width:600px; height:500px;" >
+                                            </iframe>
+{{--                                            <table class="min-w-full divide-y divide-gray-300">--}}
+{{--                                                <thead class="bg-gray-50">--}}
+{{--                                                <tr>--}}
+{{--                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Context</th>--}}
+{{--                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link</th>--}}
 
-                                                </tr>
-                                                </thead>
-                                                <tbody class="bg-white">
+{{--                                                </tr>--}}
+{{--                                                </thead>--}}
+{{--                                                <tbody class="bg-white">--}}
                                                 <!-- Odd row -->
-                                                @foreach($images as $image)
-                                                    <tr class="odd:bg-white even:bg-gray-100">
-                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $image->context }}
-                                                            <img target="_blank" src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"
-                                                                 class="h-10">
-                                                        </td>
+{{--                                                @foreach($images as $image)--}}
+{{--                                                    <tr class="odd:bg-white even:bg-gray-100">--}}
+{{--                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $image->context }}--}}
+{{--                                                            <img target="_blank" src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"--}}
+{{--                                                                 class="h-10">--}}
+{{--                                                        </td>--}}
 
-                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                            <a href="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"  class="text-indigo-600 hover:text-indigo-900">
-                                                                View full image
-                                                            </a>
+{{--                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">--}}
+{{--                                                            <a href="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"  class="text-indigo-600 hover:text-indigo-900">--}}
+{{--                                                                View full image--}}
+{{--                                                            </a>--}}
 
-                                                            <a  class="text-indigo-600 hover:text-indigo-900" target="_blank" href="{{ route('ImageCollections.show', $image->collection_id) }}">
-                                                                View collection
-                                                            </a>
+{{--                                                            <a  class="text-indigo-600 hover:text-indigo-900" target="_blank" href="{{ route('ImageCollections.show', $image->collection_id) }}">--}}
+{{--                                                                View collection--}}
+{{--                                                            </a>--}}
 
-                                                        </td>
+{{--                                                        </td>--}}
 
-                                                    </tr>
-                                                @endforeach
+{{--                                                    </tr>--}}
+{{--                                                @endforeach--}}
 
 
                                                 <!-- More people... -->
-                                                </tbody>
-                                            </table>
+{{--                                                </tbody>--}}
+{{--                                            </table>--}}
                                         </div>
                                     </div>
                                 </div>
