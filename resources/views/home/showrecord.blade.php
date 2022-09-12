@@ -151,8 +151,8 @@
                                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 
                                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                            <iframe src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url('archives/'.$detail->id.'/documents/'.$detail->file_name) }}"
-                                                    style="width:600px; height:500px;" >
+                                            <iframe src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url('archives/'.$archive_details->id.'/documents/'.$detail->file_name) }}"
+                                                    style="width:100%; height:800px;" >
                                             </iframe>
 {{--                                            <table class="min-w-full divide-y divide-gray-300">--}}
 {{--                                                <thead class="bg-gray-50">--}}
