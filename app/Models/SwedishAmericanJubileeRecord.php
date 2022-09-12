@@ -11,7 +11,6 @@ class SwedishAmericanJubileeRecord extends Model
 
     protected $fillable = [
             "title",
-            "description",
             "remarks",
             "time_period",
             "state",
@@ -20,6 +19,7 @@ class SwedishAmericanJubileeRecord extends Model
             "source",
             "page",
             "file_name",
+            "description",
             "emi_web_lan",
             "emi_web_forsamling",
             "emi_web_emigration_year",

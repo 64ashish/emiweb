@@ -467,7 +467,8 @@ class SearchController extends Controller
                 $model = new SwedishAmericanJubileeRecord();
                 $detail = SwedishAmericanJubileeRecord::with('user.organization')->findOrFail($id);
                 $fields = collect($model->getFillable())
-                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id','emi_web_lan','emi_web_forsamling','emi_web_emigration_year','emi_web_akt_nr',
+                        'date_created','file_format','resolution','secrecy'])
                     ->flatten();
                 break;
 
