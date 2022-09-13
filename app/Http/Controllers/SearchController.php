@@ -12,6 +12,7 @@ use App\Models\JohnEricssonsArchiveRecord;
 use App\Models\LarssonEmigrantPopularRecord;
 use App\Models\MormonShipPassengerRecord;
 use App\Models\NewYorkPassengerRecord;
+use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedeInAlaskaRecord;
@@ -198,6 +199,16 @@ class SearchController extends Controller
                 $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
                 break;
 
+            case(24):
+                return "in progress";
+//                $model = new SwedishAmericanJubileeRecord();
+//                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
+                break;
+
+            case(25):
+                $model = new NorthenPacificRailwayCompanyRecord();
+                $viewfile = 'dashboard.NorthPacificRailwayCo.index';
+                break;
             default:
                 abort(403);
         }
@@ -208,6 +219,8 @@ class SearchController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $archive = Archive::findOrFail($archive);
+
+
 
 
         return view($viewfile, compact('filterAttributes', 'advancedFields','archive'));

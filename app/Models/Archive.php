@@ -131,6 +131,11 @@ class Archive extends Model
         return $this->hasMany(SwedishAmericanJubileeRecord::class);
     }
 
+    public function NorthenPacificRailwayCompanyRecord()
+    {
+        return $this->hasMany(NorthenPacificRailwayCompanyRecord::class);
+    }
+
     public function ImagesInArchive()
     {
         return $this->hasMany(ImagesInArchive::class);

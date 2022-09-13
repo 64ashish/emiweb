@@ -21,6 +21,7 @@ use App\Http\Controllers\Record\JohnEricssonsArchiveRecordController;
 use App\Http\Controllers\Record\LarssonEmigrantPopularRecordController;
 use App\Http\Controllers\Record\MormonShipPassengerRecordController;
 use App\Http\Controllers\Record\NewYorkPassengerRecordController;
+use App\Http\Controllers\Record\NorthenPacificRailwayCompanyRecordController;
 use App\Http\Controllers\Record\NorwayEmigrationRecordController;
 use App\Http\Controllers\Record\NorwegianChurchImmigrantRecordController;
 use App\Http\Controllers\Record\SwedeInAlaskaRecordController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
+use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -308,6 +310,9 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::get('/danishemigration/show/{id}', [DenmarkEmigrationController::class, 'show'])
             ->name('danishemigration.show');
         Route::match(['get', 'post'],'/danishemigration/search', [DenmarkEmigrationController::class, 'search'])->name('danishemigration.search');
+
+        // image related routes
+        Route::get('npr/{index_letter}', [NorthenPacificRailwayCompanyRecordController::class,'browse'])->name('npr.browse');
 
 
 //        DalslanningarBornInAmericaRecord

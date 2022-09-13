@@ -20,7 +20,7 @@
                                                         {{ __('View Archive') }} </a>
                                                 </div>
                                                 <span class=" text-sm text-gray-500 ">
-                                                    {{ $archive->getRecordTotalAttribute($archive->id) }} Records
+                                                    {{ $archive->total_records}} Records
                                                 </span>
                                         </li>
                                         @endforeach

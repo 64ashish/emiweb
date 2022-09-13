@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Record;
+
+use App\Http\Controllers\Controller;
+use App\Models\NorthenPacificRailwayCompanyRecord;
+use Illuminate\Http\Request;
+
+class NorthenPacificRailwayCompanyRecordController extends Controller
+{
+    //
+
+    public function browse(NorthenPacificRailwayCompanyRecord $northenPacificRailwayCompanyRecord, $index_letter)
+    {
+        $images = $northenPacificRailwayCompanyRecord->where('index_letter', ucwords(trim($index_letter)))->get();
+
+        return view('dashboard.NorthPacificRailwayCo.browse', compact('images'));
+    }
+}
