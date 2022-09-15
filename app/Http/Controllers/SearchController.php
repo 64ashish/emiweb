@@ -492,6 +492,14 @@ class SearchController extends Controller
                     ->flatten();
                 break;
 
+            case(26):
+
+                $model = new RsPersonalHistoryRecord();
+                $detail = RsPersonalHistoryRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
 
             default:
                 abort(403);

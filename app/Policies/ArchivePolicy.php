@@ -62,6 +62,7 @@ class ArchivePolicy
 
         if($user->hasRole('subscriber')){
             return true;
+//            dd('you are here');
         }
 
         // return true if user is regular and archive id is 1
