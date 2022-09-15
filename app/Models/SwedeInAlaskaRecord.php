@@ -61,13 +61,13 @@ class SwedeInAlaskaRecord extends Model
             'comments'
     ];
 
-    /**
+    /**public function archive()
+    {
+    return $this->belongsTo(Archive::class);
+    }
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function archive()
-    {
-        return $this->belongsTo(Archive::class);
-    }
+
 
     public function defaultSearchFields()
     {

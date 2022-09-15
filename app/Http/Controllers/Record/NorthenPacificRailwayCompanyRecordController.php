@@ -12,7 +12,9 @@ class NorthenPacificRailwayCompanyRecordController extends Controller
 
     public function browse(NorthenPacificRailwayCompanyRecord $northenPacificRailwayCompanyRecord, $index_letter)
     {
-        $images = $northenPacificRailwayCompanyRecord->where('index_letter', ucwords(trim($index_letter)))->get();
+        $images = $northenPacificRailwayCompanyRecord->where('index_letter', ucwords(trim($index_letter)))->paginate(100);
+
+//        return $images;
 
         return view('dashboard.NorthPacificRailwayCo.browse', compact('images'));
     }

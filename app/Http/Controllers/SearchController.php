@@ -15,6 +15,7 @@ use App\Models\NewYorkPassengerRecord;
 use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
+use App\Models\RsPersonalHistoryRecord;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
 use App\Models\SwedishAmericanJubileeRecord;
@@ -209,11 +210,17 @@ class SearchController extends Controller
                 $model = new NorthenPacificRailwayCompanyRecord();
                 $viewfile = 'dashboard.NorthPacificRailwayCo.index';
                 break;
+
+            case(26):
+                $model = new RsPersonalHistoryRecord();
+                $viewfile = 'dashboard.rsphistory.records';
+                break;
             default:
                 abort(403);
         }
 
         $filterAttributes = collect($model->defaultSearchFields());
+
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();

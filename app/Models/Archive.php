@@ -145,6 +145,11 @@ class Archive extends Model
         return $this->hasMany(Relatives::class);
     }
 
+    public function RsPersonalHistoryRecords()
+    {
+        return $this->hasMany(RsPersonalHistoryRecord::class);
+    }
+
 
 
 

@@ -24,6 +24,7 @@ use App\Http\Controllers\Record\NewYorkPassengerRecordController;
 use App\Http\Controllers\Record\NorthenPacificRailwayCompanyRecordController;
 use App\Http\Controllers\Record\NorwayEmigrationRecordController;
 use App\Http\Controllers\Record\NorwegianChurchImmigrantRecordController;
+use App\Http\Controllers\Record\RsPersonalHistoryRecordController;
 use App\Http\Controllers\Record\SwedeInAlaskaRecordController;
 use App\Http\Controllers\Record\SwedishAmericanChurchArchiveRecordController;
 use App\Http\Controllers\Record\SwedishAmericanJubileeRecordController;
@@ -359,6 +360,8 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
 
         Route::match(['get', 'post'],'/sajr/search', [SwedishAmericanJubileeRecordController::class, 'search'])->name('sajr.search');
+
+        Route::match(['get', 'post'],'/rsphr/search', [RsPersonalHistoryRecordController::class, 'search'])->name('rsphr.search');
 
 //        Route::get();
 
