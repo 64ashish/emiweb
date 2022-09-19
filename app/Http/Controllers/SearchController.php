@@ -17,6 +17,7 @@ use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\RsPersonalHistoryRecord;
 use App\Models\SwedeInAlaskaRecord;
+use App\Models\SwedishAmericanBookRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
 use App\Models\SwedishAmericanJubileeRecord;
 use App\Models\SwedishAmericanMemberRecord;
@@ -26,6 +27,8 @@ use App\Models\SwedishEmigrantViaKristianiaRecord;
 use App\Models\SwedishEmigrationStatisticsRecord;
 use App\Models\SwedishImmigrationStatisticsRecord;
 use App\Models\SwedishPortPassengerListRecord;
+use App\Models\SwedishUsaCentersEmiPhotoRecord;
+use App\Models\SwensonCenterPhotosamlingRecord;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
 use App\Traits\UniversalQuery;
 use Illuminate\Http\Request;
@@ -201,9 +204,9 @@ class SearchController extends Controller
                 break;
 
             case(24):
-                return "in progress";
-//                $model = new SwedishAmericanJubileeRecord();
-//                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
+
+                $model = new SwensonCenterPhotosamlingRecord();
+                $viewfile = 'dashboard.swenphotocenter.records';
                 break;
 
             case(25):
@@ -215,6 +218,17 @@ class SearchController extends Controller
                 $model = new RsPersonalHistoryRecord();
                 $viewfile = 'dashboard.rsphistory.records';
                 break;
+
+            case(27):
+                $model = new SwedishUsaCentersEmiPhotoRecord();
+                $viewfile = 'dashboard.suscepc.records';
+                break;
+
+            case(28):
+                $model = new SwedishAmericanBookRecord();
+                $viewfile = 'dashboard.sabr.records';
+                break;
+
             default:
                 abort(403);
         }
@@ -275,7 +289,8 @@ class SearchController extends Controller
                 'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields), //fix for dob
                 'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
                 'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
-                'Svenskamerikanska jubileumsskrifter'=> $this->QuerySwedishAmericanJubileeRecord($inputFields)
+                'Svenskamerikanska jubileumsskrifter'=> $this->QuerySwedishAmericanJubileeRecord($inputFields),
+                'Svenskamerikanskt bokindex' =>$this->QuerySwedishAmericanBookRecord($inputFields)
             ]);
         }
         return view('home.results', compact('records', 'keywords'));
@@ -285,6 +300,7 @@ class SearchController extends Controller
 
     public function show($arch, $id){
         $archive = Archive::find($arch);
+
 
 ////        return Archive::find($arch)->first();
 
@@ -492,10 +508,37 @@ class SearchController extends Controller
                     ->flatten();
                 break;
 
+            case(24):
+
+                $model = new SwensonCenterPhotosamlingRecord();
+                $detail = SwensonCenterPhotosamlingRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
             case(26):
 
                 $model = new RsPersonalHistoryRecord();
                 $detail = RsPersonalHistoryRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(27):
+
+                $model = new SwedishUsaCentersEmiPhotoRecord();
+                $detail = SwedishUsaCentersEmiPhotoRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(28):
+                $model = new SwedishAmericanBookRecord();
+                $detail = SwedishAmericanBookRecord::with('user.organization','SwensonBookData')->findOrFail($id);
+//                return $detail;
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();

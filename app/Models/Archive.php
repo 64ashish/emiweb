@@ -150,6 +150,16 @@ class Archive extends Model
         return $this->hasMany(RsPersonalHistoryRecord::class);
     }
 
+    public function SwedishUsaCentersEmiPhotoRecords()
+    {
+        return $this->hasMany(SwedishUsaCentersEmiPhotoRecord::class);
+    }
+
+    public function SwensonCenterPhotosamlingRecords()
+    {
+        return $this->hasMany(SwensonCenterPhotosamlingRecord::class);
+    }
+
 
 
 

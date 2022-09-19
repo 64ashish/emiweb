@@ -26,6 +26,7 @@ use App\Http\Controllers\Record\NorwayEmigrationRecordController;
 use App\Http\Controllers\Record\NorwegianChurchImmigrantRecordController;
 use App\Http\Controllers\Record\RsPersonalHistoryRecordController;
 use App\Http\Controllers\Record\SwedeInAlaskaRecordController;
+use App\Http\Controllers\Record\SwedishAmericanBookRecordController;
 use App\Http\Controllers\Record\SwedishAmericanChurchArchiveRecordController;
 use App\Http\Controllers\Record\SwedishAmericanJubileeRecordController;
 use App\Http\Controllers\Record\SwedishAmericanMemberRecordController;
@@ -35,6 +36,8 @@ use App\Http\Controllers\Record\SwedishEmigrantViaKristianiaRecordController;
 use App\Http\Controllers\Record\SwedishEmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishImmigrationStatisticsRecordController;
 use App\Http\Controllers\Record\SwedishPortPassengerListRecordController;
+use App\Http\Controllers\Record\SwedishUsaCentersEmiPhotoRecordController;
+use App\Http\Controllers\Record\SwensonCenterPhotosamlingRecordController;
 use App\Http\Controllers\Record\VarmlandskaNewspaperNoticeRecordController;
 use App\Http\Controllers\RelativeController;
 use App\Http\Controllers\SearchController;
@@ -43,9 +46,6 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\OrganizationArchiveController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
-use App\Models\NorthenPacificRailwayCompanyRecord;
-use App\Models\NorwegianChurchImmigrantRecord;
-use App\Models\SwedishAmericanChurchArchiveRecord;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -315,7 +315,6 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         // image related routes
         Route::get('npr/{index_letter}', [NorthenPacificRailwayCompanyRecordController::class,'browse'])->name('npr.browse');
 
-
 //        DalslanningarBornInAmericaRecord
 
         Route::get('/dbir/show/{id}', [DalslanningarBornInAmericaRecordController::class, 'show'])
@@ -362,6 +361,14 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::match(['get', 'post'],'/sajr/search', [SwedishAmericanJubileeRecordController::class, 'search'])->name('sajr.search');
 
         Route::match(['get', 'post'],'/rsphr/search', [RsPersonalHistoryRecordController::class, 'search'])->name('rsphr.search');
+
+        Route::match(['get', 'post'],'/suscepc/search', [SwedishUsaCentersEmiPhotoRecordController::class, 'search'])->name('suscepc.search');
+
+        Route::match(['get', 'post'],'/scpsr/search', [SwensonCenterPhotosamlingRecordController::class, 'search'])->name('scpsr.search');
+
+
+        Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
+
 
 //        Route::get();
 

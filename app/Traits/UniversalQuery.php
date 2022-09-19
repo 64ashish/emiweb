@@ -13,6 +13,7 @@ use App\Models\NewYorkPassengerRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\SwedeInAlaskaRecord;
+use App\Models\SwedishAmericanBookRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
 use App\Models\SwedishAmericanJubileeRecord;
 use App\Models\SwedishAmericanMemberRecord;
@@ -533,6 +534,31 @@ trait UniversalQuery{
         else { return 0; }
     }
 
+    private function QuerySwedishAmericanBookRecord($input)
+    {
+        $result = SwedishAmericanBookRecord::select('id');
+        $exec = 0;
+
+        if (!empty($input['first_name'])) {
+            $result->whereFullText('first_name', $input['first_name']);
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['last_name'])) {
+            $result->whereFullText('last_name',  $input['last_name']);
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('birth_date',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
+
+    }
 
 
 
