@@ -68,6 +68,8 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        }
 
 
+//        return $records;
+
         $keywords = $request->all();
 
         $model = new SwedishChurchEmigrationRecord();
@@ -80,7 +82,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
 
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
-        $archive_name = $model::findOrFail(1)->archive->name;
+        $archive_name = $model::findOrFail(1)->archive;
 
 
         return view('dashboard.swedishchurchemigrationrecord.records',

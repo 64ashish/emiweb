@@ -36,7 +36,7 @@ class SwensonCenterPhotosamlingRecordController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))
             ->except($defaultColumns )->keys();
 
-        $archive_name = $model::findOrFail(1)->archive->name;
+        $archive_name = $model::findOrFail(1)->archive;
 
         return view('dashboard.swenphotocenter.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
 

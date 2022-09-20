@@ -75,7 +75,7 @@ class NorwegianChurchImmigrantRecordController extends Controller
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
-        $archive_name = $model::findOrFail(1)->archive->name;
+        $archive_name = $model::findOrFail(1)->archive;
 
 //        return view
         return view('dashboard.NorwegianChurchImmigrantRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());

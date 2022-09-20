@@ -38,7 +38,7 @@ class SwedishAmericanJubileeRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
 //        return view
-        $archive_name = $model::findOrFail(3)->archive->name;
+        $archive_name = $model::findOrFail(3)->archive;
 //        return $model::findOrFail(3)->first()->archive;
 
         return view('dashboard.SwedishAmericanJubileeRecord.records',
