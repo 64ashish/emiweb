@@ -560,5 +560,261 @@ class SearchController extends Controller
 
     }
 
+    public function print($arch, $id){
+        $archive = Archive::find($arch);
+
+
+////        return Archive::find($arch)->first();
+
+        $this->authorize('view', $archive);
+////        if authorized, do the thing
+
+        switch($arch) {
+            case(1):
+                $detail = DenmarkEmigration::with('user.organization')->findOrFail($id);
+                $model = new DenmarkEmigration();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(2):
+                $detail = SwedishAmericanChurchArchiveRecord::with('user.organization')->findOrFail($id);
+                $model = new SwedishAmericanChurchArchiveRecord();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(3):
+                $detail = NewYorkPassengerRecord::with('user.organization')->findOrFail($id);
+                $model = new NewYorkPassengerRecord();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(4):
+                $detail = SwedishPortPassengerListRecord::with('user.organization')->findOrFail($id);
+                $model = new SwedishPortPassengerListRecord();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(5):
+                $model = new SwedishChurchEmigrationRecord();
+                $detail = SwedishChurchEmigrationRecord::with('user.organization')->findOrFail($id);
+                $detail->relatives = SwedishChurchEmigrationRecord::where('main_act', $detail->main_act)
+                    ->whereNot('id', $detail->id)
+                    ->where('from_parish', $detail->from_parish)
+                    ->where('record_date', $detail->record_date)
+                    ->get();
+////                return $detail->relatives->count();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(6):
+////                fix all date values for this table
+                $model = new SwedishChurchImmigrantRecord();
+                $detail = SwedishChurchImmigrantRecord::with('user.organization')->findOrFail($id);
+                $detail->relatives = SwedishChurchImmigrantRecord::where('main_act', $detail->main_act)
+                    ->whereNot('id', $detail->id)
+                    ->where('to_parish', $detail->to_parish)
+                    ->where('to_date', $detail->to_date)
+                    ->where('to_county', $detail->to_county)
+                    ->get();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(7):
+                $model = new SwedishEmigrantViaKristianiaRecord();
+                $detail = SwedishEmigrantViaKristianiaRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(8):
+                $model = new SwedishImmigrationStatisticsRecord();
+                $detail = SwedishImmigrationStatisticsRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+
+            case(9):
+                $model = new SwedishEmigrationStatisticsRecord();
+                $detail = SwedishEmigrationStatisticsRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(10):
+                $model = new LarssonEmigrantPopularRecord();
+                $detail = LarssonEmigrantPopularRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(11):
+                $model = new BrodernaLarssonArchiveRecord();
+                $detail = BrodernaLarssonArchiveRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(12):
+                $model = new JohnEricssonsArchiveRecord();
+                $detail = JohnEricssonsArchiveRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(13):
+                $model = new NorwegianChurchImmigrantRecord();
+                $detail = NorwegianChurchImmigrantRecord::with('user.organization')->findOrFail($id);
+                $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
+                    ->where('family_nr', $detail->family_nr)
+                    ->where('source_area', $detail->source_area)
+                    ->where('to_date', $detail->to_date)
+                    ->where('to_fylke', $detail->to_fylke)
+                    ->get();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(14):
+                $model = new MormonShipPassengerRecord();
+                $detail = MormonShipPassengerRecord::with('user.organization')->findOrFail($id);
+////                return $detail;
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(15):
+                $model = new SwedishAmericanMemberRecord();
+                $detail = SwedishAmericanMemberRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(16):
+                $model = new SwedeInAlaskaRecord();
+                $detail = SwedeInAlaskaRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(17):
+                $model = new VarmlandskaNewspaperNoticeRecord();
+                $detail = VarmlandskaNewspaperNoticeRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(18):
+
+                $model = new DalslanningarBornInAmericaRecord();
+                $detail = DalslanningarBornInAmericaRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(20):
+
+                $model = new NorwayEmigrationRecord();
+                $detail = NorwayEmigrationRecord::with('user.organization')->findOrFail($id);
+                $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
+                    ->where('family_nr', $detail->family_nr)
+                    ->where('source_area', $detail->source_area)
+                    ->where('from_date', $detail->record_date)
+                    ->where('from_fylke', $detail->from_fylke)
+                    ->get();
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(21):
+
+                $model = new IcelandEmigrationRecord();
+                $detail = IcelandEmigrationRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(23):
+
+                $model = new SwedishAmericanJubileeRecord();
+                $detail = SwedishAmericanJubileeRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id','emi_web_lan','emi_web_forsamling','emi_web_emigration_year','emi_web_akt_nr',
+                        'date_created','file_format','resolution','secrecy'])
+                    ->flatten();
+                break;
+
+            case(24):
+
+                $model = new SwensonCenterPhotosamlingRecord();
+                $detail = SwensonCenterPhotosamlingRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(26):
+
+                $model = new RsPersonalHistoryRecord();
+                $detail = RsPersonalHistoryRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(27):
+
+                $model = new SwedishUsaCentersEmiPhotoRecord();
+                $detail = SwedishUsaCentersEmiPhotoRecord::with('user.organization')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(28):
+                $model = new SwedishAmericanBookRecord();
+                $detail = SwedishAmericanBookRecord::with('user.organization','SwensonBookData')->findOrFail($id);
+//                return $detail;
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            default:
+                abort(403);
+        }
+
+        $relatives = $detail->archive->relatives->where('record_id', $id);
+        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
+        $archive_details = Archive::find($arch);
+        return view('home.print', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
+    }
+
 
 }

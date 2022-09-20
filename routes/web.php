@@ -307,6 +307,9 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::get('/records/{arch}/{id}', [SearchController::class, 'show'])
             ->name('records.show');
 
+        Route::get('/records/{arch}/{id}/print', [SearchController::class, 'print'])
+            ->name('records.print');
+
         // denmark emigration stuff
         Route::get('/danishemigration/show/{id}', [DenmarkEmigrationController::class, 'show'])
             ->name('danishemigration.show');
@@ -368,6 +371,8 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
 
         Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
+
+
 
 
 //        Route::get();

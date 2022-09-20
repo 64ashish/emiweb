@@ -10,7 +10,7 @@
                 <div class="sm:items-baseline"  x-data="{ tab: 'details' }">
 
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                        {{ __('Archive') }}
+                        {{ __('Archive') }}  <a href="{{ route('records.print', ['arch'=> $detail->archive_id,'id'=>$detail->id]) }}" >Print</a>
                     </p>
                     <h3 class="text-lg leading-6 font-medium text-gray-900 flex">
                         {{ $archive_details->name }}
@@ -121,7 +121,7 @@
 
                                 @if(!empty($detail->user->organization))
                                     <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-
+                                            <div>ID: {{ $detail->id }}</div>
                                             <div>{{ __('Archive owner') }}: {{ $detail->user->organization->name }}</div>
                                             <div>{{ __('Email') }}: {{ $detail->user->organization->email }}</div>
                                             <div>{{ __('Telephone') }}: {{ $detail->user->organization->phone }}</div>

@@ -2,6 +2,7 @@
     <!-- Main 3 column grid -->
     @include('dashboard._breadcrumb')
 
+
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
         <section class="pt-6" aria-labelledby="section-1-title">
@@ -50,7 +51,7 @@
                             </div>
                         </div>
 
-                        @include('dashboard._filtersattributes')
+{{--                        @include('dashboard._filtersattributes')--}}
 
 
 
