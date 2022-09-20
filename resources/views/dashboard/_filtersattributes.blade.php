@@ -95,10 +95,10 @@
                                         {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
                                         focus:ring-offset-2 focus:ring-indigo-500">{{ __('Reset') }}</a>
     @else
-        <button type="clear"  class="inline-flex items-center px-8 py-2 border
+        <a href="{{ route('records', $archive->id) }}"  class="inline-flex items-center px-8 py-2 border
                                         border-transparent text-base font-medium rounded-md shadow-sm text-white
                                         {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
-                                        focus:ring-offset-2 focus:ring-indigo-500">{{ __('Reset') }}</button>
+                                        focus:ring-offset-2 focus:ring-indigo-500">{{ __('Reset') }}</a>
     @endif
 
     <button type="submit" name="action" value="search" class="inline-flex items-center px-8 py-2 border
