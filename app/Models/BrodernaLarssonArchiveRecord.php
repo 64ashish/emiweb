@@ -27,7 +27,7 @@ class BrodernaLarssonArchiveRecord extends Model
         'geographical_extent',
         'archive_reference',
         'source_code',
-        'archive_name',
+        'archives_name',
         'created_by',
         'language',
         'key_words',

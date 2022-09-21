@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
+use App\Models\Archive;
 use App\Models\BrodernaLarssonArchiveRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
@@ -80,10 +81,12 @@ class BrodernaLarssonArchiveRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
 
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
-        $archive_name = $model::findOrFail(1)->archive;
+        $archive_name = Archive::findOrFail(11);
 //        return $archive_name;
+//        $archive_name = "hello, im blrc";
 
-        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+
+        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name'))->with($request->all());
 
     }
 
