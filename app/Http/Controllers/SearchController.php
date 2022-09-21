@@ -251,6 +251,7 @@ class SearchController extends Controller
     }
     public function search( Request  $request)
     {
+//        return $request;
         $inputFields = Arr::whereNotNull($request->except('_token'));
 ////        return $inputFields;
         $keywords = $request->except('_token');

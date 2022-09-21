@@ -32,6 +32,7 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function search( Request $request )
     {
 
+
         $all_request = $request->all();
 //        return $all_request;
         $carbonize_dates = $this->CarbonizeDates($all_request);
@@ -47,6 +48,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
         $result = SwedishChurchEmigrationRecord::query();
 
+//        return $inputFields;
         $records = $this->FilterQuery($inputFields, $result, $all_request);
 
 ////        if search was being performed
@@ -82,8 +84,10 @@ class SwedishChurchEmigrationRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
 
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
+//        return $defaultColumns;
         $archive_name = $model::findOrFail(1)->archive;
 
+//        return $records;
 
         return view('dashboard.swedishchurchemigrationrecord.records',
             compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());

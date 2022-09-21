@@ -47,6 +47,7 @@ trait SearchOrFilter
     {
 
         foreach($inputFields as  $fieldname => $fieldvalue) {
+
 //            for dates
 //            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
             if((str_contains(str_replace('_', ' ', $fieldname), 'date') or str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
@@ -70,16 +71,27 @@ trait SearchOrFilter
             }
 //            for everything else
             else{
+
                 if($all_request['action']==="filter"){
                     $result->where($fieldname, $fieldvalue);
                 }
                 if($all_request['action']==="search"){
 //
+
                     if($fieldname === 'first_name' or  $fieldname === 'last_name' or $fieldname === 'title' or $fieldname==='description')
+
                         $result->whereFullText($fieldname, $fieldvalue);
-                    }else{
-                    $result->where($fieldname, 'LIKE' ,  "%{$fieldvalue}%");
-                }
+                    }
+
+                    if($fieldname !== 'first_name' and  $fieldname !== 'last_name' and $fieldname !== 'title' and $fieldname!=='description')
+                    {
+
+                        $result->whereFullText($fieldname, $fieldvalue);
+                    }
+
+
+
+
 
             }
         }
