@@ -58,7 +58,9 @@
             </div>
             @if(isset($records) and $records->count() > 0)
 
-                @include('dashboard._resulttable')
+{{--                @include('dashboard._resulttable')--}}
+{{--                @include('dashboard.swedishchurchemigrationrecord.alp')--}}
+                @include('dashboard.swedishchurchemigrationrecord.alp')
             @elseif(\Illuminate\Support\Facades\Route::currentRouteName() !== "records")
                 <div class="pt-6">
                     {{ __('Your search returned no results') }}

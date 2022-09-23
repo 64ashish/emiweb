@@ -43,13 +43,26 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $inputFields;
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+
 //        return $inputQuery;
+        $model = new SwedishChurchEmigrationRecord();
+
+
+
 
 
         $result = SwedishChurchEmigrationRecord::query();
 
+
+
+//        $allFillable = $model->getFillable();
+
+
+
+
+
 //        return $inputFields;
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request );
 
 ////        if search was being performed
 //        if($request->action === "search"){
@@ -74,7 +87,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
         $keywords = $request->all();
 
-        $model = new SwedishChurchEmigrationRecord();
+
 
         $filterAttributes = collect($model->defaultSearchFields());
         $fields = collect($model->getFillable())
@@ -82,14 +95,32 @@ class SwedishChurchEmigrationRecordController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
+//        $fieldsToDisply = $model->getFillable();
 
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
 //        return $defaultColumns;
         $archive_name = $model::findOrFail(1)->archive;
+        $fieldsToDisply = $model->fieldsToDisply();
+
+
+        $final=[];
+
+//        foreach($records as $record)
+//        {
+//            dump($record->id);
+//        }
+
+
+
+
+//        return $fieldsToDisply;
+
 
 //        return $records;
 
         return view('dashboard.swedishchurchemigrationrecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply'))->with($request->all());
+//        return view('dashboard.swedishchurchemigrationrecord.alp',
+//            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
     }
 }

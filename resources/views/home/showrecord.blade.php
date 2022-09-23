@@ -17,7 +17,6 @@
                     </h3>
 
                     <div class="flex pt-3">
-
                         @if(  !empty($detail->source_hfl_batch_number) &&  !empty($detail->source_hfl_image_number))
                             <a href="https://sok.riksarkivet.se/bildvisning/{{ $detail->source_hfl_batch_number }}_{{ $detail->source_hfl_image_number }}"
                                class="inline-flex items-center px-6 ml-2 py-1.5 border border-transparent text-xs font-medium

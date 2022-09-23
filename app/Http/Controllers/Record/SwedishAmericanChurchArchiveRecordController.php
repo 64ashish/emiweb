@@ -27,7 +27,7 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $all_request = $request->all();
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action', 'page']);
+        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action', 'page','cursor']);
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
@@ -63,6 +63,10 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
 //        get the filter attributes
 //        $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
 //        get the keywords again
+
+//        return $records->appends(request()->except(['_token']))->links();
+//        return $records->count();
+
         $keywords = $request->all();
 
         $model = new SwedishAmericanChurchArchiveRecord();
@@ -78,4 +82,5 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $archive_name = $model::findOrFail(1)->archive;
 
         return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'));    }
+//        return view('dashboard.S')
 }

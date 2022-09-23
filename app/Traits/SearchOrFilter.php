@@ -95,7 +95,9 @@ trait SearchOrFilter
 
             }
         }
-        return $result->paginate(100);
+//        return $result->cursorPaginate(10);
+        return $result->paginate(20);
+//        return $result->get();
     }
 
 //    private function SearchQuery( $inputFields, $result, $all_request) {
