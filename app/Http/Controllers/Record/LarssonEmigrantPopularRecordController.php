@@ -30,39 +30,17 @@ class LarssonEmigrantPopularRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+        $model = new LarssonEmigrantPopularRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
 
 
         $result = LarssonEmigrantPopularRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
 
-////        get the search result prepared
-//        if($request->action === "search"){
-//            $result = LarssonEmigrantPopularRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = LarssonEmigrantPopularRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = LarssonEmigrantPopularRecord::whereIn('id', $idFromResults);
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//            $records = $result->paginate(100);
-//
-//        }
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
 
-//        get the filter attributes
-//        $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
-//        get the keywords again
         $keywords = $request->all();
-        $model = new LarssonEmigrantPopularRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

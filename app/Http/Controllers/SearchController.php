@@ -482,8 +482,8 @@ class SearchController extends Controller
                 $detail->relatives = NorwegianChurchImmigrantRecord::whereNot('id', $detail->id)
                     ->where('family_nr', $detail->family_nr)
                     ->where('source_area', $detail->source_area)
-                    ->where('from_date', $detail->record_date)
-                    ->where('from_fylke', $detail->from_fylke)
+                    ->where('to_date', $detail->record_date)
+                    ->where('to_fylke', $detail->from_fylke)
                     ->get();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])

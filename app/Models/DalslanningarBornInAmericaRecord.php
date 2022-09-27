@@ -28,6 +28,8 @@ class DalslanningarBornInAmericaRecord extends Model
         'comments',
     ];
 
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -44,6 +46,20 @@ class DalslanningarBornInAmericaRecord extends Model
             'birth_date',
             'birth_place',
             'profession',
+        ];
+    }
+
+
+    public function fieldsToDisply()
+    {
+        return [
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
+            'birth_date'=>__(ucfirst(str_replace('_', ' ', 'birth_date'))),
+            'birth_place'=>__(ucfirst(str_replace('_', ' ', 'birth_place'))),
+            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
         ];
     }
 

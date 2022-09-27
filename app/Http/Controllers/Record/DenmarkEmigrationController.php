@@ -116,32 +116,19 @@ class DenmarkEmigrationController extends Controller
 
 //        return $inputFields;
 
+
+        $model = new DenmarkEmigration();
+        $fieldsToDisply = $model->fieldsToDisply();
+
         $result = DenmarkEmigration::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
-//        if($request->action === "search"){
-//
-//
-//        }
-//      filter the thing and get the results ready
-//        if($request->action === "filter"){
-////            $melieRaw = DenmarkEmigration::search($inputQuery,
-////                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-//////            run the filter
-////                    $options['limit'] = 1000000;
-////                    return $meilisearch->search($query, $options);
-////                })->raw();
-////            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-////            $result = DenmarkEmigration::whereIn('id', $idFromResults);
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//        }
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+
 
 
 
 //        get the keywords again
         $keywords = $request->all();
 
-        $model = new DenmarkEmigration();
 
 //        $filterAttributes = $this->meilisearch
 //            ->index('denmark_emigrations')
@@ -158,6 +145,8 @@ class DenmarkEmigrationController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
 //        return $populated_fields;
         $archive_name = $model::findOrFail(1)->archive;
+
+//        return $model::findOrFail(1)->archive;;
         return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
 
 

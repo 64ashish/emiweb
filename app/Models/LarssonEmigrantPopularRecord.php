@@ -26,6 +26,25 @@ class LarssonEmigrantPopularRecord extends Model
         'notes'
     ];
 
+
+    public function fieldsToDisply()
+    {
+        return [
+
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name' ))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name' ))),
+            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession' ))),
+            'home_location'=>__(ucfirst(str_replace('_', ' ', 'home_location' ))),
+            'home_parish'=>__(ucfirst(str_replace('_', ' ', 'home_parish' ))),
+            'home_province'=>__(ucfirst(str_replace('_', ' ', 'home_province' ))),
+            'source_code'=>__(ucfirst(str_replace('_', ' ', 'source_code' ))),
+            'letter_date'=>__(ucfirst(str_replace('_', ' ', 'letter_date' ))),
+            'notes'=>__(ucfirst(str_replace('_', ' ', 'notes' ))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -19,6 +19,20 @@ class RsPersonalHistoryRecord extends Model
         'filename'
     ];
 
+    public function fieldsToDisply()
+    {
+        return [
+            'name'=> __(ucfirst(str_replace('_', ' ', 'name'))),
+            'source'=> __(ucfirst(str_replace('_', ' ', 'source'))),
+            'profession'=> __(ucfirst(str_replace('_', ' ', 'profession'))),
+            'country'=> __(ucfirst(str_replace('_', ' ', 'country'))),
+            'filename'=> __(ucfirst(str_replace('_', ' ', 'filename'))),
+//            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     public function toSearchableArray()
     {
         return [

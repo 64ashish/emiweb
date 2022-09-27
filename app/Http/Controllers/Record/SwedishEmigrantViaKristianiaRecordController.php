@@ -29,38 +29,18 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+        $model = new SwedishEmigrantViaKristianiaRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
 
         $result = SwedishEmigrantViaKristianiaRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
-//
-////        get the search result prepared
-//        if($request->action === "search"){
-//            $result = SwedishEmigrantViaKristianiaRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = SwedishEmigrantViaKristianiaRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = SwedishEmigrantViaKristianiaRecord::whereIn('id', $idFromResults);
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-//        }
 
-//        get the filter attributes
-//        $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
 
-        $model = new SwedishEmigrantViaKristianiaRecord();
+
+
 
         $filterAttributes = collect($model->defaultSearchFields());
 

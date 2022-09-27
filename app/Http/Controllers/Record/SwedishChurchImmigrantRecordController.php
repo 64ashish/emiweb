@@ -30,38 +30,17 @@ class SwedishChurchImmigrantRecordController extends Controller
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
 
+        $model = new SwedishChurchImmigrantRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
 
 
         $result = SwedishChurchImmigrantRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
-
-////        get the search result prepared
-//        if($request->action === "search"){
-//            $result = SwedishChurchImmigrantRecord::search($inputQuery);
-//            $records = $result->paginate('100');
-//
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = SwedishChurchImmigrantRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = SwedishChurchImmigrantRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//        }
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
 
-//        get the filter attributes
-//        $filterAttributes = $this->meilisearch->index('swedish_church_immigrant_records')->getFilterableAttributes();
-//        get the keywords again
         $keywords = $request->all();
 
-        $model = new SwedishChurchImmigrantRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())

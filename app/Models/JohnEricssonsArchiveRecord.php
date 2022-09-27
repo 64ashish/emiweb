@@ -24,6 +24,25 @@ class JohnEricssonsArchiveRecord extends Model
         'file_name'
     ];
 
+
+    public function fieldsToDisply()
+    {
+        return [
+
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name' ))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name' ))),
+            'other_name'=>__(ucfirst(str_replace('_', ' ', 'other_name' ))),
+            'Description'=>__(ucfirst(str_replace('_', ' ', 'Description' ))),
+            'date'=>__(ucfirst(str_replace('_', ' ', 'date' ))),
+            'roll_no'=>__(ucfirst(str_replace('_', ' ', 'roll_no' ))),
+            'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

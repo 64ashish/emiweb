@@ -31,6 +31,30 @@ class SwedishPortPassengerListRecord extends Model
         'comments'
     ];
 
+
+    public function fieldsToDisply()
+    {
+        return [
+
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
+            'age'=>__(ucfirst(str_replace('_', ' ', 'age'))),
+            'sex'=>__(ucfirst(str_replace('_', ' ', 'sex'))),
+            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
+            'departure_date'=>__(ucfirst(str_replace('_', ' ', 'departure_date'))),
+            'departure_parish'=>__(ucfirst(str_replace('_', ' ', 'departure_parish'))),
+            'destination'=>__(ucfirst(str_replace('_', ' ', 'destination'))),
+            'source_reference'=>__(ucfirst(str_replace('_', ' ', 'source_reference'))),
+            'departure_county'=>__(ucfirst(str_replace('_', ' ', 'departure_county'))),
+            'traveling_partners'=>__(ucfirst(str_replace('_', ' ', 'traveling_partners'))),
+            'main_act'=>__(ucfirst(str_replace('_', ' ', 'main_act'))),
+            'departure_port'=>__(ucfirst(str_replace('_', ' ', 'departure_port'))),
+            'comments'=>__(ucfirst(str_replace('_', ' ', 'comments'))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     public function user(){
 
         return $this->belongsTo(User::class);

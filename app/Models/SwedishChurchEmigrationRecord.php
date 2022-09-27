@@ -194,7 +194,8 @@ class SwedishChurchEmigrationRecord extends Model
             'source_hfl_image_number'=>__(ucfirst(str_replace('_', ' ', 'source_hfl_image_number'))) ,
             'source_in_out_batch_number'=>__(ucfirst(str_replace('_', ' ', 'source_in_out_batch_number'))) ,
             'source_in_out_image_number'=>__(ucfirst(str_replace('_', ' ', 'source_in_out_image_number'))) ,
-            'id' =>'id'
+            'id' =>'id',
+            'archive_id' =>'archive_id',
         ];
     }
 

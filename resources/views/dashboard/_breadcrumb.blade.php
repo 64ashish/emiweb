@@ -13,7 +13,7 @@
                 <a href="/home">{{ __('Hem') }}</a>  /<a href="{{ route('records',$archive_details) }}"> {{ $archive_details->name }} </a>/ {{ $detail->first_name }} {{ $detail->last_name }}
         @break
         @case( Str::is('*search', Route::currentRoutename()) == true)
-        <a href="/home">{{ __('Hem') }}</a>   / {{   $archive_name->name }}  / {{ __('result') }}
+        <a href="/home">{{ __('Hem') }}</a>   / {{  $archive_name->name }}  / {{ __('result') }}
         @break
             @default
 

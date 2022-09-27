@@ -46,44 +46,13 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 //        return $inputQuery;
         $model = new SwedishChurchEmigrationRecord();
-
-
-
-
+        $fieldsToDisply = $model->fieldsToDisply();
 
         $result = SwedishChurchEmigrationRecord::query();
 
 
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
-//        $allFillable = $model->getFillable();
-
-
-
-
-
-//        return $inputFields;
-        $records = $this->FilterQuery($inputFields, $result, $all_request );
-
-////        if search was being performed
-//        if($request->action === "search"){
-//          $result = SwedishChurchEmigrationRecord::query();
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//        }
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = SwedishChurchEmigrationRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = SwedishChurchEmigrationRecord::whereIn('id', $idFromResults)->whereRaw("DATE(STR_TO_DATE(`dob`, '%Y-%m-%d')) IS NOT NULL");
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//        }
-
-
-//        return $records;
 
         $keywords = $request->all();
 
@@ -95,28 +64,14 @@ class SwedishChurchEmigrationRecordController extends Controller
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
-//        $fieldsToDisply = $model->getFillable();
+
 
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
 //        return $defaultColumns;
         $archive_name = $model::findOrFail(1)->archive;
-        $fieldsToDisply = $model->fieldsToDisply();
-
-
-        $final=[];
-
-//        foreach($records as $record)
-//        {
-//            dump($record->id);
-//        }
 
 
 
-
-//        return $fieldsToDisply;
-
-
-//        return $records;
 
         return view('dashboard.swedishchurchemigrationrecord.records',
             compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply'))->with($request->all());

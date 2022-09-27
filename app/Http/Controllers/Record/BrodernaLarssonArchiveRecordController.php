@@ -42,8 +42,11 @@ class BrodernaLarssonArchiveRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+        $model = new BrodernaLarssonArchiveRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
+
         $result = BrodernaLarssonArchiveRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 //        if($request->action === "search"){
 //            $result = BrodernaLarssonArchiveRecord::search($inputQuery);
 //            $records = $result->paginate(100);
@@ -69,7 +72,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
         $keywords = $request->all();
 //        return view
 
-        $model = new BrodernaLarssonArchiveRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())

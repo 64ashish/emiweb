@@ -43,7 +43,7 @@ trait SearchOrFilter
     }
 
 
-    private function FilterQuery( $inputFields, $result, $all_request)
+    private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply)
     {
 
         foreach($inputFields as  $fieldname => $fieldvalue) {
@@ -96,7 +96,7 @@ trait SearchOrFilter
             }
         }
 //        return $result->cursorPaginate(10);
-        return $result->paginate(20);
+        return $result->paginate(100,$fieldsToDisply);
 //        return $result->get();
     }
 

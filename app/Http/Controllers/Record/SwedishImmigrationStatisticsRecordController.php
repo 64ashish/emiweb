@@ -32,9 +32,12 @@ class SwedishImmigrationStatisticsRecordController extends Controller
 
 
 
+        $model = new SwedishImmigrationStatisticsRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
+
 
         $result = SwedishImmigrationStatisticsRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 //
 ////        get the search result prepared
 //        if($request->action === "search"){
@@ -62,7 +65,7 @@ class SwedishImmigrationStatisticsRecordController extends Controller
 //        get the keywords again
         $keywords = $request->all();
 
-        $model = new SwedishImmigrationStatisticsRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())

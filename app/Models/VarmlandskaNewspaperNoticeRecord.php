@@ -36,6 +36,36 @@ class VarmlandskaNewspaperNoticeRecord extends Model
         'birth_location'
     ];
 
+    public function fieldsToDisply()
+    {
+        return [
+
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
+            'newspaper'=>__(ucfirst(str_replace('_', ' ', 'newspaper'))),
+            'article_year'=>__(ucfirst(str_replace('_', ' ', 'article_year'))),
+            'article_month'=>__(ucfirst(str_replace('_', ' ', 'article_month'))),
+            'article_day'=>__(ucfirst(str_replace('_', ' ', 'article_day'))),
+            'places'=>__(ucfirst(str_replace('_', ' ', 'places'))),
+            'death_parish'=>__(ucfirst(str_replace('_', ' ', 'death_parish'))),
+            'death_country'=>__(ucfirst(str_replace('_', ' ', 'death_country'))),
+            'notes'=>__(ucfirst(str_replace('_', ' ', 'notes'))),
+            'archive_reference'=>__(ucfirst(str_replace('_', ' ', 'archive_reference'))),
+            'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name'))),
+            'type'=>__(ucfirst(str_replace('_', ' ', 'type'))),
+            'birth_year'=>__(ucfirst(str_replace('_', ' ', 'birth_year'))),
+            'birth_month'=>__(ucfirst(str_replace('_', ' ', 'birth_month'))),
+            'birth_day'=>__(ucfirst(str_replace('_', ' ', 'birth_day'))),
+            'death_year'=>__(ucfirst(str_replace('_', ' ', 'death_year'))),
+            'death_month'=>__(ucfirst(str_replace('_', ' ', 'death_month'))),
+            'death_day'=>__(ucfirst(str_replace('_', ' ', 'death_day'))),
+            'birth_location'=>__(ucfirst(str_replace('_', ' ', 'birth_location'))),
+
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

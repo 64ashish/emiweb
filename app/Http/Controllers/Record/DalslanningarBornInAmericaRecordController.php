@@ -106,41 +106,19 @@ class DalslanningarBornInAmericaRecordController extends Controller
 
 
 
+        $model = new DalslanningarBornInAmericaRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
 
         $result = DalslanningarBornInAmericaRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
 
-
-//
-//        if($request->action === "search"){
-//            $result = DalslanningarBornInAmericaRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//
-//            $melieRaw = DalslanningarBornInAmericaRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = DalslanningarBornInAmericaRecord::whereIn('id', $idFromResults)
-//                ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
-//
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-//        }
 
 
 //        $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
 //        get the keywords again
         $keywords = $request->all();
-        $model = new DalslanningarBornInAmericaRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])

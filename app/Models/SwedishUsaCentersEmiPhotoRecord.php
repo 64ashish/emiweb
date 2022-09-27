@@ -20,6 +20,24 @@ class SwedishUsaCentersEmiPhotoRecord extends Model
             'file_name'
          ];
 
+
+    public function fieldsToDisply()
+    {
+        return [
+
+            'description'=>__(ucfirst(str_replace('_', ' ', 'description' ))),
+            'location'=>__(ucfirst(str_replace('_', ' ', 'location' ))),
+            'country'=>__(ucfirst(str_replace('_', ' ', 'country' ))),
+            'photo_owner'=>__(ucfirst(str_replace('_', ' ', 'photo_owner' ))),
+            'time_period'=>__(ucfirst(str_replace('_', ' ', 'time_period' ))),
+            'film_number'=>__(ucfirst(str_replace('_', ' ', 'film_number' ))),
+            'negative'=>__(ucfirst(str_replace('_', ' ', 'negative' ))),
+            'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     public function toSearchableArray()
     {
         return [

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\RecordCount;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 
 class BrodernaLarssonArchiveRecord extends Model
@@ -37,6 +38,38 @@ class BrodernaLarssonArchiveRecord extends Model
         'file_name',
         'comments',
     ];
+
+    public function fieldsToDisply()
+    {
+        return [
+            'first_name' =>__(ucfirst(str_replace('_', ' ','first_name' ))),
+            'last_name' =>__(ucfirst(str_replace('_', ' ','last_name' ))),
+            'home_location' =>__(ucfirst(str_replace('_', ' ','home_location' ))),
+            'home_parish' =>__(ucfirst(str_replace('_', ' ','home_parish' ))),
+            'home_county' =>__(ucfirst(str_replace('_', ' ','home_county' ))),
+            'home_country' =>__(ucfirst(str_replace('_', ' ','home_country' ))),
+            'letter_date' =>__(ucfirst(str_replace('_', ' ','letter_date' ))),
+            'gender' =>__(ucfirst(str_replace('_', ' ','gender' ))),
+            'profession' =>__(ucfirst(str_replace('_', ' ','profession' ))),
+            'geographical_extent' =>__(ucfirst(str_replace('_', ' ','geographical_extent' ))),
+            'archive_reference' =>__(ucfirst(str_replace('_', ' ','archive_reference' ))),
+            'source_code' =>__(ucfirst(str_replace('_', ' ','source_code' ))),
+            'archives_name' =>__(ucfirst(str_replace('_', ' ','archives_name' ))),
+            'created_by' =>__(ucfirst(str_replace('_', ' ','created_by' ))),
+            'language' =>__(ucfirst(str_replace('_', ' ','language' ))),
+            'key_words' =>__(ucfirst(str_replace('_', ' ','key_words' ))),
+            'type' =>__(ucfirst(str_replace('_', ' ','type' ))),
+            'format' =>__(ucfirst(str_replace('_', ' ','format' ))),
+            'number_of_pages' =>__(ucfirst(str_replace('_', ' ','number_of_pages' ))),
+            'file_name' =>__(ucfirst(str_replace('_', ' ','file_name' ))),
+            'comments' =>__(ucfirst(str_replace('_', ' ','comments' ))),
+            'id'=>'id',
+            'archive_id' => 'archive_id'
+        ];
+    }
+
+
+
 
     public function Archive()
     {

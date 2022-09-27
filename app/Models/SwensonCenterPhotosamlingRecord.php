@@ -22,6 +22,26 @@ class SwensonCenterPhotosamlingRecord extends Model
                     'file_name'
                 ];
 
+
+    public function fieldsToDisply()
+    {
+        return [
+
+            'title'=>__(ucfirst(str_replace('_', ' ', 'title'))),
+            'description'=>__(ucfirst(str_replace('_', ' ', 'description'))),
+            'photographer'=>__(ucfirst(str_replace('_', ' ', 'photographer'))),
+            'studio'=>__(ucfirst(str_replace('_', ' ', 'studio'))),
+            'place'=>__(ucfirst(str_replace('_', ' ', 'place'))),
+            'datum'=>__(ucfirst(str_replace('_', ' ', 'datum'))),
+            'collection_name'=>__(ucfirst(str_replace('_', ' ', 'collection_name'))),
+            'object_id'=>__(ucfirst(str_replace('_', ' ', 'object_id'))),
+            'print_size'=>__(ucfirst(str_replace('_', ' ', 'print_size'))),
+            'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     public function toSearchableArray()
     {
         return [

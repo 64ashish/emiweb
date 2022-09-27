@@ -38,6 +38,35 @@ class SwedishEmigrationStatisticsRecord extends Model
 
     ];
 
+
+
+    public function fieldsToDisply()
+    {
+        return [
+
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
+            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
+            'birth_year'=>__(ucfirst(str_replace('_', ' ', 'birth_year'))),
+            'birth_month'=>__(ucfirst(str_replace('_', ' ', 'birth_month'))),
+            'birth_day'=>__(ucfirst(str_replace('_', ' ', 'birth_day'))),
+            'destination'=>__(ucfirst(str_replace('_', ' ', 'destination'))),
+            'comments'=>__(ucfirst(str_replace('_', ' ', 'comments'))),
+            'from_year'=>__(ucfirst(str_replace('_', ' ', 'from_year'))),
+            'from_province'=>__(ucfirst(str_replace('_', ' ', 'from_province'))),
+            'from_parish'=>__(ucfirst(str_replace('_', ' ', 'from_parish'))),
+            'gender'=>__(ucfirst(str_replace('_', ' ', 'gender'))),
+            'civil_status'=>__(ucfirst(str_replace('_', ' ', 'civil_status'))),
+            'family_number'=>__(ucfirst(str_replace('_', ' ', 'family_number'))),
+            'nationality'=>__(ucfirst(str_replace('_', ' ', 'nationality'))),
+            'source'=>__(ucfirst(str_replace('_', ' ', 'source'))),
+            'svar_batch_number'=>__(ucfirst(str_replace('_', ' ', 'svar_batch_number'))),
+            'svar_image_number'=>__(ucfirst(str_replace('_', ' ', 'svar_image_number'))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     public function archive()
     {
         return $this->belongsTo(Archive::class);

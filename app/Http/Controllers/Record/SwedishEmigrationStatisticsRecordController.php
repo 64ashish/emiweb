@@ -32,39 +32,17 @@ class SwedishEmigrationStatisticsRecordController extends Controller
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
 
+        $model = new SwedishEmigrationStatisticsRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
 
 
         $result = SwedishEmigrationStatisticsRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-////        get the search result prepared
-//        if($request->action === "search"){
-//            $result = SwedishEmigrationStatisticsRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = SwedishEmigrationStatisticsRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = SwedishEmigrationStatisticsRecord::whereIn('id', $idFromResults);
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-//        }
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
-
-//        get the filter attributes
-//        $filterAttributes = $this->meilisearch->index('swedish_emigration_statistics_records')->getFilterableAttributes();
-//        get the keywords again
         $keywords = $request->all();
 
-        $model = new SwedishEmigrationStatisticsRecord();
+
+
 
         $filterAttributes = collect($model->defaultSearchFields());
 
@@ -78,5 +56,6 @@ class SwedishEmigrationStatisticsRecordController extends Controller
 
 //        return view
         return view('dashboard.scbe.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+
     }
 }

@@ -48,6 +48,49 @@ class SwedishAmericanChurchArchiveRecord extends Model
         'page',
     ];
 
+
+
+    public function fieldsToDisply()
+    {
+        return [
+            'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
+            'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
+            'last_name2'=>__(ucfirst(str_replace('_', ' ', 'last_name2'))),
+            'gender'=>__(ucfirst(str_replace('_', ' ', 'gender'))),
+            'civil_status'=>__(ucfirst(str_replace('_', ' ', 'civil_status'))),
+            'birth_date'=>__(ucfirst(str_replace('_', ' ', 'birth_date'))),
+            'birth_parish'=>__(ucfirst(str_replace('_', ' ', 'birth_parish'))),
+            'birth_province'=>__(ucfirst(str_replace('_', ' ', 'birth_province'))),
+            'immigration_date'=>__(ucfirst(str_replace('_', ' ', 'immigration_date'))),
+            'emigration_parish'=>__(ucfirst(str_replace('_', ' ', 'emigration_parish'))),
+            'emigration_province'=>__(ucfirst(str_replace('_', ' ', 'emigration_province'))),
+            'arrival_date_this_place'=>__(ucfirst(str_replace('_', ' ', 'arrival_date_this_place'))),
+            'arrived_from_place'=>__(ucfirst(str_replace('_', ' ', 'arrived_from_place'))),
+            'arrived_from_county'=>__(ucfirst(str_replace('_', ' ', 'arrived_from_county'))),
+            'arrived_from_state'=>__(ucfirst(str_replace('_', ' ', 'arrived_from_state'))),
+            'death_date'=>__(ucfirst(str_replace('_', ' ', 'death_date'))),
+            'family_nr'=>__(ucfirst(str_replace('_', ' ', 'family_nr'))),
+            'source'=>__(ucfirst(str_replace('_', ' ', 'source'))),
+            'immigrated_to_place'=>__(ucfirst(str_replace('_', ' ', 'immigrated_to_place'))),
+            'immigrated_to_state'=>__(ucfirst(str_replace('_', ' ', 'immigrated_to_state'))),
+            'old_id'=>__(ucfirst(str_replace('_', ' ', 'old_id'))),
+            'birth_year'=>__(ucfirst(str_replace('_', ' ', 'birth_year'))),
+            'birth_month'=>__(ucfirst(str_replace('_', ' ', 'birth_month'))),
+            'birth_day'=>__(ucfirst(str_replace('_', ' ', 'birth_day'))),
+            'immigration_year'=>__(ucfirst(str_replace('_', ' ', 'immigration_year'))),
+            'immigration_month'=>__(ucfirst(str_replace('_', ' ', 'immigration_month'))),
+            'immigration_day'=>__(ucfirst(str_replace('_', ' ', 'immigration_day'))),
+            'death_year'=>__(ucfirst(str_replace('_', ' ', 'death_year'))),
+            'death_month'=>__(ucfirst(str_replace('_', ' ', 'death_month'))),
+            'death_day'=>__(ucfirst(str_replace('_', ' ', 'death_day'))),
+            'page'=>__(ucfirst(str_replace('_', ' ', 'page'))),
+
+//            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
+            'id'=>'id',
+            'archive_id'=>'archive_id'
+        ];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

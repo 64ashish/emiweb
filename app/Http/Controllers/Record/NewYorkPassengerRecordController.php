@@ -30,35 +30,15 @@ class NewYorkPassengerRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+        $model = new NewYorkPassengerRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
 
         $result = NewYorkPassengerRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
-        //        get the search result prepared
-//        if($request->action === "search"){
-//            $result = NewYorkPassengerRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = NewYorkPassengerRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = NewYorkPassengerRecord::whereIn('id', $idFromResults);
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-//        }
-//        get the filter attributes
-//        $filterAttributes = $this->meilisearch->index('new_york_passenger_records')->getFilterableAttributes();
-//        get the keywords again
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+
         $keywords = $request->all();
 
-        $model = new NewYorkPassengerRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())
@@ -68,6 +48,8 @@ class NewYorkPassengerRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive;
+
+
 
 //        return view
         return view('dashboard.NewYorkPassengerRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());

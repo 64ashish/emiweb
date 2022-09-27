@@ -21,12 +21,16 @@ class RsPersonalHistoryRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+
+        $model = new RsPersonalHistoryRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
+
         $result = RsPersonalHistoryRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();
 
-        $model = new RsPersonalHistoryRecord();
+
         $filterAttributes = collect($model->defaultSearchFields());
 
         $fields = collect($model->getFillable())

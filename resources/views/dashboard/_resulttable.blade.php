@@ -40,7 +40,7 @@
                             <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
                                 @if(!empty($record->first_name) or !empty($record->last_name))
                                 <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
-                                                                        font-medium  sm:pl-6 lg:pl-8">
+                                                                        font-medium  sm:pl-6 lg:pl-8" >
                                     <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
                                         {{ $record->first_name }} {{ $record->last_name }}
                                     </a>

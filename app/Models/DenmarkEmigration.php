@@ -33,29 +33,33 @@ class DenmarkEmigration extends Model
         'source',
         'dduid'
     ];
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function archive()
-    {
-        return $this->belongsTo(Archive::class);
-    }
 
 
-    public function toSearchableArray()
+    public function fieldsToDisply()
     {
         return [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'sex' => $this->sex,
-            'birth_place' => $this->birth_place,
-            'last_resident' => $this->last_resident,
-            'profession' => $this->profession,
-            'destination_city' => $this->destination_city,
-            'destination_country' => $this->destination_country,
-            'ship_name' => $this->ship_name,
-            ];
+            'first_name'=> __(ucfirst(str_replace('_', ' ', 'first_name'))) ,
+            'last_name'=> __(ucfirst(str_replace('_', ' ', 'last_name'))) ,
+            'sex'=> __(ucfirst(str_replace('_', ' ', 'sex'))) ,
+            'age'=> __(ucfirst(str_replace('_', ' ', 'age'))) ,
+            'birth_place'=> __(ucfirst(str_replace('_', ' ', 'birth_place'))) ,
+            'last_resident'=> __(ucfirst(str_replace('_', ' ', 'last_resident'))) ,
+            'profession'=> __(ucfirst(str_replace('_', ' ', 'profession'))) ,
+            'destination_city'=> __(ucfirst(str_replace('_', ' ', 'destination_city'))) ,
+            'destination_country'=> __(ucfirst(str_replace('_', ' ', 'destination_country'))) ,
+            'ship_name'=> __(ucfirst(str_replace('_', ' ', 'ship_name'))) ,
+            'traveled_on'=> __(ucfirst(str_replace('_', ' ', 'traveled_on'))) ,
+            'contract_number'=> __(ucfirst(str_replace('_', ' ', 'contract_number'))) ,
+            'comment'=> __(ucfirst(str_replace('_', ' ', 'comment'))) ,
+            'secrecy'=> __(ucfirst(str_replace('_', ' ', 'secrecy'))) ,
+            'travel_type'=> __(ucfirst(str_replace('_', ' ', 'travel_type'))) ,
+            'source'=> __(ucfirst(str_replace('_', ' ', 'source'))) ,
+            'dduid' => __(ucfirst(str_replace('_', ' ', ' dduid'))),
+            'id' => 'id',
+            'archive_id' => 'archive_id'
+        ];
     }
+
 
 
     public function defaultSearchFields(){
@@ -86,5 +90,9 @@ class DenmarkEmigration extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function archive()
+    {
+        return $this->belongsTo(Archive::class);
+    }
 
 }

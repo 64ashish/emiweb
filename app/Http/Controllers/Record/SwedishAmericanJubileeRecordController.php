@@ -21,13 +21,16 @@ class SwedishAmericanJubileeRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 
+        $model = new SwedishAmericanJubileeRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
+
         $result = SwedishAmericanJubileeRecord::query();
 
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();
 
-        $model = new SwedishAmericanJubileeRecord();
+
 
         $filterAttributes = collect($model->defaultSearchFields());
 

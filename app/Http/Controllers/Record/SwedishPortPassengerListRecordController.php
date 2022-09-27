@@ -32,9 +32,12 @@ class  SwedishPortPassengerListRecordController extends Controller
 
 
 
+        $model = new SwedishPortPassengerListRecord();
+        $fieldsToDisply = $model->fieldsToDisply();
+
 
         $result = SwedishPortPassengerListRecord::query();
-        $records = $this->FilterQuery($inputFields, $result, $all_request);
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         //        get the search result prepared
 //        if($request->action === "search"){
@@ -62,7 +65,7 @@ class  SwedishPortPassengerListRecordController extends Controller
         $keywords = $request->all();
 
 
-        $model = new SwedishPortPassengerListRecord();
+
 
         $filterAttributes = collect($model->defaultSearchFields());
 

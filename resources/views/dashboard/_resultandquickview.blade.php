@@ -6,7 +6,7 @@
             <h4 class="pb-6"> {{ __("Your search returned") ." ". $records->total()." ". __("results") }}
             </h4>
             <div x-data="data()"
-                    class="overflow-hidden shadow ring-1 mb-4 ring-black ring-opacity-5 md:rounded-lg">
+                 class="overflow-hidden shadow ring-1 mb-4 ring-black ring-opacity-5 md:rounded-lg">
 
                 <table x-show="!openDetails"
                        class="min-w-full table-auto border-separate" style="border-spacing: 0" >
@@ -71,21 +71,21 @@
                         @foreach($records as $record)
 
                             <tr  @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})"
-                                    class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
+                                 class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
                                 @if(!empty($record->first_name) or !empty($record->last_name))
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
                                                                         font-medium  sm:pl-6 lg:pl-8">
 
-{{--                                        <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
-                                          <div> {{ $record->first_name }} {{ $record->last_name }}</div>
-{{--                                        </a>--}}
+                                        {{--                                        <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
+                                        <div> {{ $record->first_name }} {{ $record->last_name }}</div>
+                                        {{--                                        </a>--}}
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                          hidden sm:table-cell">
 
-                                            {{ $record[$column]}}
+                                        {{ $record[$column]}}
 
                                     </td>
                                 @endforeach
@@ -94,7 +94,7 @@
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                                                         hidden sm:table-cell">
 
-                                            {{ $record[$pop_fields]}}
+                                        {{ $record[$pop_fields]}}
 
                                     </td>
                                 @endforeach
@@ -103,19 +103,20 @@
 
                         @endforeach
 
-{{--                        {{ print_r($records) }}--}}
+                        {{--                        {{ print_r($records) }}--}}
                     @endif
 
 
                     <!-- More people... -->
                     </tbody>
                 </table>
-{{--                {{ dd($recordDetails) }}--}}
+                {{--                {{ dd($recordDetails) }}--}}
 
-{{--                {{ dump(json_encode($recordDetails)) }}--}}
+                {{--                {{ dump(json_encode($recordDetails)) }}--}}
 
-                <div x-show="openDetails" >
-                    <span class="isolate inline-flex rounded-md  p-4">
+                <div x-show="openDetails"  class="flex flex-col">
+                    <div class="flex">
+                        <span class="isolate inline-flex rounded-md  p-4">
                         <button type="button" class="relative inline-flex items-center rounded-l-md border border-gray-300
                        bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
                         focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="openDetails = ! openDetails, detail=''">
@@ -145,24 +146,23 @@
                         </svg>
                       </button>
                     </span>
-
-
+                    </div>
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0 bg-white" >
                         <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2">
 
-                                <template x-for="(value, field) in detail" :key="field">
+                            <template x-for="(value, field) in detail" :key="field">
 
-                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
-                                        <dt class="text-sm font-medium text-gray-500 capitalize" x-text="prepareField(field)">
+                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
+                                    <dt class="text-sm font-medium text-gray-500 capitalize" x-text="prepareField(field)">
 
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" x-text="value">
+                                    </dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" x-text="value">
 
-                                        </dd>
+                                    </dd>
 
-                                    </div>
+                                </div>
 
-                                </template>
+                            </template>
 
 
                         </dl>
@@ -187,6 +187,9 @@
             sortBy: '',
             sortAsc: false,
             recordURL: '',
+            nextPage: @json($records->nextPageUrl()),
+            previousPage: @json( $records->nextPageUrl()),
+
             // selectedIndex:'',
 
             selectedRecord(recordId){
