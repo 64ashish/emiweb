@@ -91,6 +91,7 @@
                 recordURL: '',
                 nextPage: @json($records->nextPageUrl()),
                 previousPage: @json( $records->nextPageUrl()),
+                // currentPageLength:
 
                 // selectedIndex:'',
 

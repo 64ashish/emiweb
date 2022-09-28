@@ -86,7 +86,7 @@ trait SearchOrFilter
                     if($fieldname !== 'first_name' and  $fieldname !== 'last_name' and $fieldname !== 'title' and $fieldname!=='description')
                     {
 
-                        $result->whereFullText($fieldname, $fieldvalue);
+                        $result->where($fieldname, $fieldvalue);
                     }
 
 
@@ -95,9 +95,10 @@ trait SearchOrFilter
 
             }
         }
-//        return $result->cursorPaginate(10);
+//        return $result->cursorPaginate(100,$fieldsToDisply);
+//        return $result->simplePaginate(100,$fieldsToDisply);
         return $result->paginate(100,$fieldsToDisply);
-//        return $result->get();
+//        return $result->get($fieldsToDisply);
     }
 
 //    private function SearchQuery( $inputFields, $result, $all_request) {
