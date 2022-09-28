@@ -7,6 +7,12 @@
     .striped div:nth-child(4n + 4){
         @apply bg-gray-100
     }
+
+
+    .quickwrapper div:nth-child(4n + 4),
+    .quickwrapper div:nth-child(4n + 5){
+        @apply bg-gray-100
+    }
 }
 
 [x-cloak] {

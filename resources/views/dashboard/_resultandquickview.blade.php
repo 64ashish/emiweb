@@ -1,11 +1,10 @@
-
 <div class="mt-8 flex flex-col" x-init="document.getElementById('results').scrollIntoView()">
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8" id="results">
 
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <h4 class="pb-6"> {{ __("Your search returned") ." ". $records->total()." ". __("results") }}
+            <h4 class="pb-6" x-show="!openDetails"> {{ __("Your search returned") ." ". $records->total()." ". __("results") }}
             </h4>
-            <div x-data="data()"
+            <div
                  class="overflow-hidden shadow ring-1 mb-4 ring-black ring-opacity-5 md:rounded-lg">
 
                 <table x-show="!openDetails"
@@ -120,7 +119,7 @@
                         <button type="button" class="relative inline-flex items-center rounded-l-md border border-gray-300
                        bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
                         focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="openDetails = ! openDetails, detail=''">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                             </svg>
 
@@ -134,10 +133,19 @@
                             </svg>
                           Previous record</button>
                       <a x-bind:href="recordURL" type="button" class="relative -ml-px inline-flex items-center border border-gray-300
-                       bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
+                       bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-indigo-600 focus:z-10 focus:border-indigo-500
                         focus:outline-none focus:ring-1 focus:ring-indigo-500" >
 
-                          Record detailed page</a>
+                          Record detailed page
+
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2  w-6 h-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
+                            </svg>
+
+
+
+                        </a>
                       <button type="button" class="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300
                        bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
                         focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="selectedRecord(next)" x-show="next">Next record
@@ -148,7 +156,7 @@
                     </span>
                     </div>
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0 bg-white" >
-                        <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2">
+                        <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2 quickwrapper">
 
                             <template x-for="(value, field) in detail" :key="field">
 
@@ -171,87 +179,15 @@
                     </div>
                 </div>
             </div>
-            {{ $records->appends(request()->except(['_token']))->links() }}
+            <span x-show="!openDetails">
+                {{ $records->appends(request()->except(['_token']))->links() }}
+            </span>
+
         </div>
     </div>
 </div>
 
-<script>
-    function data() {
-        return {
-            openDetails: false,
-            detail:'',
-            next:'',
-            previous:'',
-            initialRecords: @json($records->items()),
-            sortBy: '',
-            sortAsc: false,
-            recordURL: '',
-            nextPage: @json($records->nextPageUrl()),
-            previousPage: @json( $records->nextPageUrl()),
 
-            // selectedIndex:'',
-
-            selectedRecord(recordId){
-                let recordsLength = this.initialRecords.length;
-                this.detail = this.initialRecords.find(x => x.id === recordId);
-                // let selectedIndex = this.initialRecords.findIndex(this.detail)
-                let selectedIndex = this.initialRecords.findIndex(e => e.id == recordId );
-                this.next = selectedIndex != recordsLength-1 ? this.initialRecords[selectedIndex+1].id:false;
-                this.previous = selectedIndex > 0 ? this.initialRecords[selectedIndex-1].id:false;
-                this.recordURL = "/records/"+this.detail.archive_id+"/"+this.detail.id;
-            },
-            prepareField(fieldName) {
-                return fieldName.replaceAll('_', ' ');
-            },
-            sortByColumn($event) {
-                if (this.sortBy === $event.target.innerText) {
-                    if (this.sortAsc) {
-                        this.sortBy = "";
-                        this.sortAsc = false;
-                    } else {
-                        this.sortAsc = !this.sortAsc;
-                    }
-                } else {
-                    this.sortBy = $event.target.innerText;
-                }
-
-                let rows = this.getTableRows()
-                    .sort(
-                        this.sortCallback(
-                            Array.from($event.target.parentNode.children).indexOf(
-                                $event.target
-                            )
-                        )
-                    )
-                    .forEach((tr) => {
-                        this.$refs.tbody.appendChild(tr);
-                    });
-            },
-            getTableRows() {
-                return Array.from(this.$refs.tbody.querySelectorAll("tr"));
-            },
-            getCellValue(row, index) {
-                return row.children[index].innerText;
-            },
-            sortCallback(index) {
-                return (a, b) =>
-                    ((row1, row2) => {
-                        return row1 !== "" &&
-                        row2 !== "" &&
-                        !isNaN(row1) &&
-                        !isNaN(row2)
-                            ? row1 - row2
-                            : row1.toString().localeCompare(row2);
-                    })(
-                        this.getCellValue(this.sortAsc ? a : b, index),
-                        this.getCellValue(this.sortAsc ? b : a, index)
-                    );
-            }
-        }
-
-    }
-</script>
 
 
 
