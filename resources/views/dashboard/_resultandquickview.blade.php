@@ -177,13 +177,13 @@
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0 bg-white" >
                         <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2 quickwrapper">
 
-                            <template x-for="(value, field) in detail" :key="field">
+                            <template x-for="(value, field) in displayFields" :key="field">
 
                                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
-                                    <dt class="text-sm font-medium text-gray-500 capitalize" x-text="prepareField(field)">
+                                    <dt class="text-sm font-medium text-gray-500 capitalize" x-text="value">
 
                                     </dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" x-text="value">
+                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
 
                                     </dd>
 

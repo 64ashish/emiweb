@@ -42,8 +42,6 @@ class SwedishChurchEmigrationRecordController extends Controller
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
 //        return $inputFields;
         $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
-
-
 //        return $inputQuery;
         $model = new SwedishChurchEmigrationRecord();
         $fieldsToDisply = $model->fieldsToDisply();
@@ -52,6 +50,9 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+
+
+//        return $fieldsToDisply;
 
 
 
