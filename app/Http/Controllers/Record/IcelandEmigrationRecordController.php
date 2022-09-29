@@ -51,6 +51,6 @@ class IcelandEmigrationRecordController extends Controller
 
 //        return view
         return view('dashboard.IcelandEmmigrationRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
     }
 }

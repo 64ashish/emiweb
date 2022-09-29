@@ -49,7 +49,7 @@ class VarmlandskaNewspaperNoticeRecordController extends Controller
 
 //        return view
         return view('dashboard.VarmlandskaNewspaperNoticeRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))
             ->with($request->all());
     }
 }

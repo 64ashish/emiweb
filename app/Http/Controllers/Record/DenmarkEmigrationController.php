@@ -147,7 +147,7 @@ class DenmarkEmigrationController extends Controller
         $archive_name = $model::findOrFail(1)->archive;
 
 //        return $model::findOrFail(1)->archive;;
-        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
 
 
     }

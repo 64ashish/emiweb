@@ -89,7 +89,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
 //        $archive_name = "hello, im blrc";
 
 
-        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name'))->with($request->all());
+        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply'))->with($request->all());
 
     }
 

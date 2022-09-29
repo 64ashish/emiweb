@@ -53,6 +53,6 @@ class SwedeInAlaskaRecordController extends Controller
 //        return view
         $archive_name = $model::findOrFail(1)->archive;
 //        return $archive_name;
-        return view('dashboard.SwedeInAlaskaRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+        return view('dashboard.SwedeInAlaskaRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
     }
 }

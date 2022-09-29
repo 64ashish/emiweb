@@ -55,6 +55,7 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
 //        return view
         $archive_name = $model::findOrFail(1)->archive;
 
-        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'));    }
+        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
+    }
 //        return view('dashboard.S')
 }

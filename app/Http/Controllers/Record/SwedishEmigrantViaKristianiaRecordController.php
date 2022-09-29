@@ -53,6 +53,6 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
         $archive_name = $model::findOrFail(1)->archive;
 
 //        return view
-        return view('dashboard.SwedishEmigrantViaKristianiaRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+        return view('dashboard.SwedishEmigrantViaKristianiaRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
     }
 }

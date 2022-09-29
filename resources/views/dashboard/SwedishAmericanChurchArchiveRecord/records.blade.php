@@ -73,6 +73,7 @@
             function data() {
                 return {
                     openDetails: false,
+                    displayFields:@json($fieldsToDisply),
                     detail:'',
                     next:'',
                     previous:'',
@@ -95,9 +96,7 @@
                         this.previous = selectedIndex > 0 ? this.initialRecords[selectedIndex-1].id:false;
                         this.recordURL = "/records/"+this.detail.archive_id+"/"+this.detail.id;
                     },
-                    prepareField(fieldName) {
-                        return fieldName.replaceAll('_', ' ');
-                    },
+
                     sortByColumn($event) {
                         if (this.sortBy === $event.target.innerText) {
                             if (this.sortAsc) {

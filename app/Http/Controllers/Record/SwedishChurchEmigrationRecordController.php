@@ -77,7 +77,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         return view('dashboard.swedishchurchemigrationrecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','fieldsToDisply'))->with($request->all());
 //        return view('dashboard.swedishchurchemigrationrecord.alp',
 //            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
     }
