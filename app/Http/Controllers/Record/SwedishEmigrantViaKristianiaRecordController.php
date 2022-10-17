@@ -7,18 +7,14 @@ use App\Models\SwedishEmigrantViaKristianiaRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use MeiliSearch\Client as MeiliSearchClient;
-use MeiliSearch\Endpoints\Indexes;
+
 
 class SwedishEmigrantViaKristianiaRecordController extends Controller
 {
     //
     use SearchOrFilter;
 
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
+
 
     public function search( Request $request )
     {

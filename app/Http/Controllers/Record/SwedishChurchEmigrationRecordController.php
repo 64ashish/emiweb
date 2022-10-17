@@ -8,8 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use MeiliSearch\Client as MeiliSearchClient;
-use MeiliSearch\Endpoints\Indexes;
+
 use App\Traits\SearchOrFilter;
 use Psr\Log\NullLogger;
 
@@ -17,10 +16,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 {
     use SearchOrFilter;
 
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
+
     /**
      * Display a listing of the resource.
      *

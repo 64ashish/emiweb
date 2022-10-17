@@ -7,18 +7,13 @@ use App\Models\SwedishAmericanMemberRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use MeiliSearch\Client as MeiliSearchClient;
-use MeiliSearch\Endpoints\Indexes;
+
 
 class SwedishAmericanMemberRecordController extends Controller
 {
     //
     use SearchOrFilter;
 
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
 
     public function search( Request $request )
     {
@@ -36,30 +31,6 @@ class SwedishAmericanMemberRecordController extends Controller
         $result = SwedishAmericanMemberRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
-
-////        get the search result prepared
-//        if($request->action === "search"){
-//            $result = SwedishAmericanMemberRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//
-//            $melieRaw = SwedishAmericanMemberRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = SwedishAmericanMemberRecord::whereIn('id', $idFromResults)
-//                ->whereRaw("DATE(STR_TO_DATE(`birth_date`, '%Y-%m-%d')) IS NOT NULL");
-//
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-//        }
 
         $keywords = $request->all();
 

@@ -17,10 +17,7 @@ use MeiliSearch\MeiliSearch;
 class DenmarkEmigrationController extends Controller
 {
     use SearchOrFilter;
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
+
     /**
      * Display a listing of the resource.
      *

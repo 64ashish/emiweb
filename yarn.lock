@@ -1483,10 +1483,10 @@
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
 
-"alpinejs@^3.10.2":
-  "integrity" "sha512-P6DTX78J94FgsskS3eS23s26hfb0NWQZUidBnkUK7fId1x64/kLm5E79lL3HNItUmHDCKOHvfP8EAcuCVab89w=="
-  "resolved" "https://registry.npmjs.org/alpinejs/-/alpinejs-3.10.2.tgz"
-  "version" "3.10.2"
+"alpinejs@^3.10.3":
+  "integrity" "sha512-nt/w4hLq9pPaexCsHmO5zV5Alvq4yu9n0Iclti6aV0HmiqLWH/axUb0pn8z3XVuVNcj8EOXOQw+WpwPzMzLBWg=="
+  "resolved" "https://registry.npmjs.org/alpinejs/-/alpinejs-3.10.3.tgz"
+  "version" "3.10.3"
   dependencies:
     "@vue/reactivity" "~3.1.1"
 

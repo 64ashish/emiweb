@@ -29,10 +29,7 @@ use MeiliSearch\Endpoints\Indexes;
 
 trait UniversalQuery{
 
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
+
 
     private function QueryDenmarkEmigration( $input){
         $result = DenmarkEmigration::select('id');
