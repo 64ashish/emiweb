@@ -18,7 +18,7 @@
                         @if($records->first()->first_name != null or $records->first()->last_name != null)
 {{--                            {{ dump($record->first_name) }}--}}
                         <th  x-on:click="sortByColumn"  scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __("Full name") }}
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __("Full name") }}s
 
                         </th>
                         @endif

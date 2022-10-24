@@ -1574,20 +1574,23 @@ select {
 .font-normal {
   font-weight: 400;
 }
+.font-extrabold {
+  font-weight: 800;
+}
 .capitalize {
   text-transform: capitalize;
 }
 .leading-7 {
   line-height: 1.75rem;
 }
+.leading-4 {
+  line-height: 1rem;
+}
 .leading-6 {
   line-height: 1.5rem;
 }
 .leading-5 {
   line-height: 1.25rem;
-}
-.leading-4 {
-  line-height: 1rem;
 }
 .text-gray-200 {
   --tw-text-opacity: 1;

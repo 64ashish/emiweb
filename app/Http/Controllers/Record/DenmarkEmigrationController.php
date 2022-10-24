@@ -142,9 +142,11 @@ class DenmarkEmigrationController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
 //        return $populated_fields;
         $archive_name = $model::findOrFail(1)->archive;
+        $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+
 
 //        return $model::findOrFail(1)->archive;;
-        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
+        return view('dashboard.denmarkemigration.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
 
     }

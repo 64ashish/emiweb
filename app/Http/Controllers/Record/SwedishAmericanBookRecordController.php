@@ -43,8 +43,10 @@ class SwedishAmericanBookRecordController extends Controller
             ->except($defaultColumns )->keys();
 
         $archive_name = $model::findOrFail(1)->archive;
+        $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
-        return view('dashboard.sabr.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply'))->with($request->all());
+
+        return view('dashboard.sabr.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
 
     }

@@ -88,8 +88,11 @@ class BrodernaLarssonArchiveRecordController extends Controller
 //        return $archive_name;
 //        $archive_name = "hello, im blrc";
 
+        $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
-        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply'))->with($request->all());
+
+
+        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
     }
 
