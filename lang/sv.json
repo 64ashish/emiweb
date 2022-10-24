@@ -329,5 +329,8 @@
  "Back to results": "Tillbaka till resultatlistan",
  "Show more information": "Visa mer information",
  "Previous record": "Föregående post",
- "Next record": "Nästa post"
+ "Next record": "Nästa post",
+ "Source hfl batch number" : "SVAR Hfl Batchnr",
+ "Source hfl image number" : "Hfl Bildnr",
+ "Birth province" : "Född län"
 }
