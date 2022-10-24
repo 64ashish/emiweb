@@ -8,17 +8,12 @@ use App\Models\BrodernaLarssonArchiveRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use MeiliSearch\Client as MeiliSearchClient;
-use MeiliSearch\Endpoints\Indexes;
+
 
 class BrodernaLarssonArchiveRecordController extends Controller
 {
     use SearchOrFilter;
 
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
 
     /**
      * Display a listing of the resource.
@@ -47,28 +42,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
         $result = BrodernaLarssonArchiveRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
-//        if($request->action === "search"){
-//            $result = BrodernaLarssonArchiveRecord::search($inputQuery);
-//            $records = $result->paginate(100);
-//        }
-//
-////      filter the thing and get the results ready
-//        if($request->action === "filter"){
-//            $melieRaw = BrodernaLarssonArchiveRecord::search($inputQuery,
-//                function (Indexes $meilisearch, $query, $options) use ($request, $inputFields){
-////            run the filter
-//                    $options['limit'] = 1000000;
-//                    return $meilisearch->search($query, $options);
-//                })->raw();
-//            $idFromResults = collect($melieRaw['hits'])->pluck('id');
-//            $result = BrodernaLarssonArchiveRecord::whereIn('id', $idFromResults);
-////            filter is performed here
-//            $records = $this->FilterQuery($inputFields, $result, $all_request);
-//
-//        }
-//        get the filter attributes
-//        $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
-//        get the keywords again
+
         $keywords = $request->all();
 //        return view
 
