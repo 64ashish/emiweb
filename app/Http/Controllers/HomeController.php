@@ -48,7 +48,7 @@ class HomeController extends Controller
 
             if(auth()->user()->hasRole(['subscriber'])){
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
-                $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(2,8,9,3,5,7,1,4,6,10) ')->get();
+                $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
             }
 //        return $catArchives;
 //        $user = auth()->user();
