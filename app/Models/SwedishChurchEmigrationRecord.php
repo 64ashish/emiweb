@@ -6,6 +6,7 @@ use App\Traits\RecordCount;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 
 class SwedishChurchEmigrationRecord extends Model
@@ -202,6 +203,51 @@ class SwedishChurchEmigrationRecord extends Model
             'id' =>'id',
             'archive_id' =>'archive_id',
         ];
+    }
+
+
+//    scopes for filter
+    public function scopeFindGender($query, $gender){
+        if($gender === "M") { return $query->where('gender', 'M'); }
+        if($gender === "K") { return $query->where('gender', 'K'); }
+        return $query;
+    }
+
+    public function scopeRecordDateRange($query, $start_year, $end_year){
+
+//        if only start date is given
+        if($start_year != null and $end_year == null){
+            return $query->whereNotNull(DB::raw('YEAR(record_date)'))
+                ->where(DB::raw('YEAR(record_date)'), $start_year);
+        }
+        if(($start_year != null and $end_year != null) and ($start_year < $end_year )) {
+            return  $query->whereNotNull(DB::raw('YEAR(record_date)'))
+                ->whereBetween(DB::raw('YEAR(record_date)'),[$start_year, $end_year]);
+        }
+
+        return $query;
+    }
+
+    public function scopeFromProvince($query, $from_province){
+        if($from_province !== "0") { return $query->where('from_province', $from_province); }
+        return $query;
+    }
+
+
+    public function scopeGroupRecordsBy($query, $group_by){
+        if($group_by === "record_date") {
+            return $query->select(DB::raw('YEAR(record_date) as year'),DB::raw('COUNT(*) as total'))
+                ->groupByRaw('YEAR(record_date)')
+                ->orderByDesc('year');
+        }
+
+        if($group_by === "from_provinces") {
+            return $query->whereNot('from_province', '0')
+                ->select('from_province',DB::raw("COUNT(*) as total") )
+                ->groupByRaw('from_province');
+        }
+
+        return $query;
     }
 
 

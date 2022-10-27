@@ -7,6 +7,7 @@ use App\Models\SwedishChurchEmigrationRecord;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use App\Traits\SearchOrFilter;
@@ -78,5 +79,68 @@ class SwedishChurchEmigrationRecordController extends Controller
             compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted'))->with($request->all());
 //        return view('dashboard.swedishchurchemigrationrecord.alp',
 //            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+    }
+
+
+    public function statics(){
+
+//        $data = SwedishChurchEmigrationRecord::findGender('M')
+//            ->select(DB::raw('YEAR(record_date) as year'),DB::raw('COUNT(*) as total'))
+//            ->groupByRaw('YEAR(record_date)')
+//            ->orderByDesc('year')
+//            ->whereBetween(DB::raw('YEAR(record_date)'),['1800','1820'])
+//            ->whereNotNull(DB::raw('YEAR(record_date)'))
+//            ->get();
+//
+//        $data = SwedishChurchEmigrationRecord::findGender('M')
+//            ->select('from_province',DB::raw("COUNT(*) as total") )
+//            ->groupByRaw('from_province')
+//            ->whereBetween(DB::raw('YEAR(record_date)'),['1800','1820'])
+//            ->whereNotNull(DB::raw('YEAR(record_date)'))
+//            ->get();
+
+//        return $data;
+
+        $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
+            ->select('from_province')
+            ->distinct()
+            ->get()
+            ->pluck('from_province','from_province')->prepend('Alla');
+
+//        return $provinces;
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data'));
+
+    }
+
+    public function generateChart( Request $request)
+    {
+
+//        return $request->all();
+
+//        $data = DB::table('swedish_church_emigration_records')
+//            ->where('gender', 'M')
+//            ->select(DB::raw('YEAR(record_date) as year'),DB::raw('COUNT(id) as total'))
+//            ->whereBetween(DB::raw('YEAR(record_date)'),['1800','1820'])
+//            ->whereNotNull(DB::raw('YEAR(record_date)'))
+//            ->groupByRaw('YEAR(record_date)')
+//            ->orderByDesc('year')
+//            ->get();
+
+        $data = SwedishChurchEmigrationRecord::findGender($request->gender)
+                ->fromProvince($request->from_province)
+                ->recordDateRange($request->start_year,$request->end_year)
+                ->groupRecordsBy($request->group_by)
+                ->get();
+
+
+        $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
+            ->select('from_province')
+            ->distinct()
+            ->get()
+            ->pluck('from_province','from_province')->prepend('Alla');
+
+
+        $chart_type = $request->group_by === "record_date"? "year":"from_province";
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type'));
     }
 }

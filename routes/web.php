@@ -331,6 +331,10 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
         Route::match(['get', 'post'],'/spplr/search', [SwedishPortPassengerListRecordController::class, 'search'])->name('spplr.search');
 
+
+        Route::get('/scerc/statics', [SwedishChurchEmigrationRecordController::class, 'statics'])->name('scerc.statics');
+        Route::post('/scerc/chart', [SwedishChurchEmigrationRecordController::class, 'generateChart'])->name('scerc.generateChart');
+
         Route::match(['get', 'post'],'/scerc/search', [SwedishChurchEmigrationRecordController::class, 'search'])->name('scerc.search');
 
         Route::match(['get', 'post'],'/scirc/search', [SwedishChurchImmigrantRecordController::class, 'search'])->name('scirc.search');
@@ -338,6 +342,7 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::match(['get', 'post'],'/sevkrc/search', [SwedishEmigrantViaKristianiaRecordController::class, 'search'])->name('sevkrc.search');
 
         Route::match(['get', 'post'],'/sisrc/search', [SwedishImmigrationStatisticsRecordController::class, 'search'])->name('sisrc.search');
+
 
         Route::match(['get', 'post'],'/sesrc/search', [SwedishEmigrationStatisticsRecordController::class, 'search'])->name('sesrc.search');
 

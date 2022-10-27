@@ -7,16 +7,12 @@ use App\Models\DalslanningarBornInAmericaRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use MeiliSearch\Client as MeiliSearchClient;
-use MeiliSearch\Endpoints\Indexes;
+
 
 class DalslanningarBornInAmericaRecordController extends Controller
 {
     use SearchOrFilter;
-    public function __construct(MeiliSearchClient $meilisearch)
-    {
-        $this->meilisearch = $meilisearch;
-    }
+
     /**
      * Display a listing of the resource.
      *

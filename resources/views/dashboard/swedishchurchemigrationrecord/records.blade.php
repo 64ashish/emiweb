@@ -6,6 +6,30 @@
         <section {{ (Str::is('*search', Route::currentRoutename()) == true)? "x-data=data()":false }}
                  class="pt-6" aria-labelledby="section-1-title">
 
+            <ul class="flex gap-x-5 justify-end mr-8 mb-[18px]">
+                <li >
+                  <a class="p-5 bg-emerald-600 text-white rounded-t-lg"c
+                     href="{{ route('scerc.statics') }}">
+                      Statistikå
+                  </a>
+                </li>
+                <li >
+                    <a class="p-5 bg-emerald-600 text-white rounded-t-lg" href="">
+                        Sök dokument
+                    </a>
+                </li>
+                <li >
+                    <a class="p-5 bg-emerald-600 text-white rounded-t-lg" href="">
+                        Sök fotografi
+                    </a>
+                </li>
+                <li >
+                    <a class="p-5 bg-emerald-600 text-white rounded-t-lg" href="">
+                        Ny emigrant
+                    </a>
+                </li>
+            </ul>
+
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
                     {{ __('Search in') }}  Emigranter registrerade i svenska kyrkböcker
@@ -62,6 +86,8 @@
 
 
             </div>
+
+
             @if(isset($records) and $records->count() > 0)
 
                 @include('dashboard._resultandquickview')

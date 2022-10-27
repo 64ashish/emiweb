@@ -56,4 +56,6 @@ class SwedishEmigrationStatisticsRecordController extends Controller
         return view('dashboard.scbe.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
     }
+
+
 }
