@@ -84,22 +84,6 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function statics(){
 
-//        $data = SwedishChurchEmigrationRecord::findGender('M')
-//            ->select(DB::raw('YEAR(record_date) as year'),DB::raw('COUNT(*) as total'))
-//            ->groupByRaw('YEAR(record_date)')
-//            ->orderByDesc('year')
-//            ->whereBetween(DB::raw('YEAR(record_date)'),['1800','1820'])
-//            ->whereNotNull(DB::raw('YEAR(record_date)'))
-//            ->get();
-//
-//        $data = SwedishChurchEmigrationRecord::findGender('M')
-//            ->select('from_province',DB::raw("COUNT(*) as total") )
-//            ->groupByRaw('from_province')
-//            ->whereBetween(DB::raw('YEAR(record_date)'),['1800','1820'])
-//            ->whereNotNull(DB::raw('YEAR(record_date)'))
-//            ->get();
-
-//        return $data;
 
         $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
             ->select('from_province')
@@ -108,7 +92,7 @@ class SwedishChurchEmigrationRecordController extends Controller
             ->pluck('from_province','from_province')->prepend('Alla');
 
 //        return $provinces;
-        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data'));
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces'));
 
     }
 
