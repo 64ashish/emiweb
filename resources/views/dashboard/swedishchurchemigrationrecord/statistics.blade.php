@@ -1,5 +1,8 @@
 <x-app-layout>
+
+    @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @endif
 
 
     <!-- Main 3 column grid -->
@@ -120,6 +123,7 @@
 
     </div>
 
+    @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
@@ -161,6 +165,7 @@
 
         });
     </script>
+    @endif
 
 
 </x-app-layout>
