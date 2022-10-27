@@ -97,6 +97,7 @@
             {!! Form::close() !!}
 
         </section>
+    @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
         <section
                  class="pt-6" aria-labelledby="section-1-title">
 
@@ -120,6 +121,7 @@
 
 
         </section>
+        @endif
 
     </div>
 
