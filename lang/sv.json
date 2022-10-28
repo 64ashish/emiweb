@@ -334,5 +334,7 @@
  "Source hfl image number" : "Hfl Bildnr",
  "Birth province" : "Född län",
  "New search": "Ny sökning",
- "Search Statistics": "Sök statistik"
+ "Search Statistics": "Sök statistik",
+ "Record year": "Årsintervall",
+ "Download image": "Ladda ner bild"
 }

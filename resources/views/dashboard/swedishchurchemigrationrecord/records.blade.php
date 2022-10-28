@@ -10,24 +10,10 @@
                 <li >
                   <a class="p-5 bg-emerald-600 text-white rounded-t-lg"c
                      href="{{ route('scerc.statics') }}">
-                      Statistikå
+                      Statistik
                   </a>
                 </li>
-                <li >
-                    <a class="p-5 bg-emerald-600 text-white rounded-t-lg" href="">
-                        Sök dokument
-                    </a>
-                </li>
-                <li >
-                    <a class="p-5 bg-emerald-600 text-white rounded-t-lg" href="">
-                        Sök fotografi
-                    </a>
-                </li>
-                <li >
-                    <a class="p-5 bg-emerald-600 text-white rounded-t-lg" href="">
-                        Ny emigrant
-                    </a>
-                </li>
+
             </ul>
 
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">

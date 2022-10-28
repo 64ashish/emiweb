@@ -208,8 +208,8 @@ class SwedishChurchEmigrationRecord extends Model
 
 //    scopes for filter
     public function scopeFindGender($query, $gender){
-        if($gender === "M") { return $query->where('gender', 'M'); }
-        if($gender === "K") { return $query->where('gender', 'K'); }
+        if($gender === "Män") { return $query->where('gender', 'M'); }
+        if($gender === "Kvinnor") { return $query->where('gender', 'K'); }
         return $query;
     }
 

@@ -99,16 +99,6 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function generateChart( Request $request)
     {
 
-//        return $request->all();
-
-//        $data = DB::table('swedish_church_emigration_records')
-//            ->where('gender', 'M')
-//            ->select(DB::raw('YEAR(record_date) as year'),DB::raw('COUNT(id) as total'))
-//            ->whereBetween(DB::raw('YEAR(record_date)'),['1800','1820'])
-//            ->whereNotNull(DB::raw('YEAR(record_date)'))
-//            ->groupByRaw('YEAR(record_date)')
-//            ->orderByDesc('year')
-//            ->get();
 
         $data = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province)
@@ -123,8 +113,15 @@ class SwedishChurchEmigrationRecordController extends Controller
             ->get()
             ->pluck('from_province','from_province')->prepend('Alla');
 
+        $title = 'Emigration ' .
+                (($request->gender !== "Alla") ? "av $request->gender ": "") .
+                (($request->from_province !== "0") ? "från $request->from_province ": "") .
+                (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
+            (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
 
-        $chart_type = $request->group_by === "record_date"? "year":"from_province";
-        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type'));
+//        return $data;
+        $grouped_by = $request->group_by === "record_date"? "year":"from_province";
+        $chart_type = $request->chart_type;
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by'));
     }
 }
