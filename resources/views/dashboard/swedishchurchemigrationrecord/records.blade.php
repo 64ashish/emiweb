@@ -19,11 +19,7 @@
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
                     {{ __('Search in') }}  Emigranter registrerade i svenska kyrkböcker
-                    @if(Str::is('*search', Route::currentRoutename()) == true)
-                        this is result page
-                    @else
-                        this is not result page
-                    @endif
+                    
                 </p>
 
                     @if(isset($keywords))
