@@ -122,6 +122,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $data;
         $grouped_by = $request->group_by === "record_date"? "year":"from_province";
         $chart_type = $request->chart_type;
-        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by'));
+        $keywords = $request->all();
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords'));
     }
 }

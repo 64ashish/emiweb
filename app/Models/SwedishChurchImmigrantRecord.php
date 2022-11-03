@@ -6,6 +6,7 @@ use App\Traits\RecordCount;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 
 class SwedishChurchImmigrantRecord extends Model
@@ -170,6 +171,49 @@ class SwedishChurchImmigrantRecord extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeFindGender($query, $gender){
+        if($gender === "Män") { return $query->where('sex', 'M'); }
+        if($gender === "Kvinnor") { return $query->where('sex', 'K'); }
+        return $query;
+    }
+
+    public function scopeRecordDateRange($query, $start_year, $end_year){
+
+//        if only start date is given
+        if($start_year != null and $end_year == null){
+            return $query->whereNotNull(DB::raw('YEAR(to_date)'))
+                ->where(DB::raw('YEAR(to_date)'), $start_year);
+        }
+        if(($start_year != null and $end_year != null) and ($start_year < $end_year )) {
+            return  $query->whereNotNull(DB::raw('YEAR(to_date)'))
+                ->whereBetween(DB::raw('YEAR(to_date)'),[$start_year, $end_year]);
+        }
+
+        return $query;
+    }
+
+    public function scopeToProvince($query, $from_province){
+        if($from_province !== "0") { return $query->where('to_county', $from_province); }
+        return $query;
+    }
+
+
+    public function scopeGroupRecordsBy($query, $group_by){
+        if($group_by === "to_date") {
+            return $query->select(DB::raw('YEAR(to_date) as year'),DB::raw('COUNT(*) as total'))
+                ->groupByRaw('YEAR(to_date)')
+                ->orderByDesc('year');
+        }
+
+        if($group_by === "to_county") {
+            return $query->whereNot('to_county', '0')
+                ->select('to_county',DB::raw("COUNT(*) as total") )
+                ->groupByRaw('to_county');
+        }
+
+        return $query;
     }
 
 }

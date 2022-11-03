@@ -334,9 +334,10 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
         Route::get('/scerc/statics', [SwedishChurchEmigrationRecordController::class, 'statics'])->name('scerc.statics');
         Route::post('/scerc/chart', [SwedishChurchEmigrationRecordController::class, 'generateChart'])->name('scerc.generateChart');
-
         Route::match(['get', 'post'],'/scerc/search', [SwedishChurchEmigrationRecordController::class, 'search'])->name('scerc.search');
 
+        Route::get('/scirc/statics', [SwedishChurchImmigrantRecordController::class, 'statics'])->name('scirc.statics');
+        Route::post('/scirc/chart', [SwedishChurchImmigrantRecordController::class, 'generateChart'])->name('scirc.generateChart');
         Route::match(['get', 'post'],'/scirc/search', [SwedishChurchImmigrantRecordController::class, 'search'])->name('scirc.search');
 
         Route::match(['get', 'post'],'/sevkrc/search', [SwedishEmigrantViaKristianiaRecordController::class, 'search'])->name('sevkrc.search');

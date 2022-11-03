@@ -5,6 +5,16 @@
         <section {{ (Str::is('*search', Route::currentRoutename()) == true)? "x-data=data()":false }}
                  class="pt-6" aria-labelledby="section-1-title">
 
+            <ul class="flex gap-x-5 justify-end mr-8 mb-[18px]">
+                <li >
+                    <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
+                       href="{{ route('scirc.statics') }}">
+                        Statistik
+                    </a>
+                </li>
+
+            </ul>
+
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
                     {{ __('Search in') }}  Immigranter registrerade i svenska kyrkböcker

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
+    @if(Str::is('scirc.generateChart', Route::currentRoutename()) == true)
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
@@ -17,27 +17,29 @@
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
 
-                       href="{{ route('scerc.statics') }}">
+                       href="{{ route('scirc.statics') }}">
                         Statistik
                     </a>
                 </li>
 
             </ul>
             <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
+
                 @if(isset($keywords))
-                    {!! Form::model($keywords,['route' => 'scerc.generateChart'])  !!}
+                    {!! Form::model($keywords,['route' => 'scirc.generateChart'])  !!}
                 @endif
                 @if(!isset($keywords))
-                    {!! Form::open(['route' => 'scerc.generateChart'])  !!}
+                    {!! Form::open(['route' => 'scirc.generateChart'])  !!}
                 @endif
+
+
                 <div class="grid grid-cols-2 gap-4 pb-4">
                     <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="first_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        <label for="sex" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             {{ __('Gender') }} </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                           {!! Form::select('gender', ['All' => 'Alla', 'Män' => 'Män', 'Kvinnor' => 'Kvinnor'],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                            'id' => 'first_name']) !!}
+                           {!! Form::select('sex', ['All' => 'Alla', 'Män' => 'Män', 'Kvinnor' => 'Kvinnor'],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md']) !!}
                         </div>
                     </div>
 
@@ -60,10 +62,10 @@
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="from_province" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        <label for="to_county" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             {{ __('Basområde') }} </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            {!! Form::select('from_province', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                            {!! Form::select('to_county', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                              sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                              ]) !!}
                         </div>
@@ -73,7 +75,7 @@
                         <label for="group_by" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             {{ __('Gruppering') }} </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            {!! Form::select('group_by', ['record_date' => __('Record year'), 'from_provinces' => __('Basområde')],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                            {!! Form::select('group_by', ['to_date' => __('Record year'), 'to_county' => __('Basområde')],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                              sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                              ]) !!}
                         </div>
@@ -102,7 +104,7 @@
             {!! Form::close() !!}
 
         </section>
-    @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
+    @if(Str::is('scirc.generateChart', Route::currentRoutename()) == true)
         <section
                  class="pt-6" aria-labelledby="section-1-title">
 
@@ -147,7 +149,7 @@
 
     </div>
 
-    @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
+    @if(Str::is('scirc.generateChart', Route::currentRoutename()) == true)
     <script>
 
 
