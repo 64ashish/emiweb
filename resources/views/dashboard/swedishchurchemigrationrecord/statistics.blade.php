@@ -132,7 +132,7 @@
                         {{ $title }}
                     </p>
 {{--                    {{ $data }}--}}
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <canvas id="myChart"></canvas>
                 </div>
 
 
@@ -174,7 +174,7 @@
                 datasets: [{
                     label: {{ Js::from($title) }},
                     grouped:true,
-                    // barThickness:'10',
+                    maxBarThickness:'50',
                     data: {{ Js::from($data->pluck('total')) }},
                     backgroundColor: poolColors({{ Js::from($data->pluck('total')->count()) }}),
 
@@ -195,6 +195,8 @@
             options: {
 
                 indexAxis: 'y',
+                responsive: true,
+
 
 
 
