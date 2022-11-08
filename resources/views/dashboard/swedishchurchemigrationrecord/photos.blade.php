@@ -244,7 +244,7 @@
                                                 <div  @click.away="openPhotoViewer = false">
                                                     <div class="flex flex-col lg:flex-row">
                                                         <img src="https://picsum.photos/600/600">
-                                                        <div class="p-5">
+                                                        <div class="p-5 flex flex-col justify-between">
                                                             <ul class="text-sm font-medium">
                                                                 <li>Rubrik: <span x-text="photoDetail['title']"></span></li>
                                                                 <li>Beskrivning:<span x-text="photoDetail['description']"></span></li>
@@ -255,6 +255,27 @@
                                                                 <li> Land:<span x-text="photoDetail['country']"></span></li>
                                                                 <li>Tidsperiod:<span x-text="photoDetail['time_period']"></span></li>
                                                             </ul>
+                                                            <div class="inline-flex justify-between">
+                                                                <button type="button" class="relative -ml-px inline-flex items-center border border-gray-300
+                       bg-white px-4 py-4  text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
+                        focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="openPhoto(previous)" x-show="previous">
+
+                                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                                        <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+                                                                    </svg>
+
+                                                                </button>
+
+
+                                                                <button type="button" class="relative -ml-px inline-flex items-center  border border-gray-300
+                       bg-white px-4 py-4  text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
+                        focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="openPhoto(next)" x-show="next">
+                                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                                                    </svg>
+                                                                </button>
+
+                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -291,8 +312,14 @@
                     openPhotoViewer: false,
                     photoRecords: @json($records->items()),
                     photoDetail:'',
+                    next:'',
+                    previous:'',
                     openPhoto(id){
-                       this.photoDetail = this.photoRecords.find(x => x.id === id);
+                        let totalImages = this.photoRecords.length
+                        this.photoDetail = this.photoRecords.find(x => x.id === id);
+                        let selectedPhotoIndex = this.photoRecords.findIndex(e => e.id == id );
+                        this.next = selectedPhotoIndex != totalImages-1 ? this.photoRecords[selectedPhotoIndex+1].id:false;
+                        this.previous = selectedPhotoIndex > 0 ? this.photoRecords[selectedPhotoIndex-1].id:false;
                     }
                 }
             }
