@@ -7,19 +7,25 @@
                  class="pt-6" aria-labelledby="section-1-title">
 
             <ul class="flex gap-x-5 justify-end mr-8 mb-[18px]">
+
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
-                     href="{{ route('scerc.statics') }}">
-                      Statistik
-                  </a>
+                       href="{{ route('scerc.photos') }}">
+                        Sök fotografi
+                    </a>
                 </li>
-
+                <li >
+                    <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
+                       href="{{ route('scerc.statics') }}">
+                        Statistik
+                    </a>
+                </li>
             </ul>
 
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <p class="text-left text-sm font-semibold text-gray-900 pb-4">
                     {{ __('Search in') }}  Emigranter registrerade i svenska kyrkböcker
-                    
+
                 </p>
 
                     @if(isset($keywords))

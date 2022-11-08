@@ -73,7 +73,6 @@ class SwedishChurchEmigrationRecord extends Model
         'source_in_out_image_number'
     ];
 
-
     public function archive(){
         return $this->belongsTo(Archive::class);
     }
@@ -143,6 +142,10 @@ class SwedishChurchEmigrationRecord extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function photo(){
+        return $this->hasOne(ScercPhotoRecord::class,'scerc_id');
+    }
+
     public function fieldsToDisply(){
         return [
             'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))) ,
@@ -204,7 +207,6 @@ class SwedishChurchEmigrationRecord extends Model
             'archive_id' =>'archive_id',
         ];
     }
-
 
 //    scopes for filter
     public function scopeFindGender($query, $gender){

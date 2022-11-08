@@ -290,7 +290,7 @@ class SearchController extends Controller
 
             case(5):
                 $model = new SwedishChurchEmigrationRecord();
-                $detail = SwedishChurchEmigrationRecord::with('user.organization')->findOrFail($id);
+                $detail = SwedishChurchEmigrationRecord::with(['user.organization','photo'])->findOrFail($id);
                 $detail->relatives = SwedishChurchEmigrationRecord::where('main_act', $detail->main_act)
                     ->whereNot('id', $detail->id)
                     ->where('from_parish', $detail->from_parish)
@@ -502,7 +502,7 @@ class SearchController extends Controller
 
 ////        return $relatives->isEmpty();
 
-////        return $detail;
+//        return $detail;
 
         return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
 

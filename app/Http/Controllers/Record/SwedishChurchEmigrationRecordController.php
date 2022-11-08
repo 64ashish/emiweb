@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
+use App\Models\ScercPhotoRecord;
 use App\Models\SwedishChurchEmigrationRecord;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,8 +29,6 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
-
-
         $all_request = $request->all();
 //        return $all_request;
         $carbonize_dates = $this->CarbonizeDates($all_request);
@@ -81,7 +80,6 @@ class SwedishChurchEmigrationRecordController extends Controller
 //            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
     }
 
-
     public function statics(){
 
 
@@ -124,5 +122,37 @@ class SwedishChurchEmigrationRecordController extends Controller
         $chart_type = $request->chart_type;
         $keywords = $request->all();
         return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords'));
+    }
+
+
+    public function searchPhotos()
+    {
+        return view('dashboard.swedishchurchemigrationrecord.photos');
+    }
+
+    public function resultPhotos(Request $request)
+    {
+        $keywords = array_filter( $request->except('_token'));
+
+        $query = ScercPhotoRecord::query();
+
+        foreach($keywords as $fieldName => $value)
+        {
+
+            if(  $fieldName === 'title' or $fieldName==='description')
+            {
+                $query->whereFullText($fieldName, $value);
+            }
+            if( $fieldName !== 'title' and $fieldName !=='description')
+            {
+                $query->where($fieldName, $value);
+            }
+        }
+
+        $records = $query->paginate(100);
+
+//        return $records->total();
+        return view('dashboard.swedishchurchemigrationrecord.photos',
+            compact('records'));
     }
 }
