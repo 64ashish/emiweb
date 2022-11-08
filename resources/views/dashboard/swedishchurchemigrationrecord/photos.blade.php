@@ -244,7 +244,7 @@
                                                 <div  @click.away="openPhotoViewer = false">
                                                     <div class="flex flex-col lg:flex-row">
                                                         <img src="https://picsum.photos/600/600">
-                                                        <div class="p-5 flex flex-col justify-between">
+                                                        <div class="p-5 flex flex-col justify-between w-full ">
                                                             <ul class="text-sm font-medium">
                                                                 <li>Rubrik: <span x-text="photoDetail['title']"></span></li>
                                                                 <li>Beskrivning:<span x-text="photoDetail['description']"></span></li>
