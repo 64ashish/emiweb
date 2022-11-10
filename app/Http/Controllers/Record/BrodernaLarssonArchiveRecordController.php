@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
+use App\Models\BrodernaLarssonArchiveDocument;
 use App\Models\BrodernaLarssonArchiveRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
@@ -70,70 +71,17 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function browseYear(BrodernaLarssonArchiveDocument $brodernaLarssonArchiveDocument)
     {
-        //
+        $years = $brodernaLarssonArchiveDocument->select('year')->distinct()->get();
+
+        return view('dashboard.larsson.browse',compact('years'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function browseDocuments(BrodernaLarssonArchiveDocument $brodernaLarssonArchiveDocument, $year)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $documents = $brodernaLarssonArchiveDocument->where('year', trim($year))->get();
+        return view('dashboard.larsson.document', compact('documents','year'));
     }
 
 

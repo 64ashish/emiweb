@@ -354,6 +354,9 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::match(['get', 'post'],'/leprc/search', [LarssonEmigrantPopularRecordController::class, 'search'])->name('leprc.search');
 
         Route::match(['get', 'post'],'/blarc/search', [BrodernaLarssonArchiveRecordController::class, 'search'])->name('blarc.search');
+        Route::get('/blarc/browse', [BrodernaLarssonArchiveRecordController::class, 'browseYear'])->name('blarc.browse');
+        Route::get('/blarc/browse/{year}', [BrodernaLarssonArchiveRecordController::class, 'browseDocuments'])->name('blarc.documents');
+
 
         Route::match(['get', 'post'],'/jear/search', [JohnEricssonsArchiveRecordController::class, 'search'])->name('jear.search');
 

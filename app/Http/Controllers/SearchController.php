@@ -169,7 +169,7 @@ class SearchController extends Controller
 
             case(26):
                 $model = new RsPersonalHistoryRecord();
-                $viewfile = 'dashboard.rsphistory.records';
+                $viewfile = 'dashboard.rsphistory.photos';
                 break;
 
             case(27):
@@ -364,6 +364,8 @@ class SearchController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media = "https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/12/documents/".$detail->file_name;
+
                 break;
 
             case(13):
@@ -497,14 +499,11 @@ class SearchController extends Controller
         }
 
         $relatives = $detail->archive->relatives->where('record_id', $id);
-        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
+//        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
         $archive_details = Archive::find($arch);
+        $media = isset($media)?$media:false;
 
-////        return $relatives->isEmpty();
-
-//        return $detail;
-
-        return view('home.showrecord', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
+        return view('home.showrecord', compact('detail', 'fields', 'relatives', 'archive_details','media'));
 
     }
 

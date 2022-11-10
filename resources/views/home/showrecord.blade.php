@@ -62,12 +62,12 @@
                                href="#">{{ __('Relatives') }}</a>
                             @endif
 
-{{--                            @if(!$images->isEmpty())--}}
+                            @if($media != false)
                             <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm"
                                :class="{ ' border-indigo-500 text-indigo-600 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
                                href="#">Media</a>
-{{--                            @endif--}}
+                            @endif
                         </nav>
                     </div>
                     <div class="py-4">
@@ -194,7 +194,7 @@
                             </div>
                         </div>
                         @endif
-
+                        @if($media != false)
                         <div  x-show="tab === 'images'">
                             <h3>Media</h3>
                             <div class="mt-8 flex flex-col">
@@ -202,7 +202,7 @@
                                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 
                                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                            <iframe src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url('archives/'.$archive_details->id.'/documents/'.$detail->file_name) }}"
+                                            <iframe src="{{ $media }}"
                                                     style="width:100%; height:800px;" >
                                             </iframe>
 {{--                                            <table class="min-w-full divide-y divide-gray-300">--}}
@@ -245,6 +245,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

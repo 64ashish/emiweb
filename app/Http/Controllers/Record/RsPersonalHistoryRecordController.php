@@ -45,7 +45,7 @@ class RsPersonalHistoryRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
 
-        return view('dashboard.rsphistory.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.rsphistory.photos', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
 
     }
