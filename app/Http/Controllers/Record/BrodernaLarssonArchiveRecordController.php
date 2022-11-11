@@ -80,7 +80,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
     public function browseDocuments(BrodernaLarssonArchiveDocument $brodernaLarssonArchiveDocument, $year)
     {
-        $documents = $brodernaLarssonArchiveDocument->where('year', trim($year))->get();
+        $documents = $brodernaLarssonArchiveDocument->where('year', trim($year))->paginate(100);
         return view('dashboard.larsson.document', compact('documents','year'));
     }
 

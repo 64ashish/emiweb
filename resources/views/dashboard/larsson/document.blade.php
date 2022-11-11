@@ -4,25 +4,25 @@
         <!-- Left column -->
         <section class="pt-6" aria-labelledby="section-1-title">
 
-            <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
-                <p class="text-left text-sm font-semibold text-gray-900 pb-4">
-                    {{ __('Browse in') }} Northern Pacific Railway Company - Year:{{ $year }}
+            <div class="bg-white py-4 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
+                <p class="text-left text-sm font-semibold text-gray-900 ">
+                    {{ __('Browse in') }} Bröderna Larssons arkiv  - Year:{{ $year }}
                 </p>
             </div>
 
             <div class="mt-6 p-6 bg-white  border-gray-300 shadow md:rounded-lg"
                  x-data=data()>
-                <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-6 lg:gap-8">
                     @foreach($documents as $document)
                         <div @click="openDocumentViewer =! openDocumentViewer, openDocument('{{ $document->file_name }}')"
-                                class="flex flex-col items-center shadow-lg rounded-lg hover:shadow-2xl p-5 hover:transition-all">
+                                class="flex flex-col items-center shadow-lg rounded-lg hover:shadow-2xl py-5 px-3 hover:transition-all">
                             <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-36 h-36">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-auto h-14">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                                 </svg>
                             </div>
-                            <div>
-                                {{ $document->file_name }}<br>
+                            <div class="text-sm text-center">
+                                {{ $document->file_name }}
                             </div>
 
                         </div>
@@ -61,7 +61,9 @@
 
                 </div>
 
-
+                <div class="pt-5">
+                    {{ $documents->links() }}
+                </div>
             </div>
 
 

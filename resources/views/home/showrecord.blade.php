@@ -74,8 +74,8 @@
 
                         <div  x-show="tab === 'details'">
                             <h3 class="text-lg leading-6 font-medium text-gray-900 pb-4 flex items-center">
+                                {{ __('Details') }}
 
-                                Details
                             </h3>
 
                             <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -196,7 +196,10 @@
                         @endif
                         @if($media != false)
                         <div  x-show="tab === 'images'">
-                            <h3>Media</h3>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 pb-4 flex items-center  border-b border-gray-200 ">
+
+                                Media
+                            </h3>
                             <div class="mt-8 flex flex-col">
                                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -205,41 +208,7 @@
                                             <iframe src="{{ $media }}"
                                                     style="width:100%; height:800px;" >
                                             </iframe>
-{{--                                            <table class="min-w-full divide-y divide-gray-300">--}}
-{{--                                                <thead class="bg-gray-50">--}}
-{{--                                                <tr>--}}
-{{--                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Context</th>--}}
-{{--                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link</th>--}}
 
-{{--                                                </tr>--}}
-{{--                                                </thead>--}}
-{{--                                                <tbody class="bg-white">--}}
-                                                <!-- Odd row -->
-{{--                                                @foreach($images as $image)--}}
-{{--                                                    <tr class="odd:bg-white even:bg-gray-100">--}}
-{{--                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $image->context }}--}}
-{{--                                                            <img target="_blank" src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"--}}
-{{--                                                                 class="h-10">--}}
-{{--                                                        </td>--}}
-
-{{--                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">--}}
-{{--                                                            <a href="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($image->image_name) }}"  class="text-indigo-600 hover:text-indigo-900">--}}
-{{--                                                                View full image--}}
-{{--                                                            </a>--}}
-
-{{--                                                            <a  class="text-indigo-600 hover:text-indigo-900" target="_blank" href="{{ route('ImageCollections.show', $image->collection_id) }}">--}}
-{{--                                                                View collection--}}
-{{--                                                            </a>--}}
-
-{{--                                                        </td>--}}
-
-{{--                                                    </tr>--}}
-{{--                                                @endforeach--}}
-
-
-                                                <!-- More people... -->
-{{--                                                </tbody>--}}
-{{--                                            </table>--}}
                                         </div>
                                     </div>
                                 </div>

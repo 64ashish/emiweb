@@ -86,8 +86,8 @@
                                             <div>
                                                 <div  @click.away="openPhotoViewer = false">
                                                     <div class="flex flex-wrap">
-{{--                                                        <img :src="imageURL">--}}
-                                                        <iframe class="w-full h-96" :src="imageURL"></iframe>
+                                                        <img :src="imageURL" x-show="fileType != 'pdf'">
+                                                        <iframe x-show="fileType == 'pdf'" class="w-full h-96" :src="imageURL"></iframe>
                                                         <div class="p-5 flex flex-col justify-between w-full ">
                                                             <ul class="text-sm font-medium">
                                                                 <li>Rubrik: <span x-text="photoDetail['name']"></span></li>
@@ -157,6 +157,7 @@
                     previous:'',
                     imgBaseUrl: @json(\Illuminate\Support\Facades\Storage::disk('s3')->url('archives/26/images')),
                     imageURL:'',
+                    fileType:'',
                     openPhoto(id){
                         let totalImages = this.photoRecords.length
                         this.photoDetail = this.photoRecords.find(x => x.id === id);
@@ -164,6 +165,7 @@
                         this.next = selectedPhotoIndex != totalImages-1 ? this.photoRecords[selectedPhotoIndex+1].id:false;
                         this.previous = selectedPhotoIndex > 0 ? this.photoRecords[selectedPhotoIndex-1].id:false;
                         this.imageURL = this.imgBaseUrl+this.photoDetail['filename']
+                        this.fileType = this.photoDetail['filename'].split('.').reverse()[0]
 
                     }
                 }
