@@ -29,6 +29,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
+//        return $request->all();
         $all_request = $request->all();
 //        return $all_request;
         $carbonize_dates = $this->CarbonizeDates($all_request);
@@ -73,6 +74,8 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+
+//        return $keywords;
 
         return view('dashboard.swedishchurchemigrationrecord.records',
             compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted'))->with($request->all());

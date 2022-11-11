@@ -25,18 +25,20 @@ trait SearchOrFilter
 
 
 
+
+//                return $dates;
                 if (count(Arr::whereNotNull(Arr::flatten($dates))) > 0) {
                     $field_data["$field"] = Carbon::createFromDate(
-                        array_key_exists('year', $dates) ? $dates['year'] : "0001",
-                        array_key_exists('month', $dates) ? $dates['month'] : "01",
-                        array_key_exists('day', $dates) ? $dates['day'] : "01"
+                        $dates['year'] != null ? $dates['year'] : "0001",
+                        $dates['month'] != null ? $dates['month'] : "01",
+                        $dates['day'] != null ? $dates['day'] : "01"
                     );
 
                 }
             }
         }
 
-
+//        return $field_data;
         return compact('date_keys', 'field_data');
 
 
@@ -65,7 +67,7 @@ trait SearchOrFilter
 
                 if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
                 {
-                    $result->whereYear($fieldname,$fieldvalue->format('Y'));
+                    $result->whereDate($fieldname,$fieldvalue->format('Y-m-d'));
                 }
 
             }

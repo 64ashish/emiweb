@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\RecordCount;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -128,14 +129,25 @@ class SwedishChurchEmigrationRecord extends Model
         ];
     }
 
-    public function getDobAttribute($value)
+//    public function getDobAttribute($value)
+//    {
+//        return $value;
+////        return Carbon::parse($value)->format('Y-m-d');
+//    }
+    public function dob(): Attribute
     {
-        return Carbon::parse($value)->format('Y-m-d');
+        return new Attribute(
+            get: fn($value) => Carbon::parse($value)->is('01-01') ? Carbon::parse($value)->format('Y') :
+                Carbon::parse($value)->format('Y-m-d')
+        );
     }
 
-    public function getRecordDateAttribute($value)
+    public function recordDate(): Attribute
     {
-        return Carbon::parse($value)->format('Y-m-d');
+        return new Attribute(
+            get: fn($value) => Carbon::parse($value)->is('01-01') ? Carbon::parse($value)->format('Y') :
+                Carbon::parse($value)->format('Y-m-d')
+        );
     }
 
     public function user(){
