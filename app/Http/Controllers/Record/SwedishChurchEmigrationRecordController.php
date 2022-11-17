@@ -39,13 +39,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
 
-//      return $inputFields;
 
-
-
-
-
-//        $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 //        return $inputQuery;
         $model = new SwedishChurchEmigrationRecord();
 
@@ -58,6 +52,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         $this->QueryMatch($quryables,$result, $all_request);
+
 
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );

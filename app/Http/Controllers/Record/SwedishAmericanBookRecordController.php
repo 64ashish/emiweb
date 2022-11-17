@@ -29,6 +29,8 @@ class SwedishAmericanBookRecordController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedishAmericanBookRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();

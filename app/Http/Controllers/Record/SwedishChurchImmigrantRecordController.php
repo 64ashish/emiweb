@@ -29,6 +29,8 @@ class SwedishChurchImmigrantRecordController extends Controller
 
 
         $result = SwedishChurchImmigrantRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
 

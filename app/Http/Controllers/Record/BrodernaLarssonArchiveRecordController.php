@@ -46,6 +46,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
         $result = BrodernaLarssonArchiveRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
+
         $keywords = $request->all();
 //        return view
 

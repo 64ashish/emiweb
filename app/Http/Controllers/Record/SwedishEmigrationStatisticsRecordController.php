@@ -35,6 +35,8 @@ class SwedishEmigrationStatisticsRecordController extends Controller
 
 
         $result = SwedishEmigrationStatisticsRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();

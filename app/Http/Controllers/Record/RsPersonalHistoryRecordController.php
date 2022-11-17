@@ -28,6 +28,8 @@ class RsPersonalHistoryRecordController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
 
         $result = RsPersonalHistoryRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();

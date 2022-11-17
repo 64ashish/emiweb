@@ -27,6 +27,8 @@ class SwedishUsaCentersEmiPhotoRecordController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedishUsaCentersEmiPhotoRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();

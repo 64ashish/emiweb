@@ -32,6 +32,8 @@ class SwedeInAlaskaRecordController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedeInAlaskaRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
 

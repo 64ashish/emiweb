@@ -31,6 +31,8 @@ class MormonShipPassengerRecordController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
 
         $result = MormonShipPassengerRecord::query();
+        $this->QueryMatch($quryables,$result, $all_request);
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
 //        get the keywords again
