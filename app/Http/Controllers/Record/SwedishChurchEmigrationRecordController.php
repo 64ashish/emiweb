@@ -32,17 +32,11 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $request->all();
         $all_request = $request->all();
 //        return $all_request['qry_first_name']['value'] ;
+
         $quryables = $this->QryableItems($all_request);
-//        return $quryables;
-
         $carbonize_dates = $this->CarbonizeDates($all_request);
-//        return $carbonize_dates;
-//        return Arr::flatten($all_request['first_name']);
         $request->merge($carbonize_dates['field_data']);
-//        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
-
-//      return $remove_keys;
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
 
 //      return $inputFields;

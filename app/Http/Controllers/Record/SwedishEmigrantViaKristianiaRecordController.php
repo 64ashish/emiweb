@@ -19,11 +19,12 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
     public function search( Request $request )
     {
         $all_request = $request->all();
+
+        $quryables = $this->QryableItems($all_request);
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action']);
-        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
-        $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
+        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
+        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
 
         $model = new SwedishEmigrantViaKristianiaRecord();
         $fieldsToDisply = $model->fieldsToDisply();

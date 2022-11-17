@@ -22,11 +22,11 @@ class NorwegianChurchImmigrantRecordController extends Controller
         $all_request = $request->all();
 
 //        return $all_request;
+        $quryables = $this->QryableItems($all_request);
         $carbonize_dates = $this->CarbonizeDates($all_request);
-         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action','page']);
-        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
-        $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
+        $request->merge($carbonize_dates['field_data']);
+        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
+        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
 
         $model = new NorwegianChurchImmigrantRecord();
         $fieldsToDisply = $model->fieldsToDisply();
