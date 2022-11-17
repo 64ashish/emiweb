@@ -29,4 +29,9 @@ class ScercPhotoRecord extends Model
     {
         return $this->belongsTo(SwedishChurchEmigrationRecord::class);
     }
+
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

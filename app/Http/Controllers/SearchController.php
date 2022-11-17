@@ -187,13 +187,14 @@ class SearchController extends Controller
         }
 
         $filterAttributes = collect($model->defaultSearchFields());
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $archive = Archive::findOrFail($archive);
-        return view($viewfile, compact('filterAttributes', 'advancedFields','archive'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch'));
     }
 
     public function search( Request  $request)

@@ -40,13 +40,54 @@ trait SearchOrFilter
 
 //        return $field_data;
         return compact('date_keys', 'field_data');
+    }
+
+    private function QryableItems($all_request)
+    {
+        $r = array_intersect_key(Arr::whereNotNull($all_request),
+            array_flip(preg_grep('/^qry_/', array_keys(Arr::whereNotNull($all_request)))));
+//        return $r;
+        $qryable_items = [];
+        if(!empty($r)){
+            foreach($r as $r => $fields)
+            {
+                $qryable_items[] = $r;
+//                $field = Str::of($r)->after('qry');
+            }
+        }
+        return $qryable_items;
 
 
     }
 
+    private function QueryMatch($quryables,$result, $all_request)
+    {
+        foreach($quryables as  $quryable)
+        {
+            if($all_request[$quryable]['value'] != null){
+                $field_scope= Str::of($quryable)->after('qry_');
+                if($all_request[$quryable]['method'] == null && ($field_scope === "first_name" or $field_scope === "last_name"))
+                {
+                    {  $result->whereFullText($field_scope, $all_request[$quryable]['value']);}
+                }
+                if($all_request[$quryable]['method'] == null && ($field_scope !== "first_name" and $field_scope !== "last_name"))
+                {
+                    {  $result->where($field_scope,'like', '%'.$all_request[$quryable]['value'].'%');}
+                }
+                if($all_request[$quryable]['method'] === "start" ) {  $result->where($field_scope,'like', $all_request[$quryable]['value'].'%');}
+                if($all_request[$quryable]['method'] === "end" ) {  $result->where($field_scope,'like', '%'.$all_request[$quryable]['value']);}
+                if($all_request[$quryable]['method'] === "exact" ) {  $result->where($field_scope, $all_request[$quryable]['value']);}
+
+            }
+
+        }
+//        return $field_scope;
+        return $result->paginate(100);
+    }
 
     private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply)
     {
+
 
         foreach($inputFields as  $fieldname => $fieldvalue) {
 
@@ -67,39 +108,52 @@ trait SearchOrFilter
 
                 if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
                 {
-                    $result->whereDate($fieldname,$fieldvalue->format('Y-m-d'));
+                    $result->whereYear($fieldname,$fieldvalue->format('Y-m-d'));
                 }
 
             }
+
+
+
+
+
+
 //            for everything else
             else{
+                $result->where($fieldname, $fieldvalue);
 
-                if($all_request['action']==="filter"){
-                    $result->where($fieldname, $fieldvalue);
-                }
-                if($all_request['action']==="search"){
+
+
+
+//                if($all_request['action']==="filter"){
+//                    $result->where($fieldname, $fieldvalue);
+//                }
+//                if($all_request['action']==="search"){
+////
 //
-
-                    if($fieldname === 'first_name' or  $fieldname === 'last_name' or $fieldname === 'title' or $fieldname==='description')
-
-                        $result->whereFullText($fieldname, $fieldvalue);
-                    }
-
-                    if($fieldname !== 'first_name' and  $fieldname !== 'last_name' and $fieldname !== 'title' and $fieldname!=='description')
-                    {
-
-                        $result->where($fieldname, $fieldvalue);
-                    }
-
-
-
-
-
+//                    if($fieldname === 'first_name' or  $fieldname === 'last_name' or $fieldname === 'title' or $fieldname==='description')
+//
+//                        $result->whereFullText($fieldname, $fieldvalue);
+//                    }
+//
+//                    if($fieldname !== 'first_name' and  $fieldname !== 'last_name' and $fieldname !== 'title' and $fieldname!=='description')
+//                    {
+//
+//                        $result->where($fieldname, $fieldvalue);
+//                    }
+//
+//
+//
+//
+//
             }
         }
+        return $result->paginate(100,$fieldsToDisply);
+
+
 //        return $result->cursorPaginate(100,$fieldsToDisply);
 //        return $result->simplePaginate(100,$fieldsToDisply);
-        return $result->paginate(100,$fieldsToDisply);
+
 //        return $result->get($fieldsToDisply);
     }
 

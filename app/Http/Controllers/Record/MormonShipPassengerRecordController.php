@@ -27,6 +27,7 @@ class MormonShipPassengerRecordController extends Controller
 
         $model = new MormonShipPassengerRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = MormonShipPassengerRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -47,6 +48,6 @@ class MormonShipPassengerRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.MormonShipPassengerRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.MormonShipPassengerRecord.records', compact('records','enableQueryMatch', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

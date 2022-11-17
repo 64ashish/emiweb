@@ -31,25 +31,43 @@ class SwedishChurchEmigrationRecordController extends Controller
     {
 //        return $request->all();
         $all_request = $request->all();
-//        return $all_request;
+//        return $all_request['qry_first_name']['value'] ;
+        $quryables = $this->QryableItems($all_request);
+//        return $quryables;
+
         $carbonize_dates = $this->CarbonizeDates($all_request);
 //        return $carbonize_dates;
+//        return Arr::flatten($all_request['first_name']);
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend(Arr::flatten($carbonize_dates['date_keys']), ['_token', 'action','page']);
-        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys)));
-//        return $inputFields;
-        $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
+//        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
+        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
+
+//      return $remove_keys;
+        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
+
+//      return $inputFields;
+
+
+
+
+
+//        $inputQuery=trim(Arr::join( $request->except(Arr::flatten($remove_keys)), ' '));
 //        return $inputQuery;
         $model = new SwedishChurchEmigrationRecord();
+
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
+//
+//        return in_array('ashish', $enableQueryMatch);
 
         $result = SwedishChurchEmigrationRecord::query();
 
 
+        $this->QueryMatch($quryables,$result, $all_request);
+
+
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
-
-//        return $fieldsToDisply;
 
 
 
@@ -78,9 +96,8 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $keywords;
 
         return view('dashboard.swedishchurchemigrationrecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted'))->with($request->all());
-//        return view('dashboard.swedishchurchemigrationrecord.alp',
-//            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch'))->with($request->all());
+
     }
 
     public function statics(){

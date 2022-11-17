@@ -27,6 +27,7 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
 
         $model = new SwedishEmigrantViaKristianiaRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedishEmigrantViaKristianiaRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -51,6 +52,6 @@ class SwedishEmigrantViaKristianiaRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.SwedishEmigrantViaKristianiaRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.SwedishEmigrantViaKristianiaRecord.records', compact('records', 'keywords', 'filterAttributes', 'enableQueryMatch','advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

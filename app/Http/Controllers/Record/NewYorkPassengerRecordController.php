@@ -28,6 +28,7 @@ class NewYorkPassengerRecordController extends Controller
 
         $model = new NewYorkPassengerRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = NewYorkPassengerRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -50,6 +51,6 @@ class NewYorkPassengerRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.NewYorkPassengerRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.NewYorkPassengerRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

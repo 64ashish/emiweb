@@ -27,6 +27,7 @@ class VarmlandskaNewspaperNoticeRecordController extends Controller
 
         $model = new VarmlandskaNewspaperNoticeRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = VarmlandskaNewspaperNoticeRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -47,7 +48,7 @@ class VarmlandskaNewspaperNoticeRecordController extends Controller
 
 //        return view
         return view('dashboard.VarmlandskaNewspaperNoticeRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields','enableQueryMatch', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))
             ->with($request->all());
     }
 }

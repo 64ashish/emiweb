@@ -15,4 +15,9 @@ class ImagesInArchive extends Model
         'collection_id',
         'image_name'
     ];
+
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

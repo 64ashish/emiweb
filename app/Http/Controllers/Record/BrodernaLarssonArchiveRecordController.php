@@ -40,6 +40,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
         $model = new BrodernaLarssonArchiveRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = BrodernaLarssonArchiveRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -67,7 +68,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
 
 
-        return view('dashboard.larsson.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.larsson.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
     }
 

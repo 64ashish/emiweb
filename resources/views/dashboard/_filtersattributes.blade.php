@@ -1,10 +1,10 @@
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-2 gap-x-6 gap-y-4">
 @foreach($filterAttributes as $filterAttribute)
     <div class="sm:grid sm:grid-cols-3 sm:items-start">
         <label for="{{ $filterAttribute }}"
                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
             {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }} </label>
-        <div class="mt-1 sm:mt-0 sm:col-span-2">
+        <div class="mt-1 sm:mt-0 sm:col-span-2  flex gap-x-2">
             @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
                 <div class="flex gap-2">
                     {!! Form::text("array_".$filterAttribute."[year]", null,
@@ -21,11 +21,25 @@
                    'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
                 </div>
 
+            @elseif(in_array($filterAttribute, $enableQueryMatch))
+                    {!! Form::text('qry_'.$filterAttribute.'[value]', null,
+                                    ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                     sm:text-sm border-gray-300 rounded-md',
+                                    'id' => $filterAttribute.'_value']) !!}
+
+                    {!! Form::select('qry_'.$filterAttribute.'[method]', [
+                                null => 'Innehåller',
+                                'start' => 'Börjar med',
+                                'end' => 'Slutar med',
+                                'exact' => 'Exakt'
+                                ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
+
             @else
-            {!! Form::text($filterAttribute, null,
-                    ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                    'id' => $filterAttribute]) !!}
+                {!! Form::text($filterAttribute, null,
+                        ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                         sm:text-sm border-gray-300 rounded-md',
+                        'id' => $filterAttribute]) !!}
             @endif
 
         </div>
@@ -48,14 +62,14 @@
 
 
     </a>
-    <div class="grid grid-cols-2 gap-4" x-show="expanded" x-collapse.duration.1000ms>
+    <div class="grid grid-cols-2 gap-x-6 gap-y-4" x-show="expanded" x-collapse.duration.1000ms>
 
         @foreach($advancedFields as $advancedField)
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
                 <label for="{{ $advancedField }}"
                        class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                     {{ __(ucfirst(str_replace('_', ' ', $advancedField))) }} </label>
-                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="mt-1 sm:mt-0 sm:col-span-2   flex gap-x-2">
 
                     @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
                         <div class="flex gap-2">
@@ -72,11 +86,25 @@
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
                         </div>
+
+                    @elseif(in_array($advancedField, $enableQueryMatch))
+                            {!! Form::text('qry_'.$advancedField.'[value]', null,
+                                            ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                             sm:text-sm border-gray-300 rounded-md',
+                                            'id' => $advancedField.'_value']) !!}
+
+                            {!! Form::select('qry_'.$advancedField.'[method]', [
+                                        null => 'Innehåller',
+                                        'start' => 'Börjar med',
+                                        'end' => 'Slutar med',
+                                        'exact' => 'Exakt'
+                                        ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                             sm:text-sm border-gray-300 rounded-md']); !!}
                     @else
                         {!! Form::text($advancedField, null,
-                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                            'id' => $advancedField]) !!}
+                        ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                         sm:text-sm border-gray-300 rounded-md',
+                        'id' => $advancedField]) !!}
                     @endif
 
 

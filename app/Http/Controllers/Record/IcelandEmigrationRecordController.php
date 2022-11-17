@@ -27,6 +27,7 @@ class IcelandEmigrationRecordController extends Controller
 
         $model = new IcelandEmigrationRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = IcelandEmigrationRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -49,6 +50,6 @@ class IcelandEmigrationRecordController extends Controller
 
 //        return view
         return view('dashboard.IcelandEmmigrationRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes','enableQueryMatch', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

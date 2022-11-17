@@ -119,5 +119,9 @@ class SwedishImmigrationStatisticsRecord extends Model
             'to_province',];
     }
 
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 
 }

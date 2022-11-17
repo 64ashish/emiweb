@@ -111,4 +111,8 @@ class SwedishPortPassengerListRecord extends Model
             'departure_county',
         ];
     }
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

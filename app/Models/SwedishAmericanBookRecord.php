@@ -90,4 +90,9 @@ class SwedishAmericanBookRecord extends Model
     {
         return $this->belongsTo(Archive::class);
     }
+
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

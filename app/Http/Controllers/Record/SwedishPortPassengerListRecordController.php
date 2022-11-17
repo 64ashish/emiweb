@@ -30,6 +30,7 @@ class  SwedishPortPassengerListRecordController extends Controller
 
         $model = new SwedishPortPassengerListRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
 
         $result = SwedishPortPassengerListRecord::query();
@@ -77,6 +78,6 @@ class  SwedishPortPassengerListRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.SwedishPortPassengerListRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.SwedishPortPassengerListRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

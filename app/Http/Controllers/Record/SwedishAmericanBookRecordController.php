@@ -25,6 +25,7 @@ class SwedishAmericanBookRecordController extends Controller
 
         $model = new SwedishAmericanBookRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedishAmericanBookRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -46,7 +47,7 @@ class SwedishAmericanBookRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
 
-        return view('dashboard.sabr.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.sabr.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'enableQueryMatch','defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
 
     }

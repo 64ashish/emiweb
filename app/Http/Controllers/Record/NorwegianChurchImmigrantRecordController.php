@@ -30,6 +30,7 @@ class NorwegianChurchImmigrantRecordController extends Controller
 
         $model = new NorwegianChurchImmigrantRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
 
         $result = NorwegianChurchImmigrantRecord::query();
@@ -53,6 +54,6 @@ class NorwegianChurchImmigrantRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.NorwegianChurchImmigrantRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.NorwegianChurchImmigrantRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

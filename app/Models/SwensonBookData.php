@@ -13,4 +13,9 @@ class SwensonBookData extends Model
     {
         return $this->hasMany(SwedishAmericanBookRecord::class);
     }
+
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

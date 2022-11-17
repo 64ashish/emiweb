@@ -95,4 +95,9 @@ class DenmarkEmigration extends Model
         return $this->belongsTo(Archive::class);
     }
 
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
+
 }

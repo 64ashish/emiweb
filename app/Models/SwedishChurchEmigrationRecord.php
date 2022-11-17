@@ -129,11 +129,7 @@ class SwedishChurchEmigrationRecord extends Model
         ];
     }
 
-//    public function getDobAttribute($value)
-//    {
-//        return $value;
-////        return Carbon::parse($value)->format('Y-m-d');
-//    }
+
     public function dob(): Attribute
     {
         return new Attribute(
@@ -264,6 +260,21 @@ class SwedishChurchEmigrationRecord extends Model
         return $query;
     }
 
+    public function enableQueryMatch(){
+        return [
+            'first_name',
+            'last_name',
+            'birth_parish',
+            'birth_country',
+            'from_parish',
+            'from_location',
+            'destination_country',
+            'destination_location'
+
+
+
+        ];
+    }
 
 
 

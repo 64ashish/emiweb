@@ -28,6 +28,7 @@ class JohnEricssonsArchiveRecordController extends Controller
 
         $model = new JohnEricssonsArchiveRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = JohnEricssonsArchiveRecord::query();
 
@@ -49,7 +50,7 @@ class JohnEricssonsArchiveRecordController extends Controller
 
 
         return view('dashboard.JohnEricssonsArchiveRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'enableQueryMatch','advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 
 }

@@ -216,4 +216,16 @@ class SwedishChurchImmigrantRecord extends Model
         return $query;
     }
 
+    public function enableQueryMatch(){
+        return [
+            'first_name',
+            'last_name',
+            'birth_parish',
+            'to_location',
+            'to_parish',
+            'from_country_code',
+            'birth_location'
+        ];
+    }
+
 }

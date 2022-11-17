@@ -23,6 +23,7 @@ class SwedishAmericanJubileeRecordController extends Controller
 
         $model = new SwedishAmericanJubileeRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedishAmericanJubileeRecord::query();
 
@@ -47,7 +48,7 @@ class SwedishAmericanJubileeRecordController extends Controller
 
 
         return view('dashboard.SwedishAmericanJubileeRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'enableQueryMatch','defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))
             ->with($request->all());
     }
 }

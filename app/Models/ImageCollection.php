@@ -21,4 +21,9 @@ class ImageCollection extends Model
     {
         $this->belongsToMany(Archive::class, 'archive_image_collection');
     }
+
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

@@ -838,20 +838,20 @@ select {
 .h-12 {
   height: 3rem;
 }
-.h-10 {
-  height: 2.5rem;
-}
 .h-full {
   height: 100%;
 }
 .h-9 {
   height: 2.25rem;
 }
+.h-10 {
+  height: 2.5rem;
+}
 .h-0 {
   height: 0px;
 }
-.h-36 {
-  height: 9rem;
+.h-14 {
+  height: 3.5rem;
 }
 .h-\[70vh\] {
   height: 70vh;
@@ -861,12 +861,6 @@ select {
 }
 .h-96 {
   height: 24rem;
-}
-.h-24 {
-  height: 6rem;
-}
-.h-14 {
-  height: 3.5rem;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -898,6 +892,12 @@ select {
 .w-14 {
   width: 3.5rem;
 }
+.w-2\/3 {
+  width: 66.666667%;
+}
+.w-1\/3 {
+  width: 33.333333%;
+}
 .w-12 {
   width: 3rem;
 }
@@ -913,20 +913,11 @@ select {
 .w-1\/2 {
   width: 50%;
 }
-.w-1\/3 {
-  width: 33.333333%;
-}
-.w-2\/3 {
-  width: 66.666667%;
-}
 .w-0 {
   width: 0px;
 }
 .w-5\/6 {
   width: 83.333333%;
-}
-.w-36 {
-  width: 9rem;
 }
 .w-1\/4 {
   width: 25%;
@@ -1046,6 +1037,9 @@ select {
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.flex-row {
+  flex-direction: row;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -1085,6 +1079,10 @@ select {
 .gap-8 {
   gap: 2rem;
 }
+.gap-x-2 {
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
+}
 .gap-x-5 {
   -moz-column-gap: 1.25rem;
        column-gap: 1.25rem;
@@ -1092,6 +1090,13 @@ select {
 .gap-x-3 {
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
+}
+.gap-x-6 {
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+}
+.gap-y-4 {
+  row-gap: 1rem;
 }
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -2571,10 +2576,6 @@ select {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .lg\:grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
@@ -2593,10 +2594,6 @@ select {
 
   .lg\:gap-8 {
     gap: 2rem;
-  }
-
-  .lg\:gap-6 {
-    gap: 1.5rem;
   }
 
   .lg\:gap-x-5 {

@@ -30,6 +30,7 @@ class SwedishEmigrationStatisticsRecordController extends Controller
 
         $model = new SwedishEmigrationStatisticsRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
 
         $result = SwedishEmigrationStatisticsRecord::query();
@@ -53,7 +54,7 @@ class SwedishEmigrationStatisticsRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.scbe.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.scbe.records', compact('records', 'keywords', 'enableQueryMatch','filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
     }
 

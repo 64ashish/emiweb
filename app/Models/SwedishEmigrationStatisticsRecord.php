@@ -117,4 +117,9 @@ class SwedishEmigrationStatisticsRecord extends Model
             'nationality',
         ];
     }
+
+    public function enableQueryMatch(){
+        return [
+        ];
+    }
 }

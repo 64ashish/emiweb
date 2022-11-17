@@ -27,6 +27,7 @@ class LarssonEmigrantPopularRecordController extends Controller
 
         $model = new LarssonEmigrantPopularRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
 
         $result = LarssonEmigrantPopularRecord::query();
@@ -48,6 +49,6 @@ class LarssonEmigrantPopularRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.LarssonEmigrantPopularRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.LarssonEmigrantPopularRecord.records', compact('records','enableQueryMatch', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 }

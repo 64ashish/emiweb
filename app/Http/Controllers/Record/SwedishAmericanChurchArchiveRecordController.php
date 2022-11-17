@@ -28,6 +28,7 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
 //        return $inputQuery;
         $model = new SwedishAmericanChurchArchiveRecord();
         $fieldsToDisply = $model->fieldsToDisply();
+        $enableQueryMatch =$model->enableQueryMatch();
 
         $result = SwedishAmericanChurchArchiveRecord::query();
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -51,7 +52,7 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
 
-        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
     }
 //        return view('dashboard.S')
 }
