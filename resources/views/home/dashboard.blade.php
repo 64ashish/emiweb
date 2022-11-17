@@ -37,11 +37,17 @@
                                         <p class="text-sm font-medium text-black-900 px-6 py-4">{{ $category->name }}</p>
                                         <ul class="rounded-lg bg-white overflow-hidden shadow">
                                             @foreach($category->archives as $archive)
+
                                                 <li class="odd:bg-white even:bg-gray-100 px-6 py-2">
                                                     <div class="flex justify-between">
                                                         <div class="flex items-center">
                                                             <div class="pr-2 font-bold">
-                                                                <a href="{{ route('records', $archive) }}"> {{ $archive->name }}</a></div>
+                                                               @if($archive->total_records > 0)
+                                                                    <a href="{{ route('records', $archive) }}"> {{ $archive->name }}</a>
+                                                                @else
+                                                                    {{ $archive->name }}
+                                                                @endif
+                                                            </div>
                                                             <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                                                         {{ number_format($archive->total_records)}}
                                                         {{ __('Records') }}

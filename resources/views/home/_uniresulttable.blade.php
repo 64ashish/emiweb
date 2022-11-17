@@ -332,7 +332,7 @@
 
 
     @default
-    {{ $value }}
+
 @endswitch
 
 
