@@ -203,7 +203,7 @@
                     borderWidth: 0.5,
                     hoverOffset: 4
                 },
-                    @if($data2 != null  $chart_type != [])
+                    @if($data2 != null )
                     {
                         label: {{ Js::from($keywords['from_province_compare']) }},
                         grouped:true,
