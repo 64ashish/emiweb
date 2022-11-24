@@ -157,37 +157,33 @@ trait SearchOrFilter
 //        return $result->get($fieldsToDisply);
     }
 
-//    private function SearchQuery( $inputFields, $result, $all_request) {
-////        return ;
-////        return "this is coming from search query";
-//        foreach($inputFields as  $fieldname => $fieldvalue) {
-////            for dates
-////            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
-//            if((str_contains(str_replace('_', ' ', $fieldname), 'date') or str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
-//            {
-//                if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
-//                {
-//                    $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
-//                }
-//
-//                if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
-//                {
-//                    $result->whereYear($fieldname,$fieldvalue->format('Y'))
-//                        ->whereMonth($fieldname,$fieldvalue->format('m'));
-//                }
-//
-//                if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
-//                {
-//                    $result->whereYear($fieldname,$fieldvalue->format('Y'));
-//                }
-//
-//            }
-////            for everything else
-//            else{
-//
-//
-//            }
-//        }
-//        return $result->paginate(100);
-//    }
+    private function provinces()
+    {
+        return [
+            "Älvsborg" => "Älvsborg",
+            "Blekinge" => "Blekinge",
+            "Gävleborg" => "Gävleborg",
+            "Göteborgs och Bohus" => "Göteborgs och Bohus",
+            "Gotland" => "Gotland",
+            "Halland" => "Halland",
+            "Jämtland" => "Jämtland",
+            "Jönköping" => "Jönköping",
+            "Kalmar" => "Kalmar",
+            "Kopparberg" => "Kopparberg",
+            "Kristianstad" => "Kristianstad",
+            "Kronoberg" => "Kronoberg",
+            "Malmöhus" => "Malmöhus",
+            "Norrbotten" => "Norrbotten",
+            "Örebro" => "Örebro",
+            "Östergötland" => "Östergötland",
+            "Skaraborg" => "Skaraborg",
+            "Södermanland" => "Södermanland",
+            "Stockholm" => "Stockholm",
+            "Uppsala" => "Uppsala",
+            "Värmland" => "Värmland",
+            "Västerbotten" => "Västerbotten",
+            "Västernorrland" => "Västernorrland",
+            "Västmanland" => "Västmanland"
+        ];
+    }
 }

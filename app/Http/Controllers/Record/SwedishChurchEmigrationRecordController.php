@@ -29,6 +29,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
+
 //        return $request->all();
         $all_request = $request->all();
 //        return $all_request['qry_first_name']['value'] ;
@@ -42,6 +43,8 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 //        return $inputQuery;
         $model = new SwedishChurchEmigrationRecord();
+
+//        return $model->provinces();
 
         $fieldsToDisply = $model->fieldsToDisply();
         $enableQueryMatch =$model->enableQueryMatch();
@@ -81,11 +84,11 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-
-//        return $keywords;
+        $provinces = $this->provinces();
+//        return $provinces;
 
         return view('dashboard.swedishchurchemigrationrecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch', 'provinces'))->with($request->all());
 
     }
 
@@ -105,32 +108,53 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function generateChart( Request $request)
     {
-
+//        return $request->all();
 
         $data = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province)
                 ->recordDateRange($request->start_year,$request->end_year)
                 ->groupRecordsBy($request->group_by)
                 ->get();
+        if($request->from_province_compare != null)
+        {
+            $data2 = SwedishChurchEmigrationRecord::findGender($request->gender)
+                ->fromProvince($request->from_province_compare)
+                ->recordDateRange($request->start_year,$request->end_year)
+                ->groupRecordsBy($request->group_by)
+                ->get();
 
+        }else{
+            $data2 = null;
 
+        }
+
+//        return $data;
         $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
             ->select('from_province')
             ->distinct()
             ->get()
             ->pluck('from_province','from_province')->prepend('Alla');
 
-        $title = 'Emigration ' .
+        if($data2 == null){
+            $title = 'Emigration ' .
                 (($request->gender !== "Alla") ? "av $request->gender ": "") .
                 (($request->from_province !== "0") ? "från $request->from_province ": "") .
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
-            (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
+                (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
+        }else{
+            $title = 'Jämförelseområde Emigration ' .
+                (($request->gender !== "Alla") ? "av $request->gender ": "") .
+                (($request->from_province !== "0") ? "från $request->from_province ": "") . ("med $request->from_province_compare ") .
+                (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
+                (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
+        }
+
 
 //        return $data;
         $grouped_by = $request->group_by === "record_date"? "year":"from_province";
         $chart_type = $request->chart_type;
         $keywords = $request->all();
-        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords'));
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data','data2', 'chart_type','title', 'grouped_by','keywords'));
     }
 
 

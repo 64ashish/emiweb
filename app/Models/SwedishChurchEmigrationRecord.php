@@ -276,6 +276,10 @@ class SwedishChurchEmigrationRecord extends Model
         ];
     }
 
+    public function provinces(){
+        return $this->select('from_province')->distinct()->get()->pluck('from_province');
+    }
+
 
 
 }

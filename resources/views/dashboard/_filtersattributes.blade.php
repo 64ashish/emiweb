@@ -35,11 +35,31 @@
                                 ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
 
+            @elseif($filterAttribute === 'from_province')
+                {!! Form::select($filterAttribute,
+                                $provinces,null,
+                                [
+                                    'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                  focus:ring-indigo-500 sm:text-sm',
+                                  'placeholder' => 'Select'
+                              ]) !!}
+            @elseif($filterAttribute === 'to_county')
+                {!! Form::select($filterAttribute,
+                                $provinces,null,
+                                [
+                                    'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                  focus:ring-indigo-500 sm:text-sm',
+                                  'placeholder' => 'Select'
+                              ]) !!}
             @else
                 {!! Form::text($filterAttribute, null,
                         ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                          sm:text-sm border-gray-300 rounded-md',
                         'id' => $filterAttribute]) !!}
+
+{{--                {{ $ }}--}}
             @endif
 
         </div>

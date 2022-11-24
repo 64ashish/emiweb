@@ -30,6 +30,7 @@ use App\Models\SwedishPortPassengerListRecord;
 use App\Models\SwedishUsaCentersEmiPhotoRecord;
 use App\Models\SwensonCenterPhotosamlingRecord;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
+use App\Traits\SearchOrFilter;
 use App\Traits\UniversalQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -40,7 +41,7 @@ use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 
 class SearchController extends Controller
 {
-    use UniversalQuery;
+    use UniversalQuery, SearchOrFilter;
 
     //
     public function index($archive)
@@ -188,13 +189,13 @@ class SearchController extends Controller
 
         $filterAttributes = collect($model->defaultSearchFields());
         $enableQueryMatch =$model->enableQueryMatch();
-
+        $provinces = $this->provinces();
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $archive = Archive::findOrFail($archive);
-        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch', 'provinces'));
     }
 
     public function search( Request  $request)

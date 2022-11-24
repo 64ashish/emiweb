@@ -1067,17 +1067,24 @@ select {
 .justify-around {
   justify-content: space-around;
 }
-.gap-4 {
-  gap: 1rem;
-}
 .gap-2 {
   gap: 0.5rem;
+}
+.gap-4 {
+  gap: 1rem;
 }
 .gap-6 {
   gap: 1.5rem;
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-x-6 {
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+}
+.gap-y-4 {
+  row-gap: 1rem;
 }
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
@@ -1090,13 +1097,6 @@ select {
 .gap-x-3 {
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
-}
-.gap-x-6 {
-  -moz-column-gap: 1.5rem;
-       column-gap: 1.5rem;
-}
-.gap-y-4 {
-  row-gap: 1rem;
 }
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -1493,6 +1493,9 @@ select {
 .pt-1 {
   padding-top: 0.25rem;
 }
+.pr-10 {
+  padding-right: 2.5rem;
+}
 .pt-4 {
   padding-top: 1rem;
 }
@@ -1507,9 +1510,6 @@ select {
 }
 .pr-4 {
   padding-right: 1rem;
-}
-.pr-10 {
-  padding-right: 2.5rem;
 }
 .pt-3 {
   padding-top: 0.75rem;

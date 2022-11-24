@@ -18,7 +18,7 @@
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
 
                        href="{{ route('scerc.statics') }}">
-                        Statistik
+                        Statistiks
                     </a>
                 </li>
 
@@ -65,6 +65,17 @@
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             {!! Form::select('from_province', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                              sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                             ]) !!}
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                        <label for="comparison" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            {{ __('Jämförelseområde') }} </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            {!! Form::select('from_province_compare', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                             'placeholder' => 'Do not compare'
                              ]) !!}
                         </div>
                     </div>
@@ -172,11 +183,12 @@
             data: {
                 labels: {{ Js::from($data->pluck($grouped_by)) }},
                 datasets: [{
-                    label: {{ Js::from($title) }},
+                    label: {{ Js::from($keywords['from_province']) }},
                     grouped:true,
                     maxBarThickness:'50',
                     data: {{ Js::from($data->pluck('total')) }},
-                    backgroundColor: poolColors({{ Js::from($data->pluck('total')->count()) }}),
+                    {{--backgroundColor:'#344D67':poolColors({{ Js::from($data->pluck('total')->count()) }}),--}}
+                    backgroundColor: {{ Js::from($chart_type) }} === 'bar'?'#344D67':poolColors({{ Js::from($data->pluck('total')->count()) }}),
 
                     borderColor: [
                         'rgb(255, 99, 132)',
@@ -190,7 +202,31 @@
 
                     borderWidth: 0.5,
                     hoverOffset: 4
-                }]
+                },
+                    @if($data2 != null or $data2 != [])
+                    {
+                        label: {{ Js::from($keywords['from_province_compare']) }},
+                        grouped:true,
+                        maxBarThickness:'50',
+                        data: {{ Js::from($data2->pluck('total')) }},
+                        // backgroundColor: '#6ECCAF',
+                        backgroundColor: {{ Js::from($chart_type) }} === 'bar'?'#6ECCAF':poolColors({{ Js::from($data2->pluck('total')->count()) }}),
+
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+
+                        borderWidth: 0.5,
+                        hoverOffset: 4
+                    }
+                    @endif
+                ]
             },
             options: {
 

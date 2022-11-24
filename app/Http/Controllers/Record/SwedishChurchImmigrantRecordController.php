@@ -47,6 +47,7 @@ class SwedishChurchImmigrantRecordController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+        $provinces = $this->provinces();
 
 
 //        return view
@@ -67,11 +68,25 @@ class SwedishChurchImmigrantRecordController extends Controller
 
     public function generateChart( Request $request){
 
+//        return $request->all();
         $data = SwedishChurchImmigrantRecord::findGender($request->sex)
             ->toProvince($request->to_county)
             ->recordDateRange($request->start_year, $request->end_year)
             ->groupRecordsBy($request->group_by)
             ->get();
+
+        if($request->to_county_compare != null)
+        {
+            $data2 = SwedishChurchImmigrantRecord::findGender($request->sex)
+                ->toProvince($request->to_county_compare)
+                ->recordDateRange($request->start_year, $request->end_year)
+                ->groupRecordsBy($request->group_by)
+                ->get();
+
+        }else{
+            $data2 = null;
+
+        }
 
         $provinces = SwedishChurchImmigrantRecord::whereNot('to_county', '  Y')
             ->whereNotNull('to_county')
@@ -80,16 +95,25 @@ class SwedishChurchImmigrantRecordController extends Controller
             ->get()
             ->pluck('to_county','to_county')->prepend('Alla');
 
-        $title = 'Immigration ' .
-            (($request->sex !== "Alla") ? "av $request->sex ": "") .
-            (($request->to_county !== "0") ? "från $request->to_county ": "") .
-            (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
-            (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
+        if($data2 == null){
+            $title = 'Immigration ' .
+                (($request->sex !== "Alla") ? "av $request->sex ": "") .
+                (($request->to_county !== "0") ? "från $request->to_county ": "") .
+                (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
+                (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
+        }else{
+            $title = 'Immigration ' .
+                (($request->sex !== "Alla") ? "av $request->sex ": "") .
+                (($request->to_county !== "0") ? "från $request->to_county ": "") . ("med $request->to_county_compare ") .
+                (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
+                (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
+        }
+
 
         $grouped_by = $request->group_by === "to_date"? "year":"to_county";
         $chart_type = $request->chart_type;
         $keywords = $request->all();
-        return view('dashboard.SwedishChurchImmigrantRecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords'));
+        return view('dashboard.SwedishChurchImmigrantRecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords', 'data2'));
     }
 
 }
