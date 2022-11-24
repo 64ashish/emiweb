@@ -75,7 +75,7 @@ class SwedishChurchImmigrantRecordController extends Controller
             ->groupRecordsBy($request->group_by)
             ->get();
 
-        if($request->to_county_compare != null)
+        if($request->to_county_compare != null  and $request->chart_type === 'bar')
         {
             $data2 = SwedishChurchImmigrantRecord::findGender($request->sex)
                 ->toProvince($request->to_county_compare)

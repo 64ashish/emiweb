@@ -115,7 +115,7 @@ class SwedishChurchEmigrationRecordController extends Controller
                 ->recordDateRange($request->start_year,$request->end_year)
                 ->groupRecordsBy($request->group_by)
                 ->get();
-        if($request->from_province_compare != null)
+        if($request->from_province_compare != null and $request->chart_type === 'bar')
         {
             $data2 = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province_compare)
