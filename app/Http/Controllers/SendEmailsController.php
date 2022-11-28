@@ -56,8 +56,7 @@ class SendEmailsController extends Controller
 
 
         try {
-            Mail::from('hello@emiwebdb.kortaben.work')
-                ->to('hello@emiwebdb.kortaben.work')->send(new SendSuggestion($userSuggestion) );
+            Mail::to('hello@emiwebdb.kortaben.work')->send(new SendSuggestion($userSuggestion) );
 
         } catch (Exception $e) {
             return $e->getMessage();
