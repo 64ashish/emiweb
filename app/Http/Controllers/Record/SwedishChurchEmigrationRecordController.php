@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Record;
 
 use App\Http\Controllers\Controller;
+use App\Models\ScercDocumentRecord;
 use App\Models\ScercPhotoRecord;
 use App\Models\SwedishChurchEmigrationRecord;
 use Carbon\Carbon;
@@ -187,5 +188,67 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $records->total();
         return view('dashboard.swedishchurchemigrationrecord.photos',
             compact('records'));
+    }
+
+    public function searchDocuments(){
+        $types = [
+            'Foto' => 'Foto',
+            'Frågelista' => 'Frågelista',
+            'Tidningsnotis' => 'Tidningsnotis',
+            'Annat dokument' =>'Annat dokument',
+            'Berättelse' => 'Berättelse',
+            'Släktutredning' => 'Släktutredning',
+            'Föremål' => 'Föremål',
+            'Bok' => 'Bok',
+            'Film' => 'Film',
+            'Brev' => 'Brev',
+            'Övrigt' => 'Övrigt',
+            'Vykort' => 'Vykort',
+            'Kontrakt' => 'Kontrakt',
+            'Tidning' => 'Tidning',
+            'Enkätundersökning' => 'Enkätundersökning',
+            'Boknotis' => 'Boknotis',
+            'Email' => 'Email'
+        ];
+    }
+    public function resultDocuments(Request $request){
+        $keywords = array_filter( $request->except('_token'));
+        $query = ScercDocumentRecord::query();
+        $types = [
+            'Foto' => 'Foto',
+            'Frågelista' => 'Frågelista',
+            'Tidningsnotis' => 'Tidningsnotis',
+            'Annat dokument' =>'Annat dokument',
+            'Berättelse' => 'Berättelse',
+            'Släktutredning' => 'Släktutredning',
+            'Föremål' => 'Föremål',
+            'Bok' => 'Bok',
+            'Film' => 'Film',
+            'Brev' => 'Brev',
+            'Övrigt' => 'Övrigt',
+            'Vykort' => 'Vykort',
+            'Kontrakt' => 'Kontrakt',
+            'Tidning' => 'Tidning',
+            'Enkätundersökning' => 'Enkätundersökning',
+            'Boknotis' => 'Boknotis',
+            'Email' => 'Email'
+            ];
+
+        foreach($keywords as $fieldName => $value)
+        {
+
+            if($fieldName==='description')
+            {
+                $query->whereFullText($fieldName, $value);
+            }
+            if($fieldName !=='description')
+            {
+                $query->where($fieldName, $value);
+            }
+        }
+
+        $records = $query->paginate(100);
+
+
     }
 }

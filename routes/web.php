@@ -387,6 +387,10 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
 
 
+        Route::post('/suggestion', [SendEmailsController::class,'sendSuggestion'])->name('suggestion');
+
+
+
 
 //        Route::get();
 

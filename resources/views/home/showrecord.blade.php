@@ -68,6 +68,10 @@
                                :class="{ ' border-indigo-500 text-indigo-600 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
                                href="#">Media</a>
                             @endif
+                            <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
+                            font-medium text-sm"
+                               :class="{ ' border-indigo-500 text-indigo-600 ': tab === 'message' }" x-on:click.prevent="tab = 'message'"
+                               href="#">Message</a>
                         </nav>
                     </div>
                     <div class="py-4">
@@ -230,6 +234,117 @@
                             </div>
                         </div>
                         @endif
+
+                        <div  x-show="tab === 'message'">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 pb-4 flex items-center  border-b border-gray-200 ">
+
+                                Message
+                            </h3>
+                            <div class="flex flex-col">
+                                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+
+                                        <div class=" md:rounded-lg">
+                                            {!! Form::open(['route' => 'suggestion']) !!}
+
+                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:border-gray-200 sm:py-5">
+                                                    <label for="subject"
+                                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                                        Subject
+                                                    </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                                                        {!! Form::text('subject', null,
+                                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                                'id' => 'Subject']) !!}
+                                                        @error('subject')
+                                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                                        </p>@enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                                <label for="email"
+                                                       class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                                    Email </label>
+                                                <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                                                    {!! Form::text('email', null,
+                                                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                            'id' => 'email']) !!}
+                                                    @error('email')
+                                                    <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                                    </p>@enderror
+                                                </div>
+                                            </div>
+
+                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
+                                                    <label for="message"
+                                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                                        Message</label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                                                        {!! Form::textarea('message', null,
+                                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                                'id' => 'message']) !!}
+                                                        @error('message')
+                                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                                        </p>@enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
+                                                    <label for="archive"
+                                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                                        Archive </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                                                        {!! Form::text('archive',$archive_details->name ,
+                                                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                                'id' => 'archive', 'readonly']) !!}
+                                                        @error('archive')
+                                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                                        </p>@enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
+                                                    <label for="record"
+                                                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                                        Record id</label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+                                                        {!! Form::text('record', $archive_details->id,
+                                                                ['class' => 'max-w-lg disabled block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                                'id' => 'record', 'readonly']) !!}
+                                                        @error('record')
+                                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                                        </p>@enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5 flex justify-end">
+                                                    {!! Form::hidden('record_url',url()->current(),['readonly']) !!}
+                                                   <button type="submit"  class=" inline-flex items-center px-8 py-2 border
+                                                       border-transparent text-base font-medium rounded-md shadow-sm text-white
+                                                       {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                                       focus:ring-offset-2 focus:ring-indigo-500">{{ __('Send') }}
+                                                   </button>
+                                               </div>
+
+
+                                           {!! Form::close() !!}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

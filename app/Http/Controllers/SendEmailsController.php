@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendSuggestion;
 use App\Mail\TestMail;
 use CraigPaul\Mail\TemplatedMailable;
 use Illuminate\Http\Request;
@@ -36,5 +37,30 @@ class SendEmailsController extends Controller
             ]);
 
         Mail::to('hello@emiwebdb.kortaben.work')->send($mailable);
+    }
+
+
+    public function sendSuggestion(Request $request)
+    {
+        $request->validate([
+            'subject' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+            'archive' => 'required',
+            'record'  => 'required',
+            'record_url' => 'required'
+
+        ]);
+
+        $userSuggestion = array_filter( $request->except('_token'));
+
+
+        try {
+            Mail::to('info@emaiweb.se')->send(new SendSuggestion($userSuggestion) );
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+       return redirect()->back()->with('success', "Your suggestion has been received");
     }
 }

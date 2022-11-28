@@ -51,7 +51,7 @@ class SwedishChurchImmigrantRecordController extends Controller
 
 
 //        return view
-        return view('dashboard.SwedishChurchImmigrantRecord.records', compact('records', 'keywords', 'filterAttributes','enableQueryMatch', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.SwedishChurchImmigrantRecord.records', compact('records', 'keywords', 'filterAttributes','enableQueryMatch', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'provinces'))->with($request->all());
     }
 
 

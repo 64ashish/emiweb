@@ -45,7 +45,7 @@
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
                                                                          hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                             {{ $record[$column]}}
@@ -55,7 +55,7 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                             {{ $record[$pop_fields]}}
@@ -84,7 +84,7 @@
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
                                                                          hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
 
                                         {{ $record[$column]}}
@@ -95,7 +95,7 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
 
                                         {{ $record[$pop_fields]}}
