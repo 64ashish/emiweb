@@ -7,6 +7,7 @@ use App\Models\MormonShipPassengerRecord;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 
 class MormonShipPassengerRecordController extends Controller
@@ -30,7 +31,7 @@ class MormonShipPassengerRecordController extends Controller
         $fieldsToDisply = $model->fieldsToDisply();
         $enableQueryMatch =$model->enableQueryMatch();
 
-        $result = MormonShipPassengerRecord::query();
+        $result = MormonShipPassengerRecord::select('*',DB::raw("CONCAT('departure_year','/','departure_month','/','departure_day') AS departure_date"));
         $this->QueryMatch($quryables,$result, $all_request);
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\RecordCount;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -61,9 +62,10 @@ class MormonShipPassengerRecord extends Model
             'age'=>__(ucfirst(str_replace('_', ' ', 'age'))),
             'conference'=>__(ucfirst(str_replace('_', ' ', 'conference'))),
             'travel_type'=>__(ucfirst(str_replace('_', ' ', 'travel_type'))),
-            'departure_year'=>__(ucfirst(str_replace('_', ' ', 'departure_year'))),
-            'departure_month'=>__(ucfirst(str_replace('_', ' ', 'departure_month'))),
-            'departure_day'=>__(ucfirst(str_replace('_', ' ', 'departure_day'))),
+            'departure_date'=>__(ucfirst(str_replace('_', ' ', 'departure_date'))),
+//            'departure_year'=>__(ucfirst(str_replace('_', ' ', 'departure_year'))),
+//            'departure_month'=>__(ucfirst(str_replace('_', ' ', 'departure_month'))),
+//            'departure_day'=>__(ucfirst(str_replace('_', ' ', 'departure_day'))),
             'destination'=>__(ucfirst(str_replace('_', ' ', 'destination'))),
             'dgsnr'=>__(ucfirst(str_replace('_', ' ', 'dgsnr'))),
             'image_nr'=>__(ucfirst(str_replace('_', ' ', 'image_nr'))),
@@ -122,6 +124,10 @@ class MormonShipPassengerRecord extends Model
     public function enableQueryMatch(){
         return [
         ];
+    }
+
+    public function getDepartureDateAttribute(){
+        return $this->departure_year ."/".$this->departure_month."/".$this->departure_day;
     }
 
 }

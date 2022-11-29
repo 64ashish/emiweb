@@ -386,10 +386,12 @@ class SearchController extends Controller
 
             case(14):
                 $model = new MormonShipPassengerRecord();
-                $detail = MormonShipPassengerRecord::with('user.organization')->findOrFail($id);
+                $detail = MormonShipPassengerRecord::select('*', DB::raw("CONCAT('departure_year','/','departure_month','/','departure_day') AS departure_date"))
+                    ->with('user.organization')
+                    ->findOrFail($id);
 ////                return $detail;
-                $fields = collect($model->getFillable())
-                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                $fields = collect($model->getFillable())->concat(['departure_date'])
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id','departure_year','departure_month','departure_day'])
                     ->flatten();
                 break;
 

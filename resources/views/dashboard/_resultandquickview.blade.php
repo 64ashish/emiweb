@@ -77,10 +77,9 @@
                                 @if(!empty($record->first_name) or !empty($record->last_name))
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
                                                                         font-medium  sm:pl-6 lg:pl-8">
-
-                                        {{--                                        <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
+                                        {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
                                         <div> {{ $record->first_name }} {{ $record->last_name }}</div>
-                                        {{--                                        </a>--}}
+                                        {{--  </a>--}}
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
@@ -138,18 +137,10 @@
                             <a x-bind:href="recordURL" type="button" class=" rounded-md -ml-px inline-flex items-center border border-gray-300
                        bg-indigo-600 px-4 py-4 text-sm font-medium text-white hover:bg-gray-50 hover:text-indigo-600 focus:z-10 focus:border-indigo-500
                         focus:outline-none focus:ring-1 focus:ring-indigo-500" >
-
-
-
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="mr-2  w-6 h-6">
                                     <path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" />
                                 </svg>
-
                                 {{ __('Show more information') }}
-
-
-
-
                             </a>
                         </div>
 
@@ -159,8 +150,8 @@
 
                         <div class="inline-flex">
                             <button type="button" class="relative -ml-px inline-flex items-center border border-gray-300
-                       bg-white px-4 py-4  text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
-                        focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="selectedRecord(previous)" x-show="previous">
+                                bg-white px-4 py-4  text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500
+                                focus:outline-none focus:ring-1 focus:ring-indigo-500" @click="selectedRecord(previous)" x-show="previous">
 
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
@@ -187,12 +178,9 @@
 
                                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
                                     <dt class="text-sm font-medium text-gray-500 capitalize" x-text="value">
-
                                     </dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
-
                                     </dd>
-
                                 </div>
 
                             </template>
