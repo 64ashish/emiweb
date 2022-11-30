@@ -31,15 +31,19 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function search( Request $request )
     {
 
-//        return $request->all();
+//        return $request->qry_first_name['method'];
         $all_request = $request->all();
+
 //        return $all_request['qry_first_name']['value'] ;
 
         $quryables = $this->QryableItems($all_request);
+
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
+
+
 
 
 //        return $inputQuery;
@@ -55,17 +59,20 @@ class SwedishChurchEmigrationRecordController extends Controller
         $result = SwedishChurchEmigrationRecord::query();
 
 
+
         $this->QueryMatch($quryables,$result, $all_request);
 
 
 
-        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+        $records = $this->FilterQuery($inputFields, $this->QueryMatch($quryables,$result, $all_request), $all_request, array_keys($fieldsToDisply) );
 
 
 
 
 
         $keywords = $request->all();
+
+//        return $keywords;
 
 
 

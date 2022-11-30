@@ -84,28 +84,30 @@
                                     <div class="flex items-center flex-wrap p-5">
 
                                         <label
-                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                class="w-1/3 border-0 bg-transparent pl-5 pr-11 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('First name') }}</label>
                                         <input x-ref="input" x-model="f"
                                                x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
-                                               name="first_name" type="text"
+                                               name="qry_first_name" type="text"
                                                class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-2 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('First name') }}..." aria-expanded="false"
                                                aria-controls="options">
 
+
                                         <label
-                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                class="w-1/3 border-0 bg-transparent pl-5 pr-11 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('Last name') }}</label>
-                                        <input x-ref="input" name="last_name" type="text" x-model="l"
+                                        <input x-ref="input" name="qry_last_name" type="text" x-model="l"
                                                x-on:input="[(f?.length != 0 || l?.length !=0 || y?.length !=0 || p?.length !=0) ? buttonDisable = false : buttonDisable = true]"
-                                               class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-42text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                               class="h-12 w-2/3 border-0 border-b-2 bg-transparent pl-5 pr-42 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                placeholder="{{ __('Last name') }}..." aria-expanded="false"
                                                aria-controls="options">
 
+
                                         <label
-                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                class="w-1/3 border-0 bg-transparent pl-5 pr-11 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('Född år') }}</label>
                                         <input x-ref="input" name="year" type="text" x-model="y"
@@ -116,7 +118,7 @@
                                                aria-controls="options">
 
                                         <label
-                                                class="w-1/3 border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                                                class="w-1/3 border-0 bg-transparent pl-5 pr-11 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                                                 aria-expanded="false"
                                                 aria-controls="options">{{ __('Född församling') }}</label>
                                         <input x-ref="input" name="parish" type="text" x-model="p"

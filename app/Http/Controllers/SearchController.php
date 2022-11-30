@@ -200,8 +200,10 @@ class SearchController extends Controller
 
     public function search( Request  $request)
     {
-//        return $request;
+
         $inputFields = Arr::whereNotNull($request->except('_token'));
+//        $quryables = $this->QryableItems($request->all());
+//        return $quryables;
 ////        return $inputFields;
         $keywords = $request->except('_token');
 
@@ -243,10 +245,11 @@ class SearchController extends Controller
                 'Svenskamerikanskt bokindex' =>$this->QuerySwedishAmericanBookRecord($inputFields)
             ]);
         }
+
+//        return $records;
         return view('home.results', compact('records', 'keywords'));
 
     }
-
 
     public function show($arch, $id){
         $archive = Archive::find($arch);

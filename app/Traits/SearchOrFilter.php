@@ -29,9 +29,13 @@ trait SearchOrFilter
 //                return $dates;
                 if (count(Arr::whereNotNull(Arr::flatten($dates))) > 0) {
                     $field_data["$field"] = Carbon::createFromDate(
-                        $dates['year'] != null ? $dates['year'] : "0001",
-                        $dates['month'] != null ? $dates['month'] : "01",
-                        $dates['day'] != null ? $dates['day'] : "01"
+//                        $dates['year'] != null ? $dates['year'] : "0001",
+//                        $dates['month'] != null ? $dates['month'] : "01",
+//                        $dates['day'] != null ? $dates['day'] : "01"
+
+                        Arr::exists($dates, 'year') ? $dates['year'] : "0001",
+                        Arr::exists($dates, 'month') ? $dates['month'] : "01",
+                        Arr::exists($dates, 'day') ? $dates['day'] : "01"
                     );
 
                 }
@@ -60,29 +64,64 @@ trait SearchOrFilter
 
     }
 
-    private function QueryMatch($quryables,$result, $all_request)
+    private function QueryMatch($queryables,$result, $all_request)
     {
-        foreach($quryables as  $quryable)
-        {
-            if($all_request[$quryable]['value'] != null){
-                $field_scope= Str::of($quryable)->after('qry_');
-                if($all_request[$quryable]['method'] == null && ($field_scope === "first_name" or $field_scope === "last_name"))
-                {
-                    {  $result->whereFullText($field_scope, $all_request[$quryable]['value']);}
-                }
-                if($all_request[$quryable]['method'] == null && ($field_scope !== "first_name" and $field_scope !== "last_name"))
-                {
-                    {  $result->where($field_scope,'like', '%'.$all_request[$quryable]['value'].'%');}
-                }
-                if($all_request[$quryable]['method'] === "start" ) {  $result->where($field_scope,'like', $all_request[$quryable]['value'].'%');}
-                if($all_request[$quryable]['method'] === "end" ) {  $result->where($field_scope,'like', '%'.$all_request[$quryable]['value']);}
-                if($all_request[$quryable]['method'] === "exact" ) {  $result->where($field_scope, $all_request[$quryable]['value']);}
+//        return $queryables;
 
+        foreach($queryables as  $queryable) {
+            if(!Arr::exists($all_request[$queryable], 'method')){
+                $all_request[$queryable]['method'] = null;
+            };
+            if ($all_request[$queryable]['value'] != null) {
+                $field_scope = Str::of($queryable)->after('qry_');
+
+//              if queryable method is (null or contains) and field is first name or last name
+                if((($all_request[$queryable]['method'] == null) or Arr::exists($all_request[$queryable], 'method')) && ($field_scope == "first_name" or $field_scope == "last_name"))
+                {
+//                    return "hello 1";
+                    $result->whereFullText($field_scope, $all_request[$queryable]['value']);
+                }
+//              if queryable method is (not null or not contains)
+                if(($all_request[$queryable]['method'] != null ))
+                {
+//                  if queryable is start
+                    if($all_request[$queryable]['method'] === "start"){
+//                        return $field_scope. " 2";
+                        $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
+                    }
+//                  if queryable is end
+                    if ($all_request[$queryable]['method'] === "end") {
+//                        return $field_scope. " 3";
+                        $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
+                    }
+//                  if queryable is exact
+                    if ($all_request[$queryable]['method'] === "exact") {
+//                        return $field_scope. " 4";
+                        $result->where($field_scope, $all_request[$queryable]['value']);
+                    }
+                }
+//                if ($all_request[$quryable]['method'] == null && ($field_scope === "first_name" or $field_scope === "last_name")) {
+//                    $result->whereFullText($field_scope, $all_request[$quryable]['value']);
+//                }
+//                if ($all_request[$quryable]['method'] == null && ($field_scope !== "first_name" and $field_scope !== "last_name")) {
+//                    {
+//                        $result->where($field_scope, 'like', '%' . $all_request[$quryable]['value'] . '%');
+//                    }
+//                    if ($all_request[$quryable]['method'] === "start") {
+//                        $result->where($field_scope, 'like', $all_request[$quryable]['value'] . '%');
+//                    }
+//                    if ($all_request[$quryable]['method'] === "end") {
+//                        $result->where($field_scope, 'like', '%' . $all_request[$quryable]['value']);
+//                    }
+//                    if ($all_request[$quryable]['method'] === "exact") {
+//                        $result->where($field_scope, $all_request[$quryable]['value']);
+//                    }
+//
+//                }
             }
-
         }
 //        return $field_scope;
-        return $result->paginate(100);
+        return $result;
     }
 
     private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply)

@@ -193,8 +193,9 @@
                 </div>
             </div>
             <span x-show="!openDetails">
-                {{ $records->appends(request()->except(['_token']))->links() }}
+                {{ $records->appends(request()->all())->links() }}
             </span>
+
 
         </div>
     </div>
