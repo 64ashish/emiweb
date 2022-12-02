@@ -80,6 +80,11 @@ class SwedishChurchEmigrationRecordController extends Controller
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
+//        $fields = collect($model->searchFields())
+//            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+//            ->flatten();
+
+//        return $fields;
         $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
 

@@ -49,7 +49,9 @@ class SwedishEmigrationStatisticsRecordController extends Controller
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
-        $advancedFields = $fields->diff($filterAttributes)->flatten();
+//        $advancedFields = collect($model->defaultSearchFields())->flatten();
+        $advancedFields = collect($model->advancedSearchFields());
+//        return $advancedFields;
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive;

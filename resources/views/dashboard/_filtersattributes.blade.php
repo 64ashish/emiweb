@@ -35,7 +35,7 @@
                                 ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
 
-            @elseif($filterAttribute === 'from_province')
+            @elseif($filterAttribute === 'from_province' and isset($provinces))
                 {!! Form::select($filterAttribute,
                                 $provinces,null,
                                 [
@@ -44,7 +44,7 @@
                                   focus:ring-indigo-500 sm:text-sm',
                                   'placeholder' => 'Select'
                               ]) !!}
-            @elseif($filterAttribute === 'to_county')
+            @elseif($filterAttribute === 'to_county' and isset($provinces))
                 {!! Form::select($filterAttribute,
                                 $provinces,null,
                                 [
@@ -85,6 +85,11 @@
     <div class="grid grid-cols-2 gap-x-6 gap-y-4" x-show="expanded" x-collapse.duration.1000ms>
 
         @foreach($advancedFields as $advancedField)
+            @if($advancedField === "---")
+                <div class="col-span-2">
+                    <hr>
+                </div>
+            @else
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
                 <label for="{{ $advancedField }}"
                        class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
@@ -106,6 +111,24 @@
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
                         </div>
+                    @elseif($advancedField === 'from_province' and isset($provinces))
+                        {!! Form::select($advancedField,
+                                        $provinces,null,
+                                        [
+                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm',
+                                          'placeholder' => 'Select'
+                                      ]) !!}
+                    @elseif($advancedField === 'to_county' and isset($provinces))
+                        {!! Form::select($advancedField,
+                                        $provinces,null,
+                                        [
+                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm',
+                                          'placeholder' => 'Select'
+                                      ]) !!}
 
                     @elseif(in_array($advancedField, $enableQueryMatch))
                             {!! Form::text('qry_'.$advancedField.'[value]', null,
@@ -131,6 +154,7 @@
 
                 </div>
             </div>
+            @endif
         @endforeach
     </div>
 </div>

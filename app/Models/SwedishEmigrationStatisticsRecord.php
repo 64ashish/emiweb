@@ -16,26 +16,22 @@ class SwedishEmigrationStatisticsRecord extends Model
         'archive_id',
         'first_name',
         'last_name',
-        'profession',
         'birth_year',
-        'birth_month',
-        'birth_day',
-        'destination',
-        'comments',
-        'from_year',
-        'from_province',
+        'profession',
         'from_parish',
+        'from_province',
+        'from_year',
+        'destination',
         'gender',
         'civil_status',
-        'family_number',
         'nationality',
+        'family_number',
         'source',
+        'comments',
+        'birth_month',
+        'birth_day',
         'svar_batch_number',
-        'svar_image_number',
-
-
-
-
+        'svar_image_number'
     ];
 
 
@@ -76,12 +72,29 @@ class SwedishEmigrationStatisticsRecord extends Model
         return [
 //                'first_name',
 //                'last_name',
-                'profession',
                 'birth_year',
-                'birth_month',
+                'profession',
+                'from_parish',
+                'from_province',
                 'from_year',
-                'gender',
-                'nationality',
+                'destination'
+
+        ];
+    }
+
+    public function advancedSearchFields(){
+        return [
+            'gender',
+            'civil_status',
+            'nationality',
+            'family_number',
+            'source',
+            '---',
+            'comments',
+            'birth_month',
+            'birth_day',
+            'svar_batch_number',
+            'svar_image_number'
         ];
     }
 

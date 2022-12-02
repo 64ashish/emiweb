@@ -142,6 +142,22 @@ class SwedishAmericanChurchArchiveRecord extends Model
         ];
     }
 
+
+
+    public function advancedSearchFields(){
+        return [
+            'last_name2',
+            'civil_status',
+            'family_nr',
+            'arrived_from_place',
+            'death_date',
+            'source',
+            'immigrated_to_place',
+            'immigrated_to_state',
+            'page',
+        ];
+    }
+
     public function defaultTableColumns(){
         return [
             'last_name2',
