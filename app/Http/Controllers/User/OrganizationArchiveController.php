@@ -26,13 +26,14 @@ use App\Models\SwedishImmigrationStatisticsRecord;
 use App\Models\SwedishPortPassengerListRecord;
 use App\Models\User;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
+use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 
 
 class OrganizationArchiveController extends Controller
 {
     //
-
+    use SearchOrFilter;
 
     public function index()
     {
@@ -188,15 +189,22 @@ class OrganizationArchiveController extends Controller
         }
 
         $filterAttributes = collect($model->defaultSearchFields());
-
+        $enableQueryMatch =$model->enableQueryMatch();
+        $provinces = $this->provinces();
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
-        $advancedFields = $fields->diff($filterAttributes)->flatten();
+
+        if(method_exists($model, 'advancedSearchFields'))
+        {
+            $advancedFields = $model->advancedSearchFields();
+        }else{
+            $advancedFields = $fields->diff($filterAttributes)->flatten();
+        }
 
 
 
-        return view($viewfile, compact('filterAttributes', 'advancedFields','organization', 'archive'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','organization', 'archive', 'enableQueryMatch', 'provinces'));
 
     }
 
