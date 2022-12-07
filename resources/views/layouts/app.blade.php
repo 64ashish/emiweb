@@ -78,7 +78,7 @@
                                      buttonDisable:true,
                                      f:null, l:null, y:null, p:null }">
                                     <!-- Heroicon name: solid/search -->
-                                    <form action="{{ route('search') }}" method="POST"  x-on:submit="reveal = true" >
+                                    <form action="{{ route('search') }}" method="POST"  x-on:submit="reveal = true;buttonDisable=true " >
                                         @csrf
 
                                     <div class="flex items-center flex-wrap p-5">
