@@ -139,7 +139,7 @@
                                             <div class="flex" x-show="reveal">
                                                 <div>
                                                     <lord-icon
-                                                            src="{{ asset('lordie/search-loader.json') }}"
+                                                            src="{{ asset('lordie/search-loader-white.json') }}"
                                                             trigger="loop"
                                                             colors="primary:#ffffff"
                                                             style="width:30px;height:30px">
