@@ -134,7 +134,21 @@
                                         <button type="submit" x-bind:disabled="buttonDisable"  class="items-center disabled:opacity-50 px-8 py-2 border
                                         border-transparent text-base font-medium rounded-md shadow-sm text-white
                                          bg-indigo-600  hover:bg-indigo-700 focus:outline-none focus:ring-2
-                                        focus:ring-offset-2 focus:ring-indigo-500"  >{{ __('Search') }}</button>
+                                        focus:ring-offset-2 focus:ring-indigo-500 flex"  >
+
+                                            <div class="flex" x-show="reveal">
+                                                <div>
+                                                    <lord-icon
+                                                            src="{{ asset('lordie/search-loader.json') }}"
+                                                            trigger="loop"
+                                                            colors="primary:#ffffff"
+                                                            style="width:30px;height:30px">
+                                                    </lord-icon>
+                                                </div>
+
+                                            </div>
+                                            {{ __('Search') }}
+                                            </button>
                                     </div>
 
 
