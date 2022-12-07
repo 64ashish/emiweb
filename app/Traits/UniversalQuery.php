@@ -36,10 +36,14 @@ trait UniversalQuery{
 
         $exec = 0;
 
-        if(!empty($input['qry_first_name'])){ $result->whereFullText('first_name', $input['qry_first_name']);
+////        if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+        //        if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+//        if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
         $exec = $exec+1;
         }
-        if(!empty($input['qry_last_name'])){ $result->whereFullText('last_name', $input['qry_last_name']);
+//        if(!empty($input['qry_last_name'])){ $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            if(!empty($input['qry_last_name'])){ $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
         $exec = $exec+1;
         }
 
@@ -54,10 +58,12 @@ trait UniversalQuery{
         $result = SwedishChurchEmigrationRecord::select('id');
 
         $exec = 0;
-        if(!empty($input['qry_first_name'])){ $result->whereFullText('first_name', $input['qry_first_name']);
+//        if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
         $exec = $exec+1;
         }
-        if(!empty($input['qry_last_name'])){ $result->whereFullText('last_name', $input['qry_last_name']);
+//        if(!empty($input['qry_last_name'])){ $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            if(!empty($input['qry_last_name'])){ $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
         $exec = $exec+1;
         }
         if(!empty($input['parish'])){ $result->where('birth_parish', 'LIKE','%'. $input['parish'].'%');
@@ -76,12 +82,14 @@ trait UniversalQuery{
 
         $exec = 0;
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -102,12 +110,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -133,12 +143,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -159,10 +171,12 @@ trait UniversalQuery{
         $result = SwedishPortPassengerListRecord::select('id');
 
         $exec = 0;
-        if(!empty($input['qry_first_name'])){ $result->whereFullText('first_name', $input['qry_first_name']);
+//        if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
         $exec = $exec+1;
         }
-        if(!empty($input['qry_last_name'])){ $result->whereFullText('last_name', $input['qry_last_name']);
+//        if(!empty($input['qry_last_name'])){ $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            if(!empty($input['qry_last_name'])){ $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
         $exec = $exec+1;
         }
 
@@ -178,12 +192,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -209,12 +225,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -236,12 +254,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -266,12 +286,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -288,12 +310,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -314,12 +338,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -341,12 +367,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -363,12 +391,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -390,12 +420,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -413,12 +445,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -444,12 +478,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -471,12 +507,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -498,12 +536,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -525,12 +565,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }
@@ -553,12 +595,16 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['title'])) {
-            $result->whereFullText('title', $input['title']);
+//            $result->whereFullText('title', $input['title']);
+            $result->where('title', 'like', '%'. $input['title'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['description'])) {
-            $result->whereFullText('description',  $input['description']);
+//            $result->whereFullText('description',  $input['description']);
+//            $result->whereFullText('description',  $input['description']);
+            $result->where('description', 'like', '%'. $input['description'] .'%');
+
             $exec = $exec+1;
 
         }
@@ -580,12 +626,14 @@ trait UniversalQuery{
         $exec = 0;
 
         if (!empty($input['qry_first_name'])) {
-            $result->whereFullText('first_name', $input['qry_first_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             $exec = $exec+1;
 
         }
         if (!empty($input['qry_last_name'])) {
-            $result->whereFullText('last_name',  $input['qry_last_name']);
+//            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_last_name'] .'%');
             $exec = $exec+1;
 
         }

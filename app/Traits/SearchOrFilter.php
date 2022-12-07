@@ -79,7 +79,8 @@ trait SearchOrFilter
                 if((($all_request[$queryable]['method'] == null) or Arr::exists($all_request[$queryable], 'method')) && ($field_scope == "first_name" or $field_scope == "last_name"))
                 {
 //                    return "hello 1";
-                    $result->whereFullText($field_scope, $all_request[$queryable]['value']);
+//                    $result->whereFullText($field_scope, $all_request[$queryable]['value']);
+                    $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
                 }
 //              if queryable method is (not null or not contains)
                 if(($all_request[$queryable]['method'] != null ))
