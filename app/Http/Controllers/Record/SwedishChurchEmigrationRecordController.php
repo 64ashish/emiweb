@@ -60,7 +60,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
 
-        $this->QueryMatch($quryables,$result, $all_request);
+//        $this->QueryMatch($quryables,$result, $all_request);
 
 
 

@@ -176,7 +176,7 @@ trait SearchOrFilter
 //                        $result->whereFullText($fieldname, $fieldvalue);
 //                    }
 //
-//                    if($fieldname !== 'first_name' and  $fieldname !== 'last_name' and $fieldname !== 'title' and $fieldname!=='description')
+//                    if($fieldname !== 'qry_first_name' and  $fieldname !== 'qry_last_name' and $fieldname !== 'title' and $fieldname!=='description')
 //                    {
 //
 //                        $result->where($fieldname, $fieldvalue);
