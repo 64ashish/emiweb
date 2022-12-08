@@ -74,16 +74,18 @@
 
                             <tr  @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})"
                                  class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
-                                @if(!empty($record->first_name) or !empty($record->last_name))
+{{--                                @if(!empty($record->first_name) or !empty($record->last_name))--}}
+                                    @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
+{{--                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
                                                                         font-medium  sm:pl-6 lg:pl-8">
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
-                                        <div> {{ $record->first_name }} {{ $record->last_name }}</div>
+                                        <div> {{ $record->first_name }} {{ $record->last_name }}  </div>
                                         {{--  </a>--}}
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
+                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
                                                                          hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
 
                                         {{ $record[$column]}}
@@ -94,7 +96,7 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
+                                    <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
 
                                         {{ $record[$pop_fields]}}

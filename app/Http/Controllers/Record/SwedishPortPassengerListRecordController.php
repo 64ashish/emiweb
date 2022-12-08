@@ -39,6 +39,12 @@ class  SwedishPortPassengerListRecordController extends Controller
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
+//        return $records;
+
+
+
+
+
         $keywords = $request->all();
 
 

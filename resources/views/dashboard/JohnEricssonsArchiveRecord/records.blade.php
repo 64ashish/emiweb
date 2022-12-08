@@ -12,13 +12,13 @@
                     {{ __('Search in') }}  John Ericssons samling
                 </p>
 
-                @if(auth()->user()->hasRole('regular user|subscriber'))
-                @if(isset($keywords))
-                {!! Form::model($keywords,['route' => 'jear.search']) !!}
-                @endif
-                @if(!isset($keywords))
-                {!! Form::open(['route' => 'jear.search']) !!}
-                @endif
+{{--                @if(auth()->user()->hasRole('regular user|subscriber'))--}}
+                    @if(isset($keywords))
+                    {!! Form::model($keywords,['route' => 'jear.search']) !!}
+                    @endif
+                    @if(!isset($keywords))
+                    {!! Form::open(['route' => 'jear.search']) !!}
+                    @endif
 
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4 pb-4">
                         <div class="sm:grid sm:grid-cols-3 sm:items-start">
@@ -66,7 +66,7 @@
 
 
                 {!! Form::close() !!}
-                @endif
+{{--                @endif--}}
 
             </div>
 
