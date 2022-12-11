@@ -68,7 +68,7 @@
                                :class="{ ' border-indigo-500 text-indigo-600 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
                                href="#">Media</a>
                             @endif
-                            
+
                         </nav>
                     </div>
                     <div class="py-4">
