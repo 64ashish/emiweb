@@ -245,7 +245,7 @@
 
 
     </script>
-        <script>
+    <script>
             function capture()
             {
                 html2canvas(document.querySelector("#captureThis")).then(function(canvas) {
@@ -253,6 +253,15 @@
                         window.saveAs(blob, {{ Js::from($title) }}+'.jpg');
                     });
                 });
+            }
+        </script>
+
+        <script>
+            function alpineInstance() {
+                return {
+                    // we'll set our data to hold an object
+                    bookResponse: {}
+                }
             }
         </script>
     @endif
