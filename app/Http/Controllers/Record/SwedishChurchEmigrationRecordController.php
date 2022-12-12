@@ -111,6 +111,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
             ->select('from_province')
             ->distinct()
+            ->orderBy('from_province')
             ->get()
             ->pluck('from_province','from_province')->prepend('Alla');
 
