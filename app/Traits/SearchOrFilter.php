@@ -199,12 +199,38 @@ trait SearchOrFilter
 
     private function provinces()
     {
+//        return [
+//            "Älvsborg" => "Älvsborg",
+//            "Blekinge" => "Blekinge",
+//            "Gävleborg" => "Gävleborg",
+//            "Göteborgs och Bohus" => "Göteborgs och Bohus",
+//            "Gotland" => "Gotland",
+//            "Halland" => "Halland",
+//            "Jämtland" => "Jämtland",
+//            "Jönköping" => "Jönköping",
+//            "Kalmar" => "Kalmar",
+//            "Kopparberg" => "Kopparberg",
+//            "Kristianstad" => "Kristianstad",
+//            "Kronoberg" => "Kronoberg",
+//            "Malmöhus" => "Malmöhus",
+//            "Norrbotten" => "Norrbotten",
+//            "Örebro" => "Örebro",
+//            "Östergötland" => "Östergötland",
+//            "Skaraborg" => "Skaraborg",
+//            "Södermanland" => "Södermanland",
+//            "Stockholm" => "Stockholm",
+//            "Uppsala" => "Uppsala",
+//            "Värmland" => "Värmland",
+//            "Västerbotten" => "Västerbotten",
+//            "Västernorrland" => "Västernorrland",
+//            "Västmanland" => "Västmanland"
+//        ];
+
         return [
-            "Älvsborg" => "Älvsborg",
             "Blekinge" => "Blekinge",
+            "Gotland" => "Gotland",
             "Gävleborg" => "Gävleborg",
             "Göteborgs och Bohus" => "Göteborgs och Bohus",
-            "Gotland" => "Gotland",
             "Halland" => "Halland",
             "Jämtland" => "Jämtland",
             "Jönköping" => "Jönköping",
@@ -214,16 +240,17 @@ trait SearchOrFilter
             "Kronoberg" => "Kronoberg",
             "Malmöhus" => "Malmöhus",
             "Norrbotten" => "Norrbotten",
-            "Örebro" => "Örebro",
-            "Östergötland" => "Östergötland",
             "Skaraborg" => "Skaraborg",
-            "Södermanland" => "Södermanland",
             "Stockholm" => "Stockholm",
+            "Södermanland" => "Södermanland",
             "Uppsala" => "Uppsala",
             "Värmland" => "Värmland",
             "Västerbotten" => "Västerbotten",
             "Västernorrland" => "Västernorrland",
-            "Västmanland" => "Västmanland"
+            "Västmanland" => "Västmanland",
+            "Älvsborg" => "Älvsborg",
+            "Örebro" => "Örebro",
+            "Östergötland" => "Östergötland",
         ];
     }
 }
