@@ -108,12 +108,14 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function statics(){
 
 
-        $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
-            ->select('from_province')
-            ->distinct()
-            ->orderBy('from_province')
-            ->get()
-            ->pluck('from_province','from_province')->prepend('Alla');
+//        $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
+//            ->select('from_province')
+//            ->distinct()
+//            ->orderBy('from_province')
+//            ->get()
+//            ->pluck('from_province','from_province')->prepend('Alla');
+
+        $provinces = $this->provinces() ;
 
 //        return $provinces;
         return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces'));
