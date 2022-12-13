@@ -3,11 +3,11 @@
 
 @foreach($filterAttributes as $filterAttribute)
 
-        @if($filterAttribute === "---")
-            <div class="col-span-2">
-                <hr>
-            </div>
-        @else
+{{--        @if($filterAttribute === "---")--}}
+{{--            <div class="col-span-2">--}}
+{{--                <hr>--}}
+{{--            </div>--}}
+{{--        @else--}}
 
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
 
@@ -83,7 +83,7 @@
 
                 </div>
             </div>
-        @endif
+{{--        @endif--}}
 @endforeach
 </div>
 <div  x-data="{ expanded: false }">
