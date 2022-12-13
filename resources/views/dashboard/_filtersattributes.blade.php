@@ -1,4 +1,6 @@
 <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+
+
 @foreach($filterAttributes as $filterAttribute)
     <div class="sm:grid sm:grid-cols-3 sm:items-start">
         <label for="{{ $filterAttribute }}"
@@ -47,6 +49,15 @@
             @elseif($filterAttribute === 'to_county' and isset($provinces))
                 {!! Form::select($filterAttribute,
                                 $provinces,null,
+                                [
+                                    'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                  focus:ring-indigo-500 sm:text-sm',
+                                  'placeholder' => 'Select'
+                              ]) !!}
+            @elseif($filterAttribute === 'gender' and isset($genders))
+                {!! Form::select($filterAttribute,
+                                $genders,null,
                                 [
                                     'class' => 'mt-1 block w-full rounded-md border-gray-300
                                  py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
@@ -132,6 +143,15 @@
                     @elseif($advancedField === 'to_county' and isset($provinces))
                         {!! Form::select($advancedField,
                                         $provinces,null,
+                                        [
+                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm',
+                                          'placeholder' => 'Select'
+                                      ]) !!}
+                    @elseif($advancedField === 'gender' and isset($genders))
+                        {!! Form::select($advancedField,
+                                        $genders,null,
                                         [
                                             'class' => 'mt-1 block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none

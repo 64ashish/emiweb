@@ -50,137 +50,166 @@ class SearchController extends Controller
             case(1):
                 $model = new DenmarkEmigration();
                 $viewfile = 'dashboard.denmarkemigration.records';
+                $genders = ['M','K'];
                 break;
 
             case(2):
                 $model = new SwedishAmericanChurchArchiveRecord();
                 $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(3):
                 $model = new NewYorkPassengerRecord();
                 $viewfile = 'dashboard.NewYorkPassengerRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(4):
                 $model = new SwedishPortPassengerListRecord();
                 $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(5):
+//               return "return redirect";
+//                return redirect(route('scerc.search'));
                 $model = new SwedishChurchEmigrationRecord();
                 $viewfile = 'dashboard.swedishchurchemigrationrecord.records';
+                $genders = $this->getDistinct($model, 'gender');
                 break;
 
             case(6):
                 $model = new SwedishChurchImmigrantRecord();
                 $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(7):
                 $model = new SwedishEmigrantViaKristianiaRecord();
                 $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(8):
                 $model = new SwedishImmigrationStatisticsRecord();
                 $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(9):
                 $model = new SwedishEmigrationStatisticsRecord();
                 $viewfile = 'dashboard.scbe.records';
+                $genders = ['M','K'];
                 break;
 
             case(10):
                 $model = new LarssonEmigrantPopularRecord();
                 $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(11):
                 $model = new BrodernaLarssonArchiveRecord();
                 $viewfile = 'dashboard.larsson.records';
+                $genders = ['M','K'];
                 break;
 
             case(12):
                 $model = new JohnEricssonsArchiveRecord();
                 $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(13):
                 $model = new NorwegianChurchImmigrantRecord();
                 $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(14):
                 $model = new MormonShipPassengerRecord();
                 $viewfile = 'dashboard.MormonShipPassengerRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(15):
                 $model = new SwedishAmericanMemberRecord();
                 $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(16):
                 $model = new SwedeInAlaskaRecord();
                 $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(17):
                 $model = new VarmlandskaNewspaperNoticeRecord();
                 $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(18):
                 $model = new DalslanningarBornInAmericaRecord();
                 $viewfile = 'dashboard.dbiar.records';
+                $genders = ['M','K'];
                 break;
 
             case(20):
                 $model = new NorwayEmigrationRecord();
                 $viewfile = 'dashboard.norwayemigrationrecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(21):
                 $model = new IcelandEmigrationRecord();
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(22):
                 $model = new BevaringensLevnadsbeskrivningarRecord();
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(23):
                 $model = new SwedishAmericanJubileeRecord();
                 $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
+                $genders = ['M','K'];
                 break;
 
             case(24):
 
                 $model = new SwensonCenterPhotosamlingRecord();
                 $viewfile = 'dashboard.swenphotocenter.records';
+                $genders = ['M','K'];
                 break;
 
             case(25):
                 $model = new NorthenPacificRailwayCompanyRecord();
                 $viewfile = 'dashboard.NorthPacificRailwayCo.index';
+                $genders = ['M','K'];
                 break;
 
             case(26):
                 $model = new RsPersonalHistoryRecord();
                 $viewfile = 'dashboard.rsphistory.photos';
+                $genders = ['M','K'];
                 break;
 
             case(27):
                 $model = new SwedishUsaCentersEmiPhotoRecord();
                 $viewfile = 'dashboard.suscepc.records';
+                $genders = ['M','K'];
                 break;
 
             case(28):
                 $model = new SwedishAmericanBookRecord();
                 $viewfile = 'dashboard.sabr.records';
+                $genders = ['M','K'];
                 break;
 
             default:
@@ -190,11 +219,19 @@ class SearchController extends Controller
         $filterAttributes = collect($model->defaultSearchFields());
         $enableQueryMatch =$model->enableQueryMatch();
         $provinces = $this->provinces();
-        $fields = collect($model->getFillable())
-            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-            ->flatten();
+//        $fields = collect($model->getFillable())
+//            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+//            ->flatten();
 
-
+        if(method_exists($model, 'searchFields')){
+            $fields = collect($model->searchFields())
+                ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+                ->flatten();
+        }else{
+            $fields = collect($model->getFillable())
+                ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+                ->flatten();
+        }
         if(method_exists($model, 'advancedSearchFields'))
         {
             $advancedFields = $model->advancedSearchFields();
@@ -204,7 +241,7 @@ class SearchController extends Controller
 
 
         $archive = Archive::findOrFail($archive);
-        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch', 'provinces'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch', 'provinces','genders'));
     }
 
     public function search( Request  $request)

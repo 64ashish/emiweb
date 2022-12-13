@@ -166,7 +166,7 @@ trait SearchOrFilter
 
 
                 $result->where($fieldname, $fieldvalue);
-                
+
             }
         }
         return $result->paginate(100,$fieldsToDisply);
@@ -180,33 +180,6 @@ trait SearchOrFilter
 
     private function provinces()
     {
-//        return [
-//            "Älvsborg" => "Älvsborg",
-//            "Blekinge" => "Blekinge",
-//            "Gävleborg" => "Gävleborg",
-//            "Göteborgs och Bohus" => "Göteborgs och Bohus",
-//            "Gotland" => "Gotland",
-//            "Halland" => "Halland",
-//            "Jämtland" => "Jämtland",
-//            "Jönköping" => "Jönköping",
-//            "Kalmar" => "Kalmar",
-//            "Kopparberg" => "Kopparberg",
-//            "Kristianstad" => "Kristianstad",
-//            "Kronoberg" => "Kronoberg",
-//            "Malmöhus" => "Malmöhus",
-//            "Norrbotten" => "Norrbotten",
-//            "Örebro" => "Örebro",
-//            "Östergötland" => "Östergötland",
-//            "Skaraborg" => "Skaraborg",
-//            "Södermanland" => "Södermanland",
-//            "Stockholm" => "Stockholm",
-//            "Uppsala" => "Uppsala",
-//            "Värmland" => "Värmland",
-//            "Västerbotten" => "Västerbotten",
-//            "Västernorrland" => "Västernorrland",
-//            "Västmanland" => "Västmanland"
-//        ];
-
         return [
             "Blekinge" => "Blekinge",
             "Gotland" => "Gotland",
@@ -233,5 +206,9 @@ trait SearchOrFilter
             "Örebro" => "Örebro",
             "Östergötland" => "Östergötland",
         ];
+    }
+
+    private function getDistinct($model, $fieldName){
+        return $model->select($fieldName)->distinct()->get()->pluck($fieldName);
     }
 }

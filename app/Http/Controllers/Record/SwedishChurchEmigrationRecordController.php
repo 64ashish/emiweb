@@ -33,6 +33,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 //        return $request->qry_first_name['method'];
         $all_request = $request->all();
+//        return $request;
 
 //        return $all_request['qry_first_name']['value'] ;
 
@@ -60,15 +61,9 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
 
-//        $this->QueryMatch($quryables,$result, $all_request);
+        $this->QueryMatch($quryables,$result, $all_request);
 
-
-
-        $records = $this->FilterQuery($inputFields, $this->QueryMatch($quryables,$result, $all_request), $all_request, array_keys($fieldsToDisply) );
-
-
-
-
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
         $keywords = $request->all();
 
@@ -77,7 +72,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         $filterAttributes = collect($model->defaultSearchFields());
-        $fields = collect($model->getFillable())
+        $fields = collect($model->searchFields())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
 //        $fields = collect($model->searchFields())
@@ -93,15 +88,15 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $defaultColumns;
         $archive_name = $model::findOrFail(1)->archive;
 
-
-
-
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
         $provinces = $this->provinces();
-//        return $provinces;
 
-        return view('dashboard.swedishchurchemigrationrecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch', 'provinces'))->with($request->all());
+//        eventually replace with
+        $genders = $this->getDistinct($model, 'gender');
+//        return $gender;
+
+        return view('dashboard.swedishchurchemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch', 'provinces',
+                'genders'))->with($request->all());
 
     }
 
