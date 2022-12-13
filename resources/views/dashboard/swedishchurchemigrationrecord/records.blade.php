@@ -103,6 +103,7 @@
 
 @if((Str::is('*search', Route::currentRoutename()) == true))
     <script>
+
         function data() {
             return {
                 openDetails: false,

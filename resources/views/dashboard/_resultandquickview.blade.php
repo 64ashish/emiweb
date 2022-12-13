@@ -37,7 +37,7 @@
                         @foreach($records as $record)
                             <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
                                 @if(!empty($record->first_name) or !empty($record->last_name))
-                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
                                             {{ $record->first_name }} {{ $record->last_name }}
@@ -45,7 +45,7 @@
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                          hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                             {{ $record[$column]}}
@@ -55,7 +55,7 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                             {{ $record[$pop_fields]}}
@@ -77,7 +77,7 @@
 {{--                                @if(!empty($record->first_name) or !empty($record->last_name))--}}
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
 {{--                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
-                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-sm
+                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
                                         <div> {{ $record->first_name }} {{ $record->last_name }}  </div>
@@ -85,7 +85,7 @@
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
+                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                          hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
 
                                         {{ $record[$column]}}
@@ -96,7 +96,7 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-sm
+                                    <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
 
                                         {{ $record[$pop_fields]}}
@@ -178,10 +178,10 @@
 
                             <template x-for="(value, field) in displayFields" :key="field">
 
-                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
-                                    <dt class="text-sm font-medium text-gray-500 capitalize" x-text="value">
+                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
+                                    <dt class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500 capitalize" x-text="value">
                                     </dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
+                                    <dd class="mt-1 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
                                     </dd>
                                 </div>
 

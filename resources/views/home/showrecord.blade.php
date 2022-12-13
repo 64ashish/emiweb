@@ -97,39 +97,39 @@
                             <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
                                 <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2 striped">
                                     @foreach($fields as $field)
-                                        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                            <dt class="text-sm font-medium text-gray-500">{{ __(ucfirst(str_replace('_', ' ', $field))) }}</dt>
-                                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __(ucfirst(str_replace('_', ' ', $field))) }}</dt>
+                                            <dd class="mt-1 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
                                                 {{ $detail[$field] }}
                                             </dd>
                                         </div>
                                     @endforeach
 
                                         @if($detail->archive->id == 28)
-                                            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="text-sm font-medium text-gray-500">{{ __(ucfirst('Book Title')) }}</dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __(ucfirst('Book Title')) }}</dt>
+                                                <dd class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {{ $detail->SwensonBookData->title }}
                                                 </dd>
                                             </div>
 
-                                            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="text-sm font-medium text-gray-500">{{ __(ucfirst('Author')) }}</dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] font-medium text-gray-500">{{ __(ucfirst('Author')) }}</dt>
+                                                <dd class="mt-1 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {{ $detail->SwensonBookData->author }}
                                                 </dd>
                                             </div>
 
                                             <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt class="text-sm font-medium text-gray-500">{{ __(ucfirst('Region')) }}</dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                <dt class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __(ucfirst('Region')) }}</dt>
+                                                <dd class="mt-1 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {{ $detail->SwensonBookData->region }}
                                                 </dd>
                                             </div>
 
                                             <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                                 <dt class="text-sm font-medium text-gray-500">{{ __(ucfirst('Publish date')) }}</dt>
-                                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                <dd class="mt-1 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
                                                     {{ $detail->SwensonBookData->publish_date }}
                                                 </dd>
                                             </div>
@@ -140,7 +140,7 @@
                                 </dl>
 
                                 @if(!empty($detail->user->organization))
-                                    <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+                                    <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] ">
                                             <div>ID: {{ $detail->id }}</div>
                                             <div>{{ __('Archive owner') }}: {{ $detail->user->organization->name }}</div>
                                             <div>{{ __('Email') }}: {{ $detail->user->organization->email }}</div>
@@ -189,12 +189,12 @@
                                                 <!-- Odd row -->
                                                 @foreach($detail->relatives as $relative)
                                                     <tr class="odd:bg-white even:bg-gray-100">
-                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $relative->first_name." ".$relative->last_name }}</td>
-                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->dob }}</td>
-                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->from_parish }}</td>
-                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->from_province }}</td>
-                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $relative->destination_country }}</td>
-                                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                        <td class="whitespace-nowrap  pr-3  py-[0.6rem] text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-900 sm:pl-6">{{ $relative->first_name." ".$relative->last_name }}</td>
+                                                        <td class="whitespace-nowrap px-3   py-[0.6rem] text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-500">{{ $relative->dob }}</td>
+                                                        <td class="whitespace-nowrap px-3 py-[0.6rem]  text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-500">{{ $relative->from_parish }}</td>
+                                                        <td class="whitespace-nowrap px-3  py-[0.6rem]  text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-500">{{ $relative->from_province }}</td>
+                                                        <td class="whitespace-nowrap px-3  py-[0.6rem]  text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-500">{{ $relative->destination_country }}</td>
+                                                        <td class="relative whitespace-nowrap  py-[0.6rem]  pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                             <a href=" {{ route('records.show', ['arch'=> $relative['archive'],'id'=>$relative->id]) }} " class="text-indigo-600 hover:text-indigo-900">
                                                                 Visa</a>
                                                         </td>
