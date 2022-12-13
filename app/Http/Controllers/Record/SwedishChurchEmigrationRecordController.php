@@ -80,7 +80,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 //            ->flatten();
 
 //        return $fields;
-        $advancedFields = $fields->diff($filterAttributes)->flatten();
+        $advancedFields = collect($model->searchFields());
         $defaultColumns = $model->defaultTableColumns();
 
 

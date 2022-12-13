@@ -243,7 +243,7 @@
                                              class="mx-auto max-w-4xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                                             <div>
                                                 <div  @click.away="openPhotoViewer = false">
-                                                    <div class="flex flex-col lg:flex-row">
+                                                    <div class="grid grid-cols-2 lg:flex-row">
                                                         <img :src="imageURL">
                                                         <div class="p-5 flex flex-col justify-between w-full ">
                                                             <ul class="text-sm font-medium">
