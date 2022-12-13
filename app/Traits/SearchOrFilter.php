@@ -159,33 +159,14 @@ trait SearchOrFilter
 
 
 //            for everything else
-            else{
+            elseif($fieldname === "memo")
+            {
+                $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
+            }else{
+
+
                 $result->where($fieldname, $fieldvalue);
-
-
-
-
-//                if($all_request['action']==="filter"){
-//                    $result->where($fieldname, $fieldvalue);
-//                }
-//                if($all_request['action']==="search"){
-////
-//
-//                    if($fieldname === 'first_name' or  $fieldname === 'last_name' or $fieldname === 'title' or $fieldname==='description')
-//
-//                        $result->whereFullText($fieldname, $fieldvalue);
-//                    }
-//
-//                    if($fieldname !== 'qry_first_name' and  $fieldname !== 'qry_last_name' and $fieldname !== 'title' and $fieldname!=='description')
-//                    {
-//
-//                        $result->where($fieldname, $fieldvalue);
-//                    }
-//
-//
-//
-//
-//
+                
             }
         }
         return $result->paginate(100,$fieldsToDisply);
