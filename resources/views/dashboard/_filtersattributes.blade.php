@@ -120,6 +120,15 @@
                                           focus:ring-indigo-500 sm:text-sm',
                                           'placeholder' => 'Select'
                                       ]) !!}
+                    @elseif($advancedField === 'birth_province' and isset($provinces))
+                        {!! Form::select($advancedField,
+                                        $provinces,null,
+                                        [
+                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm',
+                                          'placeholder' => 'Select'
+                                      ]) !!}
                     @elseif($advancedField === 'to_county' and isset($provinces))
                         {!! Form::select($advancedField,
                                         $provinces,null,
