@@ -209,6 +209,6 @@ trait SearchOrFilter
     }
 
     private function getDistinct($model, $fieldName){
-        return $model->select($fieldName)->distinct()->get()->pluck($fieldName);
+        return $model->select($fieldName)->distinct()->get()->pluck($fieldName,$fieldName);
     }
 }
