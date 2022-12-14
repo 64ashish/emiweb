@@ -48,6 +48,7 @@ use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\UserOrganizationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Subscription;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -74,8 +75,9 @@ Route::middleware(['auth','isActive', 'verified'])->post('/language', [HomeContr
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
 
+        $request->fulfill();
+        Auth::user()->status = 1;
         return redirect('/home');
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
