@@ -212,11 +212,11 @@
                                         <ul  @click="openPhotoViewer =! openPhotoViewer, openPhoto({{ $record->id  }})"
                                                 id="results-row"
                                             class="inline-flex odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
-                                            <li class="w-1/3 py-2 pl-4 pr-3 text-sm font-medium  sm:pl-6 lg:pl-8">{{ $record->title }}</li>
-                                            <li class="w-1/3 py-2 pl-4 pr-3 text-sm font-medium  sm:pl-6 lg:pl-8">{{ $record->description }}</li>
-                                            <li class="w-1/4 py-2 pl-4 pr-3 text-sm font-medium  sm:pl-6 lg:pl-8">{{ $record->persons_on_photo }}</li>
-                                            <li class="w-1/6 py-2 pl-4 pr-3 text-sm font-medium  sm:pl-6 lg:pl-8">{{ $record->photographer }}</li>
-                                            <li  class="w-1/6 py-2 pl-4 pr-3 text-sm font-medium  sm:pl-6 lg:pl-8">{{ $record->time_period }}</li>
+                                            <li class="w-1/3  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->title }}</li>
+                                            <li class="w-1/3  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->description }}</li>
+                                            <li class="w-1/4  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->persons_on_photo }}</li>
+                                            <li class="w-1/6  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->photographer }}</li>
+                                            <li  class="w-1/6  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->time_period }}</li>
 
                                         </ul>
                                         @endforeach
