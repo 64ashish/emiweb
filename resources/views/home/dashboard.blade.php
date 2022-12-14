@@ -17,7 +17,7 @@
                                             <li class="odd:bg-white even:bg-gray-100 px-6 py-4">
                                                 <div class="flex justify-between">
                                                     <div class="flex items-center">
-                                                        <div class="pr-2">#
+                                                        <div class="pr-2">
                                                             <a href="{{ route('records', $archive) }}"> {{ $archive->name }}</a>
                                                         </div>
                                                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
