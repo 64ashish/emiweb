@@ -18,7 +18,7 @@ class UserIsActive
     public function handle(Request $request, Closure $next)
     {
 
-        if (Auth::user() &&  Auth::user()->email_varified_at != null) {
+        if (Auth::user() &&  Auth::user()->status == 1) {
             return $next($request);
         }
 

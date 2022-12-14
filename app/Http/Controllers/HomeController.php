@@ -122,7 +122,7 @@ class HomeController extends Controller
         $validate = $request->validate([
             'language' => 'required|in:sv,en|max:2',
         ]);
-        
+
 
 
         if($validate) {
