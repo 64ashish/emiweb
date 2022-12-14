@@ -122,10 +122,7 @@ class HomeController extends Controller
         $validate = $request->validate([
             'language' => 'required|in:sv,en|max:2',
         ]);
-
-//        return $request->all();
-
-
+        
 
 
         if($validate) {
@@ -134,37 +131,7 @@ class HomeController extends Controller
 
            return  redirect('/')->with('success', 'Language has been switched');
 
-//            if($request->action === "search" or $request->action === "filter"){
-////                return redirect()->to();
-//
-//
-//            }
-//            if($request->action) {
-//                $url = back();
-//            }
-//
-//            if(!$request->action) {
-//                $url = url()->previous()."?".http_build_query(request()->except(['_token','language']));
-//            }
-//            $url = back();
 
-//            return url()->to($url, http_build_query(request()->except(['_token','language'])));
-
-//            return $final;
-
-//            return redirect()->to($url);
-
-
-//            return $url;
-
-//            return redirect($url, '302', request()->except(['_token']));
-//            return redirect()->to(url()->previous(), request()->except(['_token']));
-
-//            $inputs = request()->except(['_token']);
-//            return back()->withInput($inputs);
-//            return $url;
-
-//            dd(app()->getLocale());
         }
 
     }
