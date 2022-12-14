@@ -68,17 +68,21 @@ class SwedishEmigrantViaKristianiaRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
+            'age',
             'profession',
             'home_location',
-            'destination',
             'departure_date',
+            'destination',
+            'ship',
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'profession',
             'age',
             'home_location',
@@ -94,6 +98,15 @@ class SwedishEmigrantViaKristianiaRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 

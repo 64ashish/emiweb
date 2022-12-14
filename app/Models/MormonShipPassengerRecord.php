@@ -93,21 +93,23 @@ class MormonShipPassengerRecord extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
-            'nationality',
+            'first_name',
+            'last_name',
             'residence',
             'residence_country',
-            'birth_place',
-            'birth_country',
+            'profession',
             'departure_year',
-            'destination',
-            'gender',
+            'departure_month',
+            'departure_day',
+            'conference',
+            'destination'
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'nationality',
             'residence',
             'residence_country',
@@ -123,11 +125,20 @@ class MormonShipPassengerRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
         ];
     }
 
     public function getDepartureDateAttribute(){
         return $this->departure_year ."/".$this->departure_month."/".$this->departure_day;
+    }
+
+    public function searchFields()
+    {
+        return [
+
+        ];
     }
 
 }

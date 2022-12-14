@@ -64,8 +64,8 @@ class DenmarkEmigration extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'sex',
             'birth_place',
             'profession',
@@ -77,12 +77,10 @@ class DenmarkEmigration extends Model
 
     public function defaultTableColumns(){
         return [
-            'birth_place',
-            'sex',
-            'last_resident',
+            'age',
             'profession',
-            'destination_city',
-            'destination_country',
+            'birth_place',
+            'last_resident',
         ];
     }
 
@@ -97,7 +95,19 @@ class DenmarkEmigration extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
         ];
     }
+
+    public function searchFields()
+    {
+        return [
+            'traveled_on',
+            'destination_country',
+            'destination_city'
+        ];
+    }
+
 
 }

@@ -99,8 +99,8 @@ class BrodernaLarssonArchiveRecord extends Model
 
     public function defaultTableColumns(){
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'home_location',
             'home_parish',
             'home_county',
@@ -112,15 +112,11 @@ class BrodernaLarssonArchiveRecord extends Model
 
     public function defaultSearchFields(){
         return [
-
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'home_location',
             'home_parish',
-            'home_county',
-            'home_country',
-            'gender',
-            'profession'
+            'profession',
         ];
     }
 
@@ -130,6 +126,22 @@ class BrodernaLarssonArchiveRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+//    public function searchFields()
+//    {
+//        return [];
+//    }
+
+    public function searchFields()
+    {
+        return [
+            'letter_date',
+            'source_code',
+            'geographical_extent',
         ];
     }
 

@@ -223,18 +223,14 @@ class SearchController extends Controller
 //            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
 //            ->flatten();
 
-        if(method_exists($model, 'searchFields')){
-            $fields = collect($model->searchFields())
-                ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-                ->flatten();
-        }else{
-            $fields = collect($model->getFillable())
-                ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-                ->flatten();
-        }
-        if(method_exists($model, 'advancedSearchFields'))
+
+        $fields = collect($model->getFillable())
+            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
+            ->flatten();
+
+        if(method_exists($model, 'searchFields'))
         {
-            $advancedFields = $model->advancedSearchFields();
+            $advancedFields = $model->searchFields();
         }else{
             $advancedFields = $fields->diff($filterAttributes)->flatten();
         }

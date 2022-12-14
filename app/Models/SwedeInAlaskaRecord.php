@@ -118,33 +118,33 @@ class SwedeInAlaskaRecord extends Model
     }
 
     /**public function archive()
-    {
-    return $this->belongsTo(Archive::class);
-    }
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    * {
+    * return $this->belongsTo(Archive::class);
+    * }
+     * @return string[]
      */
 
 
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
+            'birth_date',
             'birth_location',
             'birth_country',
-            'birth_date',
-            'gender',
-            'to_america_date',
-            'to_america_location',
-            'arrival_date_alaska',
-            'arrival_location_alaska',
             'profession',
-            'address',
+            'to_america_location',
+            'to_america_date',
+            'arrival_location_alaska',
+            'arrival_date_alaska',
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'birth_location',
             'birth_country',
             'gender',
@@ -172,6 +172,15 @@ class SwedeInAlaskaRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

@@ -18,47 +18,6 @@
                         {!! Form::open(['route' => 'sisrc.search'])  !!}
                     @endif
 
-                <div class="grid grid-cols-2 gap-x-6 gap-y-4 pb-4">
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="qry_first_name[]" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('First name') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2 flex gap-x-2">
-
-                            {!! Form::text('qry_first_name[value]', null,
-                            ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                            'id' => 'first_name']) !!}
-
-                            {!! Form::select('qry_first_name[method]', [
-                                        null => 'Innehåller',
-                                        'start' => 'Börjar med',
-                                        'end' => 'Slutar med',
-                                        'exact' => 'Exakt'
-                                        ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="last_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Last name') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2 flex gap-x-2">
-
-                            {!! Form::text('qry_last_name[value]', null,
-                            ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                            'id' => 'last_name']) !!}
-
-                            {!! Form::select('qry_last_name[method]', [
-                                        null => 'Innehåller',
-                                        'start' => 'Börjar med',
-                                        'end' => 'Slutar med',
-                                        'exact' => 'Exakt'
-                                        ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
-                        </div>
-                    </div>
-                </div>
 
                         @include('dashboard._filtersattributes')
 

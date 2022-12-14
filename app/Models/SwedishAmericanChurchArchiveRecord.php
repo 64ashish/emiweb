@@ -127,18 +127,18 @@ class SwedishAmericanChurchArchiveRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
-            'gender',
+            'first_name',
+            'last_name',
+            'last_name2',
             'birth_date',
+            'birth_year',
+            'birth_month',
+            'birth_day',
             'birth_parish',
             'birth_province',
             'immigration_date',
             'emigration_parish',
             'emigration_province',
-            'arrival_date_this_place',
-            'arrived_from_county',
-            'arrived_from_state'
         ];
     }
 
@@ -160,6 +160,8 @@ class SwedishAmericanChurchArchiveRecord extends Model
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'last_name2',
             'gender',
             'civil_status',
@@ -180,6 +182,15 @@ class SwedishAmericanChurchArchiveRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

@@ -72,14 +72,6 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 
         $filterAttributes = collect($model->defaultSearchFields());
-//        $fields = collect($model->searchFields())
-//            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-//            ->flatten();
-//        $fields = collect($model->searchFields())
-//            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-//            ->flatten();
-
-//        return $fields;
         $advancedFields = collect($model->searchFields());
         $defaultColumns = $model->defaultTableColumns();
 

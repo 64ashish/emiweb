@@ -34,4 +34,20 @@ class ScercPhotoRecord extends Model
         return [
         ];
     }
+
+    public function searchFields()
+    {
+        return [
+            'old_id',
+            'title',
+            'description',
+            'time_period',
+            'country',
+            'state_province_county',
+            'locality',
+            'persons_on_photo',
+            'photographer',
+            'archive_reference'
+        ];
+    }
 }

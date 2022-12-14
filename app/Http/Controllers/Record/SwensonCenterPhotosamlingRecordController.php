@@ -35,11 +35,7 @@ class SwensonCenterPhotosamlingRecordController extends Controller
 
 
         $filterAttributes = collect($model->defaultSearchFields());
-
-        $fields = collect($model->getFillable())
-            ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
-            ->flatten();
-        $advancedFields = $fields->diff($filterAttributes)->flatten();
+        $advancedFields = collect($model->searchFields());
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))
             ->except($defaultColumns )->keys();

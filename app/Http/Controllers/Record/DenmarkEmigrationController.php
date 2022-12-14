@@ -135,11 +135,8 @@ class DenmarkEmigrationController extends Controller
 //            ->getFilterableAttributes();
 
         $filterAttributes = collect($model->defaultSearchFields());
+        $advancedFields = collect($model->searchFields());
 
-        $fields = collect($model->getFillable())
-            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-            ->flatten();
-        $advancedFields = $fields->diff($filterAttributes)->flatten();
         $defaultColumns = $model->defaultTableColumns();
 //
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();

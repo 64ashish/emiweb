@@ -18,7 +18,7 @@ class JohnEricssonsArchiveRecord extends Model
         'first_name',
         'last_name',
         'other_name',
-        'Description',
+        'description',
         'date',
         'roll_no',
         'file_name'
@@ -32,7 +32,7 @@ class JohnEricssonsArchiveRecord extends Model
             'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name' ))),
             'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name' ))),
             'other_name'=>__(ucfirst(str_replace('_', ' ', 'other_name' ))),
-            'Description'=>__(ucfirst(str_replace('_', ' ', 'Description' ))),
+            'description'=>__(ucfirst(str_replace('_', ' ', 'Description' ))),
             'date'=>__(ucfirst(str_replace('_', ' ', 'date' ))),
             'roll_no'=>__(ucfirst(str_replace('_', ' ', 'roll_no' ))),
             'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
@@ -58,7 +58,7 @@ class JohnEricssonsArchiveRecord extends Model
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'other_name' => $this->other_name,
-            'Description' => $this->Description,
+            'description' => $this->Description,
             'date' => $this->date,
             'roll_no' => $this->roll_no,
             'file_name' => $this->file_name
@@ -67,10 +67,10 @@ class JohnEricssonsArchiveRecord extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'other_name',
-            'Description',
+            'description',
             'date',
             'roll_no',
         ];
@@ -78,8 +78,10 @@ class JohnEricssonsArchiveRecord extends Model
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'other_name',
-            'Description',
+            'description',
             'date',
             'roll_no',
         ];
@@ -91,6 +93,15 @@ class JohnEricssonsArchiveRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

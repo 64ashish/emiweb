@@ -56,10 +56,10 @@ class SwensonCenterPhotosamlingRecord extends Model
     public function defaultSearchFields(){
         return [
             'title',
-            'photographer',
-            'studio',
+            'description',
             'place',
-            'collection_name'
+            'datum',
+            'photographer',
 //            'film_number',
         ];
     }
@@ -86,6 +86,15 @@ class SwensonCenterPhotosamlingRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

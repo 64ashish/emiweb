@@ -55,12 +55,7 @@ class BrodernaLarssonArchiveRecordController extends Controller
 
 
         $filterAttributes = collect($model->defaultSearchFields());
-
-        $fields = collect($model->getFillable())
-            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-            ->flatten();
-
-        $advancedFields = $fields->diff($filterAttributes)->flatten();
+        $advancedFields = collect($model->searchFields());
 
         $defaultColumns = $model->defaultTableColumns();
 

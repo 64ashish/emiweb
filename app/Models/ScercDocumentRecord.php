@@ -23,4 +23,14 @@ class ScercDocumentRecord extends Model
     {
         return $this->belongsTo(SwedishChurchEmigrationRecord::class);
     }
+
+    public function searchFields()
+    {
+        return [
+            'type',
+            'description',
+            'time_period',
+            'archive_reference'
+        ];
+    }
 }

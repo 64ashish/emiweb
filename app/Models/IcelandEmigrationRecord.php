@@ -122,19 +122,23 @@ class IcelandEmigrationRecord extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
+            'profession',
             'date_of_birth',
             'place_of_birth',
+            'departure',
             'destination_country',
             'destination_location',
-            'departure',
-            'profession'
+            'death_date',
+            'death_location'
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'date_of_birth',
             'place_of_birth',
             'destination_country',
@@ -150,6 +154,13 @@ class IcelandEmigrationRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
         ];
+    }
+
+    public function searchFields()
+    {
+        return [];
     }
 }

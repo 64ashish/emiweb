@@ -58,23 +58,22 @@ class SwedishAmericanBookRecord extends Model
             'last_name',
             'birth_date',
             'birth_place',
-//            'residence_city',
-//            'county',
-//            'state',
-//            'page_reference',
+            'residence_city',
+            'county',
+            'state'
         ];
     }
 
     public function defaultTableColumns(){
         return [
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'birth_date',
             'birth_place',
             'residence_city',
-//            'county',
-//            'state',
-//            'page_reference',
+            'county',
+            'state',
+            'page_reference',
         ];
     }
 
@@ -93,6 +92,15 @@ class SwedishAmericanBookRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

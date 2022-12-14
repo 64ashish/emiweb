@@ -77,16 +77,21 @@ class VarmlandskaNewspaperNoticeRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
+            'article_year',
+            'article_month',
+            'article_day',
+            'death_parish',
+            'death_country',
             'places',
-            'birth_year',
-            'birth_location',
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'newspaper',
             'article_year',
             'places',
@@ -102,6 +107,15 @@ class VarmlandskaNewspaperNoticeRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

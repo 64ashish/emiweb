@@ -38,7 +38,6 @@ class RsPersonalHistoryRecord extends Model
         return [
             'name',
             'source',
-
             'profession',
             'country',
             'filename'
@@ -47,12 +46,10 @@ class RsPersonalHistoryRecord extends Model
 
     public function defaultSearchFields(){
         return [
-
             'name',
             'source',
             'profession',
-            'country',
-            'filename'
+            'country'
         ];
     }
 
@@ -77,6 +74,14 @@ class RsPersonalHistoryRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

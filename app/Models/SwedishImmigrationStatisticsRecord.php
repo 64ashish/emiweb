@@ -96,21 +96,24 @@ class SwedishImmigrationStatisticsRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
-            'profession',
-
+            'first_name',
+            'last_name',
             'birth_year',
-            'from_country',
-            'nationality',
-            'sex',
-            'to_province',
+            'birth_month',
+            'birth_day',
+            'profession',
             'to_parish',
+            'to_province',
+            'to_year',
+            'from_country',
         ];
     }
 
     public function defaultTableColumns(){
-        return [ 'profession',
+        return [
+//            'first_name',
+//            'last_name',
+            'profession',
             'birth_year',
             'from_country',
             'nationality',
@@ -121,6 +124,15 @@ class SwedishImmigrationStatisticsRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 

@@ -135,26 +135,27 @@ class SwedishChurchImmigrantRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//        'first_name',
-//        'last_name',
-        'profession',
-        'to_parish',
-        'to_county',
-        'to_date',
-        'to_location',
-        'from_location',
-        'from_date',
-        'sex',
-        'birth_date',
-        'birth_parish',
-        'birth_county',
-        'birth_location',
-        'birth_country'
+            'first_name',
+            'last_name',
+            'birth_date',
+            'birth_parish',
+            'birth_county',
+            'to_date',
+            'to_location',
+            'to_parish',
+            'to_county',
+            'birth_country',
+            'from_country_code',
+            'from_date',
+            'from_location',
+
             ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'profession',
             'to_location',
             'from_location',
@@ -225,6 +226,40 @@ class SwedishChurchImmigrantRecord extends Model
             'to_parish',
             'from_country_code',
             'birth_location'
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+            'profession',
+            'sex',
+            'civil_status',
+            'alone_or_family',
+            'birth_location',
+            'farm_name',
+            '---',
+            'main_act',
+            'act_nr',
+            'nr_in_immigration_book',
+            '---',
+            'comment',
+            'notes',
+            '---',
+            'before_from_date',
+            'before_from_parish',
+            'before_from_act_nr',
+            'again_to_date',
+            'again_to_country',
+            'again_to_act_nr',
+            '---',
+            'source',
+            'page_in_original',
+            'source_hfl_batch_nr',
+            'source_hfl_image_nr',
+            'source_in_out_batch_nr',
+            'source_in_out_image_nr',
+            'secrecy',
         ];
     }
 

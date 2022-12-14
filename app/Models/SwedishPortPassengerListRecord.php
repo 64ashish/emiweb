@@ -88,21 +88,20 @@ class SwedishPortPassengerListRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
-            'age',
-            'sex',
-            'profession',
+            'first_name',
+            'last_name',
             'departure_date',
             'departure_parish',
-            'destination',
             'departure_county',
             'departure_port',
+            'source_reference',
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'age',
             'sex',
             'profession',
@@ -113,6 +112,15 @@ class SwedishPortPassengerListRecord extends Model
     }
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

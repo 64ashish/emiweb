@@ -169,17 +169,22 @@ class NewYorkPassengerRecord extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
-            'gender',
-            'nativity',
+            'first_name',
+            'last_name',
             'birth_date',
-            'archive_location',
+            'port_of_departure',
+            'port_of_arrival',
+            'arrival_year',
+            'arrival_month',
+            'arrival_day',
+            'place_of_origin'
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'gender',
             'ethnicity_nationality',
             'birthday',
@@ -194,6 +199,15 @@ class NewYorkPassengerRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

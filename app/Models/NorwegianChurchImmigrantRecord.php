@@ -118,26 +118,22 @@ class NorwegianChurchImmigrantRecord extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'birth_date',
-            'sex',
-            'profession',
-            'from_country',
-            'to_date',
-            'to_location',
-            'birth_location',
-            'baptism_date',
-            'baptism_location',
             'birth_country',
-            'baptism_country',
-            'from_county',
-            'from_location',
+            'birth_location',
+            'registered_date',
+            'to_fylke',
+            'to_location',
+
         ];
     }
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             'sex',
             'profession',
             'from_country',
@@ -158,6 +154,20 @@ class NorwegianChurchImmigrantRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+            'sex',
+            'from_country',
+            'from_county',
+            'comment',
+            'profession',
+            'civil_status'
         ];
     }
 }

@@ -62,8 +62,8 @@ class SwedishAmericanJubileeRecord extends Model
     public function defaultSearchFields()
     {
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             "title",
             "time_period",
             "state",
@@ -74,6 +74,8 @@ class SwedishAmericanJubileeRecord extends Model
 
     public function defaultTableColumns(){
         return [
+//            'first_name',
+//            'last_name',
             "title",
             "state",
             "county",
@@ -94,6 +96,15 @@ class SwedishAmericanJubileeRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

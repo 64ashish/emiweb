@@ -55,8 +55,8 @@ class LarssonEmigrantPopularRecord extends Model
 
     public function defaultSearchFields(){
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'profession',
             'home_location',
             'home_parish',
@@ -66,11 +66,13 @@ class LarssonEmigrantPopularRecord extends Model
 
     public function defaultTableColumns(){
         return [
-            'profession',
+//            'first_name',
+//            'last_name',
             'home_location',
             'home_parish',
+            'profession',
             'home_province',
-            'letter_date',
+            'source_code',
         ];
     }
 
@@ -80,6 +82,15 @@ class LarssonEmigrantPopularRecord extends Model
 
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }

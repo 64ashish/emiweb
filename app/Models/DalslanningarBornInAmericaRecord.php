@@ -40,9 +40,8 @@ class DalslanningarBornInAmericaRecord extends Model
 
     public function defaultTableColumns(){
         return [
-
-            'first_name',
-            'last_name',
+//            'first_name',
+//            'last_name',
             'birth_date',
             'birth_place',
             'profession',
@@ -67,11 +66,12 @@ class DalslanningarBornInAmericaRecord extends Model
     public function defaultSearchFields(){
         return [
 
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'birth_date',
             'birth_place',
-            'profession',
+            'death_date',
+            'death_place',
         ];
     }
 
@@ -80,6 +80,15 @@ class DalslanningarBornInAmericaRecord extends Model
     }
     public function enableQueryMatch(){
         return [
+            'first_name',
+            'last_name',
+        ];
+    }
+
+    public function searchFields()
+    {
+        return [
+
         ];
     }
 }
