@@ -187,8 +187,8 @@
  "Payed amount":"Betalt belopp",
  "Permissions":"Behörigheter",
  "Photo":"Foto",
- "Place":"Logeplats",
- "Places":"Logeplats",
+ "Place":"Plats",
+ "Places":"Platser",
  "Place of birth":"Födelseförsamling",
  "Postal adress":"Postadress",
  "Profession":"Yrke",
@@ -337,5 +337,9 @@
  "Search Statistics": "Sök statistik",
  "Record year": "Årsintervall",
  "Download image": "Ladda ner bild",
- "Click to read more": "Klicka för att läsa mer"
+ "Click to read more": "Klicka för att läsa mer",
+ "Collection name": "Beskrivning",
+ "Photographer": "Fotograf",
+ "Title": "Titel"
+
 }
