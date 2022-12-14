@@ -3,11 +3,11 @@
 
 @foreach($filterAttributes as $filterAttribute)
 
-{{--        @if($filterAttribute === "---")--}}
-{{--            <div class="col-span-2">--}}
-{{--                <hr>--}}
-{{--            </div>--}}
-{{--        @else--}}
+        @if($filterAttribute === "---")
+            <div class="col-span-2">
+                <hr>
+            </div>
+        @else
 
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
 
@@ -83,119 +83,124 @@
 
                 </div>
             </div>
-{{--        @endif--}}
+        @endif
 @endforeach
 </div>
-<div  x-data="{ expanded: false }">
-    <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center cursor-pointer">
 
-           <span x-show="expanded">
-               {{ __("Hide advanced search") }}
-           </span>
-            <span x-show="! expanded">
+@if(count($advancedFields)>0)
+    <div  x-data="{ expanded: false }">
+        <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center cursor-pointer">
 
-            {{ __("Show advanced search") }}
-           </span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
+               <span x-show="expanded">
+                   {{ __("Hide advanced search") }}
+               </span>
+                <span x-show="! expanded">
+
+                {{ __("Show advanced search") }}
+               </span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
 
 
-    </a>
-    <div class="grid grid-cols-2 gap-x-6 gap-y-4" x-show="expanded" x-collapse.duration.1000ms>
+        </a>
 
-        @foreach($advancedFields as $advancedField)
-            @if($advancedField === "---")
-                <div class="col-span-2">
-                    <hr>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-4" x-show="expanded" x-collapse.duration.1000ms>
+
+            @foreach($advancedFields as $advancedField)
+                @if($advancedField === "---")
+                    <div class="col-span-2">
+                        <hr>
+                    </div>
+                @else
+                <div class="sm:grid sm:grid-cols-3 sm:items-start">
+                    <label for="{{ $advancedField }}"
+                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        {{ __(ucfirst(str_replace('_', ' ', $advancedField))) }} </label>
+                    <div class="mt-1 sm:mt-0 sm:col-span-2   flex gap-x-2">
+
+                        @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
+                            <div class="flex gap-2">
+                                {!! Form::text("array_".$advancedField."[year]", null,
+                               ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                               sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                               'id' => $advancedField."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
+                                {!! Form::text("array_".$advancedField."[month]", null,
+                               ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                               sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                               'id' => $advancedField."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
+                                {!! Form::text("array_".$advancedField."[day]", null,
+                               ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                               sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                               'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
+                            </div>
+                        @elseif($advancedField === 'from_province' and isset($provinces))
+                            {!! Form::select($advancedField,
+                                            $provinces,null,
+                                            [
+                                                'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                             py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                              focus:ring-indigo-500 sm:text-sm',
+                                              'placeholder' => 'Select'
+                                          ]) !!}
+                        @elseif($advancedField === 'birth_province' and isset($provinces))
+                            {!! Form::select($advancedField,
+                                            $provinces,null,
+                                            [
+                                                'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                             py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                              focus:ring-indigo-500 sm:text-sm',
+                                              'placeholder' => 'Select'
+                                          ]) !!}
+                        @elseif($advancedField === 'to_county' and isset($provinces))
+                            {!! Form::select($advancedField,
+                                            $provinces,null,
+                                            [
+                                                'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                             py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                              focus:ring-indigo-500 sm:text-sm',
+                                              'placeholder' => 'Select'
+                                          ]) !!}
+                        @elseif($advancedField === 'gender' and isset($genders))
+                            {!! Form::select($advancedField,
+                                            $genders,null,
+                                            [
+                                                'class' => 'mt-1 block w-full rounded-md border-gray-300
+                                             py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                              focus:ring-indigo-500 sm:text-sm',
+                                              'placeholder' => 'Select'
+                                          ]) !!}
+
+                        @elseif(in_array($advancedField, $enableQueryMatch))
+                                {!! Form::text('qry_'.$advancedField.'[value]', null,
+                                                ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                 sm:text-sm border-gray-300 rounded-md',
+                                                'id' => $advancedField.'_value']) !!}
+
+                                {!! Form::select('qry_'.$advancedField.'[method]', [
+                                            null => 'Innehåller',
+                                            'start' => 'Börjar med',
+                                            'end' => 'Slutar med',
+                                            'exact' => 'Exakt'
+                                            ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                 sm:text-sm border-gray-300 rounded-md']); !!}
+                        @else
+                            {!! Form::text($advancedField, null,
+                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                             sm:text-sm border-gray-300 rounded-md',
+                            'id' => $advancedField]) !!}
+                        @endif
+
+
+
+                    </div>
                 </div>
-            @else
-            <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                <label for="{{ $advancedField }}"
-                       class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                    {{ __(ucfirst(str_replace('_', ' ', $advancedField))) }} </label>
-                <div class="mt-1 sm:mt-0 sm:col-span-2   flex gap-x-2">
+                @endif
+            @endforeach
+        </div>
 
-                    @if(str_contains(str_replace('_', ' ', $advancedField), 'date') or $advancedField === "dob")
-                        <div class="flex gap-2">
-                            {!! Form::text("array_".$advancedField."[year]", null,
-                           ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                           'id' => $advancedField."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
-                            {!! Form::text("array_".$advancedField."[month]", null,
-                           ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                           'id' => $advancedField."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
-                            {!! Form::text("array_".$advancedField."[day]", null,
-                           ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                           'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
-                        </div>
-                    @elseif($advancedField === 'from_province' and isset($provinces))
-                        {!! Form::select($advancedField,
-                                        $provinces,null,
-                                        [
-                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
-                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
-                                          focus:ring-indigo-500 sm:text-sm',
-                                          'placeholder' => 'Select'
-                                      ]) !!}
-                    @elseif($advancedField === 'birth_province' and isset($provinces))
-                        {!! Form::select($advancedField,
-                                        $provinces,null,
-                                        [
-                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
-                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
-                                          focus:ring-indigo-500 sm:text-sm',
-                                          'placeholder' => 'Select'
-                                      ]) !!}
-                    @elseif($advancedField === 'to_county' and isset($provinces))
-                        {!! Form::select($advancedField,
-                                        $provinces,null,
-                                        [
-                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
-                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
-                                          focus:ring-indigo-500 sm:text-sm',
-                                          'placeholder' => 'Select'
-                                      ]) !!}
-                    @elseif($advancedField === 'gender' and isset($genders))
-                        {!! Form::select($advancedField,
-                                        $genders,null,
-                                        [
-                                            'class' => 'mt-1 block w-full rounded-md border-gray-300
-                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
-                                          focus:ring-indigo-500 sm:text-sm',
-                                          'placeholder' => 'Select'
-                                      ]) !!}
-
-                    @elseif(in_array($advancedField, $enableQueryMatch))
-                            {!! Form::text('qry_'.$advancedField.'[value]', null,
-                                            ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                             sm:text-sm border-gray-300 rounded-md',
-                                            'id' => $advancedField.'_value']) !!}
-
-                            {!! Form::select('qry_'.$advancedField.'[method]', [
-                                        null => 'Innehåller',
-                                        'start' => 'Börjar med',
-                                        'end' => 'Slutar med',
-                                        'exact' => 'Exakt'
-                                        ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                             sm:text-sm border-gray-300 rounded-md']); !!}
-                    @else
-                        {!! Form::text($advancedField, null,
-                        ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                         sm:text-sm border-gray-300 rounded-md',
-                        'id' => $advancedField]) !!}
-                    @endif
-
-
-
-                </div>
-            </div>
-            @endif
-        @endforeach
     </div>
-</div>
+@endif
 
 
 <div class="sm:flex justify-end pt-4 gap-x-5">

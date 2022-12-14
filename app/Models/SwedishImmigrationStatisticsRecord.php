@@ -102,6 +102,7 @@ class SwedishImmigrationStatisticsRecord extends Model
             'birth_month',
             'birth_day',
             'profession',
+            '---',
             'to_parish',
             'to_province',
             'to_year',

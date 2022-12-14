@@ -140,6 +140,7 @@ class SwedishChurchImmigrantRecord extends Model
             'birth_date',
             'birth_parish',
             'birth_county',
+            '---',
             'to_date',
             'to_location',
             'to_parish',

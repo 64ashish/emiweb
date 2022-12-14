@@ -134,6 +134,7 @@ class SwedeInAlaskaRecord extends Model
             'birth_location',
             'birth_country',
             'profession',
+            '---',
             'to_america_location',
             'to_america_date',
             'arrival_location_alaska',

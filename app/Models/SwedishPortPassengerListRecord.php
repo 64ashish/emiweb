@@ -92,6 +92,7 @@ class SwedishPortPassengerListRecord extends Model
             'last_name',
             'departure_date',
             'departure_parish',
+            '---',
             'departure_county',
             'departure_port',
             'source_reference',

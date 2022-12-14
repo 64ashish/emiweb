@@ -66,11 +66,14 @@ class DenmarkEmigration extends Model
         return [
             'first_name',
             'last_name',
-            'sex',
-            'birth_place',
+            'age',
             'profession',
+            'birth_place',
+            'last_resident',
+            '---',
+            'traveled_on',
+            'destination_country',
             'destination_city',
-            'destination_country'
         ];
     }
 
@@ -103,9 +106,7 @@ class DenmarkEmigration extends Model
     public function searchFields()
     {
         return [
-            'traveled_on',
-            'destination_country',
-            'destination_city'
+
         ];
     }
 

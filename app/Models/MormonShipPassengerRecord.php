@@ -98,11 +98,12 @@ class MormonShipPassengerRecord extends Model
             'residence',
             'residence_country',
             'profession',
+            '---',
             'departure_year',
             'departure_month',
             'departure_day',
             'conference',
-            'destination'
+            'destination',
         ];
     }
 

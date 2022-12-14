@@ -173,11 +173,12 @@ class NewYorkPassengerRecord extends Model
             'last_name',
             'birth_date',
             'port_of_departure',
+            '---'.
             'port_of_arrival',
             'arrival_year',
             'arrival_month',
             'arrival_day',
-            'place_of_origin'
+            'place_of_origin',
         ];
     }
 

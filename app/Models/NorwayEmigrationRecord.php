@@ -98,9 +98,10 @@ class NorwayEmigrationRecord extends Model
             'birth_date',
             'birth_country',
             'birth_location',
-            'from_date',
-            'from_region',
-            'from_location',
+            '---',
+            'registered_date',
+            'to_fylke',
+            'to_location',
         ];
     }
     public function defaultTableColumns(){
@@ -130,10 +131,11 @@ class NorwayEmigrationRecord extends Model
     {
         return [
             'sex',
-            'destination_country',
+            'from_country',
+            'from_county',
             'comment',
             'profession',
-            'civil_status'
+            'civil_status',
         ];
     }
 }

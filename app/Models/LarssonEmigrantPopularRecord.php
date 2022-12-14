@@ -57,10 +57,12 @@ class LarssonEmigrantPopularRecord extends Model
         return [
             'first_name',
             'last_name',
-            'profession',
             'home_location',
             'home_parish',
-            'home_province',
+            'profession',
+            '---',
+            'letter_date',
+            'source_code',
         ];
     }
 

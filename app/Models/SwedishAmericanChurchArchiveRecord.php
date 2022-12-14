@@ -136,6 +136,7 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'birth_day',
             'birth_parish',
             'birth_province',
+            '---',
             'immigration_date',
             'emigration_parish',
             'emigration_province',
