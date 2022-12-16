@@ -7,6 +7,37 @@
             <div class="col-span-2">
                 <hr>
             </div>
+        @elseif(
+            $filterAttribute == ['birth_province','birth_parish'] or $filterAttribute == ['from_province','from_parish']
+        )
+            <div class="col-span-2">
+                <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                    <label for="{{ $filterAttribute[0] }}"
+                           class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                        {{ __(ucfirst(str_replace('_', ' ', $filterAttribute[0]))) }}:
+                        <select x-model="county" name="{{ $filterAttribute[0] }}" class=" block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                            <option value="">-- Select a province --</option>
+                            <template x-for="province in counties">
+                                <option :value="province.county"><span x-text="province.county"></span></option>
+                            </template>
+                        </select>
+                    </label>
+
+                    <label x-show="county" for="{{ $filterAttribute[1] }}"
+                           class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', $filterAttribute[1]))) }}:
+                        <select x-model="parish" name="{{ $filterAttribute[1] }}" class="block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                            <template x-for="parishData in parishes">
+                                <option :value="parishData"><span x-text="parishData"></span></option>
+                            </template>
+                        </select>
+                    </label>
+                </div>
+
+            </div>
         @else
 
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
@@ -54,6 +85,8 @@
                                           focus:ring-indigo-500 sm:text-sm',
                                           'placeholder' => 'Select'
                                       ]) !!}
+
+
                     @elseif($filterAttribute === 'to_county' and isset($provinces))
                         {!! Form::select($filterAttribute,
                                         $provinces,null,
@@ -83,8 +116,11 @@
 
                 </div>
             </div>
+
         @endif
+
 @endforeach
+
 </div>
 
 @if(count($advancedFields)>0)
@@ -134,6 +170,7 @@
                                sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                                'id' => $advancedField."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
                             </div>
+
                         @elseif($advancedField === 'from_province' and isset($provinces))
                             {!! Form::select($advancedField,
                                             $provinces,null,
@@ -196,11 +233,14 @@
                     </div>
                 </div>
                 @endif
+
             @endforeach
         </div>
 
     </div>
 @endif
+
+
 
 
 <div class="sm:flex justify-end pt-4 gap-x-5">
@@ -217,3 +257,33 @@
                                         focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search') }}</button>
 
 </div>
+
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('loadCounties', () => ({
+            counties:getCounties(),
+            county:null,
+            parish:null,
+            // parishes: this.county
+            parishes() {
+                // return this.county
+               return getParishes(this.county)
+            }
+
+        }))
+    });
+
+    const getCounties = () => {
+        return {!! $provinces !!}
+    }
+
+    /*
+    generates fake cities, later states have more values
+    */
+    const getParishes = (county) => {
+        if(!county) return [];
+        return getCounties().find(i => i.county === county).parish
+
+    }
+</script>

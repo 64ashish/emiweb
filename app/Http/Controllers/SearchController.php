@@ -46,6 +46,9 @@ class SearchController extends Controller
     //
     public function index($archive)
     {
+
+//        return  $this->provinces();
+//        return gettype($p);
         switch($archive) {
             case(1):
                 $model = new DenmarkEmigration();
@@ -219,10 +222,7 @@ class SearchController extends Controller
         $filterAttributes = collect($model->defaultSearchFields());
         $enableQueryMatch =$model->enableQueryMatch();
         $provinces = $this->provinces();
-//        $fields = collect($model->getFillable())
-//            ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
-//            ->flatten();
-
+//        $parish= $this->parishes();
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
@@ -811,6 +811,8 @@ class SearchController extends Controller
         $archive_details = Archive::find($arch);
         return view('home.print', compact('detail', 'fields', 'relatives', 'images', 'archive_details'));
     }
+
+
 
 
 }
