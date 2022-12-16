@@ -115,7 +115,8 @@ class BrodernaLarssonArchiveRecord extends Model
             'first_name',
             'last_name',
             'home_location',
-            'home_parish',
+            ['home_county',
+            'home_parish'],
             'profession',
         ];
     }

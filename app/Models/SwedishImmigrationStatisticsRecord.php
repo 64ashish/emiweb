@@ -103,8 +103,8 @@ class SwedishImmigrationStatisticsRecord extends Model
             'birth_day',
             'profession',
             '---',
-            'to_parish',
-            'to_province',
+            ['to_province',
+                'to_parish'],
             'to_year',
             'from_country',
         ];

@@ -8,7 +8,15 @@
                 <hr>
             </div>
         @elseif(
-            $filterAttribute == ['birth_province','birth_parish'] or $filterAttribute == ['from_province','from_parish']
+            $filterAttribute == ['birth_province','birth_parish']
+            || $filterAttribute == ['birth_county','birth_parish']
+            || $filterAttribute == ['from_province','from_parish']
+            || $filterAttribute == ['to_province','to_parish']
+            || $filterAttribute == ['to_county','to_parish']
+            || $filterAttribute == ['emigration_province','emigration_parish']
+            || $filterAttribute == ['home_county','home_parish']
+
+
         )
             <div class="col-span-2">
                 <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
@@ -25,13 +33,14 @@
                         </select>
                     </label>
 
-                    <label x-show="county" for="{{ $filterAttribute[1] }}"
+                    <label x-bind:disabled="!county"  for="{{ $filterAttribute[1] }}"
                            class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', $filterAttribute[1]))) }}:
-                        <select x-model="parish" name="{{ $filterAttribute[1] }}" class="block w-full rounded-md border-gray-300
+                        <select x-model="parish" x-bind:disabled="!county" name="{{ $filterAttribute[1] }}" class="block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
-                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                                          focus:ring-indigo-500 sm:text-sm col-span-2" >
+                            <option value="">-- Select a parish --</option>
                             <template x-for="parishData in parishes">
-                                <option :value="parishData"><span x-text="parishData"></span></option>
+                                <option :value="parishData"  ><span x-text="parishData"></span></option>
                             </template>
                         </select>
                     </label>
@@ -258,32 +267,34 @@
 
 </div>
 
+@if(isset($ProvincesParishes))
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('loadCounties', () => ({
+                counties:getCounties(),
+                county:null,
+                parish:null,
+                // parishes: this.county
+                parishes() {
+                    // return this.county
+                   return getParishes(this.county)
+                }
 
-<script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('loadCounties', () => ({
-            counties:getCounties(),
-            county:null,
-            parish:null,
-            // parishes: this.county
-            parishes() {
-                // return this.county
-               return getParishes(this.county)
-            }
+            }))
+        });
 
-        }))
-    });
+        const getCounties = () => {
+            return {!! $ProvincesParishes !!}
+        }
 
-    const getCounties = () => {
-        return {!! $provinces !!}
-    }
+        /*
+        generates fake cities, later states have more values
+        */
+        const getParishes = (county) => {
+            if(!county) return [];
+            return getCounties().find(i => i.county === county).parish
 
-    /*
-    generates fake cities, later states have more values
-    */
-    const getParishes = (county) => {
-        if(!county) return [];
-        return getCounties().find(i => i.county === county).parish
+        }
+    </script>
 
-    }
-</script>
+@endif

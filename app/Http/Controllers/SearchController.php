@@ -221,7 +221,9 @@ class SearchController extends Controller
 
         $filterAttributes = collect($model->defaultSearchFields());
         $enableQueryMatch =$model->enableQueryMatch();
+        $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
+//        return $provinces;
 //        $parish= $this->parishes();
 
         $fields = collect($model->getFillable())
@@ -237,7 +239,7 @@ class SearchController extends Controller
 
 
         $archive = Archive::findOrFail($archive);
-        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch', 'provinces','genders'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch', 'provinces','genders', 'ProvincesParishes'));
     }
 
     public function search( Request  $request)

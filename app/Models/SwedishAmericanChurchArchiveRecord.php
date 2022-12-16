@@ -134,12 +134,11 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'birth_year',
             'birth_month',
             'birth_day',
-            'birth_parish',
-            'birth_province',
+            ['birth_province','birth_parish'],
             '---',
             'immigration_date',
-            'emigration_parish',
-            'emigration_province',
+            ['emigration_province',
+            'emigration_parish'],
         ];
     }
 

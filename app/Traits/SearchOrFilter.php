@@ -180,7 +180,8 @@ trait SearchOrFilter
 
     private function provinces()
     {
-        return collect($this->ProvincesParishes());
+        $a = array_column($this->ProvincesParishes(), 'county');
+        return  array_combine($a, $a);
     }
 
     private function parishes()

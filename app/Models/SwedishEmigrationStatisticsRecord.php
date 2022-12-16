@@ -77,8 +77,8 @@ class SwedishEmigrationStatisticsRecord extends Model
             'birth_day',
             'profession',
             '---',
-            'from_parish',
-            'from_province',
+            ['from_province',
+            'from_parish'],
             'from_year',
             'nationality',
 

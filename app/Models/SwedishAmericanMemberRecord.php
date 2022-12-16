@@ -70,8 +70,7 @@ class SwedishAmericanMemberRecord extends Model
             'first_name',
             'last_name',
             'birth_date',
-            'birth_parish',
-            'birth_county',
+            ['birth_county','birth_parish'],
             'place',
             'state',
         ];

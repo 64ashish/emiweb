@@ -81,6 +81,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         $archive_name = $model::findOrFail(1)->archive;
 
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+        $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
 
 //        eventually replace with
@@ -88,7 +89,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $gender;
 
         return view('dashboard.swedishchurchemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch', 'provinces',
-                'genders'))->with($request->all());
+                'genders', 'ProvincesParishes'))->with($request->all());
 
     }
 

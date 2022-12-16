@@ -48,9 +48,11 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
 //        return view
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+        $ProvincesParishes = collect($this->ProvincesParishes());
+//        $provinces = $this->provinces();
 
 
-        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes'))->with($request->all());
     }
 //        return view('dashboard.S')
 }
