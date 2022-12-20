@@ -6,17 +6,25 @@
                  class="pt-6" aria-labelledby="section-1-title">
 
             <ul class="flex gap-x-5 justify-end mr-8 mb-[18px]">
+                <li >
+                    <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
+                       href="{{ route('scerc.search') }}">
 
+                        {{ __('Search Archive') }}
+                    </a>
+                </li>
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
                        href="{{ route('scerc.photos') }}">
-                        Sök fotografi
+
+                        {{ __('Search photographer') }}
                     </a>
                 </li>
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
                        href="{{ route('scerc.statics') }}">
-                        Statistik
+                        {{ __('Search Statistics') }}
+
                     </a>
                 </li>
             </ul>
@@ -246,7 +254,7 @@
                                                     <div class="grid grid-cols-2 lg:flex-row">
                                                         <img :src="imageURL">
                                                         <div class="p-5 flex flex-col justify-between w-full ">
-                                                            <ul class="text-sm font-medium">
+                                                            <ul class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] font-medium">
                                                                 <li>Rubrik: <span x-text="photoDetail['title']"></span></li>
                                                                 <li>Beskrivning:<span x-text="photoDetail['description']"></span></li>
                                                                 <li>Personer på bilden  :<span x-text="photoDetail['persons_on_photo']"></span></li>
@@ -255,7 +263,6 @@
                                                                 <li>Stad/Samhälle/By:<span x-text="photoDetail['locality']"></span></li>
                                                                 <li> Land:<span x-text="photoDetail['country']"></span></li>
                                                                 <li>Tidsperiod:<span x-text="photoDetail['time_period']"></span></li>
-                                                                <li>Filename: <span x-text="photoDetail['file_name']"></span></li>
                                                             </ul>
                                                             <div class="inline-flex justify-between">
                                                                 <button type="button" class="relative -ml-px inline-flex items-center border border-gray-300

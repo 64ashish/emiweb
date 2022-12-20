@@ -26,7 +26,7 @@
                         <select x-model="county" name="{{ $filterAttribute[0] }}" class=" block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
                                           focus:ring-indigo-500 sm:text-sm col-span-2">
-                            <option value="">-- Select a province --</option>
+                            <option value="">-- {{ __('Select a province') }} --</option>
                             <template x-for="province in counties">
                                 <option :value="province.county"><span x-text="province.county"></span></option>
                             </template>
@@ -38,7 +38,7 @@
                         <select x-model="parish" x-bind:disabled="!county" name="{{ $filterAttribute[1] }}" class="block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
                                           focus:ring-indigo-500 sm:text-sm col-span-2" >
-                            <option value="">-- Select a parish --</option>
+                            <option value="">-- {{ __('Select a parish') }} --</option>
                             <template x-for="parishData in parishes">
                                 <option :value="parishData"  ><span x-text="parishData"></span></option>
                             </template>
@@ -53,22 +53,32 @@
 
                 <label for="{{ $filterAttribute }}"
                        class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                    {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }} </label>
+                    @if($filterAttribute === "dob")
+                        {{ __('Date of birth') }}
+                    @else
+                        {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }}
+                    @endif
+                </label>
                 <div class="mt-1 sm:mt-0 sm:col-span-2  flex gap-x-2">
                     @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
-                        <div class="flex gap-2">
+                        <div class="flex gap-2" x-data="{ compare: false }">
                             {!! Form::text("array_".$filterAttribute."[year]", null,
                            ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $filterAttribute."_year", 'x-mask' => "9999",'placeholder' => "YYYY",]) !!}
+                            {!! Form::text("compare_".$filterAttribute, null,
+                           ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $filterAttribute."_year_compare", 'x-mask' => "9999",'placeholder' => "YYYY", 'x-show'=>"compare"]) !!}
                             {!! Form::text("array_".$filterAttribute."[month]", null,
                            ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                           'id' => $filterAttribute."_month", 'x-mask' => "99",'placeholder' => "MM",]) !!}
+                           'id' => $filterAttribute."_month", 'x-mask' => "99",'placeholder' => "MM",'x-show'=>"!compare"]) !!}
                             {!! Form::text("array_".$filterAttribute."[day]", null,
                            ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                           'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",]) !!}
+                           'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",'x-show'=>"!compare"]) !!}
+                            <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check" x-model="compare" value="true" class="self-center rounded border-gray-300 ml-auto">
                         </div>
 
                     @elseif(in_array($filterAttribute, $enableQueryMatch))

@@ -298,6 +298,11 @@ class SwedishChurchEmigrationRecord extends Model
         return $query;
     }
 
+    public function scopeFromParish($query, $from_parish){
+        if($from_parish) { return $query->where('from_parish', $from_parish); }
+        return $query;
+    }
+
 
     public function scopeGroupRecordsBy($query, $group_by){
         if($group_by === "record_date") {
@@ -319,10 +324,6 @@ class SwedishChurchEmigrationRecord extends Model
         return [
             'first_name',
             'last_name',
-//            'birth_parish',
-//            'birth_country',
-//            'from_parish',
-//            'from_location',
             'destination_country',
             'destination_location'
 

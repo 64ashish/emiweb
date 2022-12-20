@@ -16,12 +16,25 @@
             <ul class="flex gap-x-5 justify-end mr-8 mb-[18px]">
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
+                       href="{{ route('scerc.search') }}">
 
-                       href="{{ route('scerc.statics') }}">
-                        Statistiks
+                        {{ __('Search Archive') }}
                     </a>
                 </li>
+                <li >
+                    <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
+                       href="{{ route('scerc.photos') }}">
 
+                        {{ __('Search photographer') }}
+                    </a>
+                </li>
+                <li >
+                    <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
+                       href="{{ route('scerc.statics') }}">
+                        {{ __('Search Statistics') }}
+
+                    </a>
+                </li>
             </ul>
             <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 @if(isset($keywords))
@@ -59,26 +72,86 @@
                         </div>
                     </div>
 
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="from_province" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Basområde') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            {!! Form::select('from_province', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                             'placeholder' => 'Alla'
-                             ]) !!}
+{{--                    <div class="sm:grid sm:grid-cols-3 sm:items-start">--}}
+{{--                        <label for="from_province" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">--}}
+{{--                            {{ __('Basområde') }} </label>--}}
+{{--                        <div class="mt-1 sm:mt-0 sm:col-span-2">--}}
+{{--                            {!! Form::select('from_province', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500--}}
+{{--                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',--}}
+{{--                             'placeholder' => 'Alla'--}}
+{{--                             ]) !!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+                    <div class="col-span-2">
+                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                            <label for="from_province"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                                {{ __('Basområde') }}:
+                                <select x-model="county" name="from_province" class="max-w-lg block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                                    <option value="">-- {{ __('Select a province') }} --</option>
+                                    <template x-for="province in counties">
+                                        <option :value="province.county"><span x-text="province.county"></span></option>
+                                    </template>
+                                </select>
+                            </label>
+
+                            <label x-bind:disabled="!county"  for="{{ 'from_parish' }}"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', 'from_parish'))) }}:
+                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'from_parish' }}" class="block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2" >
+                                    <option value="">-- {{ __('Select a parish') }} --</option>
+                                    <template x-for="parishData in parishes">
+                                        <option :value="parishData"  ><span x-text="parishData"></span></option>
+                                    </template>
+                                </select>
+                            </label>
                         </div>
+
                     </div>
 
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="comparison" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Jämförelseområde') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            {!! Form::select('from_province_compare', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                             'placeholder' => 'Do not compare'
-                             ]) !!}
+{{--                    <div class="sm:grid sm:grid-cols-3 sm:items-start">--}}
+{{--                        <label for="comparison" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">--}}
+{{--                            {{ __('Jämförelseområde') }} </label>--}}
+{{--                        <div class="mt-1 sm:mt-0 sm:col-span-2">--}}
+{{--                            {!! Form::select('from_province_compare', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500--}}
+{{--                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',--}}
+{{--                             'placeholder' => 'Do not compare'--}}
+{{--                             ]) !!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+                    <div class="col-span-2">
+                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                            <label for="from_province_compare"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                                {{ __('Jämförelseområde') }}:
+                                <select x-model="county" name="from_province_compare" class="max-w-lg block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                                    <option value="">-- {{ __('Select a province') }} --</option>
+                                    <template x-for="province in counties">
+                                        <option :value="province.county"><span x-text="province.county"></span></option>
+                                    </template>
+                                </select>
+                            </label>
+
+                            <label x-bind:disabled="!county"  for="{{ 'from_parish_compare' }}"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', 'from_parish_compare'))) }}:
+                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'from_parish_compare' }}" class="block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2" >
+                                    <option value="">-- {{ __('Select a parish') }} --</option>
+                                    <template x-for="parishData in parishes">
+                                        <option :value="parishData"  ><span x-text="parishData"></span></option>
+                                    </template>
+                                </select>
+                            </label>
                         </div>
+
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:items-start">
@@ -258,685 +331,37 @@
 
 
     @endif
-        <script >
-            const counties =[
-                {
-                    "Blekinge": [
-                        "Aspö",
-                        "311",
-                        "Asarum",
-                        "Augerum",
-                        "Edestad",
-                        "Bräkne-hoby",
-                        "Backaryd",
-                        "Eringsboda",
-                        "Elleholm",
-                        "Flyman",
-                        "Fridlevstad",
-                        "Flymen",
-                        "Förkärla",
-                        "Gammelstorp",
-                        "Gammalstorp",
-                        "Hasslö",
-                        "Hjortsberga",
-                        "Hemse",
-                        "Hussaryd",
-                        "Jämjö",
-                        "Hästaryd 1",
-                        "Hällaryd",
-                        "Kallinge",
-                        "Jämshög",
-                        "Karlshamn",
-                        "Karl Gustav",
-                        "Karlskrona Amiralitetsförs",
-                        "Karlskrona Amiralitetsförsamling",
-                        "Karlskrona Amiralitets",
-                        "Kristianopel",
-                        "Karlskrona stadsförs",
-                        "Ky",
-                        "Kvikkjokk",
-                        "Kyrkhult",
-                        "Lösen",
-                        "Listerby",
-                        "Mjällby",
-                        "Nättraby",
-                        "Mörrum",
-                        "Obeflboken",
-                        "Ramdala",
-                        "R",
-                        "Ringamåla",
-                        "Ronneby 'land'",
-                        "Ronneby 'stad'",
-                        "Ronneby",
-                        "Sturkö",
-                        "Rödeby",
-                        "Sillhövda",
-                        "Sölvesborg",
-                        "Sölvesborgs landsförs",
-                        "Sölvesborgs stadsförs",
-                        "Sölvesborgs Stadsförsamling",
-                        "Torhamn",
-                        "Tingsås",
-                        "Tjurkö",
-                        "Torhamnb",
-                        "Ysane",
-                        "Visby Sfs",
-                        "Tving",
-                        "Öja",
-                        "Åryd",
-                        "Öljehult"
-                    ]
-                },
-                {
-                    "Gotland": [
-                        "155",
-                        "Akebäck",
-                        "Ala",
-                        "Alskog",
-                        "Alustralien",
-                        "Alva",
-                        "Amerika",
-                        "Anerika",
-                        "Anga",
-                        "Ardre",
-                        "Atlingbo",
-                        "Barlingbo",
-                        "Bjärs",
-                        "Björke",
-                        "Boge",
-                        "Bomunds I Hammaren",
-                        "Botvalda",
-                        "Bro",
-                        "Bunge",
-                        "Burs",
-                        "Busarve",
-                        "Buttle",
-                        "Bäl",
-                        "Böljke",
-                        "Californien",
-                        "Chicago",
-                        "Dahlhem",
-                        "Dalhem",
-                        "E",
-                        "Ejmunds",
-                        "Eke",
-                        "Ekeby",
-                        "Eksta",
-                        "Ende",
-                        "Endre",
-                        "Eskelhem",
-                        "Etelhem",
-                        "Fardhem",
-                        "Farhem",
-                        "Fide",
-                        "Fleringe",
-                        "Fole",
-                        "Follingbo",
-                        "Foss",
-                        "Frdhem",
-                        "Fröjel",
-                        "Fårö",
-                        "Gammelgarn",
-                        "Ganthem",
-                        "Garde",
-                        "Gemmelgarn",
-                        "Gerum",
-                        "Gothem",
-                        "Grötlingbo",
-                        "Guldrupe",
-                        "Hablingbo",
-                        "Hall",
-                        "Halla",
-                        "Hamra",
-                        "Hangavar",
-                        "Hangvar",
-                        "Havdhem",
-                        "Hejde",
-                        "Hejdeby",
-                        "Hejnum",
-                        "Hellvi",
-                        "Hemse",
-                        "Hogrän",
-                        "Hörsne Med Bara",
-                        "Klinte",
-                        "Kristianopel",
-                        "Kräklingbo",
-                        "Kville",
-                        "Kyrkhult",
-                        "Källunge",
-                        "Lau",
-                        "Levide",
-                        "Linde",
-                        "Lojsta",
-                        "Lokrume",
-                        "Lummelunda",
-                        "Lye",
-                        "Lärbro",
-                        "Maria Magdalena",
-                        "Martebo",
-                        "Mästerby",
-                        "Mörrum",
-                        "Nord Amerika",
-                        "Norra Valla",
-                        "Norrlanda",
-                        "När",
-                        "Näs",
-                        "Othem",
-                        "R",
-                        "Ringamåla",
-                        "Roma",
-                        "Rone",
-                        "Rute",
-                        "Ruthe",
-                        "Sanda",
-                        "Silte",
-                        "Sindarfve",
-                        "Sjonhem",
-                        "Skee",
-                        "Skogs",
-                        "Stelor",
-                        "Stenkumla",
-                        "Stenkyrka",
-                        "Stora Gervide",
-                        "Stånga",
-                        "Sundre",
-                        "Tibble",
-                        "Tingstäde",
-                        "Tofa",
-                        "Tofta",
-                        "Tofte",
-                        "Toftra",
-                        "Torhamn",
-                        "Träkumla",
-                        "Täkumla",
-                        "Vall",
-                        "Vallstena",
-                        "Vamlingbo",
-                        "Vamlingsbo",
-                        "Vaters",
-                        "Vemlinge",
-                        "Viklau",
-                        "Visby",
-                        "Visby Lfs",
-                        "Visby S",
-                        "Visby Sfs",
-                        "Visby Stadsförs",
-                        "Vänge",
-                        "Väskinde",
-                        "Västerbjers",
-                        "Västergarn",
-                        "Västergarng",
-                        "Västerhejde",
-                        "Väte",
-                        "Öja",
-                        "Östergarn"
-                    ]
-                },
-                {
-                    "Gävleborg":[
-                        "Alfta",
-                        "Annefors",
-                        "Arbrå",
-                        "Bergsjö",
-                        "Bergvik",
-                        "Bjuråker",
-                        "Bokenäs",
-                        "Bollnäs",
-                        "Delsbo",
-                        "Enånger",
-                        "Eskelhem",
-                        "Forsa",
-                        "Färila",
-                        "Gnarp",
-                        "Grebbestad",
-                        "Gävle",
-                        "Gävle Heliga Trefaldighet",
-                        "Gävle Staffan",
-                        "Hamrånge",
-                        "Hanebo",
-                        "Harmånger",
-                        "Harmångers",
-                        "Hassela",
-                        "Hedesunda",
-                        "Hemse",
-                        "Hille",
-                        "Hofors",
-                        "Hudiksvall",
-                        "Hälsingtuna",
-                        "Hög",
-                        "Högbo",
-                        "Idenor",
-                        "Ilsbo",
-                        "Järbo",
-                        "Järvsö",
-                        "Jättendal",
-                        "Katrineberg",
-                        "Kårböle",
-                        "Lingbo",
-                        "Ljusdal",
-                        "Ljusne",
-                        "Los",
-                        "Mo",
-                        "Nianfors",
-                        "Njutånger",
-                        "Norrala",
-                        "Norrbo",
-                        "Ockelbo",
-                        "Ovansjö",
-                        "Ovanåker",
-                        "Ramsjö",
-                        "Rengsjö",
-                        "Rogsta",
-                        "Sandarne",
-                        "Sandviken",
-                        "Sandviken (högbo)",
-                        "Segersta",
-                        "Skog",
-                        "Svabensverk",
-                        "Söderala",
-                        "Söderhamn",
-                        "Torsåker",
-                        "Trönö",
-                        "Undersvik",
-                        "Valbo",
-                        "Voxna",
-                        "Åmot",
-                        "Årsunda",
-                        "Österfärnebo"
-                    ]
-                },
-                {
-                    "Göteborgs och Bohus": [
-                        "A0022691",
-                        "Ambjörnarp",
-                        "Anfasteröd",
-                        "Angered",
-                        "Aröd",
-                        "Asarum",
-                        "Askim",
-                        "Askum",
-                        "Backa",
-                        "Bergen",
-                        "Berghem",
-                        "Bergum",
-                        "Björketorp",
-                        "Björlanda",
-                        "Bokenäs",
-                        "Bottna",
-                        "Brastad",
-                        "Bro",
-                        "Brofve",
-                        "Bräcke",
-                        "Bärfendal",
-                        "Bärfendalgö",
-                        "Bäve",
-                        "Dragsmark",
-                        "Dyrhuvud",
-                        "Fiskebäckskil",
-                        "Fjällbacka",
-                        "Forshälla",
-                        "Forsmark",
-                        "Foss",
-                        "Frillestad",
-                        "Frändefors",
-                        "Fässberg",
-                        "Gamlestads  Församling",
-                        "Gbg S Annedal",
-                        "Gbg S Domkyrko",
-                        "Gbg S Gamelstad",
-                        "Gbg S Gamlestad",
-                        "Gbg S Garnison",
-                        "Gbg S Haga",
-                        "Gbg S Hospital",
-                        "Gbg S Johanneberg",
-                        "Gbg S Karl Johan",
-                        "Gbg S Kristine",
-                        "Gbg S Marieberg",
-                        "Gbg S Masthugg",
-                        "Gbg S Oscar Fredrik",
-                        "Gbg S Vasa",
-                        "Gbg:s Domkyrko",
-                        "Gbg:s Gaamlestad",
-                        "Gbg:s Gamlestad",
-                        "Gbg:s Karl Johan",
-                        "Gbg:s Nya Varvet",
-                        "Gbg:s Oscar Fredrik",
-                        "Gbg:s Örgryte",
-                        "Glasbruket",
-                        "Grebbestad",
-                        "Grinneröd",
-                        "Grundsund",
-                        "Gullholmen",
-                        "Gusseröd",
-                        "Gustavi Domkyrkoförsamling",
-                        "Göteborg",
-                        "Göteborg Karl Johan",
-                        "Göteborg Kristine",
-                        "Göteborgs Domkyrko",
-                        "Göteborgs Domkyrkoförsamling",
-                        "Göteborgs Haga",
-                        "Göteborgs Karl Johan",
-                        "Göteborgs Kristine",
-                        "Göteborgs Oscar Fredrik",
-                        "Haga",
-                        "Hakmstad",
-                        "Harestad",
-                        "Hede",
-                        "Herrestad",
-                        "Hishult",
-                        "Hogdal",
-                        "Hunnebostrand",
-                        "Hälle",
-                        "Härryda",
-                        "Håby",
-                        "Hålta",
-                        "Högstorp",
-                        "Högås",
-                        "Infl. Bok 25/28",
-                        "Iskebäckskil",
-                        "Jonsered",
-                        "Jörlanda",
-                        "Kareby",
-                        "Kikerud Tågbacken",
-                        "Klädesholmen",
-                        "Klädesholmen Stenvik",
-                        "Klövedal",
-                        "Kristine",
-                        "Krokstad",
-                        "Kungshamn",
-                        "Kungälv",
-                        "Kvile",
-                        "Kville",
-                        "Kämperöd",
-                        "Käringön",
-                        "Kållered",
-                        "Kållereds",
-                        "Landvetter",
-                        "Lane-ryr",
-                        "Lilla Harrie",
-                        "Lindome",
-                        "Ljung",
-                        "Lommeland",
-                        "Lundby",
-                        "Lur",
-                        "Lycke",
-                        "Lyse",
-                        "Lysekil",
-                        "Långelanda",
-                        "Malmön",
-                        "Mamön",
-                        "Marstrand",
-                        "Mo",
-                        "Mollösund",
-                        "Morlanda",
-                        "Myckleby",
-                        "Na",
-                        "Naverstad",
-                        "Nor",
-                        "Norge",
-                        "Norum",
-                        "Nya Varvet",
-                        "Näsinge",
-                        "Nödinge",
-                        "Partille",
-                        "Resteröd",
-                        "Romelanda",
-                        "Råda",
-                        "Rödbo",
-                        "Rönnäng",
-                        "Röra",
-                        "Sanne",
-                        "Sanne Församling",
-                        "Sannw",
-                        "Skaftö",
-                        "Skee",
-                        "Skefteröd",
-                        "Skredsvik",
-                        "Skälläckeröd",
-                        "Solberga",
-                        "Spekeröd",
-                        "St",
-                        "Stala",
-                        "Stenebyn",
-                        "Stenkyrka",
-                        "Strömstad",
-                        "Styrsö",
-                        "Svarteborg",
-                        "Säve",
-                        "Södra Vi",
-                        "Tanum",
-                        "Tegneby",
-                        "Tierp",
-                        "Tjärnö",
-                        "Tjärstad",
-                        "Torp",
-                        "Torsby",
-                        "Torslanda",
-                        "Tossene",
-                        "Tuve",
-                        "Tuve Församling",
-                        "Ucklum",
-                        "Uddevalla",
-                        "Valbo Ryr",
-                        "Valbo-ryr",
-                        "Valboryr",
-                        "Valla",
-                        "Vasa",
-                        "Västra Frölunda",
-                        "Ytterby",
-                        "Älvsborg",
-                        "Öckerö",
-                        "Öckerö Sörgård Skolhuset",
-                        "Ödsmål",
-                        "Örgryte"
-                    ]
-                },
-                {
-                    "Halland": [
-                        "Tvååker",
-                        "Våxtorp",
-                        "värö",
-                        "12",
-                        "Abild",
-                        "Alfsgård",
-                        "Alfshög",
-                        "Asige",
-                        "Askome",
-                        "Breard",
-                        "Breared",
-                        "Dagsås",
-                        "Danmark",
-                        "Dr'ängsered",
-                        "Drängserd",
-                        "Drängsered",
-                        "Drängsred",
-                        "Eftra",
-                        "Eldsberga",
-                        "Enslöv",
-                        "Fagered",
-                        "Falkenberg",
-                        "Fjärås",
-                        "Frillesås",
-                        "Färgaryd",
-                        "Förlanda",
-                        "Getinge",
-                        "Grimeton",
-                        "Grimmared",
-                        "Gunnarp",
-                        "Gunnarsjö",
-                        "Gällared",
-                        "Gällinge",
-                        "Gödestad",
-                        "Halmstad",
-                        "Hanhals",
-                        "Harplinge",
-                        "Hasslöv",
-                        "Hemmesjö Med Tegnaby",
-                        "Hishult",
-                        "Holm",
-                        "Hornborga",
-                        "Hunnestad",
-                        "Idala",
-                        "Jälluntofta",
-                        "Karl Gustav",
-                        "Kinnared",
-                        "Krogsered",
-                        "Kungsbacka",
-                        "Kungsäter",
-                        "Kvibille",
-                        "Källsjö",
-                        "Köinge",
-                        "Laholms Landsförsamling",
-                        "Laholms landsförs",
-                        "Laholms stadsförs",
-                        "Landa",
-                        "Lindberg",
-                        "Ljungby",
-                        "Långaryd",
-                        "Morup",
-                        "Nösslinge",
-                        "Okome",
-                        "Onsala",
-                        "Rolfstorp",
-                        "Ränneslöv",
-                        "Rävinge",
-                        "Råggärd",
-                        "S",
-                        "Sibbarp",
-                        "Skrea",
-                        "Skummeslöv",
-                        "Skällinge",
-                        "Släp",
-                        "Slättåkra",
-                        "Slöinge",
-                        "Snöstorp",
-                        "Spannarp",
-                        "Stafsinge",
-                        "Stamnared",
-                        "Steninge",
-                        "Steningeh",
-                        "Stråvalla",
-                        "Svartrå",
-                        "Sällstorp",
-                        "Sättåkra",
-                        "Södra Unnaryd",
-                        "Söndrum",
-                        "T",
-                        "Tjärby",
-                        "Torhamn",
-                        "Torpa",
-                        "Träslöv",
-                        "Trönninge",
-                        "Tvååker",
-                        "Tvååker 10",
-                        "Tölö",
-                        "Tönnersjö",
-                        "Ullared",
-                        "Vaberg",
-                        "Valinge",
-                        "Vallda",
-                        "Vapnö",
-                        "Varberf",
-                        "Varberg",
-                        "Varbergs Stadsförsamling",
-                        "Veddige",
-                        "Vessige",
-                        "Vinberg",
-                        "Vråen 3",
-                        "Värfö",
-                        "Värö",
-                        "Väärö",
-                        "Våxtop",
-                        "Våxtorp",
-                        "Våxtrop",
-                        "Ysby",
-                        "Älvsåker",
-                        "Älvsåker Nr 2",
-                        "Älvsåkr",
-                        "Ärö",
-                        "Å",
-                        "Årsta",
-                        "Årstad",
-                        "Årstadq",
-                        "Ås",
-                        "Ölmevalla",
-                        "Övraby"
-                    ]
-                },
-                {
-                    "Jämtland": []
-                },
-                {
-                    "Jönköping": []
-                },
-                {
-                    "Kalmar": []
-                },
-                {
-                    "Kopparberg": []
-                },
-                {
-                    "Kristianstad": []
-                },
-                {
-                    "Kronoberg": []
-                },
-                {
-                    "Malmöhus": []
-                },
-                {
-                    "Norrbotten": []
-                },
-                {
-                    "Skaraborg": []
-                },
-                {
-                    "Stockholm": []
-                },
-                {
-                    "Södermanland": []
-                },
-                {
-                    "Uppsala": []
-                },
-                {
-                    "Värmland": []
-                },
-                {
-                    "Västerbotten": []
-                },
-                {
-                    "Västernorrland": []
-                },
-                {
-                    "Västmanland": []
-                },
-                {
-                    "Älvsborg": []
-                },
-                {
-                    "Örebro": []
-                },
-                {
-                    "Östergötland": []
+
+        @if(isset($ProvincesParishes))
+            <script>
+                document.addEventListener('alpine:init', () => {
+                    Alpine.data('loadCounties', () => ({
+                        counties:getCounties(),
+                        county:null,
+                        parish:null,
+                        // parishes: this.county
+                        parishes() {
+                            // return this.county
+                            return getParishes(this.county)
+                        }
+
+                    }))
+                });
+
+                const getCounties = () => {
+                    return {!! $ProvincesParishes !!}
                 }
 
-            ]
+                /*
+                generates fake cities, later states have more values
+                */
+                const getParishes = (county) => {
+                    if(!county) return [];
+                    return getCounties().find(i => i.county === county).parish
 
-            function parishAndCounties() {
-                return {
-                    id: "",
-                    name: "",
-                    datas: arraydata,
-                    changeCategory() {
-                        var e = document.getElementById("vehicle_id");
-                        var value = e.options[e.selectedIndex].getAttribute("data-val");
-                        this.datas = arraydata.filter((i) => {
-                            return i.vehicle_category_id == value;
-                        })
-                    }
-                };
-            }
-        </script>
+                }
+            </script>
+
+        @endif
 
 </x-app-layout>

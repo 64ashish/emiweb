@@ -11,13 +11,15 @@
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
                        href="{{ route('scerc.photos') }}">
-                        Sök fotografi
+
+                        {{ __('Search photographer') }}
                     </a>
                 </li>
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
                        href="{{ route('scerc.statics') }}">
-                        Statistik
+                        {{ __('Search Statistics') }}
+
                     </a>
                 </li>
             </ul>

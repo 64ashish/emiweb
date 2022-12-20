@@ -14,53 +14,43 @@ trait SearchOrFilter
     {
         $r = array_intersect_key(Arr::whereNotNull($all_request),
             array_flip(preg_grep('/^array_/', array_keys(Arr::whereNotNull($all_request)))));
-//        return $r;
 
         $date_keys = [];
         $field_data = [];
-        if(!empty($r)){
-            foreach ($r as $r => $dates) {
-                $date_keys[] = $r;
-                $field = Str::of($r)->after('array_');
 
+        foreach ($r as $r => $dates) {
+            $date_keys[] = $r;
+            $field = Str::of($r)->after('array_');
 
+            if (count(Arr::whereNotNull(Arr::flatten($dates))) > 0) {
+                $field_data["$field"] = Carbon::createFromDate(
+                    Arr::exists($dates, 'year') ? $dates['year'] : "0001",
+                    Arr::exists($dates, 'month') ? $dates['month'] : "01",
+                    Arr::exists($dates, 'day') ? $dates['day'] : "01"
+                );
 
-
-//                return $dates;
-                if (count(Arr::whereNotNull(Arr::flatten($dates))) > 0) {
-                    $field_data["$field"] = Carbon::createFromDate(
-//                        $dates['year'] != null ? $dates['year'] : "0001",
-//                        $dates['month'] != null ? $dates['month'] : "01",
-//                        $dates['day'] != null ? $dates['day'] : "01"
-
-                        Arr::exists($dates, 'year') ? $dates['year'] : "0001",
-                        Arr::exists($dates, 'month') ? $dates['month'] : "01",
-                        Arr::exists($dates, 'day') ? $dates['day'] : "01"
-                    );
-
-                }
             }
         }
-
-//        return $field_data;
         return compact('date_keys', 'field_data');
     }
 
-    private function QryableItems($all_request)
+    private function QryableItems($allRequest)
     {
-        $r = array_intersect_key(Arr::whereNotNull($all_request),
-            array_flip(preg_grep('/^qry_/', array_keys(Arr::whereNotNull($all_request)))));
+        $r = array_intersect_key(Arr::whereNotNull($allRequest),
+            array_flip(preg_grep('/^qry_/', array_keys(Arr::whereNotNull($allRequest)))));
 //        return $r;
-        $qryable_items = [];
+        $qryableItems = [];
         if(!empty($r)){
             foreach($r as $r => $fields)
             {
-                $qryable_items[] = $r;
+                $qryableItems[] = $r;
 //                $field = Str::of($r)->after('qry');
             }
         }
-        return $qryable_items;
+        return $qryableItems;
 
+//        return $allRequest;
+//        return Arr::pluck(Arr::only($allRequest, preg_grep('/^qry_/', array_keys(Arr::whereNotNull($allRequest)))),'value');
 
     }
 
@@ -133,8 +123,30 @@ trait SearchOrFilter
 
 //            for dates
 //            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
+//          if( isset($all_request['compare_dob']) && $all_request['compare_dob_check'] == true)
             if((str_contains(str_replace('_', ' ', $fieldname), 'date') or str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
             {
+//              if( empty($all_request['compare_dob_check']) and empty($all_request['compare_dob']))
+//              {
+//                  if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
+//                  {
+//                      $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
+//                  }
+//
+//                  if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
+//                  {
+//                      $result->whereYear($fieldname,$fieldvalue->format('Y'))
+//                          ->whereMonth($fieldname,$fieldvalue->format('m'));
+//                  }
+//
+//                  if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
+//                  {
+//                      $result->whereYear($fieldname,$fieldvalue->format('Y-m-d'));
+//                  }
+//              }else{
+//                  $result->whereBetween('dob', [$fieldvalue->format('Y'), $all_request['compare_'.$fieldname] ]);
+//              }
+
                 if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
                 {
                     $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
@@ -150,14 +162,7 @@ trait SearchOrFilter
                 {
                     $result->whereYear($fieldname,$fieldvalue->format('Y-m-d'));
                 }
-
             }
-
-
-
-
-
-
 //            for everything else
             elseif($fieldname === "memo")
             {

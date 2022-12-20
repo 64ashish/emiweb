@@ -22,6 +22,7 @@ class NewYorkPassengerRecordController extends Controller
         $all_request = $request->all();
 
         $quryables = $this->QryableItems($all_request);
+
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );

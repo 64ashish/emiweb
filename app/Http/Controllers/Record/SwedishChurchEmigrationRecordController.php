@@ -31,18 +31,19 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function search( Request $request )
     {
 
-//        return $request->qry_first_name['method'];
         $all_request = $request->all();
-//        return $request;
-
-//        return $all_request['qry_first_name']['value'] ;
+//        return empty($all_request['compare_dob_check']);
+//        if(!$request->compare_dob){ return "does not exists"; }else{ return "exists"; }
 
         $quryables = $this->QryableItems($all_request);
 
+
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
+        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page','compare_dob','compare_dob_check'] );
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
+
+//        return $inputFields;
 
 
 
@@ -64,6 +65,8 @@ class SwedishChurchEmigrationRecordController extends Controller
         $this->QueryMatch($quryables,$result, $all_request);
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+
+//        return $records;$records
 
         $keywords = $request->all();
 
@@ -102,11 +105,11 @@ class SwedishChurchEmigrationRecordController extends Controller
 //            ->orderBy('from_province')
 //            ->get()
 //            ->pluck('from_province','from_province')->prepend('Alla');
-
+        $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces() ;
 
 //        return $provinces;
-        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces'));
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','ProvincesParishes'));
 
     }
 
@@ -114,8 +117,11 @@ class SwedishChurchEmigrationRecordController extends Controller
     {
 //        return $request->all();
 
+//        if($request->from_parish){ return "from_parish is present"; } else { return "not present";}
+
         $data = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province)
+                ->fromParish($request->from_parish)
                 ->recordDateRange($request->start_year,$request->end_year)
                 ->groupRecordsBy($request->group_by)
                 ->get();
@@ -123,21 +129,15 @@ class SwedishChurchEmigrationRecordController extends Controller
         {
             $data2 = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province_compare)
+                ->fromParish($request->from_parish_compare)
                 ->recordDateRange($request->start_year,$request->end_year)
                 ->groupRecordsBy($request->group_by)
                 ->get();
 
         }else{
             $data2 = null;
-
         }
 
-//        return $data;
-        $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
-            ->select('from_province')
-            ->distinct()
-            ->get()
-            ->pluck('from_province','from_province')->prepend('Alla');
 
         if($data2 == null){
             $title = 'Emigration ' .
@@ -158,7 +158,12 @@ class SwedishChurchEmigrationRecordController extends Controller
         $grouped_by = $request->group_by === "record_date"? "year":"from_province";
         $chart_type = $request->chart_type;
         $keywords = $request->all();
-        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','data','data2', 'chart_type','title', 'grouped_by','keywords'));
+
+
+        $ProvincesParishes = collect($this->ProvincesParishes());
+        $provinces = $this->provinces() ;
+
+        return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','ProvincesParishes','data','data2', 'chart_type','title', 'grouped_by','keywords'));
     }
 
 
@@ -169,7 +174,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function resultPhotos(Request $request)
     {
-        $keywords = array_filter( $request->except('_token'));
+        $keywords = array_filter( $request->except('_token','page'));
 
         $query = ScercPhotoRecord::query();
 
@@ -178,7 +183,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
             if(  $fieldName === 'title' or $fieldName==='description')
             {
-                $query->whereFullText($fieldName, $value);
+                $query->where($fieldName,'like', '%'. $value .'%');
             }
             if( $fieldName !== 'title' and $fieldName !=='description')
             {
@@ -186,7 +191,7 @@ class SwedishChurchEmigrationRecordController extends Controller
             }
         }
 
-        $records = $query->paginate(100);
+        $records = $query->paginate(100)->withQueryString();
 
 //        return $records->total();
         return view('dashboard.swedishchurchemigrationrecord.photos',
