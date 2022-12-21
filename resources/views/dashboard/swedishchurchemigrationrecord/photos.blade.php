@@ -255,14 +255,14 @@
                                                         <img :src="imageURL">
                                                         <div class="p-5 flex flex-col justify-between w-full ">
                                                             <ul class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] font-medium">
-                                                                <li>Rubrik: <span x-text="photoDetail['title']"></span></li>
-                                                                <li>Beskrivning:<span x-text="photoDetail['description']"></span></li>
-                                                                <li>Personer på bilden  :<span x-text="photoDetail['persons_on_photo']"></span></li>
-                                                                <li>  Fotograf:<span x-text="photoDetail['photographer']"></span></li>
-                                                                <li>Stat/Provins/Län(County):<span x-text="photoDetail['state_province_county']"></span></li>
-                                                                <li>Stad/Samhälle/By:<span x-text="photoDetail['locality']"></span></li>
-                                                                <li> Land:<span x-text="photoDetail['country']"></span></li>
-                                                                <li>Tidsperiod:<span x-text="photoDetail['time_period']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">Rubrik: <span x-text="photoDetail['title']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">Beskrivning:<span x-text="photoDetail['description']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">Personer på bilden  :<span x-text="photoDetail['persons_on_photo']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">  Fotograf:<span x-text="photoDetail['photographer']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">Stat/Provins/Län(County):<span x-text="photoDetail['state_province_county']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">Stad/Samhälle/By:<span x-text="photoDetail['locality']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]"> Land:<span x-text="photoDetail['country']"></span></li>
+                                                                <li class="pl-4 pr-3 sm:py-[0.6rem]">Tidsperiod:<span x-text="photoDetail['time_period']"></span></li>
                                                             </ul>
                                                             <div class="inline-flex justify-between">
                                                                 <button type="button" class="relative -ml-px inline-flex items-center border border-gray-300

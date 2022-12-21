@@ -9,7 +9,7 @@
                 <li >
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
                        href="{{ route('scirc.statics') }}">
-                        Statistik
+                        {{ __('Search Statistics') }}
                     </a>
                 </li>
 

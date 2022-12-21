@@ -742,6 +742,9 @@ select {
 .mt-1 {
   margin-top: 0.25rem;
 }
+.ml-auto {
+  margin-left: auto;
+}
 .-ml-px {
   margin-left: -1px;
 }
@@ -798,9 +801,6 @@ select {
 }
 .mb-\[18px\] {
   margin-bottom: 18px;
-}
-.ml-auto {
-  margin-left: auto;
 }
 .block {
   display: block;

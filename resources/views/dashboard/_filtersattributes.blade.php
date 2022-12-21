@@ -88,10 +88,10 @@
                                             'id' => $filterAttribute.'_value']) !!}
 
                             {!! Form::select('qry_'.$filterAttribute.'[method]', [
-                                        null => 'Innehåller',
-                                        'start' => 'Börjar med',
-                                        'end' => 'Slutar med',
-                                        'exact' => 'Exakt'
+                                         null => __('Contains'),
+                                        'start' => __('Starting with'),
+                                        'end' => __('Ending with'),
+                                        'exact' => __('Exact')
                                         ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
 
@@ -234,10 +234,10 @@
                                                 'id' => $advancedField.'_value']) !!}
 
                                 {!! Form::select('qry_'.$advancedField.'[method]', [
-                                            null => 'Innehåller',
-                                            'start' => 'Börjar med',
-                                            'end' => 'Slutar med',
-                                            'exact' => 'Exakt'
+                                            null => __('Contains'),
+                                            'start' => __('Starting with'),
+                                            'end' => __('Ending with'),
+                                            'exact' => __('Exact')
                                             ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                  sm:text-sm border-gray-300 rounded-md']); !!}
                         @else

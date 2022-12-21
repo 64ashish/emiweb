@@ -343,6 +343,11 @@
  "Title": "Titel",
  "Select a province": "Välj län",
  "Select a parish": "Välj församling",
- "Search photographer": "Sök fotografi"
+ "Search photographer": "Sök fotografi",
 
+
+ "Contains": "Innehåller",
+ "Starting with": "Börjar med",
+ "Ending with": "Slutar med",
+ "Exact": "Exakt"
 }
