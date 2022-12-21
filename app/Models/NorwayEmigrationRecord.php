@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\RecordCount;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -45,6 +46,18 @@ class NorwayEmigrationRecord extends Model
         'page_link',
         'image_link'
     ];
+
+//    protected function address(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn ($value, $attributes) => new Address(
+//                $attributes['address_line_one'],
+//                $attributes['address_line_two'],
+//            ),
+//        );
+//    }
+
+
 
 
     public function fieldsToDisply()
@@ -99,9 +112,12 @@ class NorwayEmigrationRecord extends Model
             'birth_country',
             'birth_location',
             '---',
-            'registered_date',
-            'to_fylke',
-            'to_location',
+//            'registered_date',
+//            'to_fylke',
+//            'to_location',
+            'emigration_date',
+            'emigration_county',
+            'emigration_place'
         ];
     }
     public function defaultTableColumns(){

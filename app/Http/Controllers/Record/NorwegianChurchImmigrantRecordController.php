@@ -20,6 +20,7 @@ class NorwegianChurchImmigrantRecordController extends Controller
     {
 
         $all_request = $request->all();
+        $all_request['array_to_date'] = $all_request['array_immigration_date'];
 
 //        return $all_request;
         $quryables = $this->QryableItems($all_request);
@@ -27,6 +28,23 @@ class NorwegianChurchImmigrantRecordController extends Controller
         $request->merge($carbonize_dates['field_data']);
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
+
+
+        if(Arr::has($inputFields, 'immigration_date'))
+        {
+            $inputFields['to_date'] =  $inputFields['immigration_date'];
+            unset($inputFields['immigration_date']);
+        }
+        if(Arr::has($inputFields, 'immigration_county'))
+        {
+            $inputFields['to_fylke'] =  $inputFields['immigration_county'];
+            unset($inputFields['immigration_county']);
+        }
+        if(Arr::has($inputFields, 'immigration_place'))
+        {
+            $inputFields['to_location'] =  $inputFields['immigration_place'];
+            unset($inputFields['immigration_place']);
+        }
 
         $model = new NorwegianChurchImmigrantRecord();
         $fieldsToDisply = $model->fieldsToDisply();
