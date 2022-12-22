@@ -88,7 +88,7 @@ class SwedishChurchEmigrationRecordController extends Controller
         $provinces = $this->provinces();
 
 //        eventually replace with
-        $genders = $this->getDistinct($model, 'gender');
+        $genders = $this->getGender();
 //        return $gender;
 
         return view('dashboard.swedishchurchemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch', 'provinces',

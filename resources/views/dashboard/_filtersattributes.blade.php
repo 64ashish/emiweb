@@ -115,9 +115,13 @@
                                           focus:ring-indigo-500 sm:text-sm',
                                           'placeholder' => 'Select'
                                       ]) !!}
-                    @elseif($filterAttribute === 'gender' and isset($genders))
+                    @elseif($filterAttribute === 'gender' or $filterAttribute === 'sex')
                         {!! Form::select($filterAttribute,
-                                        $genders,null,
+                                        [
+                                            null => 'Select',
+                                            'M' => 'Man',
+                                            'K' => 'Kvinna'
+                                        ],null,
                                         [
                                             'class' => 'mt-1 block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none

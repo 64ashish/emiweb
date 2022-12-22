@@ -13533,4 +13533,14 @@ trait SearchOrFilter
         return array_values($result);
     }
 
+    private function getGender()
+    {
+        return [
+            'M' => 'Man',
+            'K' => 'Kvinna'
+        ];
+    }
+
+
+
 }

@@ -53,25 +53,25 @@ class SearchController extends Controller
             case(1):
                 $model = new DenmarkEmigration();
                 $viewfile = 'dashboard.denmarkemigration.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(2):
                 $model = new SwedishAmericanChurchArchiveRecord();
                 $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(3):
                 $model = new NewYorkPassengerRecord();
                 $viewfile = 'dashboard.NewYorkPassengerRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(4):
                 $model = new SwedishPortPassengerListRecord();
                 $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(5):
@@ -79,140 +79,140 @@ class SearchController extends Controller
 //                return redirect(route('scerc.search'));
                 $model = new SwedishChurchEmigrationRecord();
                 $viewfile = 'dashboard.swedishchurchemigrationrecord.records';
-                $genders = $this->getDistinct($model, 'gender');
+                $genders = $this->getGender();
                 break;
 
             case(6):
                 $model = new SwedishChurchImmigrantRecord();
                 $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(7):
                 $model = new SwedishEmigrantViaKristianiaRecord();
                 $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(8):
                 $model = new SwedishImmigrationStatisticsRecord();
                 $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(9):
                 $model = new SwedishEmigrationStatisticsRecord();
                 $viewfile = 'dashboard.scbe.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(10):
                 $model = new LarssonEmigrantPopularRecord();
                 $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(11):
                 $model = new BrodernaLarssonArchiveRecord();
                 $viewfile = 'dashboard.larsson.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(12):
                 $model = new JohnEricssonsArchiveRecord();
                 $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(13):
                 $model = new NorwegianChurchImmigrantRecord();
                 $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(14):
                 $model = new MormonShipPassengerRecord();
                 $viewfile = 'dashboard.MormonShipPassengerRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(15):
                 $model = new SwedishAmericanMemberRecord();
                 $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(16):
                 $model = new SwedeInAlaskaRecord();
                 $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(17):
                 $model = new VarmlandskaNewspaperNoticeRecord();
                 $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(18):
                 $model = new DalslanningarBornInAmericaRecord();
                 $viewfile = 'dashboard.dbiar.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(20):
                 $model = new NorwayEmigrationRecord();
                 $viewfile = 'dashboard.norwayemigrationrecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(21):
                 $model = new IcelandEmigrationRecord();
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(22):
                 $model = new BevaringensLevnadsbeskrivningarRecord();
                 $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(23):
                 $model = new SwedishAmericanJubileeRecord();
                 $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(24):
 
                 $model = new SwensonCenterPhotosamlingRecord();
                 $viewfile = 'dashboard.swenphotocenter.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(25):
                 $model = new NorthenPacificRailwayCompanyRecord();
                 $viewfile = 'dashboard.NorthPacificRailwayCo.index';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(26):
                 $model = new RsPersonalHistoryRecord();
                 $viewfile = 'dashboard.rsphistory.photos';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(27):
                 $model = new SwedishUsaCentersEmiPhotoRecord();
                 $viewfile = 'dashboard.suscepc.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             case(28):
                 $model = new SwedishAmericanBookRecord();
                 $viewfile = 'dashboard.sabr.records';
-                $genders = ['M','K'];
+                $genders = $this->getGender();
                 break;
 
             default:
