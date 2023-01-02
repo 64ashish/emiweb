@@ -18,7 +18,7 @@
                                                 <div class="flex justify-between">
                                                     <div class="flex items-center">
                                                         <div class="pr-2">
-                                                            <a href="{{ route('records', $archive) }}"> {{ $archive->name }}</a>
+                                                            <a href="{{ route('records', $archive) }}"> {{ __($archive->name) }}</a>
                                                         </div>
                                                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                                                         {{ $archive->total_records }}
@@ -57,9 +57,9 @@
                                                         <div class="flex items-center">
                                                             <div class="pr-2 font-bold">
                                                                @if($archive->total_records > 0)
-                                                                    <a href="{{ route('records', $archive) }}"> {{ $archive->name }}</a>
+                                                                    <a href="{{ route('records', $archive) }}"> {{ __($archive->name) }}</a>
                                                                 @else
-                                                                    {{ $archive->name }}
+                                                                    {{ __($archive->name) }}
                                                                 @endif
                                                             </div>
                                                             <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
