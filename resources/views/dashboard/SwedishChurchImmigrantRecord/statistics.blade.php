@@ -37,7 +37,7 @@
                         <label for="sex" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             {{ __('Gender') }} </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                           {!! Form::select('sex', ['All' => 'Alla', 'Män' => 'Män', 'Kvinnor' => 'Kvinnor'],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           {!! Form::select('sex', ['Alla' => 'Alla', 'Män' => 'Män', 'Kvinnor' => 'Kvinnor'],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md']) !!}
                         </div>
                     </div>

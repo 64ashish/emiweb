@@ -145,17 +145,18 @@ class SwedishChurchEmigrationRecordController extends Controller
 
         if($data2 == null){
             $title = 'Emigration ' .
-                (($request->gender !== "Alla") ? "av $request->gender ": "Alla") .
+                (($request->gender !== "Alla") ? "av $request->gender ": "alla kön ") .
                 (($request->from_province !== "0") ? "från $request->from_province ": "") .
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }else{
             $title = 'Jämförelseområde Emigration ' .
-                (($request->gender !== "Alla") ? "av $request->gender ": "Alla") .
+                (($request->gender !== "Alla") ? "av $request->gender ": "alla kön ") .
                 (($request->from_province !== "0") ? "från $request->from_province ": "") . ("med $request->from_province_compare ") .
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }
+
 
 
 //        return $data;
