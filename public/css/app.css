@@ -1616,6 +1616,9 @@ select {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
+.text-\[0\.85rem\] {
+  font-size: 0.85rem;
+}
 .font-semibold {
   font-weight: 600;
 }
