@@ -3,20 +3,25 @@
 namespace App\Traits;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 trait SearchOrFilter
 {
 
-    private function CarbonizeDates($all_request)
+    private function CarbonizeDates($all_request): array
     {
         $r = array_intersect_key(Arr::whereNotNull($all_request),
             array_flip(preg_grep('/^array_/', array_keys(Arr::whereNotNull($all_request)))));
 
+
         $date_keys = [];
         $field_data = [];
+
+
 
         foreach ($r as $r => $dates) {
             $date_keys[] = $r;
@@ -28,180 +33,125 @@ trait SearchOrFilter
                     Arr::exists($dates, 'month') ? $dates['month'] : "01",
                     Arr::exists($dates, 'day') ? $dates['day'] : "01"
                 );
-
             }
+
+
         }
+
         return compact('date_keys', 'field_data');
     }
 
-    private function QryableItems($allRequest)
+
+    private function QryableItems($allRequest): array
     {
         $r = array_intersect_key(Arr::whereNotNull($allRequest),
             array_flip(preg_grep('/^qry_/', array_keys(Arr::whereNotNull($allRequest)))));
-//        return $r;
         $qryableItems = [];
         if(!empty($r)){
             foreach($r as $r => $fields)
             {
                 $qryableItems[] = $r;
-//                $field = Str::of($r)->after('qry');
             }
         }
         return $qryableItems;
-
-//        return $allRequest;
-//        return Arr::pluck(Arr::only($allRequest, preg_grep('/^qry_/', array_keys(Arr::whereNotNull($allRequest)))),'value');
-
     }
 
-    private function QueryMatch($queryables,$result, $all_request)
+    private function QueryMatch($queryables,$result, $all_request): Builder
     {
-//        return $queryables;
 
-        foreach($queryables as  $queryable) {
-            if(!Arr::exists($all_request[$queryable], 'method')){
-                $all_request[$queryable]['method'] = null;
-            };
-            if ($all_request[$queryable]['value'] != null) {
+        foreach($queryables as  $queryable)
+        {
+            if($all_request[$queryable]['value'] != null)
+            {
                 $field_scope = Str::of($queryable)->after('qry_');
-
-//              if queryable method is (null or contains) and field is first name or last name
-                if((($all_request[$queryable]['method'] == null) or Arr::exists($all_request[$queryable], 'method')) && ($field_scope == "first_name" or $field_scope == "last_name"))
-                {
-//                    return "hello 1";
-//                    $result->whereFullText($field_scope, $all_request[$queryable]['value']);
+                if ($all_request[$queryable]['method'] === "start") {
+                    $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
+                }
+                if ($all_request[$queryable]['method'] === "end") {
+                    $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
+                }
+                if ($all_request[$queryable]['method'] === "exact") {
+                    $result->where($field_scope, $all_request[$queryable]['value']);
+                }
+                if ($all_request[$queryable]['method'] == null) {
                     $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
                 }
-//              if queryable method is (not null or not contains)
-                if(($all_request[$queryable]['method'] != null ))
-                {
-//                  if queryable is start
-                    if($all_request[$queryable]['method'] === "start"){
-//                        return $field_scope. " 2";
-                        $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
-                    }
-//                  if queryable is end
-                    if ($all_request[$queryable]['method'] === "end") {
-//                        return $field_scope. " 3";
-                        $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
-                    }
-//                  if queryable is exact
-                    if ($all_request[$queryable]['method'] === "exact") {
-//                        return $field_scope. " 4";
-                        $result->where($field_scope, $all_request[$queryable]['value']);
-                    }
-                }
-//                if ($all_request[$quryable]['method'] == null && ($field_scope === "first_name" or $field_scope === "last_name")) {
-//                    $result->whereFullText($field_scope, $all_request[$quryable]['value']);
-//                }
-//                if ($all_request[$quryable]['method'] == null && ($field_scope !== "first_name" and $field_scope !== "last_name")) {
-//                    {
-//                        $result->where($field_scope, 'like', '%' . $all_request[$quryable]['value'] . '%');
-//                    }
-//                    if ($all_request[$quryable]['method'] === "start") {
-//                        $result->where($field_scope, 'like', $all_request[$quryable]['value'] . '%');
-//                    }
-//                    if ($all_request[$quryable]['method'] === "end") {
-//                        $result->where($field_scope, 'like', '%' . $all_request[$quryable]['value']);
-//                    }
-//                    if ($all_request[$quryable]['method'] === "exact") {
-//                        $result->where($field_scope, $all_request[$quryable]['value']);
-//                    }
-//
-//                }
             }
         }
-//        return $field_scope;
         return $result;
+
     }
 
-    private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply)
+    private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply): LengthAwarePaginator
     {
+        foreach($inputFields as  $fieldname => $fieldvalue)
+        {
 
-
-        foreach($inputFields as  $fieldname => $fieldvalue) {
-
-//            for dates
-//            echo(!(str_contains(str_replace('_', ' ', $fieldname), 'date') or !str_contains(str_replace('_', ' ', $fieldname), 'dob') ) );
-//          if( isset($all_request['compare_dob']) && $all_request['compare_dob_check'] == true)
-            if((str_contains(str_replace('_', ' ', $fieldname), 'date') or str_contains(str_replace('_', ' ', $fieldname), 'dob') ) )
-            {
-//              if( empty($all_request['compare_dob_check']) and empty($all_request['compare_dob']))
-//              {
-//                  if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
-//                  {
-//                      $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
-//                  }
-//
-//                  if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
-//                  {
-//                      $result->whereYear($fieldname,$fieldvalue->format('Y'))
-//                          ->whereMonth($fieldname,$fieldvalue->format('m'));
-//                  }
-//
-//                  if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
-//                  {
-//                      $result->whereYear($fieldname,$fieldvalue->format('Y-m-d'));
-//                  }
-//              }else{
-//                  $result->whereBetween('dob', [$fieldvalue->format('Y'), $all_request['compare_'.$fieldname] ]);
-//              }
-
-                if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and !empty($all_request['array_'.$fieldname]['day']))
-                {
-                    $result->whereDate($fieldname, $fieldvalue->format('Y-m-d'));
-                }
-
-                if(!empty($all_request['array_'.$fieldname]['year']) and !empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
-                {
-                    $result->whereYear($fieldname,$fieldvalue->format('Y'))
-                        ->whereMonth($fieldname,$fieldvalue->format('m'));
-                }
-
-                if(!empty($all_request['array_'.$fieldname]['year']) and empty($all_request['array_'.$fieldname]['month']) and empty($all_request['array_'.$fieldname]['day']))
-                {
-                    $result->whereYear($fieldname,$fieldvalue->format('Y-m-d'));
-                }
-            }
-//            for everything else
-            elseif($fieldname === "memo")
-            {
+            if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob'])
+            && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
+                $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
+            } else if ($fieldname === 'memo') {
                 $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
-            }else{
-
-
+            } else if(!Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
                 $result->where($fieldname, $fieldvalue);
-
             }
         }
         return $result->paginate(100,$fieldsToDisply);
 
-
-//        return $result->cursorPaginate(100,$fieldsToDisply);
-//        return $result->simplePaginate(100,$fieldsToDisply);
-
-//        return $result->get($fieldsToDisply);
     }
 
-    private function provinces()
+    private function applyDateFilter($fieldName, $fieldValue, &$result, $allRequest): Builder
+    {
+//        dd($fieldName);
+        if(
+            $allRequest["compare_$fieldName"] != null
+            && Arr::exists($allRequest,"compare_{$fieldName}_check")
+        )
+        {
+
+            $year = Carbon::createFromDate($allRequest["compare_$fieldName"],"01","01");
+
+            $result->whereBetween(DB::raw("YEAR($fieldName)"),[$fieldValue->format('Y'), $year->format('Y')]);
+        } else
+        {
+            if (!empty($allRequest['array_' . $fieldName]['year']) && !empty($allRequest['array_' . $fieldName]['month']) && !empty($allRequest['array_' . $fieldName]['day']))
+            {
+                $result->whereDate($fieldName, $fieldValue->format('Y-m-d'));
+            } else if (!empty($allRequest['array_' . $fieldName]['year']) && !empty($allRequest['array_' . $fieldName]['month']) && empty($allRequest['array_' . $fieldName]['day']))
+            {
+                $result->whereYear($fieldName, $fieldValue->format('Y'))
+                    ->whereMonth($fieldName, $fieldValue->format('m'));
+            } else if (!empty($allRequest['array_' . $fieldName]['year']) && empty($allRequest['array_' . $fieldName]['month']) && empty($allRequest['array_' . $fieldName]['day']))
+            {
+                $result->whereYear($fieldName, $fieldValue->format('Y-m-d'));
+            }
+        }
+
+
+        return $result;
+    }
+
+
+
+    private function provinces(): array
     {
         $a = array_column($this->ProvincesParishes(), 'county');
         return  array_combine($a, $a);
     }
+//
+//    private function parishes()
+//    {
+////        https://www.raymondcamden.com/2022/07/29/building-related-selects-in-alpinejs
+//        $parish = array_filter(array_unique(array_merge(...array_column($this->ProvincesParishes(), 'parish'))));
+//        sort($parish);
+//        return array_combine($parish,$parish);
+//    }
+//
+//    private function getDistinct($model, $fieldName){
+//        return $model->select($fieldName)->distinct()->get()->pluck($fieldName,$fieldName);
+//    }
 
-    private function parishes()
-    {
-//        https://www.raymondcamden.com/2022/07/29/building-related-selects-in-alpinejs
-        $parish = array_filter(array_unique(array_merge(...array_column($this->ProvincesParishes(), 'parish'))));
-        sort($parish);
-        return array_combine($parish,$parish);
-    }
-
-    private function getDistinct($model, $fieldName){
-        return $model->select($fieldName)->distinct()->get()->pluck($fieldName,$fieldName);
-    }
-
-    private function ProvincesParishes()
+    private function ProvincesParishes(): array
     {
 
         $arr = json_decode('
@@ -13533,14 +13483,11 @@ trait SearchOrFilter
         return array_values($result);
     }
 
-    private function getGender()
+    private function getGender(): array
     {
         return [
             'M' => 'Man',
             'K' => 'Kvinna'
         ];
     }
-
-
-
 }

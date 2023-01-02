@@ -25,8 +25,10 @@
                         @endforeach
 
                         @foreach($populated_fields as $pop_fields)
+                            @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                             <th x-on:click="sortByColumn"  scope="col" class=" border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }} </th>
+                                @endif
                         @endforeach
 
                     </tr>
@@ -55,13 +57,15 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
-                                                                        hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
-                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
-                                            {{ $record[$pop_fields]}}
+                                    @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
+                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
+                                                                            hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                {{ $record[$pop_fields]}}
 
-                                        </a>
-                                    </td>
+                                            </a>
+                                        </td>
+                                    @endif
                                 @endforeach
 
                             </tr>
@@ -96,14 +100,14 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
-                                                                        hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
+                                    @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
+                                        <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
+                                                                            hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
 
-                                        {{ $record[$pop_fields]}}
+                                            {{ $record[$pop_fields]}}
 
-
-
-                                    </td>
+                                        </td>
+                                    @endif
                                 @endforeach
 
                             </tr>

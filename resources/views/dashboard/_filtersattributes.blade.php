@@ -78,7 +78,9 @@
                            ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",'x-show'=>"!compare"]) !!}
-                            <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check" x-model="compare" value="true" class="self-center rounded border-gray-300 ml-auto">
+                            <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check"
+                                   x-model="compare" value="true" x-checked="compare"
+                                   class="self-center rounded border-gray-300 ml-auto">
                         </div>
 
                     @elseif(in_array($filterAttribute, $enableQueryMatch))

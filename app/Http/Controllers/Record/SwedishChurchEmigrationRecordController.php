@@ -32,14 +32,17 @@ class SwedishChurchEmigrationRecordController extends Controller
     {
 
         $all_request = $request->all();
-//        return empty($all_request['compare_dob_check']);
-//        if(!$request->compare_dob){ return "does not exists"; }else{ return "exists"; }
 
+//        return $request;
+
+//        return $request->compare_dob_check;
         $quryables = $this->QryableItems($all_request);
 
 
         $carbonize_dates = $this->CarbonizeDates($all_request);
+
         $request->merge($carbonize_dates['field_data']);
+//        return $request;
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page','compare_dob','compare_dob_check'] );
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
 
@@ -79,7 +82,8 @@ class SwedishChurchEmigrationRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
 
 
-        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
+
+        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name',]))->except($defaultColumns )->keys();
 //        return $defaultColumns;
         $archive_name = $model::findOrFail(1)->archive;
 
