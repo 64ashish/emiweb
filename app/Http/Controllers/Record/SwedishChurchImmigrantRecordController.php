@@ -93,13 +93,13 @@ class SwedishChurchImmigrantRecordController extends Controller
 
         if($data2 == null){
             $title = 'Immigration ' .
-                (($request->sex !== "Alla") ? "av $request->sex ": "") .
+                (($request->sex !== "Alla") ? "av $request->sex ": "Alla") .
                 (($request->to_county !== "0") ? "från $request->to_county ": "") .
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }else{
             $title = 'Immigration ' .
-                (($request->sex !== "Alla") ? "av $request->sex ": "") .
+                (($request->sex !== "Alla") ? "av $request->sex ": "Alla") .
                 (($request->to_county !== "0") ? "från $request->to_county ": "") . ("med $request->to_county_compare ") .
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
