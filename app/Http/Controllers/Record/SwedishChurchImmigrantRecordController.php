@@ -104,7 +104,7 @@ class SwedishChurchImmigrantRecordController extends Controller
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }
-        
+
         $grouped_by = $request->group_by === "to_date"? "year":"to_county";
         $chart_type = $request->chart_type;
         $keywords = $request->all();

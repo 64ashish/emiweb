@@ -1605,6 +1605,9 @@ select {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-\[0\.9rem\] {
+  font-size: 0.9rem;
+}
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1642,6 +1645,9 @@ select {
 }
 .leading-5 {
   line-height: 1.25rem;
+}
+.leading-\[0\.9rem\] {
+  line-height: 0.9rem;
 }
 .text-gray-200 {
   --tw-text-opacity: 1;
