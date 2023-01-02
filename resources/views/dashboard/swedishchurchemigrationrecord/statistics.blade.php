@@ -190,9 +190,6 @@
     @if(Str::is('scerc.generateChart', Route::currentRoutename()) == true)
         <section
                  class="pt-6" aria-labelledby="section-1-title">
-
-
-
             <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
                 <div class="flex justify-end items-center pb-4">
 
