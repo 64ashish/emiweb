@@ -161,7 +161,7 @@
 
                 </div>
                 <div class="sm:flex justify-end pt-4 gap-x-5">
-                    <button type="submit" disabled name="action" value="filter" class=" inline-flex items-center px-8 py-2 border
+                    <button type="submit"  name="action" value="filter" class=" inline-flex items-center px-8 py-2 border
                                             border-transparent text-base font-medium rounded-md shadow-sm text-white
                                             {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
                                             focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search Statistics') }}</button>
