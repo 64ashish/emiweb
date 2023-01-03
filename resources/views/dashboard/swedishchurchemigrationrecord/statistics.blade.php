@@ -72,16 +72,6 @@
                         </div>
                     </div>
 
-{{--                    <div class="sm:grid sm:grid-cols-3 sm:items-start">--}}
-{{--                        <label for="from_province" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">--}}
-{{--                            {{ __('Basområde') }} </label>--}}
-{{--                        <div class="mt-1 sm:mt-0 sm:col-span-2">--}}
-{{--                            {!! Form::select('from_province', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500--}}
-{{--                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',--}}
-{{--                             'placeholder' => 'Alla'--}}
-{{--                             ]) !!}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
                     <div class="col-span-2">
                         <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
@@ -113,16 +103,6 @@
 
                     </div>
 
-{{--                    <div class="sm:grid sm:grid-cols-3 sm:items-start">--}}
-{{--                        <label for="comparison" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">--}}
-{{--                            {{ __('Jämförelseområde') }} </label>--}}
-{{--                        <div class="mt-1 sm:mt-0 sm:col-span-2">--}}
-{{--                            {!! Form::select('from_province_compare', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500--}}
-{{--                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',--}}
-{{--                             'placeholder' => 'Do not compare'--}}
-{{--                             ]) !!}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
                     <div class="col-span-2">
                         <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
