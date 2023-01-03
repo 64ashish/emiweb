@@ -209,6 +209,11 @@ class SwedishChurchEmigrationRecord extends Model
         return $this->hasOne(ScercPhotoRecord::class,'scerc_id');
     }
 
+    public function document()
+    {
+        return $this->hasOne(ScercDocumentRecord::class,'scerc_id');
+    }
+
     public function fieldsToDisply(){
         return [
             'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))) ,

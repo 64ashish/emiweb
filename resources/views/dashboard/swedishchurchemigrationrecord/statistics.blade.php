@@ -36,7 +36,8 @@
                     </a>
                 </li>
             </ul>
-            <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
+            <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg"
+            x-data="enableButton = false">
                 @if(isset($keywords))
                     {!! Form::model($keywords,['route' => 'scerc.generateChart'])  !!}
                 @endif
@@ -78,7 +79,9 @@
                             <label for="from_province"
                                    class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
                                 {{ __('Basområde') }}:
-                                <select x-model="county" name="from_province" class="max-w-lg block w-full rounded-md border-gray-300
+                                <select x-model="county"
+
+                                        name="from_province" class="max-w-lg block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
                                           focus:ring-indigo-500 sm:text-sm col-span-2">
                                     <option value="">-- {{ __('Select a province') }} --</option>
@@ -158,7 +161,7 @@
 
                 </div>
                 <div class="sm:flex justify-end pt-4 gap-x-5">
-                    <button type="submit" name="action" value="filter" class=" inline-flex items-center px-8 py-2 border
+                    <button type="submit" disabled name="action" value="filter" class=" inline-flex items-center px-8 py-2 border
                                             border-transparent text-base font-medium rounded-md shadow-sm text-white
                                             {{ auth()->user()->hasRole('organization admin|organization staff') ? "bg-sky-800" : " bg-indigo-600 " }} hover:bg-indigo-700 focus:outline-none focus:ring-2
                                             focus:ring-offset-2 focus:ring-indigo-500">{{ __('Search Statistics') }}</button>

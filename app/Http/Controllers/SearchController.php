@@ -339,7 +339,7 @@ class SearchController extends Controller
 
             case(5):
                 $model = new SwedishChurchEmigrationRecord();
-                $detail = SwedishChurchEmigrationRecord::with(['user.organization','photo'])->findOrFail($id);
+                $detail = SwedishChurchEmigrationRecord::with(['user.organization','photo','document'])->findOrFail($id);
                 $detail->relatives = SwedishChurchEmigrationRecord::where('main_act', $detail->main_act)
                     ->whereNot('id', $detail->id)
                     ->where('from_parish', $detail->from_parish)
@@ -349,6 +349,7 @@ class SearchController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media = "https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name;
                 break;
 
             case(6):
@@ -549,6 +550,7 @@ class SearchController extends Controller
                 abort(403);
         }
 
+//        return $detail;
         $relatives = $detail->archive->relatives->where('record_id', $id);
 //        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
         $archive_details = Archive::find($arch);
@@ -807,6 +809,8 @@ class SearchController extends Controller
             default:
                 abort(403);
         }
+
+
 
         $relatives = $detail->archive->relatives->where('record_id', $id);
         $images = $detail->archive->ImagesInArchive->where('record_id', $id);

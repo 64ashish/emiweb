@@ -62,6 +62,8 @@
                                href="#">{{ __('Relatives') }}</a>
                             @endif
 
+
+
                             @if($media != false)
                             <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm"
@@ -210,6 +212,10 @@
                             </div>
                         </div>
                         @endif
+
+
+
+
                         @if($media != false)
                         <div  x-show="tab === 'images'">
                             <h3 class="text-lg leading-6 font-medium text-gray-900 pb-4 flex items-center  border-b border-gray-200 ">
@@ -231,6 +237,8 @@
                             </div>
                         </div>
                         @endif
+
+
 
 
                     </div>
