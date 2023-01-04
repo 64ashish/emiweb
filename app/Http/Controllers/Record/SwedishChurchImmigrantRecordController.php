@@ -52,29 +52,31 @@ class SwedishChurchImmigrantRecordController extends Controller
 
 
     public function statics(){
-        $provinces = SwedishChurchImmigrantRecord::whereNot('to_county', '  Y')
-            ->whereNotNull('to_county')
-            ->select('to_county')
-            ->distinct()
-            ->get()
-            ->pluck('to_county','to_county')->prepend('Alla');
+//        $provinces = SwedishChurchImmigrantRecord::whereNot('to_county', '  Y')
+//            ->whereNotNull('to_county')
+//            ->select('to_county')
+//            ->distinct()
+//            ->get()
+//            ->pluck('to_county','to_county')->prepend('Alla');
+        $ProvincesParishes = collect($this->ProvincesParishes());
+        $provinces = $this->provinces();
 
-        return view('dashboard.SwedishChurchImmigrantRecord.statistics', compact('provinces'));
+        return view('dashboard.SwedishChurchImmigrantRecord.statistics', compact('provinces','ProvincesParishes'));
     }
 
     public function generateChart( Request $request){
 
 //        return $request->all();
         $data = SwedishChurchImmigrantRecord::findGender($request->sex)
-            ->toProvince($request->to_county)
+            ->toProvince($request->birth_county)
             ->recordDateRange($request->start_year, $request->end_year)
             ->groupRecordsBy($request->group_by)
             ->get();
 
-        if($request->to_county_compare != null  and $request->chart_type === 'bar')
+        if($request->birth_county_compare != null  and $request->chart_type === 'bar')
         {
             $data2 = SwedishChurchImmigrantRecord::findGender($request->sex)
-                ->toProvince($request->to_county_compare)
+                ->toProvince($request->birth_county_compare)
                 ->recordDateRange($request->start_year, $request->end_year)
                 ->groupRecordsBy($request->group_by)
                 ->get();

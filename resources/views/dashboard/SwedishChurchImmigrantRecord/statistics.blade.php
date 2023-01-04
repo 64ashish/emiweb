@@ -22,7 +22,8 @@
                 </li>
 
             </ul>
-            <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
+            <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg"
+                 x-data="{buttonDisable:true}">
 
                 @if(isset($keywords))
                     {!! Form::model($keywords,['route' => 'scirc.generateChart'])  !!}
@@ -30,8 +31,6 @@
                 @if(!isset($keywords))
                     {!! Form::open(['route' => 'scirc.generateChart'])  !!}
                 @endif
-
-
                 <div class="grid grid-cols-2 gap-4 pb-4">
                     <div class="sm:grid sm:grid-cols-3 sm:items-start">
                         <label for="sex" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
@@ -60,6 +59,39 @@
                         </div>
                     </div>
 
+{{--                    <div class="col-span-2">--}}
+{{--                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">--}}
+{{--                            <label for="birth_county"--}}
+{{--                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">--}}
+{{--                                {{ __('Basområde') }}:--}}
+{{--                                <select x-model="county"--}}
+{{--                                        x-on:change="[county == '' ? buttonDisable = true : buttonDisable = false]"--}}
+
+{{--                                        name="birth_county" class="max-w-lg block w-full rounded-md border-gray-300--}}
+{{--                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none--}}
+{{--                                          focus:ring-indigo-500 sm:text-sm col-span-2">--}}
+{{--                                    <option value="">-- {{ __('Select a province') }} --</option>--}}
+{{--                                    <template x-for="province in counties">--}}
+{{--                                        <option :value="province.county"><span x-text="province.county"></span></option>--}}
+{{--                                    </template>--}}
+{{--                                </select>--}}
+{{--                            </label>--}}
+
+{{--                            <label x-bind:disabled="!county"  for="birth_parish"--}}
+{{--                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', 'birth_parish'))) }}:--}}
+{{--                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'birth_parish' }}" class="block w-full rounded-md border-gray-300--}}
+{{--                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none--}}
+{{--                                          focus:ring-indigo-500 sm:text-sm col-span-2" >--}}
+{{--                                    <option value="">-- {{ __('Select a parish') }} --</option>--}}
+{{--                                    <template x-for="parishData in parishes">--}}
+{{--                                        <option :value="parishData"  ><span x-text="parishData"></span></option>--}}
+{{--                                    </template>--}}
+{{--                                </select>--}}
+{{--                            </label>--}}
+{{--                        </div>--}}
+
+{{--                    </div>--}}
+
                     <div class="sm:grid sm:grid-cols-3 sm:items-start">
                         <label for="to_county" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             {{ __('Basområde') }} </label>
@@ -79,6 +111,36 @@
                              ]) !!}
                         </div>
                     </div>
+
+{{--                    <div class="col-span-2">--}}
+{{--                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">--}}
+{{--                            <label for="birth_county_compare"--}}
+{{--                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">--}}
+{{--                                {{ __('Jämförelseområde') }}:--}}
+{{--                                <select x-model="county" name="birth_county_compare" class="max-w-lg block w-full rounded-md border-gray-300--}}
+{{--                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none--}}
+{{--                                          focus:ring-indigo-500 sm:text-sm col-span-2">--}}
+{{--                                    <option value="">-- {{ __('Select a province') }} --</option>--}}
+{{--                                    <template x-for="province in counties">--}}
+{{--                                        <option :value="province.county"><span x-text="province.county"></span></option>--}}
+{{--                                    </template>--}}
+{{--                                </select>--}}
+{{--                            </label>--}}
+
+{{--                            <label x-bind:disabled="!county"  for="{{ 'birth_parish_compare' }}"--}}
+{{--                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', 'birth_parish_compare'))) }}:--}}
+{{--                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'birth_parish_compare' }}" class="block w-full rounded-md border-gray-300--}}
+{{--                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none--}}
+{{--                                          focus:ring-indigo-500 sm:text-sm col-span-2" >--}}
+{{--                                    <option value="">-- {{ __('Select a parish') }} --</option>--}}
+{{--                                    <template x-for="parishData in parishes">--}}
+{{--                                        <option :value="parishData"  ><span x-text="parishData"></span></option>--}}
+{{--                                    </template>--}}
+{{--                                </select>--}}
+{{--                            </label>--}}
+{{--                        </div>--}}
+
+{{--                    </div>--}}
 
                     <div class="sm:grid sm:grid-cols-3 sm:items-start">
                         <label for="group_by" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
@@ -254,6 +316,39 @@
             }
         </script>
     @endif
+
+
+        @if(isset($ProvincesParishes))
+            <script>
+                document.addEventListener('alpine:init', () => {
+                    Alpine.data('loadCounties', () => ({
+                        counties:getCounties(),
+                        county:null,
+                        parish:null,
+                        // parishes: this.county
+                        parishes() {
+                            // return this.county
+                            return getParishes(this.county)
+                        }
+
+                    }))
+                });
+
+                const getCounties = () => {
+                    return {!! $ProvincesParishes !!}
+                }
+
+                /*
+                generates fake cities, later states have more values
+                */
+                const getParishes = (county) => {
+                    if(!county) return [];
+                    return getCounties().find(i => i.county === county).parish
+
+                }
+            </script>
+
+        @endif
 
 
 </x-app-layout>
