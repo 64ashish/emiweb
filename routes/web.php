@@ -64,11 +64,12 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 Route::get('/', [HomeController::class,'index']);
-Route::get('/mail', [SendEmailsController::class, 'sendTest']);
+//Route::get('/mail', [SendEmailsController::class, 'sendTest']);
 //Route::get('/login', [AuthenticatedSessionController::class, 'create']);
 Route::middleware(['auth','isActive','verified'])->get('/home', [HomeController::class,'index'])
     ->name('home');
-Route::middleware(['auth','isActive', 'verified'])->post('/language', [HomeController::class,'localSwitcher'])
+Route::middleware(['web'])
+    ->post('/language', [HomeController::class,'localSwitcher'])
     ->name('local');
 
 

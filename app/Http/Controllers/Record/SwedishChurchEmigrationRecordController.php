@@ -23,105 +23,172 @@ class SwedishChurchEmigrationRecordController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
 
 
+//    public function search( Request $request )
+//    {
+//
+//        $all_request = $request->all();
+//        $model = new SwedishChurchEmigrationRecord();
+//
+//        $quryables = $this->QryableItems($all_request);
+//
+//        $carbonize_dates = $this->CarbonizeDates($all_request);
+//
+//        $request->merge($carbonize_dates['field_data']);
+//
+//        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page','compare_dob','compare_dob_check'] );
+//        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
+//
+//
+//
+//        $fieldsToDisply = $model->fieldsToDisply();
+//
+//
+//        $result = SwedishChurchEmigrationRecord::query();
+//
+//        $this->QueryMatch($quryables,$result, $all_request);
+//
+//        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+//
+////        return $records;$records
+//
+//        $keywords = $request->all();
+//
+////        return $keywords;
+//
+//
+//        $enableQueryMatch =$model->enableQueryMatch();
+//        $filterAttributes = collect($model->defaultSearchFields());
+//        $advancedFields = collect($model->searchFields());
+//        $defaultColumns = $model->defaultTableColumns();
+//        $archive_name = $model::findOrFail(1)->archive;
+//
+//
+//
+//        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name',]))->except($defaultColumns )->keys();
+////        return $defaultColumns;
+//
+//
+//        $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+//        $ProvincesParishes = collect($this->ProvincesParishes());
+//        $provinces = $this->provinces();
+//
+////        eventually replace with
+//        $genders = $this->getGender();
+////        return $gender;
+//
+//        return view('dashboard.swedishchurchemigrationrecord.records', compact(
+//            'records',
+//            'keywords',
+//            'filterAttributes',
+//            'advancedFields',
+//            'defaultColumns',
+//            'populated_fields',
+//            'archive_name',
+//            'fieldsToDisply',
+//            'toBeHighlighted',
+//            'enableQueryMatch',
+//            'provinces',
+//            'genders',
+//            'ProvincesParishes'))->with($request->all());
+//
+//    }
+
     public function search( Request $request )
     {
-
+        // Initialize variables
         $all_request = $request->all();
-
-//        return $request;
-
-//        return $request->compare_dob_check;
-        $quryables = $this->QryableItems($all_request);
-
-
-        $carbonize_dates = $this->CarbonizeDates($all_request);
-
-        $request->merge($carbonize_dates['field_data']);
-//        return $request;
-        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page','compare_dob','compare_dob_check'] );
-        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
-
-//        return $inputFields;
-
-
-
-
-//        return $inputQuery;
         $model = new SwedishChurchEmigrationRecord();
-
-//        return $model->provinces();
-
         $fieldsToDisply = $model->fieldsToDisply();
-        $enableQueryMatch =$model->enableQueryMatch();
-//
-//        return in_array('ashish', $enableQueryMatch);
-
-        $result = SwedishChurchEmigrationRecord::query();
-
-
-
-        $this->QueryMatch($quryables,$result, $all_request);
-
-        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
-
-//        return $records;$records
-
-        $keywords = $request->all();
-
-//        return $keywords;
-
-
-
+        $enableQueryMatch = $model->enableQueryMatch();
         $filterAttributes = collect($model->defaultSearchFields());
         $advancedFields = collect($model->searchFields());
         $defaultColumns = $model->defaultTableColumns();
-
-
-
-        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name',]))->except($defaultColumns )->keys();
-//        return $defaultColumns;
         $archive_name = $model::findOrFail(1)->archive;
-
-        $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-        $ProvincesParishes = collect($this->ProvincesParishes());
-        $provinces = $this->provinces();
-
-//        eventually replace with
+        // retrive from trait
         $genders = $this->getGender();
-//        return $gender;
+        $provinces = $this->provinces();
+        $ProvincesParishes = collect($this->ProvincesParishes());
 
-        return view('dashboard.swedishchurchemigrationrecord.records', compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name', 'fieldsToDisply','toBeHighlighted','enableQueryMatch', 'provinces',
-                'genders', 'ProvincesParishes'))->with($request->all());
+        // Modify request data
+        $quryables = $this->QryableItems($all_request);
+        $carbonize_dates = $this->CarbonizeDates($all_request);
+        $request->merge($carbonize_dates['field_data']);
+        $remove_keys = Arr::prepend(
+            [
+                Arr::flatten($carbonize_dates['date_keys']),
+                $quryables
+            ],
+            [
+                '_token', 'action','page','compare_dob','compare_dob_check'
+            ]
+        );
+        $inputFields = Arr::whereNotNull(
+            $request->except(
+                Arr::flatten($remove_keys),
+                $quryables
+            )
+        );
 
+        // Perform search
+        $result = SwedishChurchEmigrationRecord::query();
+        $this->QueryMatch($quryables, $result, $all_request);
+        $records = $this->FilterQuery(
+            $inputFields,
+            $result,
+            $all_request,
+            array_keys($fieldsToDisply)
+        );
+
+        // Extract variables for view
+        $keywords = $request->all();
+        $populated_fields = collect(
+            Arr::except(
+                $inputFields,
+                ['first_name', 'last_name']
+            )
+        )->except($defaultColumns)->keys();
+        $toBeHighlighted = collect(
+            Arr::except(
+                $inputFields,
+                ['first_name', 'last_name']
+            )
+        )->keys();
+
+        // Render view
+        return view('dashboard.swedishchurchemigrationrecord.records', compact(
+            'records',
+            'keywords',
+            'filterAttributes',
+            'advancedFields',
+            'defaultColumns',
+            'populated_fields',
+            'archive_name',
+            'fieldsToDisply',
+            'toBeHighlighted',
+            'enableQueryMatch',
+            'provinces',
+            'genders',
+            'ProvincesParishes'
+        ))->with($request->all());
     }
+
 
     public function statics(){
 
-
-//        $provinces = SwedishChurchEmigrationRecord::whereNot('from_province', '0')
-//            ->select('from_province')
-//            ->distinct()
-//            ->orderBy('from_province')
-//            ->get()
-//            ->pluck('from_province','from_province')->prepend('Alla');
         $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces() ;
 
-//        return $provinces;
         return view('dashboard.swedishchurchemigrationrecord.statistics', compact('provinces','ProvincesParishes'));
 
     }
 
     public function generateChart( Request $request)
     {
-//        return $request->all();
-
-//        if($request->from_parish){ return "from_parish is present"; } else { return "not present";}
 
         $data = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province)

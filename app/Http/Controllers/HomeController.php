@@ -119,6 +119,8 @@ class HomeController extends Controller
 
     public function localSwitcher(Request $request)
     {
+
+//        return $request;
         $validate = $request->validate([
             'language' => 'required|in:sv,en|max:2',
         ]);

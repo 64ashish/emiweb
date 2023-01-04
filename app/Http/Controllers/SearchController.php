@@ -30,6 +30,7 @@ use App\Models\SwedishPortPassengerListRecord;
 use App\Models\SwedishUsaCentersEmiPhotoRecord;
 use App\Models\SwensonCenterPhotosamlingRecord;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
+use App\Services\FindArchiveService;
 use App\Traits\SearchOrFilter;
 use App\Traits\UniversalQuery;
 use Illuminate\Http\Request;
@@ -44,187 +45,17 @@ class SearchController extends Controller
     use UniversalQuery, SearchOrFilter;
 
     //
-    public function index($archive)
+    public function index($archive, FindArchiveService $archiveService)
     {
 
-//        return  $this->provinces();
-//        return gettype($p);
-        switch($archive) {
-            case(1):
-                $model = new DenmarkEmigration();
-                $viewfile = 'dashboard.denmarkemigration.records';
-                $genders = $this->getGender();
-                break;
-
-            case(2):
-                $model = new SwedishAmericanChurchArchiveRecord();
-                $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(3):
-                $model = new NewYorkPassengerRecord();
-                $viewfile = 'dashboard.NewYorkPassengerRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(4):
-                $model = new SwedishPortPassengerListRecord();
-                $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(5):
-//               return "return redirect";
-//                return redirect(route('scerc.search'));
-                $model = new SwedishChurchEmigrationRecord();
-                $viewfile = 'dashboard.swedishchurchemigrationrecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(6):
-                $model = new SwedishChurchImmigrantRecord();
-                $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(7):
-                $model = new SwedishEmigrantViaKristianiaRecord();
-                $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(8):
-                $model = new SwedishImmigrationStatisticsRecord();
-                $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(9):
-                $model = new SwedishEmigrationStatisticsRecord();
-                $viewfile = 'dashboard.scbe.records';
-                $genders = $this->getGender();
-                break;
-
-            case(10):
-                $model = new LarssonEmigrantPopularRecord();
-                $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(11):
-                $model = new BrodernaLarssonArchiveRecord();
-                $viewfile = 'dashboard.larsson.records';
-                $genders = $this->getGender();
-                break;
-
-            case(12):
-                $model = new JohnEricssonsArchiveRecord();
-                $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(13):
-                $model = new NorwegianChurchImmigrantRecord();
-                $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(14):
-                $model = new MormonShipPassengerRecord();
-                $viewfile = 'dashboard.MormonShipPassengerRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(15):
-                $model = new SwedishAmericanMemberRecord();
-                $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(16):
-                $model = new SwedeInAlaskaRecord();
-                $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(17):
-                $model = new VarmlandskaNewspaperNoticeRecord();
-                $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(18):
-                $model = new DalslanningarBornInAmericaRecord();
-                $viewfile = 'dashboard.dbiar.records';
-                $genders = $this->getGender();
-                break;
-
-            case(20):
-                $model = new NorwayEmigrationRecord();
-                $viewfile = 'dashboard.norwayemigrationrecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(21):
-                $model = new IcelandEmigrationRecord();
-                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(22):
-                $model = new BevaringensLevnadsbeskrivningarRecord();
-                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(23):
-                $model = new SwedishAmericanJubileeRecord();
-                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
-                $genders = $this->getGender();
-                break;
-
-            case(24):
-
-                $model = new SwensonCenterPhotosamlingRecord();
-                $viewfile = 'dashboard.swenphotocenter.records';
-                $genders = $this->getGender();
-                break;
-
-            case(25):
-                $model = new NorthenPacificRailwayCompanyRecord();
-                $viewfile = 'dashboard.NorthPacificRailwayCo.index';
-                $genders = $this->getGender();
-                break;
-
-            case(26):
-                $model = new RsPersonalHistoryRecord();
-                $viewfile = 'dashboard.rsphistory.photos';
-                $genders = $this->getGender();
-                break;
-
-            case(27):
-                $model = new SwedishUsaCentersEmiPhotoRecord();
-                $viewfile = 'dashboard.suscepc.records';
-                $genders = $this->getGender();
-                break;
-
-            case(28):
-                $model = new SwedishAmericanBookRecord();
-                $viewfile = 'dashboard.sabr.records';
-                $genders = $this->getGender();
-                break;
-
-            default:
-                abort(403);
-        }
+        $model = $archiveService->getSelectedArchive($archive)['model'];
+        $viewfile = $archiveService->getSelectedArchive($archive)['viewfile'];
+        $genders = $archiveService->getSelectedArchive($archive)['genders'];
 
         $filterAttributes = collect($model->defaultSearchFields());
         $enableQueryMatch =$model->enableQueryMatch();
         $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
-//        return $provinces;
-//        $parish= $this->parishes();
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
@@ -246,17 +77,8 @@ class SearchController extends Controller
     {
 
         $inputFields = Arr::whereNotNull($request->except('_token'));
-//        $quryables = $this->QryableItems($request->all());
-//        return $quryables;
-////        return $inputFields;
-        $keywords = $request->except('_token');
 
-////        run this for test only
-////        $records = collect([
-////            'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields)->count()
-////        ]);
-////
-////        run this for production
+        $keywords = $request->except('_token');
 
         if(auth()->user()->hasRole(['regular user'])){
             $records = collect([
