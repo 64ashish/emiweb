@@ -112,10 +112,10 @@ class SubscriptionController extends Controller
 //        get first subscription
         $user = auth()->user();
 //        return $user->subscriptions()->active()->first()->items->first();
-        $CurrentPlan = $user->subscriptions()->active()->first()->items->first();
+        $CurrentPlan = $user->subscriptions()->active()->get()->first();
 //        $user->subscription($CurrentPlan->name)->swap($request->plan);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
-
+//        dd($CurrentPlan);
         // send email here
 
 //        price_1LKKOmG9lZTwpgcPIkYhO5EG

@@ -38,7 +38,7 @@
             <div class="pt-6">
                 <p class="text-sm text-center">
                     <span class="text-gray-600">{{ __('Already have an account?') }}</span>
-                    <a href="/login" class="text-gray-900 hover:text-indigo-700 font-bold">{ __('Login now{') }}</a>
+                    <a href="/login" class="text-gray-900 hover:text-indigo-700 font-bold">{{ __('Login') }}</a>
                 </p>
             </div>
         </div>
