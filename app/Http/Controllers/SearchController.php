@@ -171,7 +171,7 @@ class SearchController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = "https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name;
+                $media = !is_null($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
                 break;
 
             case(6):
@@ -372,7 +372,7 @@ class SearchController extends Controller
                 abort(403);
         }
 
-//        return $detail;
+//        return $media;
         $relatives = $detail->archive->relatives->where('record_id', $id);
 //        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
         $archive_details = Archive::find($arch);
