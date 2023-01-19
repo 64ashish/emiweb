@@ -158,15 +158,21 @@ class SearchController extends Controller
                 {
                     preg_match_all("/\d+/", $detail->source_reference, $matches);
 
+//                    return $matches;
 //
                       if(count($matches[0]) == 3)
                       {
                           $detail->riksarkivet = SpplrReference::where('index_batch_reference',"SE/GLA/12703/E IX/".$matches[0][0])
-                              ->where('page_one',$matches[0][1])
+//                              ->where('page_one',$matches[0][1])
+//                              ->orWhere('page_two',$matches[0][1])
+                              ->where(function ($query) use ($matches) {
+                                  $query->where('page_one','=',$matches[0][1])
+                                      ->orWhere('page_two','=',$matches[0][1]);
+                              })
                               ->first()->image_id;
                       }
                 }
-
+//                return $detail;
 
 //                return !is_null($detail->riksarkivet)?$detail->riksarkivet:"is null";
 

@@ -102,9 +102,11 @@ trait SearchOrFilter
 
     private function applyDateFilter($fieldName, $fieldValue, &$result, $allRequest): Builder
     {
-//        dd($fieldName);
+//        dd($allRequest);
+//        dd(array_key_exists("compare_birth_date",$allRequest));
+
         if(
-            $allRequest["compare_$fieldName"] != null
+            array_key_exists("compare_$fieldName",$allRequest)
             && Arr::exists($allRequest,"compare_{$fieldName}_check")
         )
         {
