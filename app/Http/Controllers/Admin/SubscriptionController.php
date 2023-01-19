@@ -69,11 +69,6 @@ class SubscriptionController extends Controller
         }
 
         return redirect()->back()->with('Success','You are already subscribed to this subscription');
-
-
-
-
-
     }
 
     /**
@@ -105,25 +100,18 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-//        return $request->all();
-//        get first subscription
+
         $user = auth()->user();
-//        return $user->subscriptions()->active()->first()->items->first();
+
         $CurrentPlan = $user->subscriptions()->active()->get()->first();
-//        $user->subscription($CurrentPlan->name)->swap($request->plan);
+
+//        dd($CurrentPlan->name);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
-//        dd($CurrentPlan);
-        // send email here
 
-//        price_1LKKOmG9lZTwpgcPIkYhO5EG
-
-//        $user->subscription($CurrentPlan->name)->swap($request->plan);
         return redirect()->back();
-//        cancel it
-//        add new subscription
+
     }
 
     /**

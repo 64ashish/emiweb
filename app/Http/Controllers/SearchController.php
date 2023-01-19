@@ -16,6 +16,7 @@ use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\RsPersonalHistoryRecord;
+use App\Models\SpplrReference;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanBookRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
@@ -153,6 +154,25 @@ class SearchController extends Controller
 
             case(4):
                 $detail = SwedishPortPassengerListRecord::with('user.organization')->findOrFail($id);
+                if(!is_null($detail->source_reference))
+                {
+                    preg_match_all("/\d+/", $detail->source_reference, $matches);
+
+//
+                      if(count($matches[0]) == 3)
+                      {
+                          $detail->riksarkivet = SpplrReference::where('index_batch_reference',"SE/GLA/12703/E IX/".$matches[0][0])
+                              ->where('page_one',$matches[0][1])
+                              ->first()->image_id;
+                      }
+                }
+
+
+//                return !is_null($detail->riksarkivet)?$detail->riksarkivet:"is null";
+
+
+
+
                 $model = new SwedishPortPassengerListRecord();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -372,7 +392,6 @@ class SearchController extends Controller
                 abort(403);
         }
 
-//        return $media;
         $relatives = $detail->archive->relatives->where('record_id', $id);
 //        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
         $archive_details = Archive::find($arch);
