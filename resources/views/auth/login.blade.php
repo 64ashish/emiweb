@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <form class="mt-8 space-y-6" action="/login" method="POST">
         @csrf
 {{--        <input type="hidden" name="remember" value="true">--}}
@@ -61,11 +62,6 @@
         </div>
     </form>
 
-    {!! Form::open([ 'route'=>['local', http_build_query(request()->except(['_token']))] ]) !!}
-    <ul class="text-sm mt-4 font-bold flex justify-end">
-        <li><button name="language" value="sv" type="submit">Svenska</button> /</li>
-        <li class="px-1"><button name="language" value="en" type="submit">English</button> </li>
-    </ul>
-    {!! Form::close() !!}
+
 </x-guest-layout>
 

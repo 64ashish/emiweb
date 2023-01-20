@@ -10,7 +10,14 @@
 <body class="h-full">
 <div class="min-h-full md:flex bg-white">
     <div class="md:flex-none md:w-1/2 min-h-screen flex items-center justify-center p-6 md:p-0">
+
         <div class="lg:w-2/3 xl:w-1/2">
+            {!! Form::open([ 'route'=>['local', http_build_query(request()->except(['_token']))] ]) !!}
+            <ul class="text-sm mt-4 font-bold flex justify-end">
+                <li><button name="language" value="sv" type="submit">Svenska</button> /</li>
+                <li class="px-1"><button name="language" value="en" type="submit">English</button> </li>
+            </ul>
+            {!! Form::close() !!}
             <div>
                 <h2 class="text-2xl lg:text-4xl text-gray-900 font-bold mb-3">{{ __('Welcome back ') }}</h2>
                 <h4 class="text-gray-600">
