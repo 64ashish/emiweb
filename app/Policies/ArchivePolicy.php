@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Archive;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArchivePolicy
@@ -27,7 +28,11 @@ class ArchivePolicy
     public function viewAny(User $user, Archive $archive)
     {
         //
-        if($user->hasRole('subscriber')){
+        if($user->hasRole('subscriber') and $user->manual_expire == null){
+            return true;
+        }
+
+        if($user->hasRole('subscriber') and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now()) ){
             return true;
         }
 
@@ -60,9 +65,12 @@ class ArchivePolicy
             return true;
         }
 
-        if($user->hasRole('subscriber')){
+        if($user->hasRole('subscriber') and $user->manual_expire == null){
             return true;
-//            dd('you are here');
+        }
+
+        if($user->hasRole('subscriber') and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now()) ){
+            return true;
         }
 
         // return true if user is regular and archive id is 1

@@ -83,7 +83,8 @@
             </div>
 
             <div class="px-4 py-5 sm:px-6">
-                <ul>
+                @if(count($user->subscriptions()->active()->get()) > 0)
+                    <ul>
                     @foreach($user->subscriptions()->active()->get() as $subscription)
                     <li>
                         <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
@@ -109,6 +110,9 @@
                     </li>
                     @endforeach
                 </ul>
+                @else
+
+                @endif
             </div>
 
 

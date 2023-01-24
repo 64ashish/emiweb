@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\User;
 use App\Traits\RoleBasedRedirect;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -70,6 +71,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+//        return $user->subscriptions()->active()->get()->count();
         $roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
         return view('admin.users.edit', compact('user', 'roles'));
 
@@ -197,7 +199,16 @@ class UserController extends Controller
                 );
 
             }else{
+
+//                return Carbon::now()->addYear();
                 // redirect to user list with you cant do that message
+                if($request->name == "subscriber")
+                {
+                    $user->update(['manual_expire' => Carbon::now()->addYear()]);
+                }else
+                {
+                    $user->update(['manual_expire' => null]);
+                }
                 $user->syncRoles([$request->name]);
 
                 return  $this->NowRedirectTo('/admin/users/',

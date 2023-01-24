@@ -318,6 +318,99 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
             ->name('danishemigration.show');
         Route::match(['get', 'post'],'/danishemigration/search', [DenmarkEmigrationController::class, 'search'])->name('danishemigration.search');
 
+//        // image related routes
+//        Route::get('npr/{index_letter}', [NorthenPacificRailwayCompanyRecordController::class,'browse'])->name('npr.browse');
+//
+////        DalslanningarBornInAmericaRecord
+//
+//        Route::get('/dbir/show/{id}', [DalslanningarBornInAmericaRecordController::class, 'show'])
+//            ->name('dbir.show');
+//        Route::match(['get', 'post'],'/dbir/search', [DalslanningarBornInAmericaRecordController::class, 'search'])->name('dbir.search');
+//
+////        SwedishAmericanChurchArchiveRecord
+//        Route::match(['get', 'post'],'/sacar/search', [SwedishAmericanChurchArchiveRecordController::class, 'search'])->name('sacar.search');
+//
+//        Route::match(['get', 'post'],'/nypr/search', [NewYorkPassengerRecordController::class, 'search'])->name('nypr.search');
+//
+//        Route::match(['get', 'post'],'/spplr/search', [SwedishPortPassengerListRecordController::class, 'search'])->name('spplr.search');
+//
+//
+//
+//        Route::match(['get', 'post'],'/scerc/search', [SwedishChurchEmigrationRecordController::class, 'search'])->name('scerc.search');
+//        Route::get('/scerc/statics', [SwedishChurchEmigrationRecordController::class, 'statics'])->name('scerc.statics');
+//        Route::post('/scerc/chart', [SwedishChurchEmigrationRecordController::class, 'generateChart'])->name('scerc.generateChart');
+//        Route::get('/scerc/photos', [SwedishChurchEmigrationRecordController::class, 'searchPhotos'])->name('scerc.photos');
+//        Route::match(['get', 'post'],'/scerc/photos-results', [SwedishChurchEmigrationRecordController::class, 'resultPhotos'])->name('scerc.result-photos');
+//
+//
+//        Route::get('/scirc/statics', [SwedishChurchImmigrantRecordController::class, 'statics'])->name('scirc.statics');
+//        Route::post('/scirc/chart', [SwedishChurchImmigrantRecordController::class, 'generateChart'])->name('scirc.generateChart');
+//        Route::match(['get', 'post'],'/scirc/search', [SwedishChurchImmigrantRecordController::class, 'search'])->name('scirc.search');
+//
+//        Route::match(['get', 'post'],'/sevkrc/search', [SwedishEmigrantViaKristianiaRecordController::class, 'search'])->name('sevkrc.search');
+//
+//        Route::match(['get', 'post'],'/sisrc/search', [SwedishImmigrationStatisticsRecordController::class, 'search'])->name('sisrc.search');
+//
+//
+//        Route::match(['get', 'post'],'/sesrc/search', [SwedishEmigrationStatisticsRecordController::class, 'search'])->name('sesrc.search');
+//
+//        Route::match(['get', 'post'],'/leprc/search', [LarssonEmigrantPopularRecordController::class, 'search'])->name('leprc.search');
+//
+//        Route::match(['get', 'post'],'/blarc/search', [BrodernaLarssonArchiveRecordController::class, 'search'])->name('blarc.search');
+//        Route::get('/blarc/browse', [BrodernaLarssonArchiveRecordController::class, 'browseYear'])->name('blarc.browse');
+//        Route::get('/blarc/browse/{year}', [BrodernaLarssonArchiveRecordController::class, 'browseDocuments'])->name('blarc.documents');
+//
+//
+//        Route::match(['get', 'post'],'/jear/search', [JohnEricssonsArchiveRecordController::class, 'search'])->name('jear.search');
+//
+//        Route::match(['get', 'post'],'/ncirc/search', [NorwegianChurchImmigrantRecordController::class, 'search'])->name('ncirc.search');
+//
+//        Route::match(['get', 'post'],'/msprc/search', [MormonShipPassengerRecordController::class, 'search'])->name('msprc.search');
+//
+//        Route::match(['get', 'post'],'/samrc/search', [SwedishAmericanMemberRecordController::class, 'search'])->name('samrc.search');
+//
+//        Route::match(['get', 'post'],'/siarc/search', [SwedeInAlaskaRecordController::class, 'search'])->name('siarc.search');
+//
+//        Route::match(['get', 'post'],'/vnnrc/search', [VarmlandskaNewspaperNoticeRecordController::class, 'search'])->name('vnnrc.search');
+//
+//        Route::match(['get', 'post'],'/nerc/search', [NorwayEmigrationRecordController::class, 'search'])->name('nerc.search');
+//
+//        Route::match(['get', 'post'],'/ierc/search', [IcelandEmigrationRecordController::class, 'search'])->name('ierc.search');
+//
+//        Route::match(['get', 'post'],'/sajr/search', [SwedishAmericanJubileeRecordController::class, 'search'])->name('sajr.search');
+//
+//        Route::match(['get', 'post'],'/rsphr/search', [RsPersonalHistoryRecordController::class, 'search'])->name('rsphr.search');
+//
+//        Route::match(['get', 'post'],'/suscepc/search', [SwedishUsaCentersEmiPhotoRecordController::class, 'search'])->name('suscepc.search');
+//
+//        Route::match(['get', 'post'],'/scpsr/search', [SwensonCenterPhotosamlingRecordController::class, 'search'])->name('scpsr.search');
+//
+//
+//        Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
+
+
+
+        Route::post('/suggestion', [SendEmailsController::class,'sendSuggestion'])->name('suggestion');
+
+
+
+
+//        Route::get();
+
+
+// subscription stuff
+        Route::post('/subscribe', [SubscriptionController::class, 'store'])
+            ->name('subscribe.create');
+        Route::get('/subscribe/cancel', [SubscriptionController::class,'destroy'])
+            ->name('subscribe.cancel');
+        Route::post('/subscribe/{id}/update', [SubscriptionController::class,'update'])
+            ->name('subscribe.update');
+
+    });
+
+Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|subscriber',  'isActive'])
+    ->group(function ()
+    {
         // image related routes
         Route::get('npr/{index_letter}', [NorthenPacificRailwayCompanyRecordController::class,'browse'])->name('npr.browse');
 
@@ -387,24 +480,5 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
 
         Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
-
-
-
-        Route::post('/suggestion', [SendEmailsController::class,'sendSuggestion'])->name('suggestion');
-
-
-
-
-//        Route::get();
-
-
-// subscription stuff
-        Route::post('/subscribe', [SubscriptionController::class, 'store'])
-            ->name('subscribe.create');
-        Route::get('/subscribe/cancel', [SubscriptionController::class,'destroy'])
-            ->name('subscribe.cancel');
-        Route::post('/subscribe/{id}/update', [SubscriptionController::class,'update'])
-            ->name('subscribe.update');
-
     });
 

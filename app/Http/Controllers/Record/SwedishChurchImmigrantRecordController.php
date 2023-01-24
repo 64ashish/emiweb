@@ -15,6 +15,9 @@ class SwedishChurchImmigrantRecordController extends Controller
     //
     public function search( Request $request )
     {
+
+
+
         $all_request = $request->all();
 
         $quryables = $this->QryableItems($all_request);

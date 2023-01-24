@@ -49,6 +49,10 @@ class SearchController extends Controller
     public function index($archive, FindArchiveService $archiveService)
     {
 
+        if($archive !=1 and auth()->user()->hasRole('regular user'))
+        {
+            return abort(403, 'Unauthorized action.');
+        }
         $model = $archiveService->getSelectedArchive($archive)['model'];
         $viewfile = $archiveService->getSelectedArchive($archive)['viewfile'];
         $genders = $archiveService->getSelectedArchive($archive)['genders'];
