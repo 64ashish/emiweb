@@ -18,7 +18,7 @@ class IsManualSubscriber
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->hasRole('subscriber') and Carbon::parse(Auth::user()->manual_expire)->greaterThanOrEqualTo(Carbon::now()) ) {
+        if (Auth::user()->hasRole('subscriber') and (!is_null(Auth::user()->manual_expire) and Carbon::parse(Auth::user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
             return $next($request);
         }
         return redirect('/');
