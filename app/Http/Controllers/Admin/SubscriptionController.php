@@ -62,6 +62,7 @@ class SubscriptionController extends Controller
                 $customer = Cashier::findBillable($user->stripe_id);
                 if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
                     $user->syncRoles('subscriber');
+                    $user->update(['manual_expire' => null]);
                     // send email here
 
                 }
@@ -109,6 +110,7 @@ class SubscriptionController extends Controller
 
 //        dd($CurrentPlan->name." ".$request->plan);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
+        $user->update(['manual_expire' => null]);
 
         return redirect()->back();
 
