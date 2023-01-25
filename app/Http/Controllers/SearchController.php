@@ -54,7 +54,7 @@ class SearchController extends Controller
         {
             return abort(403, 'Unauthorized action.');
         }
-        if(auth()->user()->hasRole('subscriber') and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now()))
+        if($archive !=1 and auth()->user()->hasRole(['subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())))
         {
             return abort(403, 'Unauthorized action.');
         }
