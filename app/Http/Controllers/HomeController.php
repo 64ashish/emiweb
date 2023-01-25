@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Archive;
 use App\Models\Category;
 use App\Models\User;
+use Carbon\Carbon;
 use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -21,6 +22,8 @@ class HomeController extends Controller
     //
     public function index()
     {
+
+//        dd(Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now()));
 
         if(auth()->check())
         {
@@ -43,18 +46,21 @@ class HomeController extends Controller
 //                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
 //                $allcats = Category::where('id',8)->with('archives')->has('archives')->first();
                 $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
-            }
-
-
-            if(auth()->user()->hasRole(['subscriber'])){
+            } elseif(auth()->user()->hasRole(['subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+                $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
+            } elseif(auth()->user()->hasRole(['subscriber']) and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+                $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
+            } elseif (auth()->user()->hasRole(['subscriber']) and is_null(auth()->user()->manual_expire) ){
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
                 $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
             }
+//            return $catArchives;
 //        return $catArchives;
 //        $user = auth()->user();
+
             $user = auth()->user();
 
-//        return $catArchives;
+//        return $catArchives->name;
 
             return view('home.dashboard', compact('user','catArchives'));
         }else{
@@ -67,6 +73,8 @@ class HomeController extends Controller
     public function user(User $user){
 //        return $user;
         //        authorize action
+
+//        return Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now());
 
         if(auth()->user()->hasRole(['regular user']) or auth()->user()->hasRole(['subscriber'])){
             $this->authorize('update', $user);

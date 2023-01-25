@@ -34,6 +34,7 @@ use App\Models\VarmlandskaNewspaperNoticeRecord;
 use App\Services\FindArchiveService;
 use App\Traits\SearchOrFilter;
 use App\Traits\UniversalQuery;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +51,10 @@ class SearchController extends Controller
     {
 
         if($archive !=1 and auth()->user()->hasRole('regular user'))
+        {
+            return abort(403, 'Unauthorized action.');
+        }
+        if(auth()->user()->hasRole('subscriber') and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now()))
         {
             return abort(403, 'Unauthorized action.');
         }

@@ -408,7 +408,7 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
     });
 
-Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|subscriber',  'isActive'])
+Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|subscriber',  'isActive', 'isManualSubscriber'])
     ->group(function ()
     {
         // image related routes
