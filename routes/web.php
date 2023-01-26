@@ -133,6 +133,10 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
             ->name('users.update');
         Route::get('/users/{user}/edit', [UserController::class, 'edit'])
             ->name('users.edit');
+
+        Route::post('/users/search', [UserController::class, 'searchForAdmin'])
+            ->name('users.search');
+
         Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
             ->name('users.sync-role');
 //            Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate']);
@@ -186,11 +190,14 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
         Route::get('/users', [UserController::class, 'index'])
             ->name('users.index');
 
+
         Route::put('/users/{user}/update', [UserController::class, 'update'])
             ->name('users.update');
         Route::get('/users/{user}/edit', [UserController::class, 'edit'])
             ->name('users.edit');
 
+        Route::post('/users/search', [UserController::class, 'searchForAdmin'])
+            ->name('users.search');
 
 
         Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 //use Laravel\Cashier\Subscription;
@@ -23,6 +24,12 @@ class HomeController extends Controller
     public function index()
     {
 
+//        if (auth()->user()->hasRole('subscriber') and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
+//            dd("true");
+//        }else
+//        {
+//            dd(is_null(auth()->user()->manual_expire));
+//        }
 //        dd(Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now()));
 
         if(auth()->check())

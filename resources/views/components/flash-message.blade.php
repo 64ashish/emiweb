@@ -1,4 +1,4 @@
-
+{{--<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">--}}
 
 @if (session('success'))
     <div id="flashBox" class="rounded-md bg-green-50 p-4" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">
@@ -40,3 +40,5 @@
         </div>
     </div>
 @endif
+
+{{--</div>--}}

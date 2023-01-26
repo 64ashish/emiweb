@@ -6,11 +6,30 @@
                     <h1 class="text-xl font-semibold text-gray-900">users</h1>
                     <p class="mt-2 text-sm text-gray-700">A list of all the users.</p>
                 </div>
-                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                    <a href="" class="inline-flex items-center justify-center rounded-md border
-                border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700
-                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add user</a>
+
+            </div>
+
+            <div>
+                @role('super admin')
+                {!! Form::open(['route' => ['admin.users.search']])  !!}
+                @endrole
+                @hasanyrole('emiweb admin|emiweb staff')
+                {!! Form::open(['route' => ['emiweb.users.search']])  !!}
+                @endhasanyrole
+
+                <div class="mt-5 sm:flex sm:items-center">
+                    <div class="w-full sm:max-w-xs mr-2">
+                        <label for="email" class="sr-only">User Email</label>
+                        <input type="email" name="email" id="email" class="block w-full rounded-md border-gray-300
+                        shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="users@example.com">
+                    </div>
+                    <button type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md border
+                    border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto
+                    sm:text-sm">Search Users</button>
                 </div>
+
+                </form>
             </div>
             <div class="mt-8 flex flex-col">
                 <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">

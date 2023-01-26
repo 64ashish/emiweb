@@ -112,6 +112,19 @@ class UserController extends Controller
 
     }
 
+    public function searchForAdmin(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'email'
+        ]);
+
+        if($validated) {
+            $users = User::where('email', 'like', $request->email)
+                ->get();
+
+            return view('admin.users.index', compact('users'));
+        }
+    }
 
     /**
      * Search for the user for association with organization
@@ -126,8 +139,7 @@ class UserController extends Controller
         ]);
 
         if($validated) {
-            $users = User::where('status', '1')
-                ->where('email', 'like', $request->email)
+            $users = User::where('email', 'like', $request->email)
                 ->get();
 
             return view('admin.organizations.user_search', compact('users', 'organization'));
@@ -224,9 +236,14 @@ class UserController extends Controller
 
     public function subscribers()
     {
-        $subscriptions =  Subscription::query()->active()->get();
+        $manualSubscriptions = User::role('subscriber')
+            ->whereNotNull('manual_expire')
+            ->where('manual_expire', '>=', Carbon::now())
+            ->get();
+//        return $manualSubscriptions;
+        $subscriptions =  Subscription::query()->with('user')->active()->get();
 //        return $subscriptions;
-        return view('admin.users.subscriptions', compact('subscriptions'));
+        return view('admin.users.subscriptions', compact('subscriptions', 'manualSubscriptions'));
     }
 
     public function subscriptionCancel(User $user)

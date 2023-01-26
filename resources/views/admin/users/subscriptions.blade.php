@@ -40,7 +40,9 @@
                                 </thead>
                                 <tbody class="bg-white">
                                 @foreach($subscriptions as $subscription)
-                                    <tr>
+{{--                                    @dd($subscription->users)--}}
+                                    @if(!is_null($subscription->user))
+                                        <tr>
                                         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
                                     font-medium text-gray-900 sm:pl-6 lg:pl-8 flex">
                                             {{ $subscription->user->name }}
@@ -72,6 +74,45 @@
 
                                         </td>
                                     </tr>
+                                    @endif
+                                @endforeach
+
+                                @foreach($manualSubscriptions as $muser)
+                                    {{--                                    @dd($subscription->users)--}}
+                                    @if(!is_null($muser))
+                                        <tr>
+                                            <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
+                                    font-medium text-gray-900 sm:pl-6 lg:pl-8 flex">
+                                                {{ $muser->name }}
+
+                                            </td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    text-gray-500 hidden sm:table-cell">{{ $muser->email}}</td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    text-gray-500 hidden lg:table-cell">
+                                                @if($muser->organization)
+                                                    {{ $muser->organization->name }}
+                                                @else
+                                                    Manual subscription
+                                                @endif
+
+                                            </td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
+                                    text-gray-500">
+                                                No association
+                                            </td>
+                                            <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3
+                                    text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                                                @role('super admin')
+                                                <a href="{{ route('admin.users.edit', $muser) }}" >View status</a>
+                                                @endrole
+                                                @hasanyrole('emiweb admin|emiweb staff')
+                                                <a href="{{ route('emiweb.users.edit', $muser) }}" class="text-indigo-600 hover:text-indigo-900">View Status</a>
+                                                @endhasanyrole
+
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
 
                                 <!-- More people... -->

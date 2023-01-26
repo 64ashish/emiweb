@@ -3,7 +3,7 @@
         <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
             <nav class="space-y-1 lg:fixed">
                 <!-- Current: "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white", Default: "text-gray-900 hover:text-gray-900 hover:bg-gray-50" -->
-                <a href="#" class="bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium" aria-current="page">
+                <a href="#organization_detail" class="bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium" aria-current="page">
                     <!--
                       Heroicon name: outline/user-circle
 
@@ -15,7 +15,7 @@
                     <span class="truncate"> Organization Details </span>
                 </a>
 
-                <a href="#" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
+                <a href="#archive_access" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
                     <!-- Heroicon name: outline/key -->
                     <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -23,7 +23,7 @@
                     <span class="truncate"> Archives </span>
                 </a>
 
-                <a href="#" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
+                <a href="#associated_users" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
                     <!-- Heroicon name: outline/credit-card -->
                     <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -35,7 +35,7 @@
             </nav>
         </aside>
 
-        <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9" id="organization_detail">
+        <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9" >
             @role('super admin')
             {!! Form::model($TheOrganization,['route' => ['admin.organizations.update', $TheOrganization], 'method' => 'put'],
                     ['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
@@ -45,7 +45,7 @@
                     ['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}
             @endhasanyrole
 
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="shadow sm:rounded-md sm:overflow-hidden" id="organization_detail">
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
                             <h3 class="text-lg leading-6 font-medium text-gray-900">Organization Details</h3>
@@ -205,7 +205,7 @@
 
 {{--            {!! Form::model($TheOrganization->archives,['route' => ['admin.organizations.archive.sync', $TheOrganization], 'method' => 'post'],--}}
 {{--['class' => 'space-y-8 a divide-y divide-gray-200'])  !!}--}}
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="shadow sm:rounded-md sm:overflow-hidden" id="archive_access">
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div class="md:grid md:grid-cols-3 md:gap-6">
                             <div class="md:col-span-1">
@@ -243,7 +243,7 @@
             {!! Form::close() !!}
 
 
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="shadow sm:rounded-md sm:overflow-hidden" id="associated_users">
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
                             <h3 class="text-lg leading-6 font-medium text-gray-900">Users</h3>

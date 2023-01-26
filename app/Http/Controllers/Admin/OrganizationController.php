@@ -67,7 +67,7 @@ class OrganizationController extends Controller
 //        return $organization->load( 'users.roles');
         // get all roles
         $getRoles = Role::all()
-            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff', 'regular user', 'subscribers']);
+            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff',  'subscriber']);
 //        // prepare for drop down
         $roles = $getRoles->mapWithKeys(function ($item, $key) {
             return [$item['name'] => $item['name']];
@@ -90,7 +90,7 @@ class OrganizationController extends Controller
         //
 //        $archives = Archive::get()->pluck('id', 'name');
         $getRoles = Role::all()
-            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff', 'regular user', 'subscribers']);
+            ->whereNotIn('name', ['super admin','emiweb admin','emiweb staff',  'subscriber']);
         // prepare for drop down
         $roles = $getRoles->mapWithKeys(function ($item, $key) {
             return [$item['name'] => $item['name']];

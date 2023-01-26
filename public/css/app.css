@@ -2229,6 +2229,10 @@ select {
     margin-left: 4rem;
   }
 
+  .sm\:ml-3 {
+    margin-left: 0.75rem;
+  }
+
   .sm\:block {
     display: block;
   }

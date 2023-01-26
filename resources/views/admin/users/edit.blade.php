@@ -85,33 +85,32 @@
             <div class="px-4 py-5 sm:px-6">
                 @if(count($user->subscriptions()->active()->get()) > 0)
                     <ul>
-                    @foreach($user->subscriptions()->active()->get() as $subscription)
-                    <li>
-                        <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
-                            Subscription plan: {{ $subscription->name }}
-                        </div>
-
-                        @if($subscription->ends_at)
+                        @foreach($user->subscriptions()->active()->get() as $subscription)
+                        <li>
                             <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
-                            Your subscription ends on {{ $subscription->ends_at->format('Y.m.d') }}
-                            </div>
-                        @else
-                            <div class="flex flex-col items-center">
-                                <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2">{{ __('Cancel subscription') }}</div>
-                                <a href="{{ route('emiweb.users.subscribers.cancel', $subscription->user) }}"
-                                   class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
-                                 shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700
-                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
+                                Subscription plan: {{ $subscription->name }}
                             </div>
 
-                        @endif
+                            @if($subscription->ends_at)
+                                <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
+                                Your subscription ends on {{ $subscription->ends_at->format('Y.m.d') }}
+                                </div>
+                            @else
+                                <div class="flex flex-col items-center">
+                                    <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2">{{ __('Cancel subscription') }}</div>
+                                    <a href="{{ route('emiweb.users.subscribers.cancel', $subscription->user) }}"
+                                       class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
+                                     shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700
+                                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
+                                </div>
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                @endif
 
-
-                    </li>
-                    @endforeach
-                </ul>
-                @else
-
+                @if($user->hasRole('subscriber') and (!is_null($user->manual_expire) and \Carbon\Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(\Carbon\Carbon::now())))
+                    Manual subscription, expires on {{ $user->manual_expire }} ({{$user->manual_expire}})
                 @endif
             </div>
 

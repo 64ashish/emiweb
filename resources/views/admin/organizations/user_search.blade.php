@@ -5,11 +5,7 @@
             <div class="sm:flex-auto">
                 <h1 class="text-xl font-semibold text-gray-900">Search Results</h1>
             </div>
-            <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                <a href="" class="inline-flex items-center justify-center rounded-md border
-                border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700
-                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add user</a>
-            </div>
+
         </div>
         <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">

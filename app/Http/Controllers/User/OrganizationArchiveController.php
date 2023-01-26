@@ -33,6 +33,7 @@ use App\Models\SwedishUsaCentersEmiPhotoRecord;
 use App\Models\SwensonCenterPhotosamlingRecord;
 use App\Models\User;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
+use App\Services\FindArchiveService;
 use App\Traits\SearchOrFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,202 +48,213 @@ class OrganizationArchiveController extends Controller
     {
         return "get all archive";
     }
-    public function ShowRecords(Organization $organization, Archive $archive){
+    public function ShowRecords(Organization $organization, Archive $archive, FindArchiveService $archiveService){
 
         $this->authorize('viewAny', $archive);
 
-        switch($archive->id) {
-            case(1):
-//                $records = DenmarkEmigration::with('archive')->paginate(100);
-//                $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
-                $model = new DenmarkEmigration();
-                $viewfile = 'dashboard.denmarkemigration.records';
-                break;
+//        switch($archive->id) {
+//            case(1):
+////                $records = DenmarkEmigration::with('archive')->paginate(100);
+////                $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
+//                $model = new DenmarkEmigration();
+//                $viewfile = 'dashboard.denmarkemigration.records';
+//                break;
+//
+//            case(2):
+////                $records = SwedishAmericanChurchArchiveRecord::with('archive')->paginate(100);
+////                $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
+//                $model = new SwedishAmericanChurchArchiveRecord();
+//                $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
+//                break;
+//
+//            case(3):
+////                $records = NewYorkPassengerRecord::with('archive')->paginate(100);
+////                $filterAttributes = $this->meilisearch->index('new_york_passenger_records')->getFilterableAttributes();
+//                $model = new NewYorkPassengerRecord();
+//                $viewfile = 'dashboard.NewYorkPassengerRecord.records';
+//                break;
+//
+//            case(4):
+////                $records = SwedishPortPassengerListRecord::with('archive')->paginate(100);
+////                $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
+//                $model = new SwedishPortPassengerListRecord();
+//                $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
+//                break;
+//
+//            case(5):
+////                $records = SwedishChurchEmigrationRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swedish_church_emigration_records')->getFilterableAttributes();
+//                $model = new SwedishChurchEmigrationRecord();
+//                $viewfile = 'dashboard.swedishchurchemigrationrecord.records';
+//                break;
+//
+//            case(6):
+////                $records = SwedishChurchImmigrantRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swedish_church_immigrant_records')->getFilterableAttributes();
+//                $model = new SwedishChurchImmigrantRecord();
+//                $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
+//                break;
+//
+//            case(7):
+////                $records = SwedishEmigrantViaKristianiaRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
+//                $model = new SwedishEmigrantViaKristianiaRecord();
+//                $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
+//                break;
+//
+//            case(8):
+////                $records = SwedishImmigrationStatisticsRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swedish_immigration_statistics_records')->getFilterableAttributes();
+//                $model = new SwedishImmigrationStatisticsRecord();
+//                $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
+//                break;
+//
+//            case(9):
+////                $records = SwedishEmigrationStatisticsRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swedish_emigration_statistics_records')->getFilterableAttributes();
+//                $model = new SwedishEmigrationStatisticsRecord();
+//                $viewfile = 'dashboard.scbe.records';
+//                break;
+//
+//            case(10):
+////                $records = LarssonEmigrantPopularRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
+//                $model = new LarssonEmigrantPopularRecord();
+//                $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
+//                break;
+//
+//            case(11):
+////                $records = BrodernaLarssonArchiveRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
+//                $model = new BrodernaLarssonArchiveRecord();
+//                $viewfile = 'dashboard.larsson.records';
+//                break;
+//
+//            case(12):
+////                $records = JohnEricssonsArchiveRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('john_ericssons_archive_records')->getFilterableAttributes();
+//                $model = new JohnEricssonsArchiveRecord();
+//                $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
+//                break;
+//
+//            case(13):
+////                $records = NorwegianChurchImmigrantRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('norwegian_church_immigrant_records')->getFilterableAttributes();
+//                $model = new NorwegianChurchImmigrantRecord();
+//                $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
+//                break;
+//
+//            case(14):
+////                $records = MormonShipPassengerRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('mormon_ship_passenger_records')->getFilterableAttributes();
+//                $model = new MormonShipPassengerRecord();
+//                $viewfile = 'dashboard.MormonShipPassengerRecord.records';
+//                break;
+//
+//            case(15):
+////                $records = SwedishAmericanMemberRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swedish_american_member_records')->getFilterableAttributes();
+//                $model = new SwedishAmericanMemberRecord();
+//                $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
+//                break;
+//
+//            case(16):
+////                $records = SwedeInAlaskaRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('swede_in_alaska_records')->getFilterableAttributes();
+//                $model = new SwedeInAlaskaRecord();
+//                $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
+//                break;
+//
+//            case(17):
+////                $records = VarmlandskaNewspaperNoticeRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('varmlandska_newspaper_notice_records')->getFilterableAttributes();
+//                $model = new VarmlandskaNewspaperNoticeRecord();
+//                $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
+//                break;
+//
+//            case(18):
+////                $records = DalslanningarBornInAmericaRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
+//                $model = new DalslanningarBornInAmericaRecord();
+//                $viewfile = 'dashboard.dbiar.records';
+//                break;
+//
+//            case(20):
+////                $records = NorwayEmigrationRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('norway_emigration_records')->getFilterableAttributes();
+//                $model = new NorwayEmigrationRecord();
+//                $viewfile = 'dashboard.norwayemigrationrecord.records';
+//                break;
+//
+//            case(21):
+////                $records = IcelandEmigrationRecord::with('archive')->paginate(500);
+////                $filterAttributes = $this->meilisearch->index('iceland_emigration_records')->getFilterableAttributes();
+//                $model = new IcelandEmigrationRecord();
+//                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
+//
+//                break;
+//
+//            case(22):
+//                $model = new BevaringensLevnadsbeskrivningarRecord();
+//                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
+//                break;
+//
+//            case(23):
+//                $model = new SwedishAmericanJubileeRecord();
+//                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
+//                break;
+//
+//            case(24):
+//
+//                $model = new SwensonCenterPhotosamlingRecord();
+//                $viewfile = 'dashboard.swenphotocenter.records';
+//                break;
+//
+//            case(25):
+//                $model = new NorthenPacificRailwayCompanyRecord();
+//                $viewfile = 'dashboard.NorthPacificRailwayCo.index';
+//                break;
+//
+//            case(26):
+//                $model = new RsPersonalHistoryRecord();
+//                $viewfile = 'dashboard.rsphistory.photos';
+//                break;
+//
+//            case(27):
+//                $model = new SwedishUsaCentersEmiPhotoRecord();
+//                $viewfile = 'dashboard.suscepc.records';
+//                break;
+//
+//            case(28):
+//                $model = new SwedishAmericanBookRecord();
+//                $viewfile = 'dashboard.sabr.records';
+//                break;
+//
+//            default:
+//                abort(403);
+//        }
 
-            case(2):
-//                $records = SwedishAmericanChurchArchiveRecord::with('archive')->paginate(100);
-//                $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
-                $model = new SwedishAmericanChurchArchiveRecord();
-                $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
-                break;
+//
+        $model = $archiveService->getSelectedArchive($archive->id)['model'];
+        $viewfile = $archiveService->getSelectedArchive($archive->id)['viewfile'];
+        $genders = $archiveService->getSelectedArchive($archive->id)['genders'];
 
-            case(3):
-//                $records = NewYorkPassengerRecord::with('archive')->paginate(100);
-//                $filterAttributes = $this->meilisearch->index('new_york_passenger_records')->getFilterableAttributes();
-                $model = new NewYorkPassengerRecord();
-                $viewfile = 'dashboard.NewYorkPassengerRecord.records';
-                break;
-
-            case(4):
-//                $records = SwedishPortPassengerListRecord::with('archive')->paginate(100);
-//                $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
-                $model = new SwedishPortPassengerListRecord();
-                $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
-                break;
-
-            case(5):
-//                $records = SwedishChurchEmigrationRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swedish_church_emigration_records')->getFilterableAttributes();
-                $model = new SwedishChurchEmigrationRecord();
-                $viewfile = 'dashboard.swedishchurchemigrationrecord.records';
-                break;
-
-            case(6):
-//                $records = SwedishChurchImmigrantRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swedish_church_immigrant_records')->getFilterableAttributes();
-                $model = new SwedishChurchImmigrantRecord();
-                $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
-                break;
-
-            case(7):
-//                $records = SwedishEmigrantViaKristianiaRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
-                $model = new SwedishEmigrantViaKristianiaRecord();
-                $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
-                break;
-
-            case(8):
-//                $records = SwedishImmigrationStatisticsRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swedish_immigration_statistics_records')->getFilterableAttributes();
-                $model = new SwedishImmigrationStatisticsRecord();
-                $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
-                break;
-
-            case(9):
-//                $records = SwedishEmigrationStatisticsRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swedish_emigration_statistics_records')->getFilterableAttributes();
-                $model = new SwedishEmigrationStatisticsRecord();
-                $viewfile = 'dashboard.scbe.records';
-                break;
-
-            case(10):
-//                $records = LarssonEmigrantPopularRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
-                $model = new LarssonEmigrantPopularRecord();
-                $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
-                break;
-
-            case(11):
-//                $records = BrodernaLarssonArchiveRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
-                $model = new BrodernaLarssonArchiveRecord();
-                $viewfile = 'dashboard.larsson.records';
-                break;
-
-            case(12):
-//                $records = JohnEricssonsArchiveRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('john_ericssons_archive_records')->getFilterableAttributes();
-                $model = new JohnEricssonsArchiveRecord();
-                $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
-                break;
-
-            case(13):
-//                $records = NorwegianChurchImmigrantRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('norwegian_church_immigrant_records')->getFilterableAttributes();
-                $model = new NorwegianChurchImmigrantRecord();
-                $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
-                break;
-
-            case(14):
-//                $records = MormonShipPassengerRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('mormon_ship_passenger_records')->getFilterableAttributes();
-                $model = new MormonShipPassengerRecord();
-                $viewfile = 'dashboard.MormonShipPassengerRecord.records';
-                break;
-
-            case(15):
-//                $records = SwedishAmericanMemberRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swedish_american_member_records')->getFilterableAttributes();
-                $model = new SwedishAmericanMemberRecord();
-                $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
-                break;
-
-            case(16):
-//                $records = SwedeInAlaskaRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('swede_in_alaska_records')->getFilterableAttributes();
-                $model = new SwedeInAlaskaRecord();
-                $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
-                break;
-
-            case(17):
-//                $records = VarmlandskaNewspaperNoticeRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('varmlandska_newspaper_notice_records')->getFilterableAttributes();
-                $model = new VarmlandskaNewspaperNoticeRecord();
-                $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
-                break;
-
-            case(18):
-//                $records = DalslanningarBornInAmericaRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
-                $model = new DalslanningarBornInAmericaRecord();
-                $viewfile = 'dashboard.dbiar.records';
-                break;
-
-            case(20):
-//                $records = NorwayEmigrationRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('norway_emigration_records')->getFilterableAttributes();
-                $model = new NorwayEmigrationRecord();
-                $viewfile = 'dashboard.norwayemigrationrecord.records';
-                break;
-
-            case(21):
-//                $records = IcelandEmigrationRecord::with('archive')->paginate(500);
-//                $filterAttributes = $this->meilisearch->index('iceland_emigration_records')->getFilterableAttributes();
-                $model = new IcelandEmigrationRecord();
-                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-
-                break;
-
-            case(22):
-                $model = new BevaringensLevnadsbeskrivningarRecord();
-                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-                break;
-
-            case(23):
-                $model = new SwedishAmericanJubileeRecord();
-                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
-                break;
-
-            case(24):
-
-                $model = new SwensonCenterPhotosamlingRecord();
-                $viewfile = 'dashboard.swenphotocenter.records';
-                break;
-
-            case(25):
-                $model = new NorthenPacificRailwayCompanyRecord();
-                $viewfile = 'dashboard.NorthPacificRailwayCo.index';
-                break;
-
-            case(26):
-                $model = new RsPersonalHistoryRecord();
-                $viewfile = 'dashboard.rsphistory.photos';
-                break;
-
-            case(27):
-                $model = new SwedishUsaCentersEmiPhotoRecord();
-                $viewfile = 'dashboard.suscepc.records';
-                break;
-
-            case(28):
-                $model = new SwedishAmericanBookRecord();
-                $viewfile = 'dashboard.sabr.records';
-                break;
-
-            default:
-                abort(403);
-        }
 
         $filterAttributes = collect($model->defaultSearchFields());
         $enableQueryMatch =$model->enableQueryMatch();
+        $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
+
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
             ->flatten();
 
-        if(method_exists($model, 'advancedSearchFields'))
+
+//        return $filterAttributes;
+
+        if(method_exists($model, 'searchFields'))
         {
-            $advancedFields = $model->advancedSearchFields();
+            $advancedFields = $model->searchFields();
         }else{
             $advancedFields = $fields->diff($filterAttributes)->flatten();
         }
