@@ -58,44 +58,65 @@ trait SearchOrFilter
 
     private function QueryMatch($queryables,$result, $all_request): Builder
     {
-
+//        dd($queryables);
         foreach($queryables as  $queryable)
         {
             if($all_request[$queryable]['value'] != null)
             {
                 $field_scope = Str::of($queryable)->after('qry_');
-                if ($all_request[$queryable]['method'] === "start") {
-                    $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
-                }
-                if ($all_request[$queryable]['method'] === "end") {
-                    $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
-                }
-                if ($all_request[$queryable]['method'] === "exact") {
-                    $result->where($field_scope, $all_request[$queryable]['value']);
-                }
-                if ($all_request[$queryable]['method'] == null) {
+
+//                dd(array_key_exists('method',$all_request[$queryable]));
+
+                if (array_key_exists('method', $all_request[$queryable])) {
+                    switch ($all_request[$queryable]['method']) {
+                        case "start":
+                            $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
+                            break;
+                        case "end":
+                            $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
+                            break;
+                        case "exact":
+                            $result->where($field_scope, $all_request[$queryable]['value']);
+                            break;
+                        default:
+                            $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
+                            break;
+                    }
+                } else{
                     $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
                 }
+
             }
         }
+
+
+
         return $result;
 
     }
 
     private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply): LengthAwarePaginator
     {
+
+
         foreach($inputFields as  $fieldname => $fieldvalue)
         {
 
             if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob'])
             && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
+//                dd('1');
                 $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
             } else if ($fieldname === 'memo') {
+//                dd('2');
                 $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
             } else if(!Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
+//                dd();
                 $result->where($fieldname, $fieldvalue);
             }
         }
+
+
+
         return $result->paginate(100,$fieldsToDisply);
 
     }

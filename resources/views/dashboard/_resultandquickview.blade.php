@@ -81,15 +81,14 @@
 {{--                                @if(!empty($record->first_name) or !empty($record->last_name))--}}
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
 {{--                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
-                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
-                                                                        font-medium  sm:pl-6 lg:pl-8">
+                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
                                         <div> {{ $record->first_name }} {{ $record->last_name }}  </div>
                                         {{--  </a>--}}
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
+                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]
                                                                          hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
 
                                         {{ $record[$column]}}
@@ -101,7 +100,7 @@
 
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
-                                        <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
+                                        <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]   `
                                                                             hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
 
                                             {{ $record[$pop_fields]}}

@@ -51,6 +51,12 @@
                         <div>
                             <div class="relative" @click.away="openMessage = false">
                                 <div class="p-5">
+                                    <div class="text-right cursor-pointer flex flex-row-reverse	" @click="openMessage = false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+
+                                    </div>
                                     <p>
                                         Message
                                     </p>
@@ -128,6 +134,24 @@
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                             {!! Form::text('record', $archive_details->id,
+                                                    ['class' => 'max-w-lg disabled block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                                    'id' => 'record', 'readonly']) !!}
+                                            @error('record')
+                                            <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                            </p>@enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
+                                        <label for="record"
+                                               class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                            Record URL</label>
+                                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+
+{{--                                            {!! Form::hidden('record_url',url()->current(),['readonly']) !!}--}}
+
+                                            {!! Form::text('record_url',url()->current(),
                                                     ['class' => 'max-w-lg disabled block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                                                     'id' => 'record', 'readonly']) !!}

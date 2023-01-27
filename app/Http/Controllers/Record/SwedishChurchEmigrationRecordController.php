@@ -100,6 +100,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
+//        return $request->all();
         // Initialize variables
         $all_request = $request->all();
         $model = new SwedishChurchEmigrationRecord();
@@ -144,6 +145,7 @@ class SwedishChurchEmigrationRecordController extends Controller
             array_keys($fieldsToDisply)
         );
 
+//        return $result;
         // Extract variables for view
         $keywords = $request->all();
         $populated_fields = collect(
@@ -158,6 +160,8 @@ class SwedishChurchEmigrationRecordController extends Controller
                 ['first_name', 'last_name']
             )
         )->keys();
+
+//        return $keywords;
 
         // Render view
         return view('dashboard.swedishchurchemigrationrecord.records', compact(

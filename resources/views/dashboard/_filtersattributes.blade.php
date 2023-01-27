@@ -18,6 +18,7 @@
 
 
         )
+{{--            @dd($keywords['birth_province'])--}}
             <div class="col-span-2">
                 <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
                     <label for="{{ $filterAttribute[0] }}"
@@ -28,7 +29,10 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2">
                             <option value="">-- {{ __('Select a province') }} --</option>
                             <template x-for="province in counties">
-                                <option :value="province.county"><span x-text="province.county"></span></option>
+                                <option :value="province.county"
+                                        x-bind:selected="province.county == '{{ $keywords[$filterAttribute[0]]??false }}'">
+                                    <span x-text="province.county"></span>
+                                </option>
                             </template>
                         </select>
                     </label>
@@ -40,7 +44,8 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2" >
                             <option value="">-- {{ __('Select a parish') }} --</option>
                             <template x-for="parishData in parishes">
-                                <option :value="parishData"  ><span x-text="parishData"></span></option>
+                                <option :value="parishData"
+                                        x-bind:selected="parishData == '{{ $keywords[$filterAttribute[1]]??false }}'"><span x-text="parishData"></span></option>
                             </template>
                         </select>
                     </label>
@@ -61,7 +66,7 @@
                 </label>
                 <div class="mt-1 sm:mt-0 sm:col-span-2  flex gap-x-2">
                     @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
-                        <div class="flex gap-2" x-data="{ compare: false }">
+                        <div class="flex gap-2" x-data='{ compare: {{ $keywords["compare_{$filterAttribute}_check"] ?? false }} }'>
                             {!! Form::text("array_".$filterAttribute."[year]", null,
                            ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
@@ -81,6 +86,7 @@
                             <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check"
                                    x-model="compare" value="true" x-checked="compare"
                                    class="self-center rounded border-gray-300 ml-auto">
+                            <label for="scales"  x-model="compare"class="self-center  ml-auto" >{{ __('Interval') }}</label>
                         </div>
 
                     @elseif(in_array($filterAttribute, $enableQueryMatch))
@@ -150,7 +156,7 @@
 
 @if(count($advancedFields)>0)
     <div  x-data="{ expanded: false }">
-        <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center cursor-pointer">
+        <a  @click="expanded = ! expanded" class="py-4 inline-flex items-center cursor-pointer text-lg mt-4 font-bold">
 
                <span x-show="expanded">
                    {{ __("Hide advanced search") }}
@@ -290,6 +296,8 @@
                 counties:getCounties(),
                 county:null,
                 parish:null,
+                {{--selectedParish: {{ $keywords[$filterAttribute[0]]??null }},--}}
+
                 // parishes: this.county
                 parishes() {
                     // return this.county

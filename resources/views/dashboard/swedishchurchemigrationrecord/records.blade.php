@@ -1,4 +1,6 @@
 <x-app-layout>
+
+
     <!-- Main 3 column grid -->
     @include('dashboard._breadcrumb')
     <div class="grid grid-cols-1 gap-4 items-start lg:gap-8">
@@ -25,7 +27,7 @@
             </ul>
 
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
-                <p class="text-left text-sm font-semibold text-gray-900 pb-4">
+                <p class="text-left text-lg mt-4 font-bold text-gray-900   pb-4">
                     {{ __('Search in') }}  Emigranter registrerade i svenska kyrkböcker
 
                 </p>

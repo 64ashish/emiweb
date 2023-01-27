@@ -937,6 +937,9 @@ select {
 .max-w-6xl {
   max-width: 72rem;
 }
+.max-w-7xl {
+  max-width: 80rem;
+}
 .max-w-xl {
   max-width: 36rem;
 }
@@ -948,9 +951,6 @@ select {
 }
 .max-w-xs {
   max-width: 20rem;
-}
-.max-w-7xl {
-  max-width: 80rem;
 }
 .max-w-3xl {
   max-width: 48rem;
@@ -1039,6 +1039,9 @@ select {
 }
 .flex-row {
   flex-direction: row;
+}
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 .flex-col {
   flex-direction: column;
@@ -1417,6 +1420,10 @@ select {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1440,10 +1447,6 @@ select {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
 }
 .px-2\.5 {
   padding-left: 0.625rem;

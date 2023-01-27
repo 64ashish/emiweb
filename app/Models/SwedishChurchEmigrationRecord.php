@@ -108,6 +108,7 @@ class SwedishChurchEmigrationRecord extends Model
             'birth_country',
             '---',
             'record_date',
+            'from_location',
             ['from_province',
             'from_parish'],
             '---',
@@ -330,7 +331,8 @@ class SwedishChurchEmigrationRecord extends Model
             'first_name',
             'last_name',
             'destination_country',
-            'destination_location'
+            'destination_location',
+            'birth_country'
 
 
 

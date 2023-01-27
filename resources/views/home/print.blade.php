@@ -864,13 +864,13 @@
 <table class="print" cellspacing="1">
 
     @foreach($fields as $field)
-        @if($detail[$field] != null)
+{{--        @if($detail[$field] != null)--}}
         <tr>
             <td width="15%">{{ __(ucfirst(str_replace('_', ' ', $field))) }}</td>
             <th>{{ $detail[$field] }}</th>
 
         </tr>
-        @endif
+{{--        @endif--}}
     @endforeach
 
 
