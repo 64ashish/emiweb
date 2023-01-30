@@ -7,8 +7,8 @@
         <section {{ (Str::is('*search', Route::currentRoutename()) == true)? "x-data=data()":false }}
                  class="pt-6" aria-labelledby="section-1-title">
             <div x-show="!openDetails" class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg">
-                <p class="text-left text-sm font-semibold text-gray-900 pb-4">
-                    {{ __('Search in') }} Den danska emigrantdatabasen
+                <p class="text-left text-lg mt-4 font-bold text-gray-900   pb-4">
+                    {{ __('Search in') }}  {{ __($archive_name->name) }}
                 </p>
 
                     @if(isset($keywords))

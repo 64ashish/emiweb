@@ -860,7 +860,7 @@
 <img class="printbanner" src="/images/banner13.jpg">
 <br>
 <br>
-<h3 class="printhead">Utskrift från EmiWeb/{{ $detail->archive->name }}</h3>
+<h3 class="printhead">Utskrift från EmiWeb/{{ __($detail->archive->name) }}</h3>
 <table class="print" cellspacing="1">
 
     @foreach($fields as $field)
@@ -871,6 +871,8 @@
 
         </tr>
 {{--        @endif--}}
+
+
     @endforeach
 
 

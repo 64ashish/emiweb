@@ -13,7 +13,7 @@
                         {{ __('Archive') }}
                     </p>
                     <h3 class="text-lg leading-6 font-medium text-gray-900 flex">
-                        {{ $archive_details->name }}
+                        {{ __($archive_details->name) }}
                     </h3>
 
                     <div class="flex pt-3">

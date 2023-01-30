@@ -75,7 +75,11 @@
 
 
                     <div class="col-span-2">
-                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                        <div  x-data="loadCounties(
+                                countyInit = '{{ $keywords['from_province']??null }}',
+                                parishInit = '{{ $keywords['from_parish']??null }}'
+                                    )"
+                             x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
                             <label for="from_province"
                                    class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
                                 {{ __('Basområde') }}:
@@ -87,7 +91,8 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2">
                                     <option value="">-- {{ __('Select a province') }} --</option>
                                     <template x-for="province in counties">
-                                        <option :value="province.county"><span x-text="province.county"></span></option>
+                                        <option :value="province.county"
+                                                x-bind:selected="province.county == '{{ $keywords['from_province']??false }}'"><span x-text="province.county"></span></option>
                                     </template>
                                 </select>
                             </label>
@@ -99,7 +104,8 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2" >
                                     <option value="">-- {{ __('Select a parish') }} --</option>
                                     <template x-for="parishData in parishes">
-                                        <option :value="parishData"  ><span x-text="parishData"></span></option>
+                                        <option :value="parishData"
+                                                x-bind:selected="province.county == '{{ $keywords['from_parish']??false }}'"><span x-text="parishData"></span></option>
                                     </template>
                                 </select>
                             </label>
@@ -109,7 +115,10 @@
 
 
                     <div class="col-span-2">
-                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                        <div  x-data="loadCounties(
+                                countyInit = '{{ $keywords['from_province_compare']??null }}',
+                                parishInit = '{{ $keywords['from_parish_compare']??null }}'
+                                    )" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
                             <label for="from_province_compare"
                                    class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
                                 {{ __('Jämförelseområde') }}:
@@ -317,17 +326,20 @@
         @if(isset($ProvincesParishes))
             <script>
                 document.addEventListener('alpine:init', () => {
-                    Alpine.data('loadCounties', () => ({
-                        counties:getCounties(),
-                        county:null,
-                        parish:null,
-                        // parishes: this.county
-                        parishes() {
-                            // return this.county
-                            return getParishes(this.county)
-                        }
+                    Alpine.data('loadCounties', (countyInit = null, parishInit = null) => (
+                        {
+                            counties:getCounties(),
+                            county:countyInit,
+                            parish:parishInit,
 
-                    }))
+
+                            parishes() {
+
+                                return getParishes(this.county)
+                            },
+
+
+                        }))
                 });
 
                 const getCounties = () => {

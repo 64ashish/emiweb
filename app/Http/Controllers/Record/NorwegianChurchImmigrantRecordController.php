@@ -68,6 +68,7 @@ class NorwegianChurchImmigrantRecordController extends Controller
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
+//        return $archive_name;
 
 //        return view
         return view('dashboard.NorwegianChurchImmigrantRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());

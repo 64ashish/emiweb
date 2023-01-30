@@ -163,6 +163,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
 //        return $keywords;
 
+//        return $archive_name;
         // Render view
         return view('dashboard.swedishchurchemigrationrecord.records', compact(
             'records',

@@ -18,9 +18,13 @@
 
 
         )
-{{--            @dd($keywords['birth_province'])--}}
+{{--            @dd($keywords[$filterAttribute[0]]??'null')--}}
             <div class="col-span-2">
-                <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                <div x-data="loadCounties(
+                    countyInit = '{{ $keywords[$filterAttribute[0]]??null }}',
+                    parishInit = '{{ $keywords[$filterAttribute[1]]??null}}'
+                        )"
+                     x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
                     <label for="{{ $filterAttribute[0] }}"
                            class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
                         {{ __(ucfirst(str_replace('_', ' ', $filterAttribute[0]))) }}:
@@ -29,7 +33,7 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2">
                             <option value="">-- {{ __('Select a province') }} --</option>
                             <template x-for="province in counties">
-                                <option :value="province.county"
+                                <option x-bind:value="province.county"
                                         x-bind:selected="province.county == '{{ $keywords[$filterAttribute[0]]??false }}'">
                                     <span x-text="province.county"></span>
                                 </option>
@@ -292,17 +296,19 @@
 @if(isset($ProvincesParishes))
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('loadCounties', () => ({
-                counties:getCounties(),
-                county:null,
-                parish:null,
-                {{--selectedParish: {{ $keywords[$filterAttribute[0]]??null }},--}}
 
-                // parishes: this.county
+            Alpine.data('loadCounties', (countyInit = null, parishInit = null) => (
+                {
+                counties:getCounties(),
+                county:countyInit,
+                parish:parishInit,
+
+
                 parishes() {
-                    // return this.county
+
                    return getParishes(this.county)
-                }
+                },
+
 
             }))
         });

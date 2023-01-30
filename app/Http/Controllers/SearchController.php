@@ -80,7 +80,10 @@ class SearchController extends Controller
 
 
         $archive = Archive::findOrFail($archive);
-        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'enableQueryMatch', 'provinces','genders', 'ProvincesParishes'));
+        $archive_name = $archive;
+
+//        return $archive_name;
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'archive_name','enableQueryMatch', 'provinces','genders', 'ProvincesParishes'));
     }
 
     public function search( Request  $request)
