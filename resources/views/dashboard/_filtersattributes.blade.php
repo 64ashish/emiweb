@@ -88,7 +88,7 @@
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",'x-show'=>"!compare"]) !!}
                             <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check"
-                                   x-model="compare" value="true" x-checked="compare"
+                                   x-model="compare" x-bind:value="compare" x-bind:checked="compare"
                                    class="self-center rounded border-gray-300 ml-auto">
                             <label for="scales"  x-model="compare"class="self-center  ml-auto" >{{ __('Interval') }}</label>
                         </div>
