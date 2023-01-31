@@ -74,7 +74,7 @@
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }}</h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Below is your plan') }}</p>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is ') }}: @if($price == 1) 1 Year @elseif($price == 2) 3 Months @else Not subscribed @endif </p>
             </div>
 
 
@@ -82,22 +82,25 @@
 
             @if($user->subscriptions()->active()->first())
                 <div class="px-4 sm:px-6 mb-6">
-                    <form action="/subscribe/{{ $user->subscriptions()->active()->first()->id }}/update" method="post" id="payment-form" data-secret="{{ $intent->client_secret }}">
+                    <form action="/subscribe/{{ $user->subscriptions()->active()->first()->id }}/update"
+                          method="post"
+                          id="payment-form"
+                          data-secret="{{ $intent->client_secret }}">
                         @csrf
                         <div class="form-row">
-                            <div x-data="{selectedPrice: 0}" class="md:flex md:justify-center md:space-x-6 my-8">
-                                <div x-on:click="selectedPrice = 0 "
+                            <div x-data="{selectedPrice: {{ $price }} }" class="md:flex md:justify-center md:space-x-6 my-8">
+                                <label for="standard" x-on:click="selectedPrice = 2 "
                                      class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6 mb-8 md:mb-0"
-                                     :class="selectedPrice === 0 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '">
+                                     :class="selectedPrice === 2 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '">
                                     <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 0 ? 'border-indigo-500' : 'border-gray-700'">
-                                        <span x-show="selectedPrice === 0" x-cloak
+                                         x-bind:class="selectedPrice === 2 ? 'border-indigo-500' : 'border-gray-700'">
+                                        <span x-show="selectedPrice === 2" x-cloak
                                               class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
                                     </div>
-                                    <div>
+                                    <div class="w-full">
                                         <input type="radio" name="plan" id="standard" class="appearance-none opacity-0"
                                                value="price_1LKiPZG9lZTwpgcPGNTI9VZn">
-                                        <label for="standard">
+                                        <div  class="w-full">
 
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
@@ -107,10 +110,10 @@
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
                                                 <p>{{ __('Renews at 175 SEK /months') }}</p>
                                             </div>
-                                        </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div x-on:click="selectedPrice = 1 "
+                                </label>
+                                <label for="premium" x-on:click="selectedPrice = 1 "
                                      class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
                                      :class="selectedPrice === 1 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '">
                                     <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
@@ -118,10 +121,10 @@
                                         <span x-show="selectedPrice === 1" x-cloak
                                               class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
                                     </div>
-                                    <div>
+                                    <div class="w-full">
                                         <input type="radio" name="plan" id="premium" class="appearance-none opacity-0"
                                                value="price_1LKKOmG9lZTwpgcPIkYhO5EG">
-                                        <label for="premium">
+                                        <div  class="w-full">
 
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>
@@ -131,9 +134,9 @@
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
                                                 <p>{{ __('Renews at 300 SEK /year') }}</p>
                                             </div>
-                                        </label>
+                                        </div>
                                     </div>
-                                </div>
+                                </label>
                             </div>
                                 <div class="pt-8 flex items-center justify-center">
                                     <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
@@ -166,20 +169,20 @@
                         <div class="form-row">
 
 
-                            <div x-data="{selectedPrice: 0}" class="md:flex md:justify-center md:space-x-6 my-8">
+                            <div x-data="{selectedPrice: 2}" class="md:flex md:justify-center md:space-x-6 my-8">
 
-                                <div x-on:click="selectedPrice = 0 "
+                                <div x-on:click="selectedPrice = 2 "
                                      class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     :class="selectedPrice === 0 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
+                                     :class="selectedPrice === 2 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
                                     <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 0 ? 'border-indigo-500' : 'border-gray-700'">
-                                    <span x-show="selectedPrice === 0" x-cloak
+                                         x-bind:class="selectedPrice === 2 ? 'border-indigo-500' : 'border-gray-700'">
+                                    <span x-show="selectedPrice === 2" x-cloak
                                           class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
                                     </div>
-                                    <div>
+                                    <div class="w-full">
                                         <input type="radio" name="plan" id="premium" class="appearance-none opacity-0"
                                                value="price_1LKKOmG9lZTwpgcPIkYhO5EG">
-                                        <label for="premium">
+                                        <label for="premium" class="w-full">
 
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>
@@ -200,10 +203,10 @@
                                     <span x-show="selectedPrice === 1" x-cloak
                                           class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
                                     </div>
-                                    <div>
+                                    <div class="w-full">
                                         <input type="radio" name="plan" id="standard" class="appearance-none opacity-0"
                                                value="price_1LKiPZG9lZTwpgcPGNTI9VZn" checked="">
-                                        <label for="standard">
+                                        <label for="standard" class="w-full">
 
                                             <div class="font-bold text-gray-900 pr-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>

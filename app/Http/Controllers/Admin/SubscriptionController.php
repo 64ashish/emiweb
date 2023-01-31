@@ -103,10 +103,13 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request)
     {
-//        dd($request->all());
+//        return $request->plan;
+
         $user = auth()->user();
 
         $CurrentPlan = $user->subscriptions()->active()->get()->first();
+
+//        dd($CurrentPlan);
 
 //        dd($CurrentPlan->name." ".$request->plan);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);

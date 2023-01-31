@@ -110,7 +110,9 @@
                 @endif
 
                 @if($user->hasRole('subscriber') and (!is_null($user->manual_expire) and \Carbon\Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(\Carbon\Carbon::now())))
-                    Manual subscription, expires on {{ $user->manual_expire }} ({{$user->manual_expire}})
+                   <p class="mt-1 max-w-2xl text-sm text-gray-500 pb-2 text-center">
+                       Manual subscription, expires on {{ $user->manual_expire->format('Y.m.d')  }} ({{$user->manual_expire->diffForHumans()}})
+                   </p>
                 @endif
             </div>
 

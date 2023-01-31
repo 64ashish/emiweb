@@ -92,12 +92,30 @@ class HomeController extends Controller
 //        $user->createAsStripeCustomer();
 
         $user = auth()->user();
-//        return  $user->subscriptions()->active()->first();
+//        return  $user->subscriptions()->active()->first()->name;
+
+        $price = 0;
+
+        if($user->subscriptions()->active()->count() > 0)
+        {
+            $priceName = $user->subscriptions()->active()->first()->name;
+
+            if($priceName === "3 Months")
+            {
+                $price = 2;
+            }else if($priceName === "Regular Subscription")
+            {
+                $price = 1;
+            }
+        }
+
+
 
         $stripe = Cashier::stripe();
         $plans = $stripe->products->all();
+//        return $plans;
         $intent = $user->createSetupIntent();
-        return view('home.user', compact('user', 'plans', 'intent'));
+        return view('home.user', compact('user', 'plans', 'intent', 'price'));
     }
 
     public function updateUser(Request $request, User $user){

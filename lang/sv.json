@@ -197,7 +197,7 @@
  "Record date":"Utfl datum",
  "Reference":"Referens",
  "Registered date":"Inflyttningsdatum",
- "Renews at 175 SEK /months":"Förnyas för 300 SEK /månader",
+ "Renews at 175 SEK /months":"Förnyas för 175 SEK /månader",
  "Renews at 300 SEK /year":"Förnyas för 300 SEK /år",
  "Residence":"Boendeort/Utflyttningsförsamling",
  "Residence country":"Utflyttningsland",
@@ -386,5 +386,11 @@
  "The John Ericsson Archive":"John Ericssons arkiv ",
  "Swedish-American anniversary writings":"Svenskamerikanska jubileumsskrifter ",
  "Life descriptions of the conscripts":"Beväringens Levnadsbeskrivningar",
- "Work permit in Denmark":"Arbetstillstånd i Danmark"
+ "Work permit in Denmark":"Arbetstillstånd i Danmark",
+ "Previous":"Föregående",
+ "Next":"Nästa",
+ "Showing": "Visar",
+ "to":"till",
+ "of": "av",
+ "results":"resultat"
 }
