@@ -100,7 +100,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
-//        return $request->all();
+        return $request->all();
         // Initialize variables
         $all_request = $request->all();
         $model = new SwedishChurchEmigrationRecord();
