@@ -1,5 +1,4 @@
 <div class="grid grid-cols-2 gap-x-6 gap-y-4">
-@dd($keywords)
 
 @foreach($filterAttributes as $filterAttribute)
 
@@ -70,7 +69,6 @@
                 </label>
                 <div class="mt-1 sm:mt-0 sm:col-span-2  flex gap-x-2">
                     @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
-                        @dd($keywords["compare_{$filterAttribute}_check"])
 
                         <div class="flex gap-2" x-data='{ compare: "{{ $keywords["compare_{$filterAttribute}_check"] ?? false }}" }'>
                             {!! Form::text("array_".$filterAttribute."[year]", null,
