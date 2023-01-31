@@ -148,6 +148,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $result;
         // Extract variables for view
         $keywords = $request->all();
+        return $keywords;
         $populated_fields = collect(
             Arr::except(
                 $inputFields,
