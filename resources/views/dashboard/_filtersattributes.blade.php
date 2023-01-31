@@ -90,6 +90,7 @@
                             <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check"
                                    x-model="compare" x-bind:value="compare"
                                    class="self-center rounded border-gray-300 ml-auto">
+{{--                            {!! Form::checkbox("compare_{$filterAttribute}_check") !!}--}}
                             <label for="scales"  x-model="compare"class="self-center  ml-auto" >{{ __('Interval') }}</label>
                         </div>
 

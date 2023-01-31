@@ -100,7 +100,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
-        return $request->all();
+//        return $request->all();
         // Initialize variables
         $all_request = $request->all();
         $model = new SwedishChurchEmigrationRecord();
@@ -148,7 +148,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 //        return $result;
         // Extract variables for view
         $keywords = $request->all();
-        return $keywords;
+//        return $keywords;
         $populated_fields = collect(
             Arr::except(
                 $inputFields,
