@@ -182,6 +182,7 @@ class SwedishChurchImmigrantRecord extends Model
     public function scopeRecordDateRange($query, $start_year, $end_year){
 
 //        if only start date is given
+
         if($start_year != null and $end_year == null){
             return $query->whereNotNull(DB::raw('YEAR(to_date)'))
                 ->where(DB::raw('YEAR(to_date)'), $start_year);
@@ -190,12 +191,24 @@ class SwedishChurchImmigrantRecord extends Model
             return  $query->whereNotNull(DB::raw('YEAR(to_date)'))
                 ->whereBetween(DB::raw('YEAR(to_date)'),[$start_year, $end_year]);
         }
+//        dd($query->get());
+        return $query;
 
+    }
+
+    public function scopeFindProvince($query, $province){
+        if($province !== "0")
+        {
+            return $query->where('birth_county', $province);
+        }
         return $query;
     }
 
-    public function scopeToProvince($query, $from_province){
-        if($from_province !== "0") { return $query->where('to_county', $from_province); }
+    public function scopeFindParish($query, $parish){
+        if($parish !== "0")
+        {
+            return $query->where('birth_parish', $parish);
+        }
         return $query;
     }
 

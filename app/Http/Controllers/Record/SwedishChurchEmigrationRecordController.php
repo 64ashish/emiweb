@@ -196,6 +196,8 @@ class SwedishChurchEmigrationRecordController extends Controller
     public function generateChart( Request $request)
     {
 
+//        return $request->all();
+
         $data = SwedishChurchEmigrationRecord::findGender($request->gender)
                 ->fromProvince($request->from_province)
                 ->fromParish($request->from_parish)
@@ -220,6 +222,7 @@ class SwedishChurchEmigrationRecordController extends Controller
             $title = 'Emigration ' .
                 (($request->gender !== "Alla") ? "av $request->gender ": "alla kön ") .
                 (($request->from_province !== "0") ? "från $request->from_province ": "") .
+                (($request->from_parish !== "0") ? "och från $request->from_parish ": "") .
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }else{
@@ -229,6 +232,8 @@ class SwedishChurchEmigrationRecordController extends Controller
                 (($request->start_year != null && $request->end_year == null) ? "år $request->start_year ":"") .
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }
+
+//         dd($title);
 
 
 

@@ -23,8 +23,7 @@
 
             </ul>
             <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg"
-                 x-data="{buttonDisable:true}">
-
+                 x-data="{buttonDisable:{{ isset($keywords)?'false':true }} }" >
                 @if(isset($keywords))
                     {!! Form::model($keywords,['route' => 'scirc.generateChart'])  !!}
                 @endif
@@ -59,58 +58,106 @@
                         </div>
                     </div>
 
-{{--                    <div class="col-span-2">--}}
-{{--                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">--}}
-{{--                            <label for="birth_county"--}}
-{{--                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">--}}
-{{--                                {{ __('Basområde') }}:--}}
-{{--                                <select x-model="county"--}}
-{{--                                        x-on:change="[county == '' ? buttonDisable = true : buttonDisable = false]"--}}
+                    <div class="col-span-2">
+                        <div  x-data="loadCounties(
+                                countyInit = '{{ $keywords['birth_county']??null }}',
+                                parishInit = '{{ $keywords['birth_parish']??null }}'
+                                    )"
+                              x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                            <label for="birth_county"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                                {{ __('Basområde') }}:
+                                <select x-model="county"
+                                        @if(!isset($keywords)) x-on:change="[county == '' ? buttonDisable = true : buttonDisable = false]" @endif
 
-{{--                                        name="birth_county" class="max-w-lg block w-full rounded-md border-gray-300--}}
-{{--                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none--}}
-{{--                                          focus:ring-indigo-500 sm:text-sm col-span-2">--}}
-{{--                                    <option value="">-- {{ __('Select a province') }} --</option>--}}
-{{--                                    <template x-for="province in counties">--}}
-{{--                                        <option :value="province.county"><span x-text="province.county"></span></option>--}}
-{{--                                    </template>--}}
-{{--                                </select>--}}
-{{--                            </label>--}}
+                                        name="birth_county" class="max-w-lg block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                                    <option value="">-- {{ __('Select a province') }} --</option>
+                                    <template x-for="province in counties">
+                                        <option :value="province.county"
+                                                x-bind:selected="province.county == '{{ $keywords['birth_county']??false }}'"><span x-text="province.county"></span></option>
+                                    </template>
+                                </select>
+                            </label>
 
-{{--                            <label x-bind:disabled="!county"  for="birth_parish"--}}
-{{--                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">{{ __(ucfirst(str_replace('_', ' ', 'birth_parish'))) }}:--}}
-{{--                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'birth_parish' }}" class="block w-full rounded-md border-gray-300--}}
-{{--                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none--}}
-{{--                                          focus:ring-indigo-500 sm:text-sm col-span-2" >--}}
-{{--                                    <option value="">-- {{ __('Select a parish') }} --</option>--}}
-{{--                                    <template x-for="parishData in parishes">--}}
-{{--                                        <option :value="parishData"  ><span x-text="parishData"></span></option>--}}
-{{--                                    </template>--}}
-{{--                                </select>--}}
-{{--                            </label>--}}
+                            <label x-bind:disabled="!county"  for="{{ 'birth_parish' }}"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                                {{ __('Jämförelseområde') }}:
+                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'birth_parish' }}" class="block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2" >
+                                    <option value="">-- {{ __('Select a parish') }} --</option>
+                                    <template x-for="parishData in parishes">
+                                        <option :value="parishData"
+                                                x-bind:selected="parishData == '{{ $keywords['from_parish']??false }}'"><span x-text="parishData"></span></option>
+                                    </template>
+                                </select>
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-span-2">
+                        <div  x-data="loadCounties(
+                                countyInit = '{{ $keywords['birth_county_compare']??null }}',
+                                parishInit = '{{ $keywords['birth_parish_compare']??null }}'
+                                    )"
+                              x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">
+                            <label for="birth_county_compare"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                                {{ __('Basområde') }}:
+                                <select x-model="county"
+                                        @if(!isset($keywords)) x-on:change="[county == '' ? buttonDisable = true : buttonDisable = false]" @endif
+
+                                        name="birth_county_compare" class="max-w-lg block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2">
+                                    <option value="">-- {{ __('Select a province') }} --</option>
+                                    <template x-for="province in counties">
+                                        <option :value="province.county"
+                                                x-bind:selected="province.county == '{{ $keywords['birth_county_compare']??false }}'"><span x-text="province.county"></span></option>
+                                    </template>
+                                </select>
+                            </label>
+
+                            <label x-bind:disabled="!county"  for="{{ 'birth_parish_compare' }}"
+                                   class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
+                                {{ __('Jämförelseområde') }}:
+                                <select x-model="parish" x-bind:disabled="!county" name="{{ 'birth_parish_compare' }}" class="block w-full rounded-md border-gray-300
+                                         py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
+                                          focus:ring-indigo-500 sm:text-sm col-span-2" >
+                                    <option value="">-- {{ __('Select a parish') }} --</option>
+                                    <template x-for="parishData in parishes">
+                                        <option :value="parishData"
+                                                x-bind:selected="parishData == '{{ $keywords['birth_parish_compare']??false }}'"><span x-text="parishData"></span></option>
+                                    </template>
+                                </select>
+                            </label>
+                        </div>
+
+                    </div>
+
+{{--                    <div class="sm:grid sm:grid-cols-3 sm:items-start">--}}
+{{--                        <label for="to_county" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">--}}
+{{--                            {{ __('Basområde') }} </label>--}}
+{{--                        <div class="mt-1 sm:mt-0 sm:col-span-2">--}}
+{{--                            {!! Form::select('to_county', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500--}}
+{{--                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',--}}
+{{--                             ]) !!}--}}
 {{--                        </div>--}}
-
 {{--                    </div>--}}
 
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="to_county" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Basområde') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            {!! Form::select('to_county', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                             ]) !!}
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start">
-                        <label for="to_county" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            {{ __('Jämförelseområde') }} </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            {!! Form::select('to_county_compare', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                             ]) !!}
-                        </div>
-                    </div>
+{{--                    <div class="sm:grid sm:grid-cols-3 sm:items-start">--}}
+{{--                        <label for="to_county" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">--}}
+{{--                            {{ __('Jämförelseområde') }} </label>--}}
+{{--                        <div class="mt-1 sm:mt-0 sm:col-span-2">--}}
+{{--                            {!! Form::select('to_county_compare', $provinces,null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500--}}
+{{--                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',--}}
+{{--                             ]) !!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
 {{--                    <div class="col-span-2">--}}
 {{--                        <div x-data="loadCounties" x-cloak class="sm:grid sm:grid-cols-2 sm:items-start  gap-x-6">--}}
@@ -245,7 +292,7 @@
             data: {
                 labels: {{ Js::from($data->pluck($grouped_by)) }},
                 datasets: [{
-                    label: {{ Js::from($keywords['to_county']) }},
+                    label: {{ Js::from($keywords['birth_county']) }},
                     grouped:true,
                     maxBarThickness:'50',
                     data: {{ Js::from($data->pluck('total')) }},
@@ -267,7 +314,7 @@
                     @if($data2 != null or $data2 != [])
                     {
 
-                        label: {{ Js::from($keywords['to_county_compare']) }},
+                        label: {{ Js::from($keywords['birth_county_compare']) }},
                         grouped:true,
                         maxBarThickness:'50',
                         data: {{ Js::from($data2->pluck('total')) }},
@@ -321,10 +368,11 @@
         @if(isset($ProvincesParishes))
             <script>
                 document.addEventListener('alpine:init', () => {
-                    Alpine.data('loadCounties', () => ({
+                    Alpine.data('loadCounties', (countyInit = null, parishInit = null) => (
+                        {
                         counties:getCounties(),
-                        county:null,
-                        parish:null,
+                        county:countyInit,
+                        parish:parishInit,
                         // parishes: this.county
                         parishes() {
                             // return this.county

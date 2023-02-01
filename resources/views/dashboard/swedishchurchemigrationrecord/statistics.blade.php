@@ -37,7 +37,7 @@
                 </li>
             </ul>
             <div class="bg-white py-6 pl-4 pr-3 border-gray-300 shadow md:rounded-lg"
-                 x-data="{buttonDisable:true}" >
+                 x-data="{buttonDisable:{{ isset($keywords)?'false':true }} }" >
                 @if(isset($keywords))
                     {!! Form::model($keywords,['route' => 'scerc.generateChart'])  !!}
                 @endif
@@ -49,9 +49,13 @@
                         <label for="first_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             {{ __('Gender') }} </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                           {!! Form::select('gender', ['Alla' => 'Alla', 'Män' => 'Män', 'Kvinnor' => 'Kvinnor'],null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                            'id' => 'first_name']) !!}
+                           {!! Form::select('gender',
+                                ['Alla' => 'Alla', 'Män' => 'Män', 'Kvinnor' => 'Kvinnor'],
+                                   null,
+                                   ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                    'id' => 'first_name'])
+                           !!}
                         </div>
                     </div>
 
@@ -84,7 +88,7 @@
                                    class=" text-sm font-medium text-gray-700 sm:mt-px sm:grid sm:grid-cols-3  sm:pt-2 gap-x-2 items-center">
                                 {{ __('Basområde') }}:
                                 <select x-model="county"
-                                        x-on:change="[county == '' ? buttonDisable = true : buttonDisable = false]"
+                                       @if(!isset($keywords)) x-on:change="[county == '' ? buttonDisable = true : buttonDisable = false]" @endif
 
                                         name="from_province" class="max-w-lg block w-full rounded-md border-gray-300
                                          py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none
@@ -105,7 +109,7 @@
                                     <option value="">-- {{ __('Select a parish') }} --</option>
                                     <template x-for="parishData in parishes">
                                         <option :value="parishData"
-                                                x-bind:selected="province.county == '{{ $keywords['from_parish']??false }}'"><span x-text="parishData"></span></option>
+                                                x-bind:selected="parishData == '{{ $keywords['from_parish']??false }}'"><span x-text="parishData"></span></option>
                                     </template>
                                 </select>
                             </label>
@@ -127,7 +131,10 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2">
                                     <option value="">-- {{ __('Select a province') }} --</option>
                                     <template x-for="province in counties">
-                                        <option :value="province.county"><span x-text="province.county"></span></option>
+                                        <option :value="province.county"
+                                                x-bind:selected="province.county == '{{ $keywords['from_province_compare']??false }}'">
+                                            <span x-text="province.county"></span>
+                                        </option>
                                     </template>
                                 </select>
                             </label>
@@ -139,7 +146,10 @@
                                           focus:ring-indigo-500 sm:text-sm col-span-2" >
                                     <option value="">-- {{ __('Select a parish') }} --</option>
                                     <template x-for="parishData in parishes">
-                                        <option :value="parishData"  ><span x-text="parishData"></span></option>
+                                        <option :value="parishData"
+                                                x-bind:selected="parishData == '{{ $keywords['from_parish_compare']??false }}'">
+                                            <span x-text="parishData"></span>
+                                        </option>
                                     </template>
                                 </select>
                             </label>
@@ -332,13 +342,9 @@
                             county:countyInit,
                             parish:parishInit,
 
-
                             parishes() {
-
                                 return getParishes(this.county)
-                            },
-
-
+                            }
                         }))
                 });
 

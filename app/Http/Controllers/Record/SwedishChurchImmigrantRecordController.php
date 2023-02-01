@@ -54,13 +54,8 @@ class SwedishChurchImmigrantRecordController extends Controller
     }
 
 
-    public function statics(){
-//        $provinces = SwedishChurchImmigrantRecord::whereNot('to_county', '  Y')
-//            ->whereNotNull('to_county')
-//            ->select('to_county')
-//            ->distinct()
-//            ->get()
-//            ->pluck('to_county','to_county')->prepend('Alla');
+    public function statics()
+    {
         $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
 
@@ -71,7 +66,8 @@ class SwedishChurchImmigrantRecordController extends Controller
 
 //        return $request->all();
         $data = SwedishChurchImmigrantRecord::findGender($request->sex)
-            ->toProvince($request->birth_county)
+            ->findProvince($request->birth_county)
+            ->findParish($request->birth_parish)
             ->recordDateRange($request->start_year, $request->end_year)
             ->groupRecordsBy($request->group_by)
             ->get();
@@ -79,7 +75,8 @@ class SwedishChurchImmigrantRecordController extends Controller
         if($request->birth_county_compare != null  and $request->chart_type === 'bar')
         {
             $data2 = SwedishChurchImmigrantRecord::findGender($request->sex)
-                ->toProvince($request->birth_county_compare)
+                ->findProvince($request->birth_county_compare)
+                ->findParish($request->birth_parish_compare)
                 ->recordDateRange($request->start_year, $request->end_year)
                 ->groupRecordsBy($request->group_by)
                 ->get();
@@ -89,12 +86,13 @@ class SwedishChurchImmigrantRecordController extends Controller
 
         }
 
-        $provinces = SwedishChurchImmigrantRecord::whereNot('to_county', '  Y')
-            ->whereNotNull('to_county')
-            ->select('to_county')
-            ->distinct()
-            ->get()
-            ->pluck('to_county','to_county')->prepend('Alla');
+
+//        $provinces = SwedishChurchImmigrantRecord::whereNot('to_county', '  Y')
+//            ->whereNotNull('to_county')
+//            ->select('to_county')
+//            ->distinct()
+//            ->get()
+//            ->pluck('to_county','to_county')->prepend('Alla');
 
         if($data2 == null){
             $title = 'Immigration ' .
@@ -110,10 +108,12 @@ class SwedishChurchImmigrantRecordController extends Controller
                 (($request->start_year != null && $request->end_year != null) && ($request->start_year < $request->end_year ) ? "mellan $request->start_year och $request->end_year" : "")  ;
         }
 
+        $ProvincesParishes = collect($this->ProvincesParishes());
+        $provinces = $this->provinces() ;
         $grouped_by = $request->group_by === "to_date"? "year":"to_county";
         $chart_type = $request->chart_type;
         $keywords = $request->all();
-        return view('dashboard.SwedishChurchImmigrantRecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords', 'data2'));
+        return view('dashboard.SwedishChurchImmigrantRecord.statistics', compact('provinces','data', 'chart_type','title', 'grouped_by','keywords', 'data2','ProvincesParishes'));
     }
 
 }
