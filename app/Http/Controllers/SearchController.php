@@ -93,6 +93,8 @@ class SearchController extends Controller
 
         $keywords = $request->except('_token');
 
+//        return $inputFields;
+
         if(auth()->user()->hasRole(['regular user'])){
             $records = collect([
                 'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields)
@@ -125,7 +127,7 @@ class SearchController extends Controller
             ]);
         }
 
-//        return $records;
+//        return $keywords;
         return view('home.results', compact('records', 'keywords'));
 
     }

@@ -53,13 +53,13 @@
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
-        <a class="block" href="/sesrc/search?qry_first_name[value]={{$keywords['qry_first_name']}}&qry_first_name[method]={{ null }}&qry_last_name[value]={{ $keywords['qry_last_name'] }}&qry_last_name[method]={{ null }}&from_parish={{ $keywords['parish'] }}&array_birth_year%5Byear%5D={{ $keywords['year'] }}&action=search">
+        <a class="block" href="/sesrc/search?qry_first_name[value]={{$keywords['qry_first_name']}}&qry_first_name[method]={{ null }}&qry_last_name[value]={{ $keywords['qry_last_name'] }}&qry_last_name[method]={{ null }}&from_parish={{ $keywords['parish'] }}&birth_year={{ $keywords['year'] }}&action=search">
             {{ $key }}
         </a>
     </td>
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
                                                                                 font-medium sm:pl-6 lg:pl-8">
-        <a class="block" href="/sesrc/search?qry_first_name[value]={{$keywords['qry_first_name']}}&qry_first_name[method]={{ null }}&qry_last_name[value]={{ $keywords['qry_last_name'] }}&qry_last_name[method]={{ null }}&from_parish={{ $keywords['parish'] }}&array_birth_year%5Byear%5D={{ $keywords['year'] }}&action=search">
+        <a class="block" href="/sesrc/search?qry_first_name[value]={{$keywords['qry_first_name']}}&qry_first_name[method]={{ null }}&qry_last_name[value]={{ $keywords['qry_last_name'] }}&qry_last_name[method]={{ null }}&from_parish={{ $keywords['parish'] }}&birth_year={{ $keywords['year'] }}&action=search">
             {{ $value }}
         </a>
     </td>

@@ -10,7 +10,7 @@
                     <a class="p-5 bg-indigo-600 text-white rounded-t-lg"
                        href="{{ route('scerc.search') }}">
 
-                        {{ __('Search Archive') }}
+                        {{ __('Search archive') }}
                     </a>
                 </li>
                 <li >
