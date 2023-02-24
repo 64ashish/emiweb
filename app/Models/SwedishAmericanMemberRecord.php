@@ -35,8 +35,6 @@ class SwedishAmericanMemberRecord extends Model
     public function fieldsToDisply()
     {
         return [
-
-
             'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
             'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
             'birth_date'=>__(ucfirst(str_replace('_', ' ', 'birth_date'))),
@@ -46,11 +44,13 @@ class SwedishAmericanMemberRecord extends Model
             'page'=>__(ucfirst(str_replace('_', ' ', 'page'))),
             'lodge_nr'=>__(ucfirst(str_replace('_', ' ', 'lodge_nr'))),
             'order_type'=>__(ucfirst(str_replace('_', ' ', 'order_type'))),
-            'place'=>__(ucfirst(str_replace('_', ' ', 'place'))),
-            'state'=>__(ucfirst(str_replace('_', ' ', 'state'))),
+//            'place'=>__(ucfirst(str_replace('_', ' ', 'place'))),
+//            'state'=>__(ucfirst(str_replace('_', ' ', 'state'))),
             'film_nr'=>__(ucfirst(str_replace('_', ' ', 'film_nr'))),
             'source'=>__(ucfirst(str_replace('_', ' ', 'source'))),
 //            'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
+            'place'=>__(ucfirst(str_replace('_', ' ', 'Place in America'))),
+            'state'=>__(ucfirst(str_replace('_', ' ', 'State in America'))),
             'id'=>'id',
             'archive_id'=>'archive_id'
         ];
@@ -71,8 +71,8 @@ class SwedishAmericanMemberRecord extends Model
             'last_name',
             'birth_date',
             ['birth_county','birth_parish'],
-            'place',
-            'state',
+            'place' => 'Place in America',
+            'state' => 'State in America',
         ];
     }
 

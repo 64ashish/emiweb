@@ -19,6 +19,8 @@
                         {!! Form::open(['route' => 'samrc.search'])  !!}
                     @endif
 
+{{--                        {{ $filterAttributes }}--}}
+
 
                         @include('dashboard._filtersattributes')
 

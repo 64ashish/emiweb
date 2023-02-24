@@ -1,6 +1,6 @@
 <div class="grid grid-cols-2 gap-x-6 gap-y-4">
 
-@foreach($filterAttributes as $filterAttribute)
+@foreach($filterAttributes as $key => $filterAttribute)
 
         @if($filterAttribute === "---")
             <div class="col-span-2">
@@ -141,13 +141,18 @@
                                           focus:ring-indigo-500 sm:text-sm',
                                           'placeholder' => 'Select'
                                       ]) !!}
+                    @elseif($key === 'place' or $key === 'state')
+                        {!! Form::text($key, null,
+                                ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                 sm:text-sm border-gray-300 rounded-md',
+                                'id' => $key]) !!}
+
+
                     @else
                         {!! Form::text($filterAttribute, null,
                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                  sm:text-sm border-gray-300 rounded-md',
                                 'id' => $filterAttribute]) !!}
-
-        {{--                {{ $ }}--}}
                     @endif
 
                 </div>
