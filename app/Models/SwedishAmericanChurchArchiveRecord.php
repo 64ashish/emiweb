@@ -131,9 +131,9 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'last_name',
             'last_name2',
             'birth_date',
-            'birth_year',
-            'birth_month',
-            'birth_day',
+//            'birth_year',
+//            'birth_month',
+//            'birth_day',
             ['birth_province','birth_parish'],
             '---',
             'immigration_date',
@@ -167,7 +167,7 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'civil_status',
             'emigration_province',
             'arrived_from_county',
-            'immigrated_to_state',
+            'immigrated_to_state'
         ];
     }
 

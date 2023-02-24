@@ -77,7 +77,6 @@ class SwedishChurchEmigrationRecord extends Model
     public function archive(){
         return $this->belongsTo(Archive::class);
     }
-
 //    protected $dates = ['dob'];
     public function toSearchableArray()
     {
@@ -126,9 +125,10 @@ class SwedishChurchEmigrationRecord extends Model
             'gender',
 //            'last_resident',
             'from_province',
-            'birth_place',
+//            'birth_place',
             'birth_parish',
             'destination_country',
+            'record_date'
 //            'before_location',
 //            'before_country'
         ];
@@ -184,7 +184,6 @@ class SwedishChurchEmigrationRecord extends Model
             'secrecy',
         ];
     }
-
 
     public function dob(): Attribute
     {
@@ -276,7 +275,6 @@ class SwedishChurchEmigrationRecord extends Model
             'archive_id' =>'archive_id',
         ];
     }
-
 //    scopes for filter
     public function scopeFindGender($query, $gender){
         if($gender === "Män") { return $query->where('gender', 'M'); }
@@ -309,7 +307,6 @@ class SwedishChurchEmigrationRecord extends Model
         return $query;
     }
 
-
     public function scopeGroupRecordsBy($query, $group_by){
         if($group_by === "record_date") {
             return $query->select(DB::raw('YEAR(record_date) as year'),DB::raw('COUNT(*) as total'))
@@ -333,9 +330,6 @@ class SwedishChurchEmigrationRecord extends Model
             'destination_country',
             'destination_location',
             'birth_country'
-
-
-
         ];
     }
 
