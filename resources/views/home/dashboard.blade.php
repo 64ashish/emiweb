@@ -10,7 +10,7 @@
                         <ul role="list">
                             @if(auth()->user()->hasRole('regular user'))
                                 <li>
-                                    <p class="text-sm font-medium text-black-900 px-6 py-4">{{ $catArchives->name }}</p>
+                                    <p class="text-sm font-medium text-black-900 px-6 py-4">{{ __($catArchives->name) }}</p>
                                     <ul class="rounded-lg bg-white overflow-hidden shadow">
                                         @foreach($catArchives->archives->where('id',1) as $archive)
                                             <li class="odd:bg-white even:bg-gray-100 px-6 py-4">
@@ -43,7 +43,7 @@
                                 </li>
                             @elseif($user->hasRole('subscriber') and (!is_null($user->manual_expire) and !\Carbon\Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(\Carbon\Carbon::now())))
                                 <li>
-                                    <p class="text-sm font-medium text-black-900 px-6 py-4">{{ $catArchives->name }}</p>
+                                    <p class="text-sm font-medium text-black-900 px-6 py-4">{{ __($catArchives->name) }}</p>
                                     <ul class="rounded-lg bg-white overflow-hidden shadow">
                                         @foreach($catArchives->archives->where('id',1) as $archive)
                                             <li class="odd:bg-white even:bg-gray-100 px-6 py-4">
@@ -78,7 +78,7 @@
                                 @foreach( $catArchives as $category)
 
                                     <li>
-                                        <p class="text-sm font-medium text-black-900 px-6 py-4">{{ $category->name }}</p>
+                                        <p class="text-sm font-medium text-black-900 px-6 py-4">{{ __($category->name) }}</p>
                                         <ul class="rounded-lg bg-white overflow-hidden shadow">
                                             @foreach($category->archives as $archive)
 
@@ -121,7 +121,7 @@
                                 @foreach( $catArchives as $category)
 
                                     <li>
-                                        <p class="text-sm font-medium text-black-900 px-6 py-4">{{ $category->name }}</p>
+                                        <p class="text-sm font-medium text-black-900 px-6 py-4">{{ __($category->name) }}</p>
                                         <ul class="rounded-lg bg-white overflow-hidden shadow">
                                             @foreach($category->archives as $archive)
 
