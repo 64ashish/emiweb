@@ -1,9 +1,13 @@
+{{--<h1>  {{ $records['first_name'] }}</h1>--}}
 <div class="mt-8 flex flex-col" x-init="document.getElementById('results').scrollIntoView()">
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8" id="results">
 
+
+
+
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <h4 class="pb-6" x-show="!openDetails">
-                {{ __("Your search returned") ." ". $records->total()." ". __("results") }}
+{{--                {{ __("Your search returned") ." ". $records->total()." ". __("results") }}--}}
             </h4>
             <div
                     class="overflow-hidden shadow ring-1 mb-4 ring-black ring-opacity-5 md:rounded-lg">
@@ -82,8 +86,30 @@
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
 {{--                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
+{{--                                        {{ $record->first_name }} {{ $record->last_name }}<br>--}}
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
-                                        <div> {{ $record->first_name }} {{ $record->last_name }}  </div>
+                                        <div>
+                                            @if($keywords['qry_first_name']['value'])
+                                                        {!! preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name) !!}
+                                            @else
+                                               {{  $record->first_name }}
+                                            @endif
+
+                                        @if($keywords['qry_last_name']['value'])
+                                            {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
+                                        @else
+                                            {{  $record->last_name }}
+                                        @endif
+
+
+
+
+
+
+{{--                                            {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
+{{--                                            {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
+
+
                                         {{--  </a>--}}
                                     </td>
                                 @endif

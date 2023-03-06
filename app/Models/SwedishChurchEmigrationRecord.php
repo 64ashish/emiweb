@@ -336,4 +336,7 @@ class SwedishChurchEmigrationRecord extends Model
 
 
 
+
+
+
 }

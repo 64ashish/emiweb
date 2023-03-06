@@ -162,7 +162,7 @@ class SwedishChurchEmigrationRecordController extends Controller
             )
         )->keys();
 
-//        return $keywords;
+//        return $keywords['qry_first_name']['value'];
 
 //        return $archive_name;
         // Render view
