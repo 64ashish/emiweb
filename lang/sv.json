@@ -282,6 +282,7 @@
  "Port arrival country": "Ankomstcounty",
  "Arrival month":"Ankomstmånad",
  "Arrival year": "Ankomstår",
+ "Arrival date": "Ankomstdatum",
  "Age months":"Ålder månader",
  "Place of origin": "Hemort",
  "Series number":"Serienummer",
@@ -393,8 +394,13 @@
  "to":"till",
  "of": "av",
  "results":"resultat",
+ "result": "resultat",
  "Interval": "Intervall",
  "Search archive": "Sök arkiv",
  "State in America": "Stat i Amerika",
- "Place in America": "Plats i Amerika"
+ "Place in America": "Plats i Amerika",
+ "Article date": "Artikeldatum",
+ "Subject": "Ämne",
+ "Message": "Meddelande",
+ "Send": "Skicka"
 }

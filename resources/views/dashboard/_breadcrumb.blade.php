@@ -57,14 +57,14 @@
 
                                     </div>
                                     <p>
-                                        Message
+                                        {{ __('Message') }}
                                     </p>
                                     {!! Form::open(['route' => 'suggestion']) !!}
 
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:border-gray-200 sm:py-5">
                                         <label for="subject"
                                                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                            Subject
+                                            {{ __('Subject') }}
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
@@ -81,7 +81,7 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
                                         <label for="email"
                                                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                            Email </label>
+                                             {{ __('Email') }}</label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                             {!! Form::text('email', null,
@@ -97,7 +97,7 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
                                         <label for="message"
                                                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                            Message</label>
+                                            {{ __('Message') }}</label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                             {!! Form::textarea('message', null,
@@ -113,7 +113,7 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
                                         <label for="archive"
                                                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                            Archive </label>
+                                             {{ __('Archive') }}</label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                             {!! Form::text('archive',$archive_details->name ,
@@ -129,7 +129,7 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
                                         <label for="record"
                                                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                            Record id</label>
+                                              {{ __('Record id') }}</label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                             {!! Form::text('record', $archive_details->id,
@@ -145,7 +145,7 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
                                         <label for="record"
                                                class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                            Record URL</label>
+                                            {{ __('Record URL') }}</label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
 
 {{--                                            {!! Form::hidden('record_url',url()->current(),['readonly']) !!}--}}

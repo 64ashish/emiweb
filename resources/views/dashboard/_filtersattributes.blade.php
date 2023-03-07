@@ -58,7 +58,15 @@
         @else
 
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
-
+                @if($filterAttribute == ['departure_year','departure_month','departure_day']
+                    || $filterAttribute == ['birth_year','birth_month','birth_day']
+                    || $filterAttribute == ['arrival_year','arrival_month','arrival_day']
+                    || $filterAttribute == ['article_year','article_month','article_day'])
+                    <label for="{{ $filterAttribute[0] }}"
+                           class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                         {{ __(ucfirst(explode('_', trim($filterAttribute[0]))[0]). ' date') }}
+                    </label>
+                @else
                 <label for="{{ $filterAttribute }}"
                        class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                     @if($filterAttribute === "dob")
@@ -67,9 +75,27 @@
                         {{ __(ucfirst(str_replace('_', ' ', $filterAttribute))) }}
                     @endif
                 </label>
+                @endif
                 <div class="mt-1 sm:mt-0 sm:col-span-2  flex gap-x-2">
-                    @if(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
+                    @if($filterAttribute == ['departure_year','departure_month','departure_day'] || $filterAttribute == ['birth_year','birth_month','birth_day'] || $filterAttribute == ['arrival_year','arrival_month','arrival_day']
+                    || $filterAttribute == ['article_year','article_month','article_day'])
+                        <div class="flex gap-2" >
+                            {!! Form::text($filterAttribute[0], null,
+                           ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $filterAttribute[0], 'x-mask' => "9999",'placeholder' => "YYYY"]) !!}
 
+                            {!! Form::text($filterAttribute[1], null,
+                           ['class' => 'max-w-lg block w-14  shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $filterAttribute[1], 'x-mask' => "99",'placeholder' => "MM"]) !!}
+                            {!! Form::text($filterAttribute[2], null,
+                           ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                           sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                           'id' => $filterAttribute[2], 'x-mask' => "99",'placeholder' => "DD"]) !!}
+
+                        </div>
+                    @elseif(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
                         <div class="flex gap-2" x-data='{ compare: "{{ $keywords["compare_{$filterAttribute}_check"] ?? false }}" }'>
                             {!! Form::text("array_".$filterAttribute."[year]", null,
                            ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
@@ -93,13 +119,11 @@
 {{--                            {!! Form::checkbox("compare_{$filterAttribute}_check") !!}--}}
                             <label for="scales"  x-model="compare"class="self-center  ml-auto" >{{ __('Interval') }}</label>
                         </div>
-
                     @elseif(in_array($filterAttribute, $enableQueryMatch))
                             {!! Form::text('qry_'.$filterAttribute.'[value]', null,
                                             ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                              sm:text-sm border-gray-300 rounded-md',
                                             'id' => $filterAttribute.'_value']) !!}
-
                             {!! Form::select('qry_'.$filterAttribute.'[method]', [
                                          null => __('Contains'),
                                         'start' => __('Starting with'),
@@ -107,7 +131,6 @@
                                         'exact' => __('Exact')
                                         ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
-
                     @elseif($filterAttribute === 'from_province' and isset($provinces))
                         {!! Form::select($filterAttribute,
                                         $provinces,null,
@@ -117,8 +140,6 @@
                                           focus:ring-indigo-500 sm:text-sm',
                                           'placeholder' => 'Select'
                                       ]) !!}
-
-
                     @elseif($filterAttribute === 'to_county' and isset($provinces))
                         {!! Form::select($filterAttribute,
                                         $provinces,null,
@@ -146,8 +167,6 @@
                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                  sm:text-sm border-gray-300 rounded-md',
                                 'id' => $key]) !!}
-
-
                     @else
                         {!! Form::text($filterAttribute, null,
                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500

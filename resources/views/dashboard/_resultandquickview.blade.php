@@ -89,13 +89,13 @@
 {{--                                        {{ $record->first_name }} {{ $record->last_name }}<br>--}}
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
                                         <div>
-                                            @if($keywords['qry_first_name']['value'])
+                                            @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
                                                         {!! preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name) !!}
                                             @else
                                                {{  $record->first_name }}
                                             @endif
 
-                                        @if($keywords['qry_last_name']['value'])
+                                        @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])
                                             {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
                                         @else
                                             {{  $record->last_name }}
@@ -128,9 +128,7 @@
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                         <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]   `
                                                                             hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
-
                                             {{ $record[$pop_fields]}}
-
                                         </td>
                                     @endif
                                 @endforeach

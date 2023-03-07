@@ -20,8 +20,11 @@ class NorwayEmigrationRecordController extends Controller
     {
         $all_request = $request->all();
 
+        if(!empty($all_request['array_emigration_date']))
+        {
+            $all_request['array_registered_date'] = $all_request['array_emigration_date'];
+        }
 
-        $all_request['array_registered_date'] = $all_request['array_emigration_date'];
 //
 //        unset($all_request['array_emigration_date']);
 

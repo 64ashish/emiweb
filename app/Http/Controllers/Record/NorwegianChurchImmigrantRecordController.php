@@ -20,7 +20,11 @@ class NorwegianChurchImmigrantRecordController extends Controller
     {
 
         $all_request = $request->all();
-        $all_request['array_to_date'] = $all_request['array_immigration_date'];
+        if(!empty($all_request['array_immigration_date']))
+        {
+            $all_request['array_to_date'] = $all_request['array_immigration_date'];
+        }
+
 
 //        return $all_request;
         $quryables = $this->QryableItems($all_request);

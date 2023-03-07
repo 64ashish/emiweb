@@ -99,9 +99,9 @@ class MormonShipPassengerRecord extends Model
             'residence_country',
             'profession',
             '---',
-            'departure_year',
+            ['departure_year',
             'departure_month',
-            'departure_day',
+            'departure_day'],
             'conference',
             'destination',
         ];

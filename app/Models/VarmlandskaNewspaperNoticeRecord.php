@@ -79,9 +79,9 @@ class VarmlandskaNewspaperNoticeRecord extends Model
         return [
             'first_name',
             'last_name',
-            'article_year',
-            'article_month',
-            'article_day',
+            ['article_year',
+                'article_month',
+                'article_day'],
             'death_parish',
             'death_country',
             'places',

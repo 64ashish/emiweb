@@ -98,9 +98,9 @@ class SwedishImmigrationStatisticsRecord extends Model
         return [
             'first_name',
             'last_name',
-            'birth_year',
+            ['birth_year',
             'birth_month',
-            'birth_day',
+            'birth_day'],
             'profession',
             '---',
             ['to_province',
