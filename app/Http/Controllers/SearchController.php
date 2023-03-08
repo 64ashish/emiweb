@@ -269,9 +269,16 @@ class SearchController extends Controller
                         $text_code[2] = substr_replace($text_code[2], "0", 1, 0);
                     }
 
+
+
                   $media_file = BrodernaLarssonArchiveDocument::where('file_name', 'like', '%'. $text_code[1]. '_' .$text_code[2] .'%')->first();
-//                    return $detail;
-                  $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name;
+                  $media = "";
+                  if($media_file)
+                  {
+                      $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name;
+                  }
+
+
                 }
                 break;
 
