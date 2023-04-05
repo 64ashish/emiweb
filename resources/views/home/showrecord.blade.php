@@ -204,7 +204,7 @@
 
                         @if( $detail->relatives != null and $detail->relatives->count() > 0)
                         <div  x-show="tab === 'relatives'">
-                            <h3>Relatives</h3>
+                            <h3>{{ __('Relatives') }}</h3>
                             <div class="mt-8 flex flex-col">
                                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">

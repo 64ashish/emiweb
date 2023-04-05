@@ -286,7 +286,8 @@ class SearchController extends Controller
                 $model = new BrodernaLarssonArchiveRecord();
                 $detail = BrodernaLarssonArchiveRecord::with('user.organization')->findOrFail($id);
 //                return explode('-', $detail->letter_date)[0];
-                $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name;
+                $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name."pdf";
+                dd($detail->file_name);
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
