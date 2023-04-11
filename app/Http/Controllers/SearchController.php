@@ -374,7 +374,7 @@ class SearchController extends Controller
                 $detail->relatives = NorwayEmigrationRecord::whereNot('id', $detail->id)
                     ->where('family_number', $detail->family_number)
                     ->where('source_area', $detail->source_area)
-                    ->where('registered_date', $detail->registered_date)
+//                    ->where('registered_date', $detail->registered_date)
 //                    ->where('to_fylke', $detail->from_fylke)
                     ->get();
                 $fields = collect($model->getFillable())

@@ -107,6 +107,7 @@ class BrodernaLarssonArchiveRecord extends Model
             'home_country',
             'gender',
             'profession',
+            'letter_date'
         ];
     }
 
@@ -118,6 +119,7 @@ class BrodernaLarssonArchiveRecord extends Model
             ['home_county',
             'home_parish'],
             'profession',
+            'letter_date',
         ];
     }
 
@@ -140,7 +142,6 @@ class BrodernaLarssonArchiveRecord extends Model
     public function searchFields()
     {
         return [
-            'letter_date',
             'source_code',
             'geographical_extent',
         ];
