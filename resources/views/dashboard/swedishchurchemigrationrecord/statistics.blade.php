@@ -258,7 +258,7 @@
             data: {
                 labels: {{ Js::from($data->pluck($grouped_by)) }},
                 datasets: [{
-                    label: {{ Js::from($keywords['from_province']) }},
+                    label: {{ Js::from($keywords['from_province']." ".$keywords['from_parish']??'') }},
                     grouped:true,
                     maxBarThickness:'50',
                     data: {{ Js::from($data->pluck('total')) }},
@@ -280,7 +280,7 @@
                 },
                     @if($data2 != null )
                     {
-                        label: {{ Js::from($keywords['from_province_compare']) }},
+                        label: {{ Js::from($keywords['from_province_compare']." ".$keywords['from_parish_compare']??'') }},
                         grouped:true,
                         maxBarThickness:'50',
                         data: {{ Js::from($data2->pluck('total')) }},
