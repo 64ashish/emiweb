@@ -119,6 +119,7 @@ class SearchController extends Controller
                 'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields),
                 'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields),
                 'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields),
+                'Beväringens Levnadsbeskrivningar'=> $this->QueryBevaringensLevnadsbeskrivningar($inputFields),
                 'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields),
                 'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields), //fix for dob
                 'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),

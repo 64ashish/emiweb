@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\BevaringensLevnadsbeskrivningarRecord;
 use App\Models\BrodernaLarssonArchiveRecord;
 use App\Models\DalslanningarBornInAmericaRecord;
 use App\Models\DenmarkEmigration;
@@ -646,6 +647,41 @@ trait UniversalQuery{
         if($exec>=1){return $result->count('id');}
         else { return 0; }
 
+    }
+
+    private function QueryBevaringensLevnadsbeskrivningar($input)
+    {
+
+        $result = BevaringensLevnadsbeskrivningarRecord::select('id');
+
+        $exec = 0;
+
+        if (!empty($input['qry_first_name'])) {
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['qry_last_name'])) {
+//            $result->where('last_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('last_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $exec = $exec+1;
+
+        }
+
+        if (!empty($input['year'])) {
+            $result->whereYear('date_of_birth',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if (!empty($input['parish'])) {
+            $result->where('place_of_birth',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
     }
 
 
