@@ -202,7 +202,7 @@ class FindArchiveService
             case(22):
                 $details = [
                     'model' => new BevaringensLevnadsbeskrivningarRecord(),
-                    'viewfile' => 'dashboard.IcelandEmmigrationRecord.records',
+                    'viewfile' => 'dashboard.blbrc.records',
                     'genders' => $this->getGender()
                 ];
                 break;

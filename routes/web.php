@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageCollectionController;
 use App\Http\Controllers\ImagesInArchiveController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\Record\BevaringensLevnadsbeskrivningarRecordController;
 use App\Http\Controllers\Record\BrodernaLarssonArchiveRecordController;
 use App\Http\Controllers\Record\DalslanningarBornInAmericaRecordController;
 use App\Http\Controllers\Record\DenmarkEmigrationController;
@@ -485,6 +486,7 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
         Route::match(['get', 'post'],'/scpsr/search', [SwensonCenterPhotosamlingRecordController::class, 'search'])->name('scpsr.search');
 
+        Route::match(['get', 'post'],'/blbrc/search', [BevaringensLevnadsbeskrivningarRecordController::class, 'search'])->name('blbrc.search');
 
         Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
     });
