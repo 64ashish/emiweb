@@ -425,5 +425,11 @@
  "Occupation 1":"Yrke 1",
  "Occupation 2": "Yrke 2",
  "Profession 3":"Yrke 3",
- "Profession 4": "Yrke 4"
+ "Profession 4": "Yrke 4",
+ "Other professions":"Övriga yrken",
+ "Source hfl batch nr": "SVAR Hfl/Fsb Batchn",
+ "Source hfl image nr":"SVAR Hfl/Fsb Bildnr",
+ "Source in out batch nr": "SVAR Infl Batchnr",
+ "Source in out image nr":"SVAR Infl Bildnr"
+
 }
