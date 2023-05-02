@@ -433,5 +433,6 @@
  "Source in out image nr":"SVAR Infl Bildnr",
  "Emigration county":"Emigrationslän",
  "Emigration place": "Emigrationsort",
- "Emigration date": "Emigrationsdatum"
+ "Emigration date": "Emigrationsdatum",
+ "Time period": "Tidsperiod"
 }
