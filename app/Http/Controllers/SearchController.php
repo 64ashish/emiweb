@@ -174,7 +174,7 @@ class SearchController extends Controller
                 {
                     preg_match_all("/\d+/", $detail->source_reference, $matches);
 
-//                    return $matches;
+                    return $matches;
 //
                       if(count($matches[0]) == 3)
                       {
