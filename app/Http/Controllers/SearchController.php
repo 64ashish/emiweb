@@ -178,7 +178,7 @@ class SearchController extends Controller
 //
                       if(count($matches[0]) == 3)
                       {
-                          $detail->riksarkivet = SpplrReference::where('index_batch_reference',"SE/GLA/12703/E IX/".$matches[0][0])
+                          $riksarkivet = SpplrReference::where('index_batch_reference',"SE/GLA/12703/E IX/".$matches[0][0])
 //                              ->where('page_one',$matches[0][1])
 //                              ->orWhere('page_two',$matches[0][1])
                               ->where(function ($query) use ($matches) {
@@ -187,9 +187,15 @@ class SearchController extends Controller
                               })
 //                              ->first()->image_id;
                               ->first();
+
+                          if(!is_null($riksarkivet))
+                          {
+                              $detail->riksarkivet = $riksarkivet->image_id;
+                          }
+
                       }
                 }
-                return $detail;
+
 
 //                return !is_null($detail->riksarkivet)?$detail->riksarkivet:"is null";
 
