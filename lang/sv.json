@@ -441,5 +441,7 @@
  "Arrived from state" : "Anlände från län",
  "Immigrated to place" : "Immigrerade till plats",
  "Immigrated to state" : "Immigrerade till delstat",
- "Immigration month" : "Immigrerade månad"
+ "Immigration month" : "Immigrerade månad",
+ "Immigration year" : "Immigrerade år",
+ "Immigration day" : "Immigrerade dag"
 }
