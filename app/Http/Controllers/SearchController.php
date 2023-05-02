@@ -185,10 +185,11 @@ class SearchController extends Controller
                                   $query->where('page_one','=',$matches[0][1])
                                       ->orWhere('page_two','=',$matches[0][1]);
                               })
-                              ->first()->image_id;
+//                              ->first()->image_id;
+                              ->first();
                       }
                 }
-//                return $detail;
+                return $detail;
 
 //                return !is_null($detail->riksarkivet)?$detail->riksarkivet:"is null";
 
