@@ -434,5 +434,14 @@
  "Emigration county":"Emigrationslän",
  "Emigration place": "Emigrationsort",
  "Emigration date": "Emigrationsdatum",
- "Time period": "Tidsperiod"
+ "Time period": "Tidsperiod",
+ "Arrival date this to place": "",
+ "Arrived from place":"",
+ "Arrived from county": "",
+ "Arrived from state":"",
+ "Immigrated to place": "",
+ "Immigrated to state":"",
+ "Immigration month": "",
+ "Immigration month":"",
+ "Immigration month": ""
 }
