@@ -430,6 +430,8 @@
  "Source hfl batch nr": "SVAR Hfl/Fsb Batchn",
  "Source hfl image nr":"SVAR Hfl/Fsb Bildnr",
  "Source in out batch nr": "SVAR Infl Batchnr",
- "Source in out image nr":"SVAR Infl Bildnr"
-
+ "Source in out image nr":"SVAR Infl Bildnr",
+ "Emigration county":"Emigrationslän",
+ "Emigration place": "Emigrationsort",
+ "Emigration date": "Emigrationsdatum"
 }
