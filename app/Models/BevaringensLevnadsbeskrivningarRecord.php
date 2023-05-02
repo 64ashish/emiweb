@@ -103,14 +103,7 @@ class BevaringensLevnadsbeskrivningarRecord extends Model
     {
       return  [
             "company",
-            "no_in_enrollment_length",
-            "year_class",
-            "no_for_roller_guidance_area",
-            "letter_date",
-            "education_level",
-            "number_of_places_mentioned",
-            "born_outside_varmland",
-            "family",
+            "no_in_enrollment_length"
         ];
     }
 

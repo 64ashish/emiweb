@@ -410,5 +410,20 @@
  "Location": "Ort",
  "Residence city": "Boendeort",
  "Immigration county":"Immigrationslän",
- "Immigration place": "Immigrationsort"
+ "Immigration place": "Immigrationsort",
+ "Residence at the time of enrolment": "Boendeort vid inskrivning",
+ "Company": "Kompani",
+ "No in enrollment length":"Nr för rullföringsområde",
+ "Year class": "Född utanför Värmland",
+ "No for roller guidance area":"Nr för rullföringsområde",
+ "Picture no":"Bild nr",
+ "Education level": "Född utanför Värmland",
+ "Number of places mentioned":"Antal orter som nämns",
+ "Description with full text": "Beskrivning med fylligare text (Minst ett A4)",
+ "Born outside varmland":"Född utanför Värmland",
+ "Family": "Familj omnämns",
+ "Occupation 1":"Yrke 1",
+ "Occupation 2": "Yrke 2",
+ "Profession 3":"Yrke 3",
+ "Profession 4": "Yrke 4"
 }
