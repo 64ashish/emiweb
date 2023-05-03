@@ -467,7 +467,7 @@ class SearchController extends Controller
             case(29):
                 $model = new ObituariesSweUsaNewspapersRecord();
                 $detail = ObituariesSweUsaNewspapersRecord::with('user.organization')->findOrFail($id);
-                return $detail;
+//                return $detail;
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
