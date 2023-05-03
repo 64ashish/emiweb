@@ -33,7 +33,7 @@ class ObituariesSweUsaNewspapersRecordController extends Controller
         $result =  ObituariesSweUsaNewspapersRecord::query();
         $this->QueryMatch($quryables,$result, $all_request);
 
-        return $result;
+        return $result->get();
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 
