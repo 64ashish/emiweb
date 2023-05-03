@@ -16,7 +16,8 @@ class ObituariesSweUsaNewspapersRecordController extends Controller
 
     public function search(Request $request)
     {
-//        return $request;
+
+        return $request;
         $all_request = $request->all();
 
         $quryables = $this->QryableItems($all_request);
