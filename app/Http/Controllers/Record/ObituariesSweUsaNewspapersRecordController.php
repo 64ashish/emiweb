@@ -33,7 +33,7 @@ class ObituariesSweUsaNewspapersRecordController extends Controller
         $result =  ObituariesSweUsaNewspapersRecord::query();
         $this->QueryMatch($quryables,$result, $all_request);
 
-
+        $result = $result;
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
 //        return $result;
@@ -47,7 +47,7 @@ class ObituariesSweUsaNewspapersRecordController extends Controller
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
-        return $records;
+
 
         return view('dashboard.Ofsan.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
