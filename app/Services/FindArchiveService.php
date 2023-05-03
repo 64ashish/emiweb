@@ -13,6 +13,7 @@ use App\Models\NewYorkPassengerRecord;
 use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
+use App\Models\ObituariesSweUsaNewspapersRecord;
 use App\Models\RsPersonalHistoryRecord;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanBookRecord;
@@ -252,6 +253,14 @@ class FindArchiveService
                 $details = [
                     'model' => new SwedishAmericanBookRecord(),
                     'viewfile' => 'dashboard.sabr.records',
+                    'genders' => $this->getGender()
+                ];
+                break;
+
+            case(29):
+                $details = [
+                    'model' => new ObituariesSweUsaNewspapersRecord(),
+                    'viewfile' => 'dashboard.Ofsan.records',
                     'genders' => $this->getGender()
                 ];
                 break;

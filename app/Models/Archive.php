@@ -160,6 +160,11 @@ class Archive extends Model
         return $this->hasMany(SwensonCenterPhotosamlingRecord::class);
     }
 
+    public function ObituariesSweUsaNewspapersRecords()
+    {
+        return $this->hasMany(ObituariesSweUsaNewspapersRecord::class);
+    }
+
 
 
 

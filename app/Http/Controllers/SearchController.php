@@ -16,6 +16,7 @@ use App\Models\NewYorkPassengerRecord;
 use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
+use App\Models\ObituariesSweUsaNewspapersRecord;
 use App\Models\RsPersonalHistoryRecord;
 use App\Models\SpplrReference;
 use App\Models\SwedeInAlaskaRecord;
@@ -53,10 +54,12 @@ class SearchController extends Controller
 
         if($archive !=1 and auth()->user()->hasRole('regular user'))
         {
+//            return "one";
             return abort(403, 'Unauthorized action.');
         }
         if($archive !=1 and auth()->user()->hasRole(['subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())))
         {
+//            return "two";
             return abort(403, 'Unauthorized action.');
         }
         $model = $archiveService->getSelectedArchive($archive)['model'];
@@ -125,7 +128,8 @@ class SearchController extends Controller
                 'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
                 'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
                 'Svenskamerikanska jubileumsskrifter'=> $this->QuerySwedishAmericanJubileeRecord($inputFields),
-                'Svenskamerikanskt bokindex' =>$this->QuerySwedishAmericanBookRecord($inputFields)
+                'Svenskamerikanskt bokindex' =>$this->QuerySwedishAmericanBookRecord($inputFields),
+                'Dödsnotiser från Svenskamerikanska tidningar' =>$this->QueryObituariesSweUsaNewspapersRecord($inputFields)
             ]);
         }
 
@@ -220,6 +224,9 @@ class SearchController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+//                dd($fields);
+//                $test = collect($model->defaultSearchFields()->flatten()->diff(['---']));
+//                dd($test->merge($model->defaultSearchFields()));
                 $media = !is_null($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
                 break;
 
@@ -457,6 +464,16 @@ class SearchController extends Controller
                     ->flatten();
                 break;
 
+            case(29):
+                $model = new ObituariesSweUsaNewspapersRecord();
+                $detail = ObituariesSweUsaNewspapersRecord::with('user.organization')->findOrFail($id);
+//                return $detail;
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+//                bucketemiweb/archives/5/photos/Archive/Svenska_Emigrantinstitutet/Sandebudet/._Carl_Henry_Carlsten.jpg
+                $media = !is_null($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
+                break;
             default:
                 abort(403);
         }
@@ -725,6 +742,15 @@ class SearchController extends Controller
             case(28):
                 $model = new SwedishAmericanBookRecord();
                 $detail = SwedishAmericanBookRecord::with('user.organization','SwensonBookData')->findOrFail($id);
+//                return $detail;
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(29):
+                $model = new ObituariesSweUsaNewspapersRecord();
+                $detail = ObituariesSweUsaNewspapersRecord::with('user.organization')->findOrFail($id);
 //                return $detail;
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])

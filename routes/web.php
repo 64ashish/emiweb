@@ -25,6 +25,7 @@ use App\Http\Controllers\Record\NewYorkPassengerRecordController;
 use App\Http\Controllers\Record\NorthenPacificRailwayCompanyRecordController;
 use App\Http\Controllers\Record\NorwayEmigrationRecordController;
 use App\Http\Controllers\Record\NorwegianChurchImmigrantRecordController;
+use App\Http\Controllers\Record\ObituariesSweUsaNewspapersRecordController;
 use App\Http\Controllers\Record\RsPersonalHistoryRecordController;
 use App\Http\Controllers\Record\SwedeInAlaskaRecordController;
 use App\Http\Controllers\Record\SwedishAmericanBookRecordController;
@@ -489,5 +490,7 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
         Route::match(['get', 'post'],'/blbrc/search', [BevaringensLevnadsbeskrivningarRecordController::class, 'search'])->name('blbrc.search');
 
         Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
+
+        Route::match(['get', 'post'],'/osanr/search', [ObituariesSweUsaNewspapersRecordController::class, 'search'])->name('osanr.search');
     });
 

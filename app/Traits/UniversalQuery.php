@@ -13,6 +13,7 @@ use App\Models\MormonShipPassengerRecord;
 use App\Models\NewYorkPassengerRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
+use App\Models\ObituariesSweUsaNewspapersRecord;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanBookRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
@@ -684,6 +685,38 @@ trait UniversalQuery{
         else { return 0; }
     }
 
+    private function QueryObituariesSweUsaNewspapersRecord($input)
+    {
+
+        $result = ObituariesSweUsaNewspapersRecord::select('id');
+
+        $exec = 0;
+
+        if (!empty($input['qry_first_name'])) {
+//            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['qry_last_name'])) {
+//            $result->where('last_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $result->where('last_name', 'like', '%'. $input['qry_last_name'] .'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['parish'])) {
+            $result->where('from_parish',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['year'])) {
+            $result->where('birth_year',  $input['year']);
+            $exec = $exec+1;
+        }
+
+        if($exec>=1){return $result->count('id');}
+        else { return 0; }
+    }
 
 
 }

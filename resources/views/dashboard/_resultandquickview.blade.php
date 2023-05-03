@@ -92,7 +92,7 @@
                                             @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
                                                         {!! preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name) !!}
                                             @else
-                                               {{  $record->first_name }}
+                                               {{  $record->first_name }} - {{ $record->id }}
                                             @endif
 
                                         @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])

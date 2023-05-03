@@ -443,5 +443,13 @@
  "Immigrated to state" : "Immigrerade till delstat",
  "Immigration month" : "Immigrerade månad",
  "Immigration year" : "Immigrerade år",
- "Immigration day" : "Immigrerade dag"
+ "Immigration day" : "Immigrerade dag",
+ "Obituaries from Swedish-American newspapers": "Dödsnotiser från Svenskamerikanska tidningar",
+ "Location in sweden": "Hemort Sverige",
+ "County in sweden":"Hemlän Sverige",
+ "Age month": "Ålder månad",
+ "Death state":"Död stat",
+ "Age year": "Ålder år",
+ "Age day":"Ålder dag",
+ "Source date": "Ålder"
 }
