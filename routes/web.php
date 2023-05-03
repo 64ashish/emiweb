@@ -420,6 +420,7 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|subscriber',  'isActive', 'isManualSubscriber'])
     ->group(function ()
     {
+        Route::match(['get', 'post'],'/osanr/search', [ObituariesSweUsaNewspapersRecordController::class, 'search'])->name('osanr.search');
         // image related routes
         Route::get('npr/{index_letter}', [NorthenPacificRailwayCompanyRecordController::class,'browse'])->name('npr.browse');
 
@@ -491,6 +492,6 @@ Route::middleware(['auth',  'verified','role:super admin|emiweb admin|emiweb sta
 
         Route::match(['get', 'post'],'/sabr/search', [SwedishAmericanBookRecordController::class, 'search'])->name('sabr.search');
 
-        Route::match(['get', 'post'],'/osanr/search', [ObituariesSweUsaNewspapersRecordController::class, 'search'])->name('osanr.search');
+//        Route::match(['get', 'post'],'/osanr/search', [ObituariesSweUsaNewspapersRecordController::class, 'search'])->name('osanr.search');
     });
 
