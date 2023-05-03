@@ -44,7 +44,7 @@ class ObituariesSweUsaNewspapersRecordController extends Controller
         $advancedFields = collect($model->searchFields());
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
-        $archive_name = $model::findOrFail(1)->archive;
+        $archive_name = $model::findOrFail(501)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
 
