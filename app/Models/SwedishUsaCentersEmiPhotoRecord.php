@@ -34,7 +34,7 @@ class SwedishUsaCentersEmiPhotoRecord extends Model
             'negative'=>__(ucfirst(str_replace('_', ' ', 'negative' ))),
             'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

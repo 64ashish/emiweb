@@ -311,8 +311,6 @@
  "Image file name" :"Bildfil",
  "Image folder" : "Bildmapp",
  "Page number" :"Sidnummer",
- "Page link" : "Page link",
- "Image link" :"Image link",
  "Gsnumber" : "Gsnummer",
  "Article year":"Artikelår",
  "Article month":"Artikelmånad",
@@ -451,5 +449,18 @@
  "Death state":"Död stat",
  "Age year": "Ålder år",
  "Age day":"Ålder dag",
- "Source date": "Ålder"
+ "Source date": "Ålder",
+ "Page link" : "Sidlänk",
+ "Image link" : "Bildlänk",
+ "Page reference" : "Sidreferens",
+ "Photo owner" : "Fotoägare",
+"Negative" : "Negativ",
+ "Archive id":"Arkiv id",
+ "Confirmation location" : "Konfirmationsplats",
+"Marriage location" : "Giftemålsplats",
+ "Film number" : "Filmnummer",
+ "Book Title" : "Boktitek",
+ "Author" : "Författare",
+ "Region" : "Region",
+ "Publish date" : "Publiceringsdatum"
 }

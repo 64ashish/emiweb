@@ -710,7 +710,7 @@ trait UniversalQuery{
 
         }
         if (!empty($input['year'])) {
-            $result->where('birth_year',  $input['year']);
+            $result->where('birth_date',  $input['year']);
             $exec = $exec+1;
         }
 

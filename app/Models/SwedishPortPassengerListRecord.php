@@ -51,7 +51,7 @@ class SwedishPortPassengerListRecord extends Model
             'departure_port'=>__(ucfirst(str_replace('_', ' ', 'departure_port'))),
             'comments'=>__(ucfirst(str_replace('_', ' ', 'comments'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

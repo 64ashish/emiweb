@@ -38,7 +38,7 @@ class SwensonCenterPhotosamlingRecord extends Model
             'print_size'=>__(ucfirst(str_replace('_', ' ', 'print_size'))),
             'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

@@ -110,7 +110,7 @@ class ObituariesSweUsaNewspapersRecord extends Model
             'act_nr' =>__(ucfirst(str_replace('_',' ','act_nr'))),
             'file_name' =>__(ucfirst(str_replace('_',' ','file_name'))),
             'id' =>'id',
-            'archive_id' =>'archive_id',
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
             ];
     }
 

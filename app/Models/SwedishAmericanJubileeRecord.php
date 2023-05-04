@@ -54,7 +54,7 @@ class SwedishAmericanJubileeRecord extends Model
 
 //            'file_name'=>__(ucfirst(str_replace('_', ' ', 'file_name' ))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 
@@ -62,8 +62,6 @@ class SwedishAmericanJubileeRecord extends Model
     public function defaultSearchFields()
     {
         return [
-            'first_name',
-            'last_name',
             "title",
             "time_period",
             "state",

@@ -64,7 +64,7 @@ class BrodernaLarssonArchiveRecord extends Model
             'file_name' =>__(ucfirst(str_replace('_', ' ','file_name' ))),
             'comments' =>__(ucfirst(str_replace('_', ' ','comments' ))),
             'id'=>'id',
-            'archive_id' => 'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

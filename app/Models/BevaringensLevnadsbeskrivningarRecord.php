@@ -95,7 +95,7 @@ class BevaringensLevnadsbeskrivningarRecord extends Model
             "profession_4" => __(ucfirst(str_replace('_', ' ', 'profession_4'))),
             "other_professions" => __(ucfirst(str_replace('_', ' ', 'other_professions'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

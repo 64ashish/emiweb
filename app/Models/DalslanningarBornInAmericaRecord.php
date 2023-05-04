@@ -58,7 +58,7 @@ class DalslanningarBornInAmericaRecord extends Model
             'birth_place'=>__(ucfirst(str_replace('_', ' ', 'birth_place'))),
             'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

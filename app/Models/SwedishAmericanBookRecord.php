@@ -34,7 +34,7 @@ class SwedishAmericanBookRecord extends Model
             'page_reference'=> __(ucfirst(str_replace('_', ' ', 'page_reference'))),
 //            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

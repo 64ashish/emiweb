@@ -52,7 +52,7 @@ class SwedishAmericanMemberRecord extends Model
             'place'=>__(ucfirst(str_replace('_', ' ', 'Place in America'))),
             'state'=>__(ucfirst(str_replace('_', ' ', 'State in America'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

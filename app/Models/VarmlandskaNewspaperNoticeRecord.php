@@ -62,7 +62,7 @@ class VarmlandskaNewspaperNoticeRecord extends Model
             'birth_location'=>__(ucfirst(str_replace('_', ' ', 'birth_location'))),
 
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

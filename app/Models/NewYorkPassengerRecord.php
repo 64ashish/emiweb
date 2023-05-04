@@ -129,7 +129,7 @@ class NewYorkPassengerRecord extends Model
 
 //            'notes'=>__(ucfirst(str_replace('_', ' ', 'notes' ))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

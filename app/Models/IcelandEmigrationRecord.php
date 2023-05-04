@@ -86,7 +86,7 @@ class IcelandEmigrationRecord extends Model
             'member_of_organization' => __(ucfirst(str_replace('_', ' ', 'member_of_organization' ))) ,
             'comment' => __(ucfirst(str_replace('_', ' ', 'comment' ))) ,
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

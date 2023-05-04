@@ -56,7 +56,7 @@ class DenmarkEmigration extends Model
             'source'=> __(ucfirst(str_replace('_', ' ', 'source'))) ,
             'dduid' => __(ucfirst(str_replace('_', ' ', ' dduid'))),
             'id' => 'id',
-            'archive_id' => 'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

@@ -104,7 +104,7 @@ class NorwegianChurchImmigrantRecord extends Model
             'nr_in_immigration_book'=>__(ucfirst(str_replace('_', ' ', 'nr_in_immigration_book'))),
 //            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

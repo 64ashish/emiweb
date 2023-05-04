@@ -58,7 +58,7 @@ class SwedishImmigrationStatisticsRecord extends Model
             'to_province'=>__(ucfirst(str_replace('_', ' ', 'to_province'))),
             'to_parish'=>__(ucfirst(str_replace('_', ' ', 'to_parish'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

@@ -99,7 +99,7 @@ class SwedishChurchImmigrantRecord extends Model
             'source_in_out_batch_nr'=>__(ucfirst(str_replace('_', ' ', 'source_in_out_batch_nr'))),
             'source_in_out_image_nr'=>__(ucfirst(str_replace('_', ' ', 'source_in_out_image_nr'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

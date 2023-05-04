@@ -59,7 +59,7 @@ class SwedishEmigrationStatisticsRecord extends Model
             'svar_batch_number'=>__(ucfirst(str_replace('_', ' ', 'svar_batch_number'))),
             'svar_image_number'=>__(ucfirst(str_replace('_', ' ', 'svar_image_number'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

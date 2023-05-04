@@ -53,7 +53,7 @@ class SwedishEmigrantViaKristianiaRecord extends Model
             'page_nr' =>__(ucfirst(str_replace('_', ' ', 'page_nr'))),
             'row_nr' =>__(ucfirst(str_replace('_', ' ', 'row_nr'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

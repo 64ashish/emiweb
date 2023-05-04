@@ -95,7 +95,7 @@ class NorwayEmigrationRecord extends Model
             'image_link'=>__(ucfirst(str_replace('_', ' ', 'image_link'))),
 //            'profession'=>__(ucfirst(str_replace('_', ' ', 'profession'))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 

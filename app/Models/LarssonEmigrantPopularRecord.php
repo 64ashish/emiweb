@@ -41,7 +41,7 @@ class LarssonEmigrantPopularRecord extends Model
             'letter_date'=>__(ucfirst(str_replace('_', ' ', 'letter_date' ))),
             'notes'=>__(ucfirst(str_replace('_', ' ', 'notes' ))),
             'id'=>'id',
-            'archive_id'=>'archive_id'
+            'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
         ];
     }
 
