@@ -20,14 +20,14 @@
                         @if($records->first()->first_name != null or $records->first()->last_name != null)
                             <th x-on:click="sortByColumn" scope="col" class=" border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __("Full name") }}
-
+                           
                             </th>
                         @endif
                         @foreach($defaultColumns as $column)
                             <th  x-on:click="sortByColumn" scope="col" class=" border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $column))) }} </th>
                         @endforeach
-
+                    
                         @foreach($populated_fields as $pop_fields)
                             @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                             <th x-on:click="sortByColumn"  scope="col" class=" border-b border-gray-300 bg-gray-50
@@ -59,7 +59,7 @@
                                         </a>
                                     </td>
                                 @endforeach
-
+                                
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
@@ -123,12 +123,12 @@
 
                                     </td>
                                 @endforeach
-
+                                
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                         <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]   `
                                                                             hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
-                                            {{ $record[$pop_fields]}}
+                                            {{ $record[$pop_fields]}} 
                                         </td>
                                     @endif
                                 @endforeach
@@ -200,25 +200,24 @@
                         </div>
 
                     </div>
+                <!-- Start list for view information -->
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0 bg-white" >
                         <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2 quickwrapper">
 
                             <template x-for="(value, field) in displayFields" :key="field">
 
                                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
-                                    <dt class="text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500 capitalize" x-text="value">
+                                    <dt class="text-[0.95rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500 capitalize" x-text="value">
                                     </dt>
-                                    <dd class="mt-1 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
+                                    <dd class="mt-1 text-[0.95rem] leading-[0.7rem] sm:py-[0.6rem] font-bold text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
                                     </dd>
                                 </div>
 
                             </template>
-
-
                         </dl>
-
-
                     </div>
+                <!-- End list for view information -->
+
                 </div>
             </div>
             <span x-show="!openDetails">
