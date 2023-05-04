@@ -264,6 +264,12 @@ class SearchController extends Controller
             case(9):
                 $model = new SwedishEmigrationStatisticsRecord();
                 $detail = SwedishEmigrationStatisticsRecord::with('user.organization')->findOrFail($id);
+                $detail->relatives = SwedishEmigrationStatisticsRecord::where('family_number', $detail->family_number)
+                    ->whereNot('id', $detail->id)
+                    ->where('last_name', $detail->last_name)
+                    ->where('destination', $detail->destination)
+                    ->where('from_province', $detail->from_province)
+                    ->get();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
