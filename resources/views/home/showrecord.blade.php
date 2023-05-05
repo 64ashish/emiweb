@@ -83,16 +83,16 @@
 
                     <div class="-mt-8 ">
                         <nav class="-mb-px flex justify-end space-x-8">
-                            <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
-                            font-medium text-sm" :class="{ 'border-indigo-500 text-indigo-600 ': tab === 'details' }"
+                            <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2 hover:text-indigo-700 hover:border-indigo-700
+                            font-medium text-sm" :class="{ 'border-indigo-700 text-indigo-700 ': tab === 'details' }"
                                x-on:click.prevent="tab = 'details'"
                                href="#">
 
                                 {{ __('Details') }}</a>
 {{--                            @if(empty($relatives))--}}
                             @if( $detail->relatives != null and $detail->relatives->count() > 0)
-                            <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
-                            font-medium text-sm" :class="{ 'border-indigo-500 text-indigo-600 ': tab === 'relatives' }"
+                            <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2 hover:text-indigo-700 hover:border-indigo-700
+                            font-medium text-sm" :class="{ 'border-indigo-700 text-indigo-700 ': tab === 'relatives' }"
                                x-on:click.prevent="tab = 'relatives'"
                                href="#">{{ __('Relatives') }}</a>
                             @endif
@@ -102,7 +102,7 @@
                             @if($media != false)
                             <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm"
-                               :class="{ ' border-indigo-500 text-indigo-600 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
+                               :class="{ ' border-indigo-700 text-indigo-700 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
                                href="#">Media</a>
                             @endif
 
