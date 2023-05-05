@@ -94,20 +94,32 @@ class SearchController extends Controller
     {
 
 
+
+
+
+
+
+
         $inputFields = Arr::whereNotNull($request->except('_token'));
-//        array_key_exists('qry_first_name',$inputFields);
-        if(array_key_exists('qry_first_name',$inputFields))
-        {
-            $inputFields['qry_first_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_first_name']);
-        }
-        if(array_key_exists('qry_last_name',$inputFields))
-        {
-            $inputFields['qry_last_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_last_name']);
-        }
-
-
-
         $keywords = $request->except('_token');
+
+        if(!is_null($request->qry_first_name))
+        {
+
+            $inputFields['qry_first_name'] = preg_replace('/\s+/', ' ', $request->qry_first_name);
+            $keywords['qry_first_name'] = preg_replace('/\s+/', ' ', $request->qry_first_name);
+
+        }
+
+        if(!is_null($request->qry_last_name))
+        {
+            $inputFields['qry_last_name'] = preg_replace('/\s+/', ' ', $request->qry_last_name);
+            $keywords['qry_last_name'] = preg_replace('/\s+/', ' ', $request->qry_last_name);
+        }
+
+//        $keywords = $request->except('_token');
+
+//        return $inputFields;
 
 
 
