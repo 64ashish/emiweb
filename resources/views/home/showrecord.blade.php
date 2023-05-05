@@ -97,7 +97,12 @@
                                href="#">{{ __('Relatives') }}</a>
                             @endif
 
-
+                            @if( isset($detail->links['Immigrants in Swedish church records']) or isset($detail->links['Emigrants in Swedish church records']))
+                                <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2 hover:text-indigo-700 hover:border-indigo-700
+                            font-medium text-sm" :class="{ 'border-indigo-700 text-indigo-700 ': tab === 'links' }"
+                                   x-on:click.prevent="tab = 'links'"
+                                   href="#">{{ __('Links') }}</a>
+                            @endif
 
 
 
@@ -250,6 +255,58 @@
                         </div>
                         @endif
 
+                        @if( isset($detail->links['Immigrants in Swedish church records']) or isset($detail->links['Emigrants in Swedish church records']))
+
+                            <div  x-show="tab === 'links'">
+
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 flex items-center">{{ __('Links') }}</h3>
+                                <div class="mt-8 flex flex-col">
+                                    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                                <table class="min-w-full divide-y divide-gray-300">
+                                                    <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ __('Archive') }}</th>
+
+                                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                                            <span class="sr-only">{{ __('View') }}</span>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="bg-white">
+                                                    <!-- Odd row -->
+                                                    @if( isset($detail->links['Immigrants in Swedish church records']) and $detail->links['Immigrants in Swedish church records'] != null)
+                                                        <tr class="odd:bg-white even:bg-gray-100">
+                                                            <td class="whitespace-nowrap  pr-3  py-[0.6rem] text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-900 sm:pl-6">{{ __('Immigrants in Swedish church records') }}</td>
+
+                                                            <td class="relative whitespace-nowrap  py-[0.6rem]  pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                                <a href=" {{ route('records.show', ['arch'=> '6','id'=>$detail->links['Immigrants in Swedish church records']['id']]) }} " class="text-indigo-600 hover:text-indigo-900">
+                                                                    Visa</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+
+                                                    @if( isset($detail->links['Emigrants in Swedish church records']) and $detail->links['Emigrants in Swedish church records'] != null)
+                                                        <tr class="odd:bg-white even:bg-gray-100">
+                                                            <td class="whitespace-nowrap  pr-3  py-[0.6rem] text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-900 sm:pl-6">{{ __('Emigrants in Swedish church records') }}</td>
+
+                                                            <td class="relative whitespace-nowrap  py-[0.6rem]  pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                                <a href=" {{ route('records.show', ['arch'=> '5','id'=>$detail->links['Emigrants in Swedish church records']['id']]) }} " class="text-indigo-600 hover:text-indigo-900">
+                                                                    Visa</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+
+                                                    <!-- More people... -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
 
 

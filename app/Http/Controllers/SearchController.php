@@ -244,25 +244,18 @@ class SearchController extends Controller
                     ->where('from_parish', $detail->from_parish)
                     ->where('record_date', $detail->record_date)
                     ->get();
-//                $detail->links[] = '';
-//                $detail->links = array_merge($detail->links, []);
-//                $detail->links['Immigrants in Swedish church records'] = SwedishChurchImmigrantRecord::where('first_name', $detail->first_name)
-//                    ->where('last_name', $detail->last_name)
-//                    ->where('birth_date', $detail->dob)
-//                    ->where('sex', $detail->gender)
-//                    ->where('birth_parish', $detail->birth_parish)
-//                    ->where('birth_county', $detail->from_province)
-//                    ->get() ;
-//                $detail->links = array_merge($detail->links, [SwedishChurchImmigrantRecord::where('first_name', $detail->first_name)
-//                    ->where('last_name', $detail->last_name)
-//                    ->where('birth_date', $detail->dob)
-//                    ->where('sex', $detail->gender)
-//                    ->where('birth_parish', $detail->birth_parish)
-//                    ->where('birth_county', $detail->from_province)
-//                    ->get()]);
-//                $detail->links['Emigrants in Swedish church records'] =
-//                return $detail;
-////                return $detail->relatives->count();
+                $detail->links = [
+                    'Immigrants in Swedish church records' => SwedishChurchImmigrantRecord::where('first_name', $detail->first_name)
+                    ->where('last_name', $detail->last_name)
+                    ->where('birth_date', $detail->dob)
+                    ->where('sex', $detail->gender)
+                    ->where('birth_parish', $detail->birth_parish)
+                    ->where('birth_county', $detail->from_province)
+                    ->get('id')->first()
+                ];
+
+//                return $detail->links['Immigrants in Swedish church records']['id'];
+//                return $detail->relatives->count();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
@@ -282,6 +275,17 @@ class SearchController extends Controller
                     ->where('to_date', $detail->to_date)
                     ->where('to_county', $detail->to_county)
                     ->get();
+
+                $detail->links = [
+                    'Emigrants in Swedish church records' => SwedishChurchEmigrationRecord::where('first_name', $detail->first_name)
+                        ->where('last_name', $detail->last_name)
+                        ->where('dob', $detail->birth_date)
+                        ->where('gender', $detail->sex)
+                        ->where('birth_parish', $detail->birth_parish)
+                        ->where('from_province', $detail->birth_county)
+                        ->get('id')->first()
+                ];
+
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
