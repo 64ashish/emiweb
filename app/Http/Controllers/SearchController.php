@@ -95,8 +95,16 @@ class SearchController extends Controller
 
 
         $inputFields = Arr::whereNotNull($request->except('_token'));
-        $inputFields['qry_first_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_first_name']);
-        $inputFields['qry_last_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_last_name']);
+        if(!is_null($inputFields['qry_first_name']))
+        {
+            $inputFields['qry_first_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_first_name']);
+        }
+        if(!is_null($inputFields['qry_last_name']))
+        {
+            $inputFields['qry_first_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_last_name']);
+        }
+
+
 
         $keywords = $request->except('_token');
 
