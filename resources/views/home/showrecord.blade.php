@@ -99,6 +99,8 @@
 
 
 
+
+
                             @if($media != false)
                             <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm"

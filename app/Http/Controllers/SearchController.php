@@ -93,11 +93,14 @@ class SearchController extends Controller
     public function search( Request  $request)
     {
 
+
         $inputFields = Arr::whereNotNull($request->except('_token'));
+        $inputFields['qry_first_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_first_name']);
+        $inputFields['qry_last_name'] = preg_replace('/\s+/', ' ', $inputFields['qry_last_name']);
 
         $keywords = $request->except('_token');
 
-//        return $inputFields;
+
 
         if(auth()->user()->hasRole(['regular user'])){
             $records = collect([
@@ -220,6 +223,24 @@ class SearchController extends Controller
                     ->where('from_parish', $detail->from_parish)
                     ->where('record_date', $detail->record_date)
                     ->get();
+//                $detail->links[] = '';
+//                $detail->links = array_merge($detail->links, []);
+//                $detail->links['Immigrants in Swedish church records'] = SwedishChurchImmigrantRecord::where('first_name', $detail->first_name)
+//                    ->where('last_name', $detail->last_name)
+//                    ->where('birth_date', $detail->dob)
+//                    ->where('sex', $detail->gender)
+//                    ->where('birth_parish', $detail->birth_parish)
+//                    ->where('birth_county', $detail->from_province)
+//                    ->get() ;
+//                $detail->links = array_merge($detail->links, [SwedishChurchImmigrantRecord::where('first_name', $detail->first_name)
+//                    ->where('last_name', $detail->last_name)
+//                    ->where('birth_date', $detail->dob)
+//                    ->where('sex', $detail->gender)
+//                    ->where('birth_parish', $detail->birth_parish)
+//                    ->where('birth_county', $detail->from_province)
+//                    ->get()]);
+//                $detail->links['Emigrants in Swedish church records'] =
+//                return $detail;
 ////                return $detail->relatives->count();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])

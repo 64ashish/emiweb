@@ -219,6 +219,7 @@
  "Source":"Källa",
  "Source area":"Utflyttningsförsamling",
  "Source book nr":"Källans boknr",
+ "Source book number":"Källans boknummer",
  "Source code":"Källkod",
  "Source in out batch number":"Källa in ut batchnummer",
  "Source in out image number":"Källa in ut bildnummer",
@@ -462,5 +463,10 @@
  "Book Title" : "Boktitek",
  "Author" : "Författare",
  "Region" : "Region",
- "Publish date" : "Publiceringsdatum"
+ "Publish date" : "Publiceringsdatum",
+ "Emiweb emigration year": "Emiweb emigrations år",
+ "Page": "Sidnummer",
+ "File format" : "Filformat",
+ "Resolution" : "Upplösning",
+ "Date created" : "Skapat datum"
 }

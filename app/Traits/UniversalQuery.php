@@ -59,6 +59,7 @@ trait UniversalQuery{
 //        retur;
         $result = SwedishChurchEmigrationRecord::select('id');
 
+
         $exec = 0;
 //        if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
             if(!empty($input['qry_first_name'])){ $result->where('first_name', 'like', '%'. $input['qry_first_name'] .'%');
