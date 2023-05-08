@@ -43,7 +43,7 @@
     </div>
     <div class="hidden md:block md:flex-none md:w-1/2">
         <img class="w-full h-full object-cover"
-             src="{{ asset('images/hero-emiweb.jpeg') }}"
+             src="{{ asset('images/login.jpeg') }}"
              alt="{{ __('Welcome') }}">
     </div>
 </div>
