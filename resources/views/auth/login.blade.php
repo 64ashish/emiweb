@@ -1,5 +1,6 @@
 <x-guest-layout>
 
+
     <form class="mt-8 space-y-6" action="/login" method="POST">
         @csrf
 {{--        <input type="hidden" name="remember" value="true">--}}

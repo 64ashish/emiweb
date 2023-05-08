@@ -240,7 +240,6 @@
  "to america location":"Ankomstort Nordamerika",
  "To county":"Inflyttningslän",
  "County": "Län",
-
  "To date":"Inflyttningsdatum",
  "To fylke":"Inflyttnings fylke",
  "To location":"Inflyttningsort",
@@ -469,5 +468,21 @@
  "File format" : "Filformat",
  "Resolution" : "Upplösning",
  "Date created" : "Skapat datum",
- "Links": "Länkar"
+ "Links": "Länkar",
+ "Register for an account": "Registrera dig för ett konto",
+ "Sign in to your account": "Logga in på ditt konto",
+ "Welcome back" : "Välkommen tillbaka",
+ "Email address" :" E-post",
+ "Password": "Lösenord",
+ "Remember me" : "Kom ihåg inloggningsuppgifterna",
+ "Forgot your password?" : "Glömt lösenordet?",
+ "Sign in" : "Logga in",
+ "or" : "eller",
+ "Register" : "Registrera konto",
+ "Name": "Namn",
+ "Confirm Password": "Bekräfta lösenord",
+ "Already have an account?": "Har du redan ett konto?",
+ "Login": "logga in"
+
+
 }
