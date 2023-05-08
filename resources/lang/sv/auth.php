@@ -62,13 +62,16 @@ return [
     'send_password_reset_link' => 'Skicka länk för återställning av lösenord',
 
     // Översättning av "Skicka länk för återställning av lösenord" på en guest-vy
-    'welcome_back' => 'Välkommen tillbaka',
+    'Welcome back' => 'Välkommen tillbaka',
+
+    // Översättning av "Skicka länk för återställning av lösenord" på en guest-vy
+    'Welcome' => 'Välkommen',
 
     // Översättning av "Registrera dig för ett konto" på en guest-vy
-    'register_account' => 'Registrera dig för ett konto',
+    'Register for an account' => 'Registrera dig för ett konto',
 
     // Översättning av "Logga in på ditt konto" på en guest-vy
-    'sign_in' => 'Logga in på ditt konto',
+    ' Sign in to your account' => 'Logga in på ditt konto',
 
     // Översättning av "Språk" på en guest-vy
     'language' => 'Språk',
