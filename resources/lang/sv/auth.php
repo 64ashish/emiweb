@@ -64,7 +64,7 @@ return [
     // Översättning av "Skicka länk för återställning av lösenord" på en guest-vy
     'Welcome back' => 'Välkommen tillbaka',
 
-    // Översättning av "Skicka länk för återställning av lösenord" på en guest-vy
+    // Översättning av "Välkommen" på en guest-vy
     'Welcome' => 'Välkommen',
 
     // Översättning av "Registrera dig för ett konto" på en guest-vy
