@@ -45,7 +45,7 @@
                 {{ __('Sign in') }}
             </button>
 
-               <p class="text-center py-4">or</p>
+               <p class="text-center py-4">{{ __('or') }}</p>
 
             <a  href="/register" class="group relative w-full flex justify-center py-2 px-4 border border-transparent
             text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2
