@@ -322,7 +322,7 @@
 
                                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
 
-                                            @if(in_array(pathinfo($media, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'svg']))
+                                            @if(in_array(pathinfo($media, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'JPG']))
                                                 <img src="{{ $media }}" >
                                             @else
                                                 <iframe src="{{ $media }}"

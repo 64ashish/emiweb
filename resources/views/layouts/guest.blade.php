@@ -31,7 +31,7 @@
             @if($errors->any())
                 <ul>
                     @foreach($errors->all() as $error)
-                        <li> {{ $error }}</li>
+                        <li> {{ __($error) }}</li>
                     @endforeach
                 </ul>
             @endif

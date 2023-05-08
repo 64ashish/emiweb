@@ -482,7 +482,11 @@
  "Name": "Namn",
  "Confirm Password": "Bekräfta lösenord",
  "Already have an account?": "Har du redan ett konto?",
- "Login": "logga in"
+ "Login": "logga in",
+ "The name field is required." : "Namnfältet är obligatoriskt.",
+ "The email field is required." : "E-post är obligatoriskt.",
+ "The password must be at least 8 characters." : "Lösenordet måste vara minst 8 tecken.",
+ "The password confirmation does not match." : "Lösenorden stämmer inte överens."
 
 
 }
