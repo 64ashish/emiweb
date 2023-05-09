@@ -52,6 +52,8 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
 //        $provinces = $this->provinces();
 
 
+
+
         return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes'))->with($request->all());
     }
 //        return view('dashboard.S')

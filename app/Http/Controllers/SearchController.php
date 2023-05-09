@@ -175,7 +175,7 @@ class SearchController extends Controller
             case(1):
                 $detail = DenmarkEmigration::with('user.organization')->findOrFail($id);
                 $model = new DenmarkEmigration();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -183,7 +183,7 @@ class SearchController extends Controller
             case(2):
                 $detail = SwedishAmericanChurchArchiveRecord::with('user.organization')->findOrFail($id);
                 $model = new SwedishAmericanChurchArchiveRecord();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -191,7 +191,7 @@ class SearchController extends Controller
             case(3):
                 $detail = NewYorkPassengerRecord::with('user.organization')->findOrFail($id);
                 $model = new NewYorkPassengerRecord();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -231,7 +231,7 @@ class SearchController extends Controller
 
 
                 $model = new SwedishPortPassengerListRecord();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -256,13 +256,15 @@ class SearchController extends Controller
 
 //                return $detail->links['Immigrants in Swedish church records']['id'];
 //                return $detail->relatives->count();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-//                dd($fields);
+//                return $theFillables->toArray();
 //                $test = collect($model->defaultSearchFields()->flatten()->diff(['---']));
 //                dd($test->merge($model->defaultSearchFields()));
-                $media = !is_null($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
+                $media = !empty($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
+
+
                 break;
 
             case(6):
@@ -286,7 +288,7 @@ class SearchController extends Controller
                         ->get('id')->first()
                 ];
 
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -294,7 +296,7 @@ class SearchController extends Controller
             case(7):
                 $model = new SwedishEmigrantViaKristianiaRecord();
                 $detail = SwedishEmigrantViaKristianiaRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -302,7 +304,7 @@ class SearchController extends Controller
             case(8):
                 $model = new SwedishImmigrationStatisticsRecord();
                 $detail = SwedishImmigrationStatisticsRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -316,7 +318,7 @@ class SearchController extends Controller
                     ->where('destination', $detail->destination)
                     ->where('from_province', $detail->from_province)
                     ->get();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -324,7 +326,7 @@ class SearchController extends Controller
             case(10):
                 $model = new LarssonEmigrantPopularRecord();
                 $detail = LarssonEmigrantPopularRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 
@@ -355,7 +357,7 @@ class SearchController extends Controller
 //                return explode('-', $detail->letter_date)[0];
                 $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name.".pdf";
                 //dd($detail->file_name);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -363,7 +365,7 @@ class SearchController extends Controller
             case(12):
                 $model = new JohnEricssonsArchiveRecord();
                 $detail = JohnEricssonsArchiveRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 $media = "https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/12/documents/".$detail->file_name;
@@ -379,7 +381,7 @@ class SearchController extends Controller
                     ->where('to_date', $detail->to_date)
                     ->where('to_fylke', $detail->to_fylke)
                     ->get();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -396,7 +398,7 @@ class SearchController extends Controller
                     ->where('libr_no', $detail->libr_no)
                     ->get();
 //                return $detail;
-                $fields = collect($model->getFillable())->concat(['departure_date'])
+                $theFillables = collect($model->getFillable())->concat(['departure_date'])
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id','departure_year','departure_month','departure_day'])
                     ->flatten();
                 break;
@@ -404,7 +406,7 @@ class SearchController extends Controller
             case(15):
                 $model = new SwedishAmericanMemberRecord();
                 $detail = SwedishAmericanMemberRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -412,7 +414,7 @@ class SearchController extends Controller
             case(16):
                 $model = new SwedeInAlaskaRecord();
                 $detail = SwedeInAlaskaRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -420,7 +422,7 @@ class SearchController extends Controller
             case(17):
                 $model = new VarmlandskaNewspaperNoticeRecord();
                 $detail = VarmlandskaNewspaperNoticeRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -429,7 +431,7 @@ class SearchController extends Controller
 
                 $model = new DalslanningarBornInAmericaRecord();
                 $detail = DalslanningarBornInAmericaRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -444,7 +446,7 @@ class SearchController extends Controller
 //                    ->where('registered_date', $detail->registered_date)
 //                    ->where('to_fylke', $detail->from_fylke)
                     ->get();
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -453,7 +455,7 @@ class SearchController extends Controller
 
                 $model = new IcelandEmigrationRecord();
                 $detail = IcelandEmigrationRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -461,11 +463,11 @@ class SearchController extends Controller
 
                 $model = new BevaringensLevnadsbeskrivningarRecord();
                 $detail = BevaringensLevnadsbeskrivningarRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 
-                $media = !is_null($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name:false;
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name:false;
 
 
 //                return $detail;
@@ -474,7 +476,7 @@ class SearchController extends Controller
 
                 $model = new SwedishAmericanJubileeRecord();
                 $detail = SwedishAmericanJubileeRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id','emi_web_lan','emi_web_forsamling','emi_web_emigration_year','emi_web_akt_nr',
                         'date_created','file_format','resolution','secrecy'])
                     ->flatten();
@@ -484,18 +486,18 @@ class SearchController extends Controller
 
                 $model = new SwensonCenterPhotosamlingRecord();
                 $detail = SwensonCenterPhotosamlingRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 
-                $media = !is_null($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".$detail->file_name:false;
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".$detail->file_name:false;
                 break;
 
             case(26):
 
                 $model = new RsPersonalHistoryRecord();
                 $detail = RsPersonalHistoryRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -504,7 +506,7 @@ class SearchController extends Controller
 
                 $model = new SwedishUsaCentersEmiPhotoRecord();
                 $detail = SwedishUsaCentersEmiPhotoRecord::with('user.organization')->findOrFail($id);
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -513,7 +515,7 @@ class SearchController extends Controller
                 $model = new SwedishAmericanBookRecord();
                 $detail = SwedishAmericanBookRecord::with('user.organization','SwensonBookData')->findOrFail($id);
 //                return $detail;
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
                 break;
@@ -522,15 +524,26 @@ class SearchController extends Controller
                 $model = new ObituariesSweUsaNewspapersRecord();
                 $detail = ObituariesSweUsaNewspapersRecord::with('user.organization')->findOrFail($id);
 //                return $detail;
-                $fields = collect($model->getFillable())
+                $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 //                bucketemiweb/archives/5/photos/Archive/Svenska_Emigrantinstitutet/Sandebudet/._Carl_Henry_Carlsten.jpg
-                $media = !is_null($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
                 break;
             default:
                 abort(403);
         }
+
+
+        $filterAttributes = collect($model->defaultSearchFields());
+        $advancedFields = collect($model->searchFields());
+        $toBeOrdered = $filterAttributes->merge($advancedFields)->flatten()->filter(
+            function( $value, $key) {
+                return $value != "---";
+            }
+        )->all();
+        $first =array_values($toBeOrdered);
+        $fields =  array_values(array_unique(array_merge($first, $theFillables->toArray())));
 
 
 //        return $detail;

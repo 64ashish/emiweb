@@ -21,7 +21,6 @@ class SwedishChurchEmigrationRecord extends Model
         'last_name',
         'dob',
         'gender',
-//        'last_resident',
         'from_province',
         'profession',
         'from_location',

@@ -162,6 +162,13 @@ class SwedishChurchEmigrationRecordController extends Controller
             )
         )->keys();
 
+
+//        return $fieldsToDisply;
+
+
+
+
+
 //        return $keywords['qry_first_name']['value'];
 
 //        return $archive_name;

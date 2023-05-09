@@ -71,6 +71,8 @@ class SwedishEmigrationStatisticsRecordController extends Controller
 //        $provinces = $this->provinces();
 
 
+
+
 //        return view
         return view('dashboard.scbe.records', compact('records', 'keywords', 'enableQueryMatch','filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes'))->with($request->all());
 
