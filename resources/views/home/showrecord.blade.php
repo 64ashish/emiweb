@@ -104,13 +104,18 @@
                                    href="#">{{ __('Links') }}</a>
                             @endif
 
-
-
                             @if($media != false)
                             <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
                             font-medium text-sm"
                                :class="{ ' border-indigo-700 text-indigo-700 ': tab === 'images' }" x-on:click.prevent="tab = 'images'"
                                href="#">Media</a>
+                            @endif
+
+                            @if($detail->archive_id == "22" &&  count($detail->activities) > 0)
+                            <a class=" text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2
+                            font-medium text-sm"
+                               :class="{ ' border-indigo-700 text-indigo-700 ': tab === 'activities' }" x-on:click.prevent="tab = 'activities'"
+                               href="#">Activities</a>
                             @endif
 
                         </nav>
@@ -181,7 +186,41 @@
 
                                         @endif
 
+
+
                                 </dl>
+
+                                @if($detail->archive_id == "22" && count($detail->professions) > 0)
+                                    <div class="col-span-2 py-6">
+                                        <hr>
+                                    </div>
+                                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                        <table class="min-w-full divide-y divide-gray-300">
+                                            <thead class="bg-gray-50">
+                                            <tr>
+
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Profession') }}</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Industry') }}</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Branch') }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="bg-white">
+                                            <!-- Odd row -->
+                                            @foreach($detail->professions as $profession)
+{{--                                                {{ $profession }}--}}
+                                                <tr class="odd:bg-white even:bg-gray-100">
+
+                                                    <td class="whitespace-nowrap px-3  py-[0.6rem]  text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-500">{{ $profession->profession }}</td>
+                                                    <td class="whitespace-nowrap px-3   py-[0.6rem] text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-500">{{ $profession->industry }}</td>
+                                                    <td class="whitespace-nowrap px-3 py-[0.6rem]  text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-500">{{ $profession->branch }}</td>
+                                                </tr>
+                                            @endforeach
+
+                                            <!-- More people... -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
 
                                 @if(!empty($detail->user->organization))
                                     <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem] ">
@@ -208,6 +247,71 @@
                             </div>
 
                         </div>
+
+                        @if($detail->archive_id == "22" && count($detail->activities) > 0)
+                        <div  x-show="tab === 'activities'">
+                            <h3>{{ __('Activities') }}</h3>
+                            <div>
+
+                                    @foreach($detail->activities as $activity)
+                                    <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2 striped">
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Activity') }}</dt>
+                                                <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                    {{ $activity->activity  }}
+                                                </dd>
+                                            </div>
+
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Type') }}</dt>
+                                            <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                {{ $activity->type  }}
+                                            </dd>
+                                        </div>
+
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Duration') }}</dt>
+                                            <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                {{ $activity->duration  }}
+                                            </dd>
+                                        </div>
+
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Time period') }}</dt>
+                                            <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                {{ $activity->time_period  }}
+                                            </dd>
+                                        </div>
+
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Country') }}</dt>
+                                            <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                {{ $activity->country  }}
+                                            </dd>
+                                        </div>
+
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Location') }}</dt>
+                                            <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                {{ $activity->location  }}
+                                            </dd>
+                                        </div>
+
+                                        <div class=" sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <dt class="text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  font-medium text-gray-500">{{ __('Comments') }}</dt>
+                                            <dd class="mt-1 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-900 sm:mt-0 sm:col-span-2">
+                                                {{ $activity->comments  }}
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                    <div class="col-span-2 py-6">
+                                        <hr>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                        @endif
 
                         @if( $detail->relatives != null and $detail->relatives->count() > 0)
                         <div  x-show="tab === 'relatives'">

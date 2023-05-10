@@ -462,10 +462,12 @@ class SearchController extends Controller
             case(22):
 
                 $model = new BevaringensLevnadsbeskrivningarRecord();
-                $detail = BevaringensLevnadsbeskrivningarRecord::with('user.organization')->findOrFail($id);
+                $detail = BevaringensLevnadsbeskrivningarRecord::with('user.organization','activities','professions')->findOrFail($id);
                 $theFillables = collect($model->getFillable())
-                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id', 'occupation_1', 'occupation_2', 'profession_3', 'profession_4'])
                     ->flatten();
+
+//                return $detail;
 
                 $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name:false;
 

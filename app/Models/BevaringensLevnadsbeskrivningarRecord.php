@@ -47,6 +47,16 @@ class BevaringensLevnadsbeskrivningarRecord extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function activities()
+    {
+        return $this->hasMany(BevaringensActivitiesRecord::class,'bevaringens_id');
+    }
+
+    public function professions()
+    {
+        return $this->hasMany(BevaringensProfessionalRecord::class,'bevaringens_id');
+    }
+
     public function defaultSearchFields(){
         return [
             "first_name",
@@ -89,10 +99,10 @@ class BevaringensLevnadsbeskrivningarRecord extends Model
             "description_with_full_text" => __(ucfirst(str_replace('_', ' ', 'description_with_full_text'))),
             "born_outside_varmland" => __(ucfirst(str_replace('_', ' ', 'born_outside_varmland'))),
             "family" => __(ucfirst(str_replace('_', ' ', 'family'))),
-            "occupation_1" => __(ucfirst(str_replace('_', ' ', 'occupation_1'))),
-            "occupation_2" => __(ucfirst(str_replace('_', ' ', 'occupation_2'))),
-            "profession_3" => __(ucfirst(str_replace('_', ' ', 'profession_3'))),
-            "profession_4" => __(ucfirst(str_replace('_', ' ', 'profession_4'))),
+//            "occupation_1" => __(ucfirst(str_replace('_', ' ', 'occupation_1'))),
+//            "occupation_2" => __(ucfirst(str_replace('_', ' ', 'occupation_2'))),
+//            "profession_3" => __(ucfirst(str_replace('_', ' ', 'profession_3'))),
+//            "profession_4" => __(ucfirst(str_replace('_', ' ', 'profession_4'))),
             "other_professions" => __(ucfirst(str_replace('_', ' ', 'other_professions'))),
             'id'=>'id',
             'archive_id'=>__(ucfirst(str_replace('_', ' ', "archive_id")))
