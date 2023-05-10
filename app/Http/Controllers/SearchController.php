@@ -551,7 +551,7 @@ class SearchController extends Controller
 //        return $detail;
 //        $relatives = $detail->archive->relatives->where('record_id', $id);
 //        $images = $detail->archive->ImagesInArchive->where('record_id', $id);
-        $archive_details = Archive::find($arch);
+        $archive_details = $archive;
         $media = isset($media)?$media:false;
 
 
