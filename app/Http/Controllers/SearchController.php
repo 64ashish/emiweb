@@ -162,7 +162,7 @@ class SearchController extends Controller
 
     }
 
-    public function show($arch, $id){
+    public function show($arch, $id, ){
         $archive = Archive::find($arch);
 
 
@@ -425,7 +425,11 @@ class SearchController extends Controller
                 $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige_Amerika_Centret".substr($detail->file_name,39):false;
                 break;
+//                https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige_Amerika_Centret/VTN/VTN-1-1-NWT19631212.jpg
+//                https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige Amerika Centret/VTN/VTN-1-1-NWT19631212.jpg
+//                https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige Amerika Centret/VTN/VTN-1-1-NWT19631212.jpg
 
             case(18):
 
@@ -535,7 +539,6 @@ class SearchController extends Controller
             default:
                 abort(403);
         }
-
 
         $filterAttributes = collect($model->defaultSearchFields());
         $advancedFields = collect($model->searchFields());

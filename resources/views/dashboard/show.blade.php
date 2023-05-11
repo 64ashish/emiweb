@@ -152,9 +152,14 @@
                                         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 
                                             <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                                <iframe src="{{ $media }}"
-                                                        style="width:100%; height:800px;" >
-                                                </iframe>
+
+                                                @if(in_array(pathinfo($media, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'JPG']))
+                                                    <img src="{{ $media }}" >
+                                                @else
+                                                    <iframe src="{{ $media }}"
+                                                            style="width:100%; height:800px;" >
+                                                    </iframe>
+                                                @endif
 
                                             </div>
                                         </div>

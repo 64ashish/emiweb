@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\BevaringensLevnadsbeskrivningarRecord;
+use App\Models\BrodernaLarssonArchiveDocument;
 use App\Models\BrodernaLarssonArchiveRecord;
 use App\Models\DalslanningarBornInAmericaRecord;
 use App\Models\DenmarkEmigration;
@@ -15,6 +16,7 @@ use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
 use App\Models\ObituariesSweUsaNewspapersRecord;
 use App\Models\RsPersonalHistoryRecord;
+use App\Models\SpplrReference;
 use App\Models\SwedeInAlaskaRecord;
 use App\Models\SwedishAmericanBookRecord;
 use App\Models\SwedishAmericanChurchArchiveRecord;
@@ -30,6 +32,7 @@ use App\Models\SwedishUsaCentersEmiPhotoRecord;
 use App\Models\SwensonCenterPhotosamlingRecord;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
 use App\Traits\SearchOrFilter;
+use Illuminate\Support\Facades\DB;
 
 class FindArchiveService
 {
@@ -272,4 +275,6 @@ class FindArchiveService
         return $details;
 
     }
+
+
 }

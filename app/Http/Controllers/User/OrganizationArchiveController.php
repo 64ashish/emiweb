@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
 use App\Models\BevaringensLevnadsbeskrivningarRecord;
+use App\Models\BrodernaLarssonArchiveDocument;
 use App\Models\BrodernaLarssonArchiveRecord;
 use App\Models\DalslanningarBornInAmericaRecord;
 use App\Models\DenmarkEmigration;
@@ -16,6 +17,7 @@ use App\Models\NewYorkPassengerRecord;
 use App\Models\NorthenPacificRailwayCompanyRecord;
 use App\Models\NorwayEmigrationRecord;
 use App\Models\NorwegianChurchImmigrantRecord;
+use App\Models\ObituariesSweUsaNewspapersRecord;
 use App\Models\Organization;
 use App\Models\RsPersonalHistoryRecord;
 use App\Models\SwedeInAlaskaRecord;
@@ -315,6 +317,16 @@ class OrganizationArchiveController extends Controller
                     ->where('from_parish', $detail->from_parish)
                     ->where('record_date', $detail->record_date)
                     ->get();
+                $detail->links = [
+                    'Immigrants in Swedish church records' => SwedishChurchImmigrantRecord::where('first_name', $detail->first_name)
+                        ->where('last_name', $detail->last_name)
+                        ->where('birth_date', $detail->dob)
+                        ->where('sex', $detail->gender)
+                        ->where('birth_parish', $detail->birth_parish)
+                        ->where('birth_county', $detail->from_province)
+                        ->get('id')->first()
+                ];
+                $media = !empty($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
 ////                return $detail->relatives->count();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -367,6 +379,25 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                if(!empty($detail->source_code))
+                {
+                    $text_code = explode(':', $detail->source_code);
+                    if(strlen($text_code[2])<4)
+                    {
+                        $text_code[2] = substr_replace($text_code[2], "0", 1, 0);
+                    }
+
+
+
+                    $media_file = BrodernaLarssonArchiveDocument::where('file_name', 'like', '%'. $text_code[1]. '_' .$text_code[2] .'%')->first();
+                    $media = "";
+                    if($media_file)
+                    {
+                        $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name;
+                    }
+
+
+                }
                 break;
 
             case(11):
@@ -375,6 +406,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name.".pdf";
                 break;
 
             case(12):
@@ -434,6 +466,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige_Amerika_Centret".substr($detail->file_name,39):false;
                 break;
 
             case(18):
@@ -467,6 +500,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name:false;
                 break;
 
             case(23):
@@ -486,6 +520,8 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".str_replace(" ", "_",substr($detail->file_name,3)):false;
+
                 break;
 
             case(26):
@@ -513,6 +549,17 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
+                break;
+
+            case(29):
+                $model = new ObituariesSweUsaNewspapersRecord();
+                $detail = ObituariesSweUsaNewspapersRecord::with('user.organization')->findOrFail($id);
+//                return $detail;
+                $theFillables = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+//                bucketemiweb/archives/5/photos/Archive/Svenska_Emigrantinstitutet/Sandebudet/._Carl_Henry_Carlsten.jpg
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
                 break;
 
             default:
