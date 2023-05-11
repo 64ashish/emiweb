@@ -236,7 +236,7 @@
                                                 <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                                     {!! Form::text('archive',$archive->name ,
-                                                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                            ['class' => 'max-w-lg block bg-gray-100 w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                                                             'id' => 'archive', 'readonly']) !!}
                                                     @error('archive')
@@ -252,7 +252,7 @@
                                                 <div class="mt-1 sm:mt-0 sm:col-span-2">
 
                                                     {!! Form::text('record', $archive->id,
-                                                            ['class' => 'max-w-lg disabled block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                                            ['class' => 'max-w-lg bg-gray-100 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                                                             'id' => 'record', 'readonly']) !!}
                                                     @error('record')
