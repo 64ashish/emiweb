@@ -492,7 +492,7 @@ class SearchController extends Controller
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".$detail->file_name:false;
+                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".str_replace(" ", "_",substr($detail->file_name,3)):false;
                 break;
 
             case(26):
