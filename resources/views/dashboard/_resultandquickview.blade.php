@@ -207,7 +207,7 @@
                             <template x-for="(value, field) in displayFields" :key="field">
 
                                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
-                                    <dt class="text-[0.95rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium text-gray-500 capitalize" x-text="value">
+                                    <dt class="text-[0.95rem] leading-[1.1rem] sm:py-[0.6rem]  font-medium text-gray-500 capitalize" x-text="value">
                                     </dt>
                                     <dd class="mt-1 text-[0.95rem] leading-[1.1rem] sm:py-[0.6rem] font-bold text-gray-900 sm:mt-0 sm:col-span-2" x-text="detail[field]">
                                     </dd>
