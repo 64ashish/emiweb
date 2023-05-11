@@ -11,7 +11,7 @@ use App\Models\Archive;
 class DalslanningarBornInAmericaRecord extends Model
 {
 
-    use HasFactory, Searchable, RecordCount;
+    use HasFactory,  RecordCount;
 
     protected $fillable = [
         'user_id',

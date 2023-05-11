@@ -11,7 +11,7 @@ use Laravel\Scout\Searchable;
 
 class SwedishChurchImmigrantRecord extends Model
 {
-    use HasFactory, Searchable, RecordCount;
+    use HasFactory,  RecordCount;
 
     protected $fillable = [
         'user_id',

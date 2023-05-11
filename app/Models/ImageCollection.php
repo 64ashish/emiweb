@@ -8,7 +8,7 @@ use Laravel\Scout\Searchable;
 
 class ImageCollection extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory;
 
     protected $fillable = [
         'name',

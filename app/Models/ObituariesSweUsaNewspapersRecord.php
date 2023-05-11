@@ -9,7 +9,7 @@ use Laravel\Scout\Searchable;
 
 class ObituariesSweUsaNewspapersRecord extends Model
 {
-    use HasFactory, Searchable, RecordCount;
+    use HasFactory, RecordCount;
 
     protected $fillable = [
         'first_name',

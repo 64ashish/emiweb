@@ -259,9 +259,10 @@ class OrganizationArchiveController extends Controller
             $advancedFields = $fields->diff($filterAttributes)->flatten();
         }
 
+        $archive_name = $archive;
 
 
-        return view($viewfile, compact('filterAttributes', 'advancedFields','organization', 'archive', 'enableQueryMatch', 'provinces'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','organization', 'archive', 'enableQueryMatch', 'provinces', 'archive_name'));
 
     }
 

@@ -12,7 +12,7 @@ use Laravel\Scout\Searchable;
 
 class SwedishChurchEmigrationRecord extends Model
 {
-    use HasFactory, Searchable, RecordCount;
+    use HasFactory,  RecordCount;
 
     protected $hidden = [''];
 

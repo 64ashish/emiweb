@@ -9,7 +9,7 @@ use Laravel\Scout\Searchable;
 
 class NorthenPacificRailwayCompanyRecord extends Model
 {
-    use HasFactory, Searchable, RecordCount;
+    use HasFactory,  RecordCount;
 
     protected $fillable = [];
 

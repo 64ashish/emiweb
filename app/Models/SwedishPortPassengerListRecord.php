@@ -9,7 +9,7 @@ use Laravel\Scout\Searchable;
 
 class SwedishPortPassengerListRecord extends Model
 {
-    use HasFactory, RecordCount, Searchable;
+    use HasFactory, RecordCount;
 
     protected $fillable = [
         'old_id',

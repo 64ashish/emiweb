@@ -9,7 +9,7 @@ use Laravel\Scout\Searchable;
 
 class SwedishImmigrationStatisticsRecord extends Model
 {
-    use HasFactory, Searchable, RecordCount;
+    use HasFactory,  RecordCount;
 
     protected $fillable = [
         'user_id',
