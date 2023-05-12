@@ -121,7 +121,7 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
     ->name('admin.')
     ->prefix('admin')
     ->group(function(){
-        Route::get('/', [AdminController::class, 'index'])->name('index');
+//        Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::resource('/roles', RoleContorller::class);
         Route::post('/roles/{role}/permissions', [RoleContorller::class, 'updatePermission'])
             ->name('roles.permissions');

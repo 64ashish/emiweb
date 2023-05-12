@@ -29,6 +29,17 @@
             </div>
         </div>
 
+        @if($errors->any())
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li class="text-red-600 font-bold"> {{ __($error) }}</li>
+                @endforeach
+            </ul>
+        @endif
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <x-flash-message></x-flash-message>
+        </div>
+
         <div>
             <button type="submit"
                     class="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

@@ -1,6 +1,7 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
-    {{ __('Hem') }} /  {{ $archive->name  }} / {{ $detail->first_name }} {{ $detail->last_name }}
+    {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> auth()->user()->organization,'archive'=>$archive->id]) }} ">
+        {{ $archive->name  }}</a> / {{ $detail->first_name }} {{ $detail->last_name }}
     <div class="grid pt-6 grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
 

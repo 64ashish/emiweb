@@ -15,9 +15,9 @@
                                         @foreach($archives as $archive)
                                         <li class="odd:bg-white even:bg-gray-100 px-6 py-4">
                                                 <div class="flex justify-between">
-                                                    <div>{{ $archive->name }}</div>
+                                                    <div>{{ __($archive->name) }}</div>
                                                     <a href="{{ route('organizations.archives.records', ['organization'=> auth()->user()->organization,'archive'=>$archive->id]) }}">
-                                                        {{ __('View Archive') }} </a>
+                                                        {{ __('View archive') }} </a>
                                                 </div>
                                                 <span class=" text-sm text-gray-500 ">
                                                     {{ $archive->total_records}} Records

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
 
@@ -18,19 +19,25 @@ class  DashboardController extends Controller
 
             $user = auth()->user()->load('roles', 'organization','organization.archives.category');
 
+//            return auth()->user()->organization->archives;
+
+
         if(!$user->organization)
         {
             $user->syncRoles('regular user');
             return redirect('/home');
         }else{
             $catArchives = $user->organization->archives->groupBy('category.name');
-//            return $catArchive;
+//            return $catArchives;
+//            return Category::with('archives')->where('');
 
 //            dd($catArchive);
 //            $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
 //                return $item['place'];
 //            }], $preserveKeys = true);
-            //        return $result;
+
+
+//            return $user->organization->archives->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ','category.id');
             return view('dashboard.dashboard', compact('catArchives'));
         }
 

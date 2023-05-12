@@ -488,10 +488,13 @@
  "The email field is required." : "E-post är obligatoriskt.",
  "The password must be at least 8 characters." : "Lösenordet måste vara minst 8 tecken.",
  "The password confirmation does not match." : "Lösenorden stämmer inte överens.",
+ "These credentials do not match our records.": "De här uppgifterna matchar inte vårt användarregister.",
+ "The email has already been taken.": "Den här e-posten används redan",
  "Activity": "Aktivitet",
  "Duration":  "Varaktighet",
  "Industry": "Industri",
- "Branch": "Bransch"
+ "Branch": "Bransch",
+ "Edit record": "Ändra uppgifter"
 
 
 

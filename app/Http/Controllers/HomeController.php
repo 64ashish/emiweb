@@ -36,7 +36,7 @@ class HomeController extends Controller
         {
             if(auth()->user()->hasRole('super admin'))
             {
-                return redirect('/admin');
+                return redirect('/admin/users');
             }
             if(auth()->user()->hasRole(['emiweb admin', 'emiweb staff'])){
                 return redirect('/emiweb');
