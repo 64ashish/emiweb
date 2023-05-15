@@ -12,7 +12,9 @@
                                 <li>
                                     <p class="text-sm font-medium text-black-900 px-6 pt-4">{{ $category }}</p>
                                     <ul class="">
+{{--                                        @dd($archive)--}}
                                         @foreach($archives as $archive)
+
                                         <li class="odd:bg-white even:bg-gray-100 px-6 py-4">
                                                 <div class="flex justify-between">
                                                     <div>{{ __($archive->name) }}</div>

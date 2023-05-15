@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Archive;
 use App\Models\Category;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
@@ -17,36 +18,22 @@ class  DashboardController extends Controller
     public function index()
     {
 
-            $user = auth()->user()->load('roles', 'organization','organization.archives.category');
-
-//            return auth()->user()->organization->archives;
-
+        $user = auth()->user()->load('roles', 'organization','organization.archives.category');
 
         if(!$user->organization)
         {
             $user->syncRoles('regular user');
             return redirect('/home');
         }else{
-            $catArchives = $user->organization->archives->groupBy('category.name');
-//            return $catArchives;
-//            return Category::with('archives')->where('');
 
-//            dd($catArchive);
-//            $groups = $user->organization->archives->groupBy(['category.name', function ($item) {
-//                return $item['place'];
-//            }], $preserveKeys = true);
+            $catArchives =  $user->organization->archives()
+                ->with('category')
+                ->orderByRaw("FIELD(category_id, 2, 8, 9, 3, 5, 7, 1, 4, 6, 10)")
+                ->get()
+                ->groupBy('category.name');
 
-
-//            return $user->organization->archives->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ','category.id');
             return view('dashboard.dashboard', compact('catArchives'));
         }
-
-
-
-
-
-
-//
     }
 
     /**
