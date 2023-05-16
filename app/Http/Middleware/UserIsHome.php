@@ -22,6 +22,12 @@ class UserIsHome
         {
             if($request->getClientIp() != auth()->user()->ip_address)
             {
+                Auth::logout();
+
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+
                 return redirect('/');
             }
 
