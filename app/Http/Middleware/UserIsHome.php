@@ -17,8 +17,8 @@ class UserIsHome
      */
     public function handle(Request $request, Closure $next)
     {
-        dd(auth()->user()->ip_address);
-
+//        dd(auth()->user()->ip_address);
+        dd($request->getClientIp());
 //        return $next($request);
     }
 }
