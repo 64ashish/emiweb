@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        original table: edenmark
         Schema::create('denmark_emigrations', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('1');
             $table->integer('old_id')->nullable();
@@ -40,6 +40,8 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->index(['first_name', 'last_name']);
         });
     }
 

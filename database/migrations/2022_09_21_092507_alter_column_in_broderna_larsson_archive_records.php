@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('broderna_larsson_archive_records', function (Blueprint $table) {
-            //
-            $table->renameColumn('archive_name', 'archives_name');
-        });
+//        Schema::table('broderna_larsson_archive_records', function (Blueprint $table) {
+//            //
+//            $table->renameColumn('archive_name', 'archives_name');
+//        });
     }
 
     /**

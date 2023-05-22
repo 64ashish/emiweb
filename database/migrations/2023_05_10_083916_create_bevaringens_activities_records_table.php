@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        BevaringensActivitiesRecord
         Schema::create('bevaringens_activities_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('bevaringens_id');
             $table->text('location')->nullable();
             $table->text('country')->nullable();

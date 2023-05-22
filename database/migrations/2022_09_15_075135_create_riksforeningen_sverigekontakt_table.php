@@ -16,7 +16,7 @@ return new class extends Migration
 //        RsPersonalHistoryRecord
         Schema::create('rs_personal_history_records', function (Blueprint $table) {
 //            $table->id();
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('68');
             $table->unsignedBigInteger('archive_id')->default('26');
             $table->integer('old_id')->nullable();

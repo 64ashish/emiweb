@@ -16,7 +16,7 @@ return new class extends Migration
 //        original name: emigration,emigrationpart2
         Schema::create('swedish_church_emigration_records', function (Blueprint $table) {
 //          table  emigration
-            $table->id();
+            $table->id()->index();
 
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('13');
@@ -28,11 +28,11 @@ return new class extends Migration
             $table->string('last_resident')->nullable()->index();
             $table->string('from_province')->nullable()->index();
             $table->string('profession')->nullable()->index();
-            $table->string('birth_place')->nullable()->index();
+            $table->string('from_location')->nullable()->index();
             $table->string('civil_status')->nullable()->index();
             $table->string('from_parish')->nullable()->index();
             $table->string('birth_parish')->nullable()->index();
-            $table->string('hasFamily')->nullable()->index();
+            $table->string('has_family')->nullable()->index();
             $table->string('record_date')->nullable();
             $table->string('destination_country')->nullable()->index();
             $table->string('secrecy')->nullable();
@@ -80,9 +80,13 @@ return new class extends Migration
 
             $table->timestamps();
 
+            $table->text('birth_province')->nullable();
+
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->index(['first_name', 'last_name']);
 
 
         });

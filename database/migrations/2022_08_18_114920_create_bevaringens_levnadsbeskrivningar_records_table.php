@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('archive_id')->default('22');  // default value 22
             $table->integer('old_id')->nullable();
             $table->string('first_name')->nullable();
-            $table->string('surname')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('company')->nullable();
             $table->string('no_in_enrollment_length')->nullable();
             $table->integer('year_class')->nullable();
@@ -48,6 +48,7 @@ return new class extends Migration
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->index(['first_name', 'last_name'],'blb_first_name_last_name_index');
         });
     }
 

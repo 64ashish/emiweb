@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('bevaringens_levnadsbeskrivningar_records', function (Blueprint $table) {
-            //
-            $table->renameColumn('surname', 'last_name');
-        });
+//        Schema::table('bevaringens_levnadsbeskrivningar_records', function (Blueprint $table) {
+//            //
+//            $table->renameColumn('surname', 'last_name');
+//        });
     }
 
     /**

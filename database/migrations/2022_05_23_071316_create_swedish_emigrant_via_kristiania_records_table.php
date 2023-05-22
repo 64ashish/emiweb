@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        original name kristiania
         Schema::create('swedish_emigrant_via_kristiania_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
 
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('7');  // default value 7
@@ -40,6 +40,8 @@ return new class extends Migration
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+//            $table->index(['first_name', 'last_name']);
+            $table->index(['first_name', 'last_name'],'sevk_first_name_last_name_index');
         });
     }
 

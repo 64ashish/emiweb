@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('swenson_center_photosamling_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('65');
             $table->unsignedBigInteger('archive_id')->default('24');
             $table->integer('old_id')->nullable();

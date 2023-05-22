@@ -16,7 +16,7 @@ return new class extends Migration
 //        NorwegianChurchImmigrantRecord
 //        orignal: inorway
         Schema::create('norwegian_church_immigrant_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('13');
             $table->integer('old_id');
@@ -65,6 +65,7 @@ return new class extends Migration
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->index(['first_name', 'last_name']);
         });
     }
 

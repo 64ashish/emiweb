@@ -16,13 +16,13 @@ return new class extends Migration
 
 //        original name larsson
         Schema::create('broderna_larsson_archive_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('11');  // default value 11
             $table->integer('old_id');
             $table->string('archive_reference')->nullable();
             $table->string('source_code')->nullable();
-            $table->string('archive_name')->nullable();
+            $table->string('archives_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('letter_date')->nullable();
@@ -45,6 +45,7 @@ return new class extends Migration
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->index(['first_name', 'last_name']);
         });
     }
 

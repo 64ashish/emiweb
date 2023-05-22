@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        SwedishAmericanCentersEmigrantPhotoCollectionRecord SwedishUsaCentersEmiPhotoRecord
         Schema::create('swedish_usa_centers_emi_photo_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('4');
             $table->unsignedBigInteger('archive_id')->default('27');
             $table->integer('old_id')->nullable();

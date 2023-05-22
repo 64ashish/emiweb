@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('northen_pacific_railway_company_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('25');
             $table->integer('old_id')->nullable();

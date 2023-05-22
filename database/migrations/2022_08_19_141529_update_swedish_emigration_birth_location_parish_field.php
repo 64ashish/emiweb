@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('swedish_church_emigration_records', function (Blueprint $table) {
-            //
-            $table->renameColumn('birth_place', 'from_location');
-            $table->text('birth_province')->nullable();
-        });
+//        Schema::table('swedish_church_emigration_records', function (Blueprint $table) {
+//            //
+//            $table->renameColumn('birth_place', 'from_location');
+//            $table->text('birth_province')->nullable();
+//        });
     }
 
     /**

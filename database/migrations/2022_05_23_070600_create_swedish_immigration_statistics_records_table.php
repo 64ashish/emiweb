@@ -15,11 +15,14 @@ return new class extends Migration
     {
 //        original name scbi
         Schema::create('swedish_immigration_statistics_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('9');  // default value 9
 
             $table->integer('old_id')->nullable();
+
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('source')->nullable();
             $table->string('svar_batch_nr')->nullable();
             $table->string('svar_image_nr')->nullable();
@@ -28,8 +31,6 @@ return new class extends Migration
             $table->string('to_parish')->nullable();
             $table->string('sex')->nullable();
             $table->string('civil_status')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('first_name')->nullable();
             $table->string('profession')->nullable();
             $table->integer('birth_year')->nullable();
             $table->integer('birth_month')->nullable();
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->index(['first_name', 'last_name'],'scb_immigration_first_name_last_name_index');
         });
     }
 

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('archives', function (Blueprint $table) {
-            //
-            $table->text('total_records')->nullable();
-        });
+//        Schema::table('archives', function (Blueprint $table) {
+//            //
+//            $table->text('total_records')->nullable();
+//        });
     }
 
     /**

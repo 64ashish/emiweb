@@ -92,6 +92,7 @@ class UserController extends Controller
         $request->validate([
             'current_password' => 'required',
             'password' => 'required',
+            'ip_address'=>'ip'
         ]);
 
         #Match The Old Password

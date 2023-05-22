@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        original name ealand
         Schema::create('iceland_emigration_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->integer('old_id')->nullable();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('21');
@@ -57,6 +57,8 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->index(['first_name', 'last_name']);
         });
     }
 

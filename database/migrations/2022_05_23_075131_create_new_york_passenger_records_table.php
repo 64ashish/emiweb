@@ -16,7 +16,7 @@ return new class extends Migration
 
 //        original table nypassengers
         Schema::create('new_york_passenger_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('3');  // default value 3
 
@@ -50,7 +50,7 @@ return new class extends Migration
             $table->string('age')->nullable();
             $table->string('age_months')->nullable();
             $table->string('place_of_origin')->nullable();
-            $table->string('archive_name')->nullable();
+            $table->string('archives_name')->nullable();
             $table->string('archive_location')->nullable();
             $table->string('series_number')->nullable();
             $table->string('record_group_name')->nullable();

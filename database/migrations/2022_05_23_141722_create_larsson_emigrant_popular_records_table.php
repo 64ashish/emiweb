@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        original name: larsson_pop
         Schema::create('larsson_emigrant_popular_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('19');
             $table->integer('old_id')->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index(['first_name', 'last_name']);
 
         });
     }

@@ -16,7 +16,7 @@ return new class extends Migration
 
 //        original table: john_ericsson_papers
         Schema::create('john_ericssons_archive_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('12');  // default value 12
             $table->integer('old_id')->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index(['first_name', 'last_name']);
 
         });
     }

@@ -16,7 +16,7 @@ return new class extends Migration
 //        VarmlandskaNewspaperNoticeRecord
 //        original table varmlandpaperitems
         Schema::create('varmlandska_newspaper_notice_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
 
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('17');
@@ -48,6 +48,7 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index(['first_name', 'last_name'],'vnnr_first_name_last_name_index');
         });
     }
 

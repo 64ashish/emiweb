@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        original table dfa
         Schema::create('dalslanningar_born_in_america_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('18');  // default value 18
             $table->integer('old_id')->nullable();
@@ -34,6 +34,7 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index(['first_name', 'last_name'],'dbiusa_first_name_last_name_index');
         });
     }
 

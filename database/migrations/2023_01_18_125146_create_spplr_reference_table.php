@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('spplr_references', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->text('index_batch_reference')->nullable();
             $table->text('page_one')->nullable();
             $table->text('page_two')->nullable();

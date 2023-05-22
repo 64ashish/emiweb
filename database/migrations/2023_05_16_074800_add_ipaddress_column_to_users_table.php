@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+//        Schema::table('users', function (Blueprint $table) {
             //
-            $table->ipAddress('ip_address')->nullable();
-        });
+//            $table->ipAddress('ip_address')->nullable();
+//        });
     }
 
     /**

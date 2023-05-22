@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::table('archives', function (Blueprint $table) {
             //
-            $table->text('link')->nullable();
-            $table->longText('owner_info')->nullable();
+//            $table->text('link')->nullable();
+//            $table->longText('owner_info')->nullable();
         });
     }
 

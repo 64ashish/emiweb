@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('scerc_photo_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->integer('old_id')->nullable();
             $table->unsignedBigInteger('scerc_id');
             $table->text('title')->nullable();

@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        original table saka
         Schema::create('swedish_american_church_archive_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('2');  // default value 2
             $table->string('page')->nullable();
@@ -54,6 +54,7 @@ return new class extends Migration
 
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index(['first_name', 'last_name'],'saar_first_name_last_name_index');
         });
     }
 

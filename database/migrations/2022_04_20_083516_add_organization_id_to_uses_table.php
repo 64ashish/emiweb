@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->ipAddress('ip_address')->nullable();
+            $table->timestamp('manual_expire')->nullable();
             $table->unsignedBigInteger('organization_id')->nullable();
 
             $table->foreign('organization_id')

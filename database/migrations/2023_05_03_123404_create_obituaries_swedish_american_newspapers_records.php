@@ -15,7 +15,7 @@ return new class extends Migration
     {
 //        ObituariesSweUsaNewspapersRecords
         Schema::create('obituaries_swe_usa_newspapers_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('29');  // default value 29
             $table->integer('old_id')->nullable();
@@ -43,6 +43,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('archive_id')->references('id')->on('archives')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index(['first_name', 'last_name'],'osunr_first_name_last_name_index');
 
 
 

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('swedish_church_emigration_records', function (Blueprint $table) {
-            //
-            $table->renameColumn('hasFamily', 'has_family');
-        });
+//        Schema::table('swedish_church_emigration_records', function (Blueprint $table) {
+//            //
+//            $table->renameColumn('hasFamily', 'has_family');
+//        });
     }
 
     /**

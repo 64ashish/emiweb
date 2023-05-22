@@ -15,14 +15,14 @@ return new class extends Migration
     {
 
         Schema::create('swedish_american_book_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('65');
             $table->unsignedBigInteger('archive_id')->default('28');
             $table->integer('old_id')->nullable();
             $table->unsignedBigInteger('book_id');
 
-            $table->text('first_name')->fulltext()->nullable();
-            $table->text('last_name')->fulltext()->nullable();
+            $table->string('first_name')->fulltext()->nullable();
+            $table->string('last_name')->fulltext()->nullable();
             $table->date('birth_date')->nullable();
             $table->text('birth_place')->nullable();
             $table->text('residence_city')->nullable();
@@ -35,6 +35,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
+
+            $table->index(['first_name', 'last_name'],'sabr_first_name_last_name_index');
         });
     }
 

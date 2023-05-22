@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('swedish_american_jubilee_records', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->unsignedBigInteger('user_id')->default('1');
             $table->unsignedBigInteger('archive_id')->default('23');
             $table->integer('old_id')->nullable();

@@ -21,6 +21,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
+            $table->text('total_records')->nullable();
+            $table->text('link')->nullable();
+            $table->longText('owner_info')->nullable();
 
             $table->foreign('category_id')
                 ->nullable()

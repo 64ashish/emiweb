@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('broderna_larsson_archive_documents', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->text('year');
             $table->text('file_name');
             $table->text('has_index');

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('new_york_passenger_records', function (Blueprint $table) {
-            //
-            $table->renameColumn('archive_name', 'archives_name');
-
-        });
+//        Schema::table('new_york_passenger_records', function (Blueprint $table) {
+//            //
+//            $table->renameColumn('archive_name', 'archives_name');
+//
+//        });
     }
 
     /**
