@@ -20,6 +20,7 @@ class UserIsHome
 
         if(Auth::user() && !is_null(Auth::user()->ip_address))
         {
+//            dd()
             if($request->getClientIp() != auth()->user()->ip_address)
             {
                 Auth::logout();
