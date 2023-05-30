@@ -77,7 +77,7 @@ class HomeController extends Controller
     }
 
     public function user(User $user){
-//        return $user;
+//        return $user->subscriptions()->active()->first()->stripe_price;
         //        authorize action
 
 //        return Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now());

@@ -79,8 +79,9 @@
 
 
 
-
             @if($user->subscriptions()->active()->first())
+
+
                 <div class="px-4 sm:px-6 mb-6">
                     <form action="/subscribe/{{ $user->subscriptions()->active()->first()->id }}/update"
                           method="post"
@@ -88,64 +89,60 @@
                           data-secret="{{ $intent->client_secret }}">
                         @csrf
                         <div class="form-row">
-                            <div x-data="{selectedPrice: {{ $price }} }" class="md:flex md:justify-center md:space-x-6 my-8">
-                                <label for="standard" x-on:click="selectedPrice = 2 "
-                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6 mb-8 md:mb-0"
-                                     :class="selectedPrice === 2 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '">
-                                    <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 2 ? 'border-indigo-500' : 'border-gray-700'">
-                                        <span x-show="selectedPrice === 2" x-cloak
-                                              class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <input type="radio" name="plan" id="standard" class="appearance-none opacity-0"
-                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn">
-                                        <div  class="w-full">
-
-                                            <div class="font-bold text-gray-900 pr-6">
+                            <div x-data="{ value: '{{ $user->subscriptions()->active()->first()->stripe_price }}' }"
+                                 class="md:flex md:justify-center md:space-x-6 my-8" >
+                                <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
+                                     x-bind:class="value == 'price_1LKiPZG9lZTwpgcPGNTI9VZn' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                >
+                                    <label for="standard" class="flex items-center gap-2">
+                                        <input type="radio" name="plan" id="standard"
+                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" x-model="value"
+                                               checked="{{ $user->subscriptions()->active()->first()->stripe_price == "price_1LKiPZG9lZTwpgcPGNTI9VZn"?'checked':'' }}">
+                                        <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
+                                            <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
                                                 <span class="font-medium">/3 {{__('months')}}</span>
                                             </div>
+
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
                                                 <p>{{ __('Renews at 175 SEK /months') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </label>
-                                <label for="premium" x-on:click="selectedPrice = 1 "
-                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     :class="selectedPrice === 1 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '">
-                                    <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 1 ? 'border-indigo-500' : 'border-gray-700'">
-                                        <span x-show="selectedPrice === 1" x-cloak
-                                              class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <input type="radio" name="plan" id="premium" class="appearance-none opacity-0"
-                                               value="price_1LKKOmG9lZTwpgcPIkYhO5EG">
-                                        <div  class="w-full">
-
-                                            <div class="font-bold text-gray-900 pr-6">
+                                    </label>
+                                </div>
+                                <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
+                                     x-bind:class="value == 'price_1LKKOmG9lZTwpgcPIkYhO5EG' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                >
+                                    <label for="premium" class="flex items-center gap-2">
+                                        <input type="radio" name="plan" id="premium"
+                                               value="price_1LKKOmG9lZTwpgcPIkYhO5EG" x-model="value"
+                                               checked="{{ $user->subscriptions()->active()->first()->stripe_price == "price_1LKKOmG9lZTwpgcPIkYhO5EG"?'checked':'' }}">
+                                        <div class="font-bold text-gray-900 pr-6  flex flex-col">
+                                            <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
                                                 <span class="font-medium">/{{__('year')}}</span>
                                             </div>
+
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
                                                 <p>{{ __('Renews at 300 SEK /year') }}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </label>
-                            </div>
-                                <div class="pt-8 flex items-center justify-center">
-                                    <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
-                                    shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                                    focus:outline-none">
-                                        {{__('Change subscription')}}
-                                    </button>
+                                    </label>
                                 </div>
                             </div>
+
+                            <div class="pt-8 flex items-center justify-center">
+                                <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
+                                shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+                                focus:outline-none">
+                                    {{__('Change subscription')}}
+                                </button>
+                            </div>
+                            </div>
+
+
                     </form>
                 </div>
                 <div class="border-t border-gray-200  px-4 py-5 ">
@@ -164,60 +161,49 @@
                 </div>
             @else
                 <div class="px-4 sm:px-6">
+
                     <form action="/subscribe" method="post" id="payment-form" data-secret="{{ $intent->client_secret }}">
                         @csrf
                         <div class="form-row">
-
-
-                            <div x-data="{selectedPrice: 2}" class="md:flex md:justify-center md:space-x-6 my-8">
-
-                                <div x-on:click="selectedPrice = 2 "
-                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     :class="selectedPrice === 2 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
-                                    <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 2 ? 'border-indigo-500' : 'border-gray-700'">
-                                    <span x-show="selectedPrice === 2" x-cloak
-                                          class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <input type="radio" name="plan" id="premium" class="appearance-none opacity-0"
-                                               value="price_1LKKOmG9lZTwpgcPIkYhO5EG">
-                                        <label for="premium" class="w-full">
-
-                                            <div class="font-bold text-gray-900 pr-6">
-                                                <span class="text-2xl lg:text-3xl">500</span>
-                                                <span class="text-lg lg:text-xl">SEK</span>
-                                                <span class="font-medium">/{{__('year')}}</span>
-                                            </div>
-                                            <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>{{ __('Renews at 300 SEK /year') }}</p>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div x-on:click="selectedPrice = 1 "
-                                     class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6 mb-8 md:mb-0"
-                                     :class="selectedPrice === 1 ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50'">
-                                    <div class="w-4 h-4 border border-solid rounded-full p-[3px]"
-                                         x-bind:class="selectedPrice === 1 ? 'border-indigo-500' : 'border-gray-700'">
-                                    <span x-show="selectedPrice === 1" x-cloak
-                                          class="block bg-indigo-500 rounded-full w-fulll h-full"></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <input type="radio" name="plan" id="standard" class="appearance-none opacity-0"
-                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" checked="">
-                                        <label for="standard" class="w-full">
-
-                                            <div class="font-bold text-gray-900 pr-6">
+                            <div x-data="{value:null}"
+                                 class="md:flex md:justify-center md:space-x-6 my-8" >
+                                <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
+                                     x-bind:class="value == 'price_1LKiPZG9lZTwpgcPGNTI9VZn' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                >
+                                    <label for="standard" class="flex items-center gap-2">
+                                        <input type="radio" name="plan" id="standard"
+                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" x-model="value" checked="">
+                                        <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
+                                            <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
                                                 <span class="font-medium">/3 {{__('months')}}</span>
                                             </div>
+
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
                                                 <p>{{ __('Renews at 175 SEK /months') }}</p>
                                             </div>
-                                        </label>
-                                    </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
+                                     x-bind:class="value == 'price_1LKKOmG9lZTwpgcPIkYhO5EG' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                >
+                                    <label for="premium" class="flex items-center gap-2">
+                                        <input type="radio" name="plan" id="premium"
+                                               value="price_1LKKOmG9lZTwpgcPIkYhO5EG" x-model="value">
+                                        <div class="font-bold text-gray-900 pr-6  flex flex-col">
+                                            <div class="mt-6">
+                                                <span class="text-2xl lg:text-3xl">500</span>
+                                                <span class="text-lg lg:text-xl">SEK</span>
+                                                <span class="font-medium">/{{__('year')}}</span>
+                                            </div>
+
+                                            <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
+                                                <p>{{ __('Renews at 300 SEK /year') }}</p>
+                                            </div>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
 
@@ -299,91 +285,93 @@
                         </div>
 
                     {!! Form::close() !!}
+
+                        <script>
+                            const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+
+                            // Create an instance of Elements.
+                            var elements = stripe.elements();
+                            // Custom styling can be passed to options when creating an Element.
+                            // (Note that this demo uses a wider set of styles than the guide below.)
+                            var style = {
+                                base: {
+                                    color: '#32325d',
+                                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                                    fontSmoothing: 'antialiased',
+                                    fontSize: '16px',
+                                    '::placeholder': {
+                                        color: '#aab7c4'
+                                    }
+                                },
+                                invalid: {
+                                    color: '#fa755a',
+                                    iconColor: '#fa755a'
+                                }
+                            };
+                            // Create an instance of the card Element.
+                            var card = elements.create('card', {style: style});
+                            // Add an instance of the card Element into the `card-element` <div>.
+                            card.mount('#card-element');
+                            // Handle real-time validation errors from the card Element.
+                            card.on('change', function(event) {
+                                var displayError = document.getElementById('card-errors');
+                                if (event.error) {
+                                    displayError.textContent = event.error.message;
+                                } else {
+                                    displayError.textContent = '';
+                                }
+                            });
+                            // Handle form submission.
+                            var form = document.getElementById('payment-form');
+                            var cardHolderName = document.getElementById('cardholder-name');
+                            var clientSecret = form.dataset.secret;
+                            form.addEventListener('submit', async function(event) {
+                                event.preventDefault();
+                                const { setupIntent, error } = await stripe.confirmCardSetup(
+                                    clientSecret, {
+                                        payment_method: {
+                                            card,
+                                            billing_details: { name: cardHolderName.value }
+                                        }
+                                    }
+                                );
+                                if (error) {
+                                    // Inform the user if there was an error.
+                                    var errorElement = document.getElementById('card-errors');
+                                    errorElement.textContent = error.message;
+                                } else {
+                                    // Send the token to your server.
+                                    stripeTokenHandler(setupIntent);
+                                }
+                                // stripe.createToken(card).then(function(result) {
+                                //     if (result.error) {
+                                //     // Inform the user if there was an error.
+                                //     var errorElement = document.getElementById('card-errors');
+                                //     errorElement.textContent = result.error.message;
+                                //     } else {
+                                //     // Send the token to your server.
+                                //     stripeTokenHandler(result.token);
+                                //     }
+                                // });
+                            });
+                            // Submit the form with the token ID.
+                            function stripeTokenHandler(setupIntent) {
+                                // Insert the token ID into the form so it gets submitted to the server
+                                var form = document.getElementById('payment-form');
+                                var hiddenInput = document.createElement('input');
+                                hiddenInput.setAttribute('type', 'hidden');
+                                hiddenInput.setAttribute('name', 'paymentMethod');
+                                hiddenInput.setAttribute('value', setupIntent.payment_method);
+                                form.appendChild(hiddenInput);
+                                // Submit the form
+                                form.submit();
+                            }
+                        </script>
                 </div>
             @endif
         </div>
 
     </div>
 
-    <script>
-        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
 
-        // Create an instance of Elements.
-        var elements = stripe.elements();
-        // Custom styling can be passed to options when creating an Element.
-        // (Note that this demo uses a wider set of styles than the guide below.)
-        var style = {
-            base: {
-                color: '#32325d',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
-                '::placeholder': {
-                    color: '#aab7c4'
-                }
-            },
-            invalid: {
-                color: '#fa755a',
-                iconColor: '#fa755a'
-            }
-        };
-        // Create an instance of the card Element.
-        var card = elements.create('card', {style: style});
-        // Add an instance of the card Element into the `card-element` <div>.
-        card.mount('#card-element');
-        // Handle real-time validation errors from the card Element.
-        card.on('change', function(event) {
-            var displayError = document.getElementById('card-errors');
-            if (event.error) {
-                displayError.textContent = event.error.message;
-            } else {
-                displayError.textContent = '';
-            }
-        });
-        // Handle form submission.
-        var form = document.getElementById('payment-form');
-        var cardHolderName = document.getElementById('cardholder-name');
-        var clientSecret = form.dataset.secret;
-        form.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const { setupIntent, error } = await stripe.confirmCardSetup(
-                clientSecret, {
-                    payment_method: {
-                        card,
-                        billing_details: { name: cardHolderName.value }
-                    }
-                }
-            );
-            if (error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(setupIntent);
-            }
-            // stripe.createToken(card).then(function(result) {
-            //     if (result.error) {
-            //     // Inform the user if there was an error.
-            //     var errorElement = document.getElementById('card-errors');
-            //     errorElement.textContent = result.error.message;
-            //     } else {
-            //     // Send the token to your server.
-            //     stripeTokenHandler(result.token);
-            //     }
-            // });
-        });
-        // Submit the form with the token ID.
-        function stripeTokenHandler(setupIntent) {
-            // Insert the token ID into the form so it gets submitted to the server
-            var form = document.getElementById('payment-form');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'paymentMethod');
-            hiddenInput.setAttribute('value', setupIntent.payment_method);
-            form.appendChild(hiddenInput);
-            // Submit the form
-            form.submit();
-        }
-    </script>
 </x-app-layout>
