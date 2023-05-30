@@ -20,7 +20,7 @@ class UserIsHome
 
 
         $user = Auth::user();
-        if($user != null)
+        if(!empty($user))
         {
 
             $ipAddress =  explode(',', Auth::user()->organization->ip_address??null);
@@ -33,7 +33,7 @@ class UserIsHome
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
 
-                    return redirect('/login')->with('error', 'You are not allowed to access this account from this location');
+                    return redirect('/login')->with('error', 'Your current IP address is not allowed to access this account');
                 }
             }
         }
