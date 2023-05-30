@@ -23,7 +23,6 @@ class HomeController extends Controller
     //
     public function index()
     {
-
 //        if (auth()->user()->hasRole('subscriber') and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
 //            dd("true");
 //        }else
@@ -53,11 +52,11 @@ class HomeController extends Controller
 //                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
 //                $allcats = Category::where('id',8)->with('archives')->has('archives')->first();
                 $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
-            } elseif(auth()->user()->hasRole(['subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+            } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
                 $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
-            } elseif(auth()->user()->hasRole(['subscriber']) and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+            } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
                 $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
-            } elseif (auth()->user()->hasRole(['subscriber']) and is_null(auth()->user()->manual_expire) ){
+            } elseif (auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and is_null(auth()->user()->manual_expire) ){
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
                 $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
             }

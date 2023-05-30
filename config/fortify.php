@@ -134,7 +134,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-         Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
@@ -142,5 +142,15 @@ return [
             'confirmPassword' => true,
         ]),
     ],
+
+
+
+    'pipelines' => [
+        'login' => [
+            Laravel\Fortify\Actions\AttemptToAuthenticate::class,
+            Laravel\Fortify\Actions\PrepareAuthenticatedSession::class,
+            App\Actions\Fortify\LogoutOtherDevices::class
+        ]
+    ]
 
 ];

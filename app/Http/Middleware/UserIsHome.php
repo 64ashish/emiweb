@@ -18,20 +18,24 @@ class UserIsHome
     public function handle(Request $request, Closure $next)
     {
 
-        if(Auth::user() && !is_null(Auth::user()->ip_address))
+
+        $user = Auth::user();
+        if($user != null)
         {
-//            dd()
-            if($request->getClientIp() != auth()->user()->ip_address)
+
+            $ipAddress =  explode(',', Auth::user()->organization->ip_address??null);
+
+            if(Auth::user() && $user->hasRole('organizational subscriber') && is_array($ipAddress))
             {
-                Auth::logout();
+                if(!in_array($request->getClientIp(), $ipAddress))
+                {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
 
-                $request->session()->invalidate();
-
-                $request->session()->regenerateToken();
-
-                return redirect('/');
+                    return redirect('/login')->with('error', 'You are not allowed to access this account from this location');
+                }
             }
-
         }
 
         return $next($request);

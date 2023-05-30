@@ -20,6 +20,7 @@ class Organization extends Model
         'postcode',
         'province' ,
         'fax' ,
+        'ip_address'
     ];
 
     /**
