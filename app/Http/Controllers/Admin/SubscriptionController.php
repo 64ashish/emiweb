@@ -110,7 +110,7 @@ class SubscriptionController extends Controller
 
         $CurrentPlan = $user->subscriptions()->active()->get()->first();
 
-//        dd($CurrentPlan->name);
+        dd($request->plan);
 
 //        dd($CurrentPlan->name." ".$request->plan);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
