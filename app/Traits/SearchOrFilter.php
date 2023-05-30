@@ -13502,8 +13502,12 @@ trait SearchOrFilter
             $result[$value['Länskod'] . $value['Län']]['code']          = $value['Länskod'];
             $result[$value['Länskod'] . $value['Län']]['county']          = $value['Län'];
             $result[$value['Länskod'] . $value['Län']]['parish'][] = $value['Församling'];
+//            $result['county'][]          = $value['Län'];
         }
+//        dd(array_values($result));
+
         return array_values($result);
+        
     }
 
     private function getGender(): array

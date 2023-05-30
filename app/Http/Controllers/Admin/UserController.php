@@ -71,6 +71,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+//        return $user;
 //        return $user->subscriptions()->active()->get()->count();
         $roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
         return view('admin.users.edit', compact('user', 'roles'));
@@ -92,7 +93,7 @@ class UserController extends Controller
         $request->validate([
             'current_password' => 'required',
             'password' => 'required',
-            'ip_address'=>'ip'
+            'ip_address'=>'nullable|ip'
         ]);
 
         #Match The Old Password
@@ -165,6 +166,7 @@ class UserController extends Controller
             $user->update(['organization_id' => null]);
 
             $user->syncRoles('regular user');
+            $user->update(['manual_expire' => null]);
 
             return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
                 '/emiweb/organizations/'.$organization->id,
@@ -186,7 +188,8 @@ class UserController extends Controller
 //            assign to the organization
             $user->update(['organization_id' => $organization->id]);
 //            give user the role
-            $user->syncRoles('organization staff');
+            $user->syncRoles('organizational subscriber');
+            $user->update(['manual_expire' => Carbon::now()->addYear()]);
 //        redirect appropriately
             return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
                 '/emiweb/organizations/'.$organization->id,
@@ -215,7 +218,7 @@ class UserController extends Controller
 
 //                return Carbon::now()->addYear();
                 // redirect to user list with you cant do that message
-                if($request->name == "subscriber")
+                if($request->name == "subscriber" or $request->name == "organizational subscriber")
                 {
                     $user->update(['manual_expire' => Carbon::now()->addYear()]);
                 }else

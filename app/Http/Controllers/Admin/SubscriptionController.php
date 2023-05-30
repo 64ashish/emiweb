@@ -103,6 +103,7 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request)
     {
+
 //        return $request->plan;
 
         $user = auth()->user();

@@ -75,6 +75,8 @@ trait UniversalQuery{
         if(!empty($input['year'])){ $result->whereYear('dob', $input['year'] ); }
 
         if($exec>=1){return $result->count('id');}
+
+
         else { return 0; }
     }
 

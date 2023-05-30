@@ -300,7 +300,7 @@ Route::middleware(['auth',  'verified', 'role:super admin|emiweb admin|emiweb st
 
 
 //regular users and subscribers
-Route::middleware(['auth',  'verified','userIsHome','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|regular user|subscriber',  'isActive'])
+Route::middleware(['auth',  'verified','userIsHome','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|organizational subscriber|regular user|subscriber',  'isActive'])
     ->group(function(){
         Route::get('/home/users/{user}', [HomeController::class, 'user'])
             ->name('home.users.edit');

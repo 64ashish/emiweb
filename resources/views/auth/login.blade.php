@@ -33,6 +33,8 @@
             </div>
         </div>
 
+
+
         @if($errors->any())
             <ul>
                 @foreach($errors->all() as $error)
