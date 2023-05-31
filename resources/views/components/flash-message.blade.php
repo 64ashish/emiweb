@@ -41,4 +41,28 @@
     </div>
 @endif
 
+
+@if($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="rounded-md bg-red-50 p-4" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)">
+                <div class="flex">
+                    <div class="flex-shrink-0 ">
+                        <!-- Heroicon name: solid/x-circle -->
+                        <lord-icon
+                                src="https://cdn.lordicon.com/rslnizbt.json"
+                                trigger="loop"
+                                colors="primary:#9f1239"
+                                style="width:30px;height:30px">
+                        </lord-icon>
+                    </div>
+                    <div class="ml-3 flex items-center">
+                        <h3 class="text-sm font-medium text-red-800">  {{ __($error) }}</h3>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+@endif
+
 {{--</div>--}}

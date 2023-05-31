@@ -27,14 +27,19 @@ class ArchivePolicy
      */
     public function viewAny(User $user, Archive $archive)
     {
+        dd($user);
         //
         if($user->hasRole('subscriber') and $user->manual_expire == null){
             return true;
         }
 
-        if($user->hasRole('subscriber') and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now()) ){
+        if (  $user->hasRole(['subscriber','organizational subscriber']) and (!is_null($user->manual_expire) and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
             return true;
         }
+
+//        if($user->hasRole('subscriber') and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now()) ){
+//            return true;
+//        }
 
         if($user->hasRole(['organization admin', 'organization staff']) and $user->organization->archives->contains('id', $archive->id))
         {
@@ -73,7 +78,8 @@ class ArchivePolicy
 //            return true;
 //        }
 
-        if (  $user->hasRole('subscriber') and (!is_null($user->manual_expire) and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
+
+        if (  $user->hasRole(['subscriber','organizational subscriber']) and (!is_null($user->manual_expire) and Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
             return true;
         }
 

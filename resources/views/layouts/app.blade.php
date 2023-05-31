@@ -27,7 +27,7 @@
                         <img src="/images/emiweb-mobile-logo.png" class=" lg:hidden">
                     </a>
                     @endif
-                    @if(auth()->user()->hasRole('regular user|subscriber'))
+                    @if(auth()->user()->hasRole('regular user|subscriber|organizational subscriber'))
                     <a href="{{ route('home')  }}" aria-current="page">
                         <img src="/images/emiweb-w.svg" class="hidden lg:inline-block	h-5">
                         <img src="/images/emiweb-mobile-logo.png" class=" lg:hidden">

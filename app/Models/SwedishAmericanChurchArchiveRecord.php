@@ -55,7 +55,7 @@ class SwedishAmericanChurchArchiveRecord extends Model
         return [
             'first_name'=>__(ucfirst(str_replace('_', ' ', 'first_name'))),
             'last_name'=>__(ucfirst(str_replace('_', ' ', 'last_name'))),
-            // 'last_name2'=>__(ucfirst(str_replace('_', ' ', 'last_name2'))),
+             'last_name2'=>__(ucfirst(str_replace('_', ' ', 'last_name2'))),
             'gender'=>__(ucfirst(str_replace('_', ' ', 'gender'))),
             'civil_status'=>__(ucfirst(str_replace('_', ' ', 'civil_status'))),
             'birth_date'=>__(ucfirst(str_replace('_', ' ', 'birth_date'))),
@@ -173,7 +173,7 @@ class SwedishAmericanChurchArchiveRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'last_name2',
+//            'last_name2',
             'gender',
             'civil_status',
             'emigration_province',

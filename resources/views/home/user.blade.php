@@ -78,10 +78,7 @@
             </div>
 
 
-
             @if($user->subscriptions()->active()->first())
-
-
                 <div class="px-4 sm:px-6 mb-6">
                     <form action="/subscribe/{{ $user->subscriptions()->active()->first()->id }}/update"
                           method="post"
@@ -92,12 +89,12 @@
                             <div x-data="{ value: '{{ $user->subscriptions()->active()->first()->stripe_price }}' }"
                                  class="md:flex md:justify-center md:space-x-6 my-8" >
                                 <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     x-bind:class="value == 'price_1LKiPZG9lZTwpgcPGNTI9VZn' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                     x-bind:class="value == '{{ config('services.subscription.3_months') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
                                 >
                                     <label for="standard" class="flex items-center gap-2">
                                         <input type="radio" name="plan" id="standard"
-                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" x-model="value"
-                                               checked="{{ $user->subscriptions()->active()->first()->stripe_price == "price_1LKiPZG9lZTwpgcPGNTI9VZn"?'checked':'' }}">
+                                               value="{{ config('services.subscription.3_months') }}" x-model="value"
+                                               checked="{{ $user->subscriptions()->active()->first()->stripe_price == config('services.subscription.3_months') ? 'checked':'' }}">
                                         <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
                                             <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
@@ -112,12 +109,12 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     x-bind:class="value == 'price_1LKKOmG9lZTwpgcPIkYhO5EG' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                     x-bind:class="value == '{{ config('services.subscription.1_year') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
                                 >
                                     <label for="premium" class="flex items-center gap-2">
                                         <input type="radio" name="plan" id="premium"
-                                               value="price_1LKKOmG9lZTwpgcPIkYhO5EG" x-model="value"
-                                               checked="{{ $user->subscriptions()->active()->first()->stripe_price == "price_1LKKOmG9lZTwpgcPIkYhO5EG"?'checked':'' }}">
+                                               value="{{ config('services.subscription.1_year') }}" x-model="value"
+                                               checked="{{ $user->subscriptions()->active()->first()->stripe_price == config('services.subscription.1_year')?'checked':'' }}">
                                         <div class="font-bold text-gray-900 pr-6  flex flex-col">
                                             <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>
@@ -168,11 +165,11 @@
                             <div x-data="{value:null}"
                                  class="md:flex md:justify-center md:space-x-6 my-8" >
                                 <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     x-bind:class="value == 'price_1LKiPZG9lZTwpgcPGNTI9VZn' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                     x-bind:class="value == '{{ config('services.subscription.3_months') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
                                 >
                                     <label for="standard" class="flex items-center gap-2">
                                         <input type="radio" name="plan" id="standard"
-                                               value="price_1LKiPZG9lZTwpgcPGNTI9VZn" x-model="value" checked="">
+                                               value="{{ config('services.subscription.3_months') }}" x-model="value" checked="">
                                         <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
                                             <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">175</span>
@@ -187,11 +184,11 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                     x-bind:class="value == 'price_1LKKOmG9lZTwpgcPIkYhO5EG' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
+                                     x-bind:class="value == '{{ config('services.subscription.1_year') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
                                 >
                                     <label for="premium" class="flex items-center gap-2">
                                         <input type="radio" name="plan" id="premium"
-                                               value="price_1LKKOmG9lZTwpgcPIkYhO5EG" x-model="value">
+                                               value="{{ config('services.subscription.1_year') }}" x-model="value">
                                         <div class="font-bold text-gray-900 pr-6  flex flex-col">
                                             <div class="mt-6">
                                                 <span class="text-2xl lg:text-3xl">500</span>

@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'subscription' => [
+        '3_months' => env('STRIPE_3_MONTHS'),
+        '1_year'    =>  env('STRIPE_1_YEAR'),
+    ]
+
 ];

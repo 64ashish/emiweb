@@ -17,9 +17,21 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
     public function search( Request $request )
     {
 
+//        dd($request->all());
 //        get the input data ready
         $all_request = $request->all();
-
+//        dd($request->qry_last_name['value']);
+        if(!is_null(trim($all_request['qry_last_name']['value'])))
+        {
+            $lastNames = explode(" ", trim($all_request['qry_last_name']['value']));
+//            dd($lastNames[3]);
+            if(array_key_exists(1,$lastNames))
+            {
+                $all_request['last_name2'] = $lastNames[1];
+                $all_request['qry_last_name']['value'] = $lastNames[0];
+            }
+        }
+//        dd($all_request);
         $quryables = $this->QryableItems($all_request);
         $carbonize_dates = $this->CarbonizeDates($all_request);
         $request->merge($carbonize_dates['field_data']);

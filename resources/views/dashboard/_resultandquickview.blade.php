@@ -1,10 +1,6 @@
 {{--<h1>  {{ $records['first_name'] }}</h1>--}}
 <div class="mt-8 flex flex-col" x-init="document.getElementById('results').scrollIntoView()">
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8" id="results">
-
-
-
-
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <h4 class="pb-6" x-show="!openDetails">
 {{--                {{ __("Your search returned") ." ". $records->total()." ". __("results") }}--}}
@@ -77,7 +73,7 @@
                         @endforeach
                     @endif
 
-                    @if(auth()->user()->hasRole('regular user|subscriber') )
+                    @if(auth()->user()->hasRole('regular user|subscriber|organizational subscriber') )
                         @foreach($records as $record)
 
                             <tr  @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})"
@@ -101,6 +97,7 @@
                                             {{  $record->last_name }}
                                         @endif
 
+                                        {{ $record->last_name2 ?? '' }}
 
 
 
