@@ -27,7 +27,7 @@ class ArchivePolicy
      */
     public function viewAny(User $user, Archive $archive)
     {
-        dd($user);
+//        dd($user);
         //
         if($user->hasRole('subscriber') and $user->manual_expire == null){
             return true;
