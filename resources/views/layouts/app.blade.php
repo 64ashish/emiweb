@@ -41,6 +41,7 @@
                     {!! Form::close() !!}
                 </div>
                 <div class="flex w-1/2">
+                    @if(auth()->user()->hasRole('regular user|subscriber|organizational subscriber'))
                     <div class="max-w-md w-full mx-auto flex justify-center" x-data="{ openSearch: false }">
                         <div @click="openSearch = true; $nextTick(() => $refs.input.focus())" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4
                          font-medium rounded-full text-indigo-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2
@@ -117,6 +118,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <ul class="font-bold inline-flex items-center text-white shrink-0">
 
                         @if(auth()->user()->hasRole('regular user|subscriber'))
