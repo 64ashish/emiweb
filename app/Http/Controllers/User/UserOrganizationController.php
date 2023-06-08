@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationRequest;
 use App\Models\Organization;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 
 class UserOrganizationController extends Controller
@@ -44,8 +46,9 @@ class UserOrganizationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Organization $organization
+     * @return Response
+     * @throws AuthorizationException
      */
     public function show(Organization $organization)
     {
@@ -76,9 +79,10 @@ class UserOrganizationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param OrganizationRequest $organizationRequest
+     * @param Organization $organization
+     * @return Response
+     * @throws AuthorizationException
      */
     public function update(OrganizationRequest $organizationRequest, Organization $organization)
     {

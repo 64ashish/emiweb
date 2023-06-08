@@ -7,7 +7,11 @@ use App\Http\Requests\OrganizationRequest;
 use App\Models\Archive;
 use App\Models\Organization;
 use App\Traits\RoleBasedRedirect;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
@@ -40,8 +44,9 @@ class OrganizationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param OrganizationRequest $organizationRequest
+     * @param Organization $organization
+     * @return Response
      */
     public function store(OrganizationRequest $organizationRequest, Organization $organization)
     {
@@ -58,8 +63,8 @@ class OrganizationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Organization $organization
+     * @return Response
      */
     public function show(Organization $organization)
     {
@@ -82,8 +87,8 @@ class OrganizationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Organization $organization
+     * @return Response
      */
     public function edit(Organization $organization)
     {
@@ -103,9 +108,9 @@ class OrganizationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param OrganizationRequest $organizationRequest
+     * @param Organization $organization
+     * @return Response
      */
     public function update(OrganizationRequest $organizationRequest, Organization $organization)
     {
@@ -120,6 +125,11 @@ class OrganizationController extends Controller
 
     }
 
+    /**
+     * @param Organization $organization
+     * @param Request $request
+     * @return false|Application|RedirectResponse|Redirector|null
+     */
     public function syncArchive(Organization $organization, Request $request)
     {
 

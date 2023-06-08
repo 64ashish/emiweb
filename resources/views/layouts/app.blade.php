@@ -11,6 +11,18 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="https://js.stripe.com/v3/"></script>
 
+    <style>
+        .sort-result-table::after {
+            content: url('/images/sort-table.svg');
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-top: 2px;
+
+        }
+
+    </style>
+
 
 </head>
 
@@ -40,7 +52,7 @@
                     </ul>
                     {!! Form::close() !!}
                 </div>
-                <div class="flex w-1/2">
+                <div class="flex w-1/2 {{ auth()->user()->hasRole('regular user|subscriber|organizational subscriber') ?? 'justify-end' }}">
                     @if(auth()->user()->hasRole('regular user|subscriber|organizational subscriber'))
                     <div class="max-w-md w-full mx-auto flex justify-center" x-data="{ openSearch: false }">
                         <div @click="openSearch = true; $nextTick(() => $refs.input.focus())" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4

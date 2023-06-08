@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\User;
 use App\Policies\UserPolicy;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -24,6 +28,12 @@ class StaffController extends Controller
         return view('dashboard.user_edit', compact('user', 'roles', 'organization'));
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return Application|RedirectResponse|Redirector
+     * @throws AuthorizationException
+     */
     public function update(Request $request, User $user)
     {
 
@@ -108,13 +118,15 @@ class StaffController extends Controller
         return view('dashboard.user_association', compact('associations'));
     }
 
+    /**
+     * @param Request $request
+     * @param Organization $organization
+     * @param User $user
+     * @return Application|RedirectResponse|Redirector|never
+     * @throws AuthorizationException
+     */
     public function approveAssociation(Request $request, Organization $organization, User $user)
     {
-
-//        return $organization;
-//        return $user;
-//        return $request->all();
-
 //        check for empty stuff
         if(is_null($user->association))
         {

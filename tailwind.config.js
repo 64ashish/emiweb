@@ -21,6 +21,11 @@ module.exports = {
             yellow: colors.yellow,
             red: colors.red,
         },
+        extend: {
+            content: {
+                'sort': 'url("/images/sort-table.svg")',
+            },
+        }
     },
     plugins: [
         require('@tailwindcss/forms'),

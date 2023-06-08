@@ -15,20 +15,31 @@
 
                         @if($records->first()->first_name != null or $records->first()->last_name != null)
                             <th x-on:click="sortByColumn" scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __("Full name") }}
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
+                                <span class="sort-result-table flex">
+                                    {{ __("Full name") }}
+                                </span>
                            
                             </th>
                         @endif
                         @foreach($defaultColumns as $column)
                             <th  x-on:click="sortByColumn" scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $column))) }} </th>
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
+                                <span class="sort-result-table flex">
+                                {{ __(ucfirst(str_replace('_', ' ', $column))) }}
+                                </span>
+                            </th>
                         @endforeach
                     
                         @foreach($populated_fields as $pop_fields)
                             @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
-                            <th x-on:click="sortByColumn"  scope="col" class=" border-b border-gray-300 bg-gray-50
-                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">{{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }} </th>
-                                @endif
+                                <th x-on:click="sortByColumn"  scope="col" class=" border-b border-gray-300 bg-gray-50
+                                    bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
+                                    <span class="sort-result-table flex">
+                                    {{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }}
+                                    </span>
+                                </th>
+                            @endif
                         @endforeach
 
                     </tr>
@@ -84,20 +95,21 @@
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
 {{--                                        {{ $record->first_name }} {{ $record->last_name }}<br>--}}
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
-                                        <div>
+
                                             @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
                                                         {!! preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name) !!}
                                             @else
                                                {{  $record->first_name }}
                                             @endif
 
-                                        @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])
-                                            {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
-                                        @else
-                                            {{  $record->last_name }}
-                                        @endif
+                                            @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])
+                                                {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
+                                            @else
+                                                {{  $record->last_name }}
+                                            @endif
 
-                                        {{ $record->last_name2 ?? '' }}
+                                            {{ $record->last_name2 ?? '' }}
+
 
 
 

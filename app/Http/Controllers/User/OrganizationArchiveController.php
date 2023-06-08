@@ -37,7 +37,13 @@ use App\Models\User;
 use App\Models\VarmlandskaNewspaperNoticeRecord;
 use App\Services\FindArchiveService;
 use App\Traits\SearchOrFilter;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 
 
@@ -50,193 +56,18 @@ class OrganizationArchiveController extends Controller
     {
         return "get all archive";
     }
+
+    /**
+     * @param Organization $organization
+     * @param Archive $archive
+     * @param FindArchiveService $archiveService
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function ShowRecords(Organization $organization, Archive $archive, FindArchiveService $archiveService){
 
         $this->authorize('viewAny', $archive);
 
-//        switch($archive->id) {
-//            case(1):
-////                $records = DenmarkEmigration::with('archive')->paginate(100);
-////                $filterAttributes = $this->meilisearch->index('denmark_emigrations')->getFilterableAttributes();
-//                $model = new DenmarkEmigration();
-//                $viewfile = 'dashboard.denmarkemigration.records';
-//                break;
-//
-//            case(2):
-////                $records = SwedishAmericanChurchArchiveRecord::with('archive')->paginate(100);
-////                $filterAttributes = $this->meilisearch->index('swedish_american_church_archive_records')->getFilterableAttributes();
-//                $model = new SwedishAmericanChurchArchiveRecord();
-//                $viewfile = 'dashboard.SwedishAmericanChurchArchiveRecord.records';
-//                break;
-//
-//            case(3):
-////                $records = NewYorkPassengerRecord::with('archive')->paginate(100);
-////                $filterAttributes = $this->meilisearch->index('new_york_passenger_records')->getFilterableAttributes();
-//                $model = new NewYorkPassengerRecord();
-//                $viewfile = 'dashboard.NewYorkPassengerRecord.records';
-//                break;
-//
-//            case(4):
-////                $records = SwedishPortPassengerListRecord::with('archive')->paginate(100);
-////                $filterAttributes = $this->meilisearch->index('swedish_port_passenger_list_records')->getFilterableAttributes();
-//                $model = new SwedishPortPassengerListRecord();
-//                $viewfile = 'dashboard.SwedishPortPassengerListRecord.records';
-//                break;
-//
-//            case(5):
-////                $records = SwedishChurchEmigrationRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swedish_church_emigration_records')->getFilterableAttributes();
-//                $model = new SwedishChurchEmigrationRecord();
-//                $viewfile = 'dashboard.swedishchurchemigrationrecord.records';
-//                break;
-//
-//            case(6):
-////                $records = SwedishChurchImmigrantRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swedish_church_immigrant_records')->getFilterableAttributes();
-//                $model = new SwedishChurchImmigrantRecord();
-//                $viewfile = 'dashboard.SwedishChurchImmigrantRecord.records';
-//                break;
-//
-//            case(7):
-////                $records = SwedishEmigrantViaKristianiaRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swedish_emigrant_via_kristiania_records')->getFilterableAttributes();
-//                $model = new SwedishEmigrantViaKristianiaRecord();
-//                $viewfile = 'dashboard.SwedishEmigrantViaKristianiaRecord.records';
-//                break;
-//
-//            case(8):
-////                $records = SwedishImmigrationStatisticsRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swedish_immigration_statistics_records')->getFilterableAttributes();
-//                $model = new SwedishImmigrationStatisticsRecord();
-//                $viewfile = 'dashboard.SwedishImmigrationStatisticsRecord.records';
-//                break;
-//
-//            case(9):
-////                $records = SwedishEmigrationStatisticsRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swedish_emigration_statistics_records')->getFilterableAttributes();
-//                $model = new SwedishEmigrationStatisticsRecord();
-//                $viewfile = 'dashboard.scbe.records';
-//                break;
-//
-//            case(10):
-////                $records = LarssonEmigrantPopularRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('larsson_emigrant_popular_records')->getFilterableAttributes();
-//                $model = new LarssonEmigrantPopularRecord();
-//                $viewfile = 'dashboard.LarssonEmigrantPopularRecord.records';
-//                break;
-//
-//            case(11):
-////                $records = BrodernaLarssonArchiveRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('broderna_larsson_archive_records')->getFilterableAttributes();
-//                $model = new BrodernaLarssonArchiveRecord();
-//                $viewfile = 'dashboard.larsson.records';
-//                break;
-//
-//            case(12):
-////                $records = JohnEricssonsArchiveRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('john_ericssons_archive_records')->getFilterableAttributes();
-//                $model = new JohnEricssonsArchiveRecord();
-//                $viewfile = 'dashboard.JohnEricssonsArchiveRecord.records';
-//                break;
-//
-//            case(13):
-////                $records = NorwegianChurchImmigrantRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('norwegian_church_immigrant_records')->getFilterableAttributes();
-//                $model = new NorwegianChurchImmigrantRecord();
-//                $viewfile = 'dashboard.NorwegianChurchImmigrantRecord.records';
-//                break;
-//
-//            case(14):
-////                $records = MormonShipPassengerRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('mormon_ship_passenger_records')->getFilterableAttributes();
-//                $model = new MormonShipPassengerRecord();
-//                $viewfile = 'dashboard.MormonShipPassengerRecord.records';
-//                break;
-//
-//            case(15):
-////                $records = SwedishAmericanMemberRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swedish_american_member_records')->getFilterableAttributes();
-//                $model = new SwedishAmericanMemberRecord();
-//                $viewfile = 'dashboard.SwedishAmericanMemberRecord.records';
-//                break;
-//
-//            case(16):
-////                $records = SwedeInAlaskaRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('swede_in_alaska_records')->getFilterableAttributes();
-//                $model = new SwedeInAlaskaRecord();
-//                $viewfile = 'dashboard.SwedeInAlaskaRecord.records';
-//                break;
-//
-//            case(17):
-////                $records = VarmlandskaNewspaperNoticeRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('varmlandska_newspaper_notice_records')->getFilterableAttributes();
-//                $model = new VarmlandskaNewspaperNoticeRecord();
-//                $viewfile = 'dashboard.VarmlandskaNewspaperNoticeRecord.records';
-//                break;
-//
-//            case(18):
-////                $records = DalslanningarBornInAmericaRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('dalslanningar_born_in_america_records')->getFilterableAttributes();
-//                $model = new DalslanningarBornInAmericaRecord();
-//                $viewfile = 'dashboard.dbiar.records';
-//                break;
-//
-//            case(20):
-////                $records = NorwayEmigrationRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('norway_emigration_records')->getFilterableAttributes();
-//                $model = new NorwayEmigrationRecord();
-//                $viewfile = 'dashboard.norwayemigrationrecord.records';
-//                break;
-//
-//            case(21):
-////                $records = IcelandEmigrationRecord::with('archive')->paginate(500);
-////                $filterAttributes = $this->meilisearch->index('iceland_emigration_records')->getFilterableAttributes();
-//                $model = new IcelandEmigrationRecord();
-//                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-//
-//                break;
-//
-//            case(22):
-//                $model = new BevaringensLevnadsbeskrivningarRecord();
-//                $viewfile = 'dashboard.IcelandEmmigrationRecord.records';
-//                break;
-//
-//            case(23):
-//                $model = new SwedishAmericanJubileeRecord();
-//                $viewfile = 'dashboard.SwedishAmericanJubileeRecord.records';
-//                break;
-//
-//            case(24):
-//
-//                $model = new SwensonCenterPhotosamlingRecord();
-//                $viewfile = 'dashboard.swenphotocenter.records';
-//                break;
-//
-//            case(25):
-//                $model = new NorthenPacificRailwayCompanyRecord();
-//                $viewfile = 'dashboard.NorthPacificRailwayCo.index';
-//                break;
-//
-//            case(26):
-//                $model = new RsPersonalHistoryRecord();
-//                $viewfile = 'dashboard.rsphistory.photos';
-//                break;
-//
-//            case(27):
-//                $model = new SwedishUsaCentersEmiPhotoRecord();
-//                $viewfile = 'dashboard.suscepc.records';
-//                break;
-//
-//            case(28):
-//                $model = new SwedishAmericanBookRecord();
-//                $viewfile = 'dashboard.sabr.records';
-//                break;
-//
-//            default:
-//                abort(403);
-//        }
-
-//
         $model = $archiveService->getSelectedArchive($archive->id)['model'];
         $viewfile = $archiveService->getSelectedArchive($archive->id)['viewfile'];
         $genders = $archiveService->getSelectedArchive($archive->id)['genders'];
@@ -268,6 +99,13 @@ class OrganizationArchiveController extends Controller
 
     }
 
+    /**
+     * @param Organization $organization
+     * @param Archive $archive
+     * @param $id
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function view(Organization $organization, Archive $archive, $id){
 
 
@@ -576,7 +414,13 @@ class OrganizationArchiveController extends Controller
 
     }
 
-    public function create( Organization $organization, Archive $archive)
+    /**
+     * @param Organization $organization
+     * @param Archive $archive
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
+    public function create(Organization $organization, Archive $archive)
     {
         $this->authorize('create', $archive);
 
@@ -736,6 +580,13 @@ class OrganizationArchiveController extends Controller
 
     }
 
+    /**
+     * @param Organization $organization
+     * @param Archive $archive
+     * @param $record
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function edit(Organization $organization, Archive $archive, $record)
     {
         $this->authorize('update', $archive);
@@ -912,7 +763,14 @@ class OrganizationArchiveController extends Controller
 
     }
 
-    public function store( Organization $organization, Archive $archive, Request $request)
+    /**
+     * @param Organization $organization
+     * @param Archive $archive
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector|void
+     * @throws AuthorizationException
+     */
+    public function store(Organization $organization, Archive $archive, Request $request)
     {
 
         $this->authorize('create', $archive);
@@ -1099,6 +957,14 @@ class OrganizationArchiveController extends Controller
 
     }
 
+    /**
+     * @param Organization $organization
+     * @param Archive $archive
+     * @param $record
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector|void
+     * @throws AuthorizationException
+     */
     public function update(Organization $organization, Archive $archive, $record, Request $request)
     {
         $this->authorize('update', $archive);

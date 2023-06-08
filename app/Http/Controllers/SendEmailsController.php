@@ -12,6 +12,9 @@ class SendEmailsController extends Controller
 {
     //
 
+    /**
+     * @return void
+     */
     public function sendTest()
     {
 //        Mail::to('hello@emiwebdb.kortaben.work')->send(new TestMail());

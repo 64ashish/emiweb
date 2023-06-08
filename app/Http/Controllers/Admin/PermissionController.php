@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\Permission\Models\Permission;
 
 
+/**
+ *
+ */
 class PermissionController extends Controller
 {
     /**
@@ -37,8 +41,9 @@ class PermissionController extends Controller
      * Store a newly created resource in storage.
      *
      *
+     * @param PermissionRequest $permissionRequest
      * @param Permission $permission
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(  PermissionRequest $permissionRequest, Permission $permission)
     {
@@ -63,8 +68,8 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Permission $permission
+     * @return Response
      */
     public function edit(Permission $permission)
     {
@@ -76,9 +81,9 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param PermissionRequest $permissionRequest
+     * @param Permission $permission
+     * @return Response
      */
     public function update(PermissionRequest $permissionRequest, Permission $permission)
     {
