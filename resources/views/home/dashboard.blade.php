@@ -40,6 +40,9 @@
                                     </li>
                                     @endforeach
                                 </ul>
+                                <p class="mt-6 text-lg leading-8 text-gray-600">{{ __('Subscribe to get full access to all archives. Starting at 200 SEK / 3 months.') }}</p>
+
+
                             </li>
                             @elseif($user->hasRole('subscriber') and (!is_null($user->manual_expire) and !\Carbon\Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(\Carbon\Carbon::now())))
                             <li>
