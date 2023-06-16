@@ -37,6 +37,10 @@ use App\Services\FindArchiveService;
 use App\Traits\SearchOrFilter;
 use App\Traits\UniversalQuery;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +53,12 @@ class SearchController extends Controller
     use UniversalQuery, SearchOrFilter;
 
     //
+
+    /**
+     * @param $archive
+     * @param FindArchiveService $archiveService
+     * @return Application|Factory|View|never
+     */
     public function index($archive, FindArchiveService $archiveService)
     {
 
@@ -90,16 +100,12 @@ class SearchController extends Controller
         return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'archive_name','enableQueryMatch', 'provinces','genders', 'ProvincesParishes'));
     }
 
-    public function search( Request  $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function search(Request $request)
     {
-
-
-
-
-
-
-
-
         $inputFields = Arr::whereNotNull($request->except('_token'));
         $keywords = $request->except('_token');
 
@@ -162,7 +168,13 @@ class SearchController extends Controller
 
     }
 
-    public function show($arch, $id, ){
+    /**
+     * @param $arch
+     * @param $id
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
+    public function show($arch, $id ){
         $archive = Archive::find($arch);
 
 
@@ -564,6 +576,12 @@ class SearchController extends Controller
 
     }
 
+    /**
+     * @param $arch
+     * @param $id
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function print($arch, $id){
         $archive = Archive::find($arch);
 

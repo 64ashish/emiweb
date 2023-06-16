@@ -8,6 +8,7 @@ use App\Models\Archive;
 use App\Models\Category;
 use App\Models\DenmarkEmigration;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ArchiveController extends Controller
 {
@@ -54,8 +55,8 @@ class ArchiveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Archive $archive
+     * @return Response
      */
     public function show(Archive $archive)
     {
@@ -69,8 +70,8 @@ class ArchiveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Archive $archive
+     * @return Response
      */
     public function edit(Archive $archive)
     {
@@ -81,9 +82,9 @@ class ArchiveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ArchiveRequest $archiveRequest
+     * @param Archive $archive
+     * @return Response
      */
     public function update(ArchiveRequest $archiveRequest,  Archive $archive)
     {

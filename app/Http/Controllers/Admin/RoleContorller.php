@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -37,8 +41,9 @@ class RoleContorller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param RoleRequest $roleRequest
+     * @param Role $role
+     * @return Response
      */
     public function store(RoleRequest $roleRequest, Role $role)
     {
@@ -62,8 +67,8 @@ class RoleContorller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return Response
      */
     public function edit(Role $role)
     {
@@ -75,9 +80,9 @@ class RoleContorller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param RoleRequest $roleRequest
+     * @param Role $role
+     * @return Response
      */
     public function update(RoleRequest $roleRequest, Role $role)
     {
@@ -115,6 +120,11 @@ class RoleContorller extends Controller
 
     }
 
+    /**
+     * @param Role $role
+     * @param Permission $permission
+     * @return Application|RedirectResponse|Redirector
+     */
     public function revokePermission(Role $role, Permission $permission )
     {
         if($role->hasPermissionTo($permission->name));

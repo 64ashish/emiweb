@@ -7,13 +7,20 @@ use App\Models\Category;
 use App\Models\User;
 use Carbon\Carbon;
 use http\Url;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 //use Laravel\Cashier\Subscription;
 use Laravel\Cashier\Cashier;
+use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
 use Stripe\Subscription;
 use function Clue\StreamFilter\append;
@@ -21,77 +28,64 @@ use function Clue\StreamFilter\append;
 class HomeController extends Controller
 {
     //
+    /**
+     * @return Application|Factory|View|RedirectResponse|Redirector
+     */
     public function index()
     {
-//        if (auth()->user()->hasRole('subscriber') and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ) {
-//            dd("true");
-//        }else
-//        {
-//            dd(is_null(auth()->user()->manual_expire));
-//        }
-//        dd(Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now()));
 
-        if(auth()->check())
+
+        if( !auth()->check() )
         {
-            if(auth()->user()->hasRole('super admin'))
-            {
-                return redirect('/admin/users');
-            }
-            if(auth()->user()->hasRole(['emiweb admin', 'emiweb staff'])){
-                return redirect('/emiweb');
-            }
-            if(auth()->user()->hasRole(['organization admin', 'organization staff'])){
-                return redirect('/dashboard');
-            }
-
-            if(auth()->user()->hasRole(['regular user'])){
-//            $archives = Archive::where('id',1)->get()->groupBy(['category.name', function ($item) {
-//                return $item['place'];
-//            }], $preserveKeys = true);
-//                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
-//                $catArchives = Archive::where('id',1)->get()->load('category')->groupBy('category.name');
-//                $allcats = Category::where('id',8)->with('archives')->has('archives')->first();
-                $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
-            } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
-                $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
-            } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
-                $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
-            } elseif (auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and is_null(auth()->user()->manual_expire) ){
-//                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
-                $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,7,1,4,6,10) ')->get();
-            }
-//            return $catArchives;
-//        return $catArchives;
-//        $user = auth()->user();
-
-            $user = auth()->user();
-
-//        return $catArchives->name;
-
-            return view('home.dashboard', compact('user','catArchives'));
-        }else{
             return redirect()->to('/login');
+
         }
+
+        if(auth()->user()->hasRole('super admin'))
+        {
+            return redirect('/admin/users');
+        }
+        if(auth()->user()->hasRole(['emiweb admin', 'emiweb staff'])){
+            return redirect('/admin/users');
+        }
+        if(auth()->user()->hasRole(['organization admin', 'organization staff'])){
+            return redirect('/dashboard');
+        }
+
+        if(auth()->user()->hasRole(['regular user'])){
+            $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
+        } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+            $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
+        } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+            $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
+        } elseif (auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and is_null(auth()->user()->manual_expire) ){
+//                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
+            $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
+        }
+
+        $user = auth()->user();
+
+
+        return view('home.dashboard', compact('user','catArchives'));
 
 
     }
 
+    /**
+     * @param User $user
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     * @throws ApiErrorException
+     */
     public function user(User $user){
-//        return $user->subscriptions()->active()->first()->stripe_price;
-        //        authorize action
 
-//        return Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now());
 
         if(auth()->user()->hasRole(['regular user']) or auth()->user()->hasRole(['subscriber'])){
             $this->authorize('update', $user);
         }
 
-//        return $user->hasStripeId() ? "true" : "false";
-
-//        $user->createAsStripeCustomer();
 
         $user = auth()->user();
-//        return  $user->subscriptions()->active()->first()->name;
 
         $price = 0;
 
@@ -117,6 +111,12 @@ class HomeController extends Controller
         return view('home.user', compact('user', 'plans', 'intent', 'price'));
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return Application|RedirectResponse|Redirector
+     * @throws AuthorizationException
+     */
     public function updateUser(Request $request, User $user){
 
 //        authorize action
@@ -149,6 +149,10 @@ class HomeController extends Controller
 //    }
 
 
+    /**
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector|void
+     */
     public function localSwitcher(Request $request)
     {
 

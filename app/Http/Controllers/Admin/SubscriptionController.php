@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Subscription;
 
@@ -39,37 +40,36 @@ class SubscriptionController extends Controller
     public function store(Request $request)
     {
 
+        $validated = $request->validate([
+            'plan' => [ 'required',
+                Rule::in([config('services.subscription.3_months'),
+                config('services.subscription.1_year')])
+            ]
+        ]);
 
-        // get auth user
+        if ( ! $validated ) {
+            return redirect()->back();
+
+        }
+
         $user = auth()->user();
 
-//        product name
-        if($request->plan === "price_1LKiPZG9lZTwpgcPGNTI9VZn")
-            {
-                $product = "3 Months";
-            }
-        if($request->plan === "price_1LKKOmG9lZTwpgcPIkYhO5EG")
-        {
-            $product = "Regular Subscription";
-        }
-//      first create stripe customer
-        if($user->createOrGetStripeCustomer()){
-//            check if subscription already exist or not
-            if ($user->subscription($product)) {
-                return redirect()->back()->with('Danger','You are already subscribed to this subscription');
-            }else {
-//                if it doesnt exist, process and if process is success, update privilages
-                $customer = Cashier::findBillable($user->stripe_id);
-                if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
-                    $user->syncRoles('subscriber');
-                    $user->update(['manual_expire' => null]);
-                    // send email here
+        $product = $request->plan === config('services.subscription.3_months') ? "3 Months" : "Regular Subscription";
 
-                }
-            }
+        if ( $user->createOrGetStripeCustomer() && $user->subscription($product) ){
+            return redirect()->back()->with('error','You are already subscribed to this subscription');
+
         }
 
-        return redirect()->back()->with('Success','You are already subscribed to this subscription');
+        $customer = Cashier::findBillable($user->stripe_id);
+
+        if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
+            $user->syncRoles('subscriber');
+            $user->update(['manual_expire' => null]);
+
+        }
+
+        return redirect()->back()->with('Success','You are now subscribed');
     }
 
     /**
@@ -103,16 +103,11 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request)
     {
-
-//        return $request->plan;
-
+//        return config('services.subscription.3_months');
         $user = auth()->user();
 
         $CurrentPlan = $user->subscriptions()->active()->get()->first();
 
-//        dd($CurrentPlan);
-
-//        dd($CurrentPlan->name." ".$request->plan);
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
         $user->update(['manual_expire' => null]);
 

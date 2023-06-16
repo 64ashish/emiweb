@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Record;
 use App\Http\Controllers\Controller;
 use App\Models\BevaringensLevnadsbeskrivningarRecord;
 use App\Traits\SearchOrFilter;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -19,20 +22,32 @@ class BevaringensLevnadsbeskrivningarRecordController extends Controller
 
     }
 
-    public function search( Request $request )
+    /**
+     * Perform search on the archive
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function search(Request $request )
     {
+//        get all archive
         $all_request = $request->all();
-
+//      seperate the quryable items
         $quryables = $this->QryableItems($all_request);
+//        carbonise all dates
         $carbonize_dates = $this->CarbonizeDates($all_request);
+//        merge all carbonised dates
         $request->merge($carbonize_dates['field_data']);
         $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
+//        pull input fields
         $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
-
+//      start query
         $model = new BevaringensLevnadsbeskrivningarRecord();
+//        get fields to display
         $fieldsToDisply = $model->fieldsToDisply();
+//        get fields to be matched for custom query, the name fields with dropdown
         $enableQueryMatch =$model->enableQueryMatch();
 
+//        perform the search
         $result = BevaringensLevnadsbeskrivningarRecord::query();
         $this->QueryMatch($quryables,$result, $all_request);
 

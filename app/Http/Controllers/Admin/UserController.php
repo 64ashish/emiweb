@@ -8,7 +8,14 @@ use App\Models\User;
 use App\Traits\RoleBasedRedirect;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Cashier\Subscription;
 use Laravel\Fortify\Fortify;
@@ -65,8 +72,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return Response
      */
     public function edit(User $user)
     {
@@ -81,9 +88,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     * @throws AuthorizationException
      */
     public function update(Request $request, User $user)
     {
@@ -114,6 +122,10 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return Application|Factory|View|void
+     */
     public function searchForAdmin(Request $request)
     {
         $validated = $request->validate([
@@ -200,7 +212,14 @@ class UserController extends Controller
 
     }
 
-    public function syncRole(Request $request,User $user)
+    /**
+     * Sync role  to user
+     * @param Request $request
+     * @param User $user
+     * @return Application|RedirectResponse|Redirector|null
+     * @throws AuthorizationException
+     */
+    public function syncRole(Request $request, User $user)
     {
 
         $this->authorize('syncRole', $user);
@@ -238,6 +257,10 @@ class UserController extends Controller
 //
     }
 
+    /**
+     * List all subscribers
+     * @return Application|Factory|View
+     */
     public function subscribers()
     {
         $manualSubscriptions = User::role('subscriber')
@@ -250,6 +273,11 @@ class UserController extends Controller
         return view('admin.users.subscriptions', compact('subscriptions', 'manualSubscriptions'));
     }
 
+    /**
+     * Cancel subscription for a user
+     * @param User $user
+     * @return RedirectResponse
+     */
     public function subscriptionCancel(User $user)
     {
         $sub_name = $user->subscriptions->first()->name;

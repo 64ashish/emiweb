@@ -417,7 +417,7 @@ Route::middleware(['auth',  'verified','userIsHome','role:super admin|emiweb adm
 
     });
 
-Route::middleware(['auth',  'verified','userIsHome','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|subscriber',  'isActive', 'isManualSubscriber'])
+Route::middleware(['auth',  'verified','userIsHome','role:super admin|emiweb admin|emiweb staff|organization admin|organization staff|subscriber|organizational subscriber',  'isActive', 'isManualSubscriber'])
     ->group(function ()
     {
         Route::match(['get', 'post'],'/osanr/search', [ObituariesSweUsaNewspapersRecordController::class, 'search'])->name('osanr.search');

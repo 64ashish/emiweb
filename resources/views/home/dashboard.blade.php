@@ -40,6 +40,8 @@
                                     </li>
                                     @endforeach
                                 </ul>
+
+
                             </li>
                             @elseif($user->hasRole('subscriber') and (!is_null($user->manual_expire) and !\Carbon\Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(\Carbon\Carbon::now())))
                             <li>

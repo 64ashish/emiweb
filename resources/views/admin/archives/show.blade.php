@@ -3,13 +3,7 @@
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
                 <h1 class="text-xl font-semibold text-gray-900">Archive: {{ $archive->name }}</h1>
-                {!! Form::open(['route' => ['archives.import', $archive], 'files' => true]) !!}
-                {!! Form::file('import_file'); !!}
-                <button type="submit"
-                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm
-                    font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
-                {!! Form::close() !!}
+
             </div>
 
 
