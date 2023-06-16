@@ -10,51 +10,52 @@ use Illuminate\Support\Arr;
 
 class SwedishAmericanChurchArchiveRecordController extends Controller
 {
-    //
-    use SearchOrFilter;
+        //
+        use SearchOrFilter;
 
 
-    public function search( Request $request )
-    {
+        public function search(Request $request)
+        {
 
-//        get the input data ready
-        $all_request = $request->all();
+                // Get the input data ready
+                $all_request = $request->all();
 
-        $quryables = $this->QryableItems($all_request);
-        $carbonize_dates = $this->CarbonizeDates($all_request);
-        $request->merge($carbonize_dates['field_data']);
-        $remove_keys =Arr::prepend([Arr::flatten($carbonize_dates['date_keys']),$quryables], ['_token', 'action','page'] );
-        $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys),$quryables));
+                $quryables = $this->QryableItems($all_request);
+                $carbonize_dates = $this->CarbonizeDates($all_request);
+                $request->merge($carbonize_dates['field_data']);
+                $remove_keys = Arr::prepend([Arr::flatten($carbonize_dates['date_keys']), $quryables], ['_token', 'action', 'page']);
+                $inputFields = Arr::whereNotNull($request->except(Arr::flatten($remove_keys), $quryables));
 
-//        return $inputQuery;
-        $model = new SwedishAmericanChurchArchiveRecord();
-        $fieldsToDisply = $model->fieldsToDisply();
-        $enableQueryMatch =$model->enableQueryMatch();
+                //        return $inputQuery;
 
-        $result = SwedishAmericanChurchArchiveRecord::query();
-        $this->QueryMatch($quryables,$result, $all_request);
+                $model = new SwedishAmericanChurchArchiveRecord();
+                $fieldsToDisplay = $model->fieldsToDisplay();
+                $enableQueryMatch = $model->enableQueryMatch();
 
-        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+                // Create the model instance
+                $result = SwedishAmericanChurchArchiveRecord::query();
+                $this->QueryMatch($quryables, $result, $all_request);
 
+                $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisplay));
 
+                $keywords = $request->all();
 
-        $keywords = $request->all();
+                $filterAttributes = collect($model->defaultSearchFields());
+                $advancedFields = collect($model->searchFields());
+                $defaultColumns = $model->defaultTableColumns();
+                $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns)->keys();
 
+                $archive_name = $model::findOrFail(1)->archive;
+                $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+                $ProvincesParishes = collect($this->ProvincesParishes());
+                $provinces = $this->provinces();
 
-        $filterAttributes = collect($model->defaultSearchFields());
-        $advancedFields = collect($model->searchFields());
-        $defaultColumns = $model->defaultTableColumns();
-        $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
-//        return view
-        $archive_name = $model::findOrFail(1)->archive;
-        $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-        $ProvincesParishes = collect($this->ProvincesParishes());
-//        $provinces = $this->provinces();
+                 // Load view
+                return view('dashboard.SwedishAmericanChurchArchiveRecord.records', 
 
-
-
-
-        return view('dashboard.SwedishAmericanChurchArchiveRecord.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes'))->with($request->all());
-    }
-//        return view('dashboard.S')
+                 // Send data to view
+                compact('records', 'keywords', 'enableQueryMatch', 'filterAttributes', 
+                'advancedFields', 'defaultColumns', 'populated_fields', 'archive_name', 
+                'fieldsToDisplay', 'toBeHighlighted', 'ProvincesParishes'))->with($request->all());
+        }
 }
