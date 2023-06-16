@@ -42,7 +42,7 @@
             function data() {
                 return {
                     openDetails: false,
-                    displayFields:@json($fieldsToDisply),
+                    displayFields:@json($fieldsToDisplay),
                     detail:'',
                     next:'',
                     previous:'',
