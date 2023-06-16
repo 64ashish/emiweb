@@ -40,7 +40,6 @@
                                     </li>
                                     @endforeach
                                 </ul>
-                                <p class="mt-6 text-lg leading-8 text-gray-600">{{ __('Subscribe to get full access to all archives. Starting at 200 SEK / 3 months.') }}</p>
 
 
                             </li>
