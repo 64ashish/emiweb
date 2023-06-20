@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <div class="bg-light p-5 rounded">
         <h1>Dashboard</h1>
 
@@ -17,4 +17,4 @@
         </form>
     </div>
 
-</x-guest-layout>
+</x-app-layout>
