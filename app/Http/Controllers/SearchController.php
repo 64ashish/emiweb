@@ -136,32 +136,33 @@ class SearchController extends Controller
         }
         else{
             $records = collect([
-                'Emigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchEmigrationRecord($inputFields),
-                'Immigranter registrerade i svenska kyrkböcker'=> $this->QuerySwedishChurchImmigrantRecord($inputFields),
-                'SCB Immigranter'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields),
-                'SCB Emigranter'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields),
-                'Immigranter i norska kyrkböcker'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields),
-                'Emigranter i norska kyrkböcker'=> $this->QueryNorwayEmigrationRecord($inputFields),
-                'Den åländska emigrantdatabasen'=> $this->QueryIcelandEmigrationRecord($inputFields),
-                'Den danska emigrantdatabasen'=> $this->QueryDenmarkEmigration($inputFields), //fix for dob
-                'New Yorks passagerarlistor'=> $this->QueryNewYorkPassengerRecord($inputFields),
-                'Passagerarlistor för svenska hamnar'=> $this->QuerySwedishPortPassengerListRecord($inputFields), //gives 500 error
-                'Svenskar över Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields),
-                'Bröderna Larssons arkiv'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields),//fix for dob
-                'Mormonska passagerarlistor'=> $this->QueryMormonShipPassengerRecord($inputFields), //fix for dob
-                'Svenskamerikanska kyrkoarkivet'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields),
-                'Svenskamerikanska föreningsmedlemmar'=> $this->QuerySwedishAmericanMemberRecord($inputFields),
-                'Svenskar i Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields),
-                'Beväringens Levnadsbeskrivningar'=> $this->QueryBevaringensLevnadsbeskrivningar($inputFields),
-                'Dalslänningar födda i Amerika'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields),
-                'Bröderna Larssons arkiv (Index från Emigranten populär)'=> $this->QueryLarssonEmigrantPopularRecord($inputFields), //fix for dob
-                'Tidningsnotiser från Värmländska tidningar'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
-                'John Ericssons samling'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
-                'Svenskamerikanska jubileumsskrifter'=> $this->QuerySwedishAmericanJubileeRecord($inputFields),
+                'Emigrants in Swedish church records'=> $this->QuerySwedishChurchEmigrationRecord($inputFields),
+                'Immigrants in Swedish church records'=> $this->QuerySwedishChurchImmigrantRecord($inputFields),
+                'SCB immigrants'=> $this->QuerySwedishImmigrationStatisticsRecord($inputFields),
+                'SCB emigrants'=> $this->QuerySwedishEmigrationStatisticsRecord($inputFields),
+                'Immigrants in Norwegian church records'=> $this->QueryNorwegianChurchImmigrantRecord($inputFields),
+                'Emigrants in Norwegian church records'=> $this->QueryNorwayEmigrationRecord($inputFields),
+                'The Åland emigrant database'=> $this->QueryIcelandEmigrationRecord($inputFields),
+                'The Danish emigrant database'=> $this->QueryDenmarkEmigration($inputFields), //fix for dob
+                'New Yorks Passenger lists'=> $this->QueryNewYorkPassengerRecord($inputFields),
+                'Passenger lists for Swedish ports'=> $this->QuerySwedishPortPassengerListRecord($inputFields), //gives 500 error
+                'Swedes over Kristiania'=> $this->QuerySwedishEmigrantViaKristianiaRecord($inputFields),
+                'The Larsson Brothers archive'=> $this->QueryBrodernaLarssonArchiveRecord($inputFields),//fix for dob
+                'Mormon passenger list, Scandinavia'=> $this->QueryMormonShipPassengerRecord($inputFields), //fix for dob
+                'Swedish American Church Archive (SAKA)'=> $this->QuerySwedishAmericanChurchArchiveRecord($inputFields),
+                'Swedish American association members'=> $this->QuerySwedishAmericanMemberRecord($inputFields),
+                'Swedes in Alaska'=> $this->QuerySwedeInAlaskaRecord($inputFields),
+                'Life descriptions of the conscripts'=> $this->QueryBevaringensLevnadsbeskrivningar($inputFields),
+                'Dalslänningar born in America'=> $this->QueryDalslanningarBornInAmericaRecord($inputFields),
+                'The Larsson Brothers American agent archive'=> $this->QueryLarssonEmigrantPopularRecord($inputFields), //fix for dob
+                'Newspaper notices from Värmland newspapers'=> $this->QueryVarmlandskaNewspaperNoticeRecord($inputFields),
+                'The John Ericsson Archive'=> $this->QueryJohnEricssonsArchiveRecord($inputFields), //fix for dob
+                'Swedish-American anniversary writings'=> $this->QuerySwedishAmericanJubileeRecord($inputFields),
                 'Svenskamerikanskt bokindex' =>$this->QuerySwedishAmericanBookRecord($inputFields),
-                'Dödsnotiser från Svenskamerikanska tidningar' =>$this->QueryObituariesSweUsaNewspapersRecord($inputFields)
+                'Obituaries from Swedish American newspapers' =>$this->QueryObituariesSweUsaNewspapersRecord($inputFields)
             ]);
         }
+
 
 //        return $keywords;
         return view('home.results', compact('records', 'keywords'));

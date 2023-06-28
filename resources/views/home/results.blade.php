@@ -20,8 +20,9 @@
                                 <tbody class="bg-white">
                                 @foreach($records as $key => $value)
                                     @if($value > 0)
+
                                         <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
-                                           @include('home._uniresulttable')
+                                          @include('home._uniresulttable')
                                         </tr>
                                     @endif
                                 @endforeach

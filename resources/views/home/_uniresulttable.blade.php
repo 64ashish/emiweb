@@ -1,12 +1,12 @@
 
 @switch($key)
 
-    @case( $key == 'Emigranter registrerade i svenska kyrkböcker')
+    @case( $key == 'Emigrants in Swedish church records')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
         <a class="block" href="/scerc/search?qry_first_name[value]={{$keywords['qry_first_name']}}&qry_first_name[method]={{ null }}&qry_last_name[value]={{ $keywords['qry_last_name'] }}&qry_last_name[method]={{ null }}&birth_parish={{ $keywords['parish'] }}&array_dob%5Byear%5D={{ $keywords['year'] }}&action=search">
-            {{ __($key) }}
+            {{ __( $key ) }}
         </a>
     </td>
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
@@ -17,7 +17,7 @@
     </td>
     @break
 
-    @case( $key == 'Immigranter registrerade i svenska kyrkböcker')
+    @case( $key == 'Immigrants in Swedish church records')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -65,7 +65,7 @@
     </td>
     @break
 
-    @case( $key == 'Emigranter i norska kyrkböcker')
+    @case( $key == 'Emigrants in Norwegian church records')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -83,7 +83,7 @@
 
 
 
-    @case( $key == 'Den åländska emigrantdatabasen')
+    @case( $key == 'The Åland emigrant database')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -99,7 +99,7 @@
     </td>
     @break
 
-    @case( $key == 'Immigranter i norska kyrkböcker')
+    @case( $key == 'Immigrants in Norwegian church records')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -114,7 +114,7 @@
         </a>
     </td>
     @break
-        @case( $key == 'Den danska emigrantdatabasen')
+        @case( $key == 'The Danish emigrant database')
         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -130,7 +130,7 @@
         </td>
     @break
 
-    @case( $key == 'New Yorks passagerarlistor')
+    @case( $key == 'New Yorks Passenger lists')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -146,7 +146,7 @@
     </td>
     @break
 
-    @case( $key == 'Passagerarlistor för svenska hamnar')
+    @case( $key == 'Passenger lists for Swedish ports')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -163,7 +163,7 @@
     @break
 
 
-    @case( $key == 'Svenskar över Kristiania')
+    @case( $key == 'Swedes over Kristiania')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -179,7 +179,7 @@
     </td>
     @break
 
-    @case( $key == 'Bröderna Larssons arkiv')
+    @case( $key == 'The Larsson Brothers archive')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -195,7 +195,7 @@
     </td>
     @break
 
-    @case( $key == 'Mormonska passagerarlistor')
+    @case( $key == 'Mormon passenger list, Scandinavia')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -211,7 +211,7 @@
     </td>
     @break
 
-    @case( $key == 'Svenskamerikanska kyrkoarkivet')
+    @case( $key == 'Swedish American Church Archive (SAKA)')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -227,7 +227,7 @@
     </td>
     @break
 
-    @case( $key == 'Svenskamerikanska föreningsmedlemmar')
+    @case( $key == 'Swedish American association members')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -244,7 +244,7 @@
     @break
 
 
-    @case( $key == 'Svenskar i Alaska')
+    @case( $key == 'Swedes in Alaska')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -261,7 +261,7 @@
     @break
 
 
-    @case( $key == 'Dalslänningar födda i Amerika')
+    @case( $key == 'Dalslänningar born in America')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -278,7 +278,7 @@
     @break
 
 
-    @case( $key == 'Bröderna Larssons arkiv (Index från Emigranten populär)')
+    @case( $key == 'The Larsson Brothers American agent archive')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -296,7 +296,7 @@
 
 
 
-    @case( $key == 'Tidningsnotiser från Värmländska tidningar')
+    @case( $key == 'Newspaper notices from Värmland newspapers')
         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -313,7 +313,7 @@
     @break
 
 
-    @case( $key == 'John Ericssons samling')
+    @case( $key == 'The John Ericsson Archive')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -329,7 +329,7 @@
     </td>
     @break
 
-    @case( $key == 'Beväringens Levnadsbeskrivningar')
+    @case( $key == 'Life descriptions of the conscripts')
         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -345,7 +345,7 @@
         </td>
         @break
 
-    @case( $key == 'Dödsnotiser från Svenskamerikanska tidningar')
+    @case( $key == 'Obituaries from Swedish American newspapers')
         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
