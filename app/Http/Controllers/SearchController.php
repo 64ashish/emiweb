@@ -44,6 +44,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Engines\MeiliSearchEngine;
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 
@@ -237,12 +238,6 @@ class SearchController extends Controller
                       }
                 }
 
-
-//                return !is_null($detail->riksarkivet)?$detail->riksarkivet:"is null";
-
-
-
-
                 $model = new SwedishPortPassengerListRecord();
                 $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -267,15 +262,9 @@ class SearchController extends Controller
                     ->get('id')->first()
                 ];
 
-//                return $detail->links['Immigrants in Swedish church records']['id'];
-//                return $detail->relatives->count();
-                $theFillables = collect($model->getFillable())
-                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
-                    ->flatten();
-//                return $theFillables->toArray();
-//                $test = collect($model->defaultSearchFields()->flatten()->diff(['---']));
-//                dd($test->merge($model->defaultSearchFields()));
-                $media = !empty($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
+                $theFillables = collect($model->getFillable());
+
+                $media = !empty($detail->document)?Storage::disk('s3')->temporaryUrl("archives/5/photos".$detail->document->file_name, now()->addMinutes(60)):false;
 
 
                 break;
@@ -357,7 +346,7 @@ class SearchController extends Controller
                   $media = "";
                   if($media_file)
                   {
-                      $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name;
+                      $media = Storage::disk('s3')->temporaryUrl("archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name, now()->addMinutes(60));
                   }
 
 
@@ -368,7 +357,8 @@ class SearchController extends Controller
                 $model = new BrodernaLarssonArchiveRecord();
                 $detail = BrodernaLarssonArchiveRecord::with('user.organization')->findOrFail($id);
 //                return explode('-', $detail->letter_date)[0];
-                $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name.".pdf";
+                $media = Storage::disk('s3')->temporaryUrl("archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name.".pdf", now()->addMinutes(60));
+
                 //dd($detail->file_name);
                 $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -381,7 +371,7 @@ class SearchController extends Controller
                 $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = "https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/12/documents/".$detail->file_name;
+                $media = Storage::disk('s3')->temporaryUrl("archives/12/documents/".$detail->file_name, now()->addMinutes(60));
 
                 break;
 
@@ -438,7 +428,8 @@ class SearchController extends Controller
                 $theFillables = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige_Amerika_Centret".substr($detail->file_name,39):false;
+
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/5/photos/Archive/Sverige_Amerika_Centret".substr($detail->file_name,39), now()->addMinutes(60)):false;
                 break;
 //                https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige_Amerika_Centret/VTN/VTN-1-1-NWT19631212.jpg
 //                https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige Amerika Centret/VTN/VTN-1-1-NWT19631212.jpg
@@ -486,7 +477,8 @@ class SearchController extends Controller
 
 //                return $detail;
 
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name:false;
+
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name, now()->addMinutes(60)):false;
 
 
 //                return $detail;
@@ -509,7 +501,8 @@ class SearchController extends Controller
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".str_replace(" ", "_",substr($detail->file_name,3)):false;
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".str_replace(" ", "_",substr($detail->file_name,3)), now()->addMinutes(60)):false;
+
                 break;
 
             case(26):
@@ -547,7 +540,9 @@ class SearchController extends Controller
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 //                bucketemiweb/archives/5/photos/Archive/Svenska_Emigrantinstitutet/Sandebudet/._Carl_Henry_Carlsten.jpg
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/5/photos/".$detail->file_name, now()->addMinutes(60)):false;
+
+//                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
                 break;
             default:
                 abort(403);

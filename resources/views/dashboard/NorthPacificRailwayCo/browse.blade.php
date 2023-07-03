@@ -17,7 +17,9 @@
                  x-data=data()>
                 <div class="grid grid-cols-1 lg:grid-cols-6 lg:gap-8">
                     @foreach($images as $image)
-                        <div @click="openImageViewer =! openImageViewer, openImage('{{ $image->filename }}')"
+
+{{--                        {{ \Illuminate\Support\Facades\Storage::disk('s3')->temporaryUrl('archives/25/images/'.$image->filename, now()->addMinutes(10)) }}--}}
+                        <div @click="openImageViewer =! openImageViewer, openImage('{{ \Illuminate\Support\Facades\Storage::disk('s3')->temporaryUrl('archives/25/images/'.$image->index_letter."/".$image->filename, now()->addMinutes(60)) }}')"
                              class="flex flex-col items-center shadow-lg rounded-lg hover:shadow-2xl p-5 hover:transition-all">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-auto h-14">
@@ -80,13 +82,14 @@
     </div>
 
     <script>
+{{--     imagebaseUrl:@json(\Illuminate\Support\Facades\Storage::disk('s3')->url('archives/25/images/'))+@json($image->index_letter."/"),    --}}
         function data(){
             return {
                 openImageViewer:false,
                 imagebaseUrl:@json(\Illuminate\Support\Facades\Storage::disk('s3')->url('archives/25/images/'))+@json($image->index_letter."/"),
                 imageUrl:'',
                 openImage(file_name){
-                    this.imageUrl = this.imagebaseUrl+file_name;
+                    this.imageUrl = file_name;
                 }
             }
         }
