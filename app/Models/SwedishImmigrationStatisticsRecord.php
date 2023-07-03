@@ -114,13 +114,13 @@ class SwedishImmigrationStatisticsRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'profession',
+            // 'profession',
             'birth_year',
-            'from_country',
-            'nationality',
-            'civil_status',
+            // 'nationality',
+            // 'civil_status',
             'to_year',
-            'to_province',];
+            'to_province', 
+            'from_country',];
     }
 
     public function enableQueryMatch(){
