@@ -45,6 +45,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class OrganizationArchiveController extends Controller
@@ -164,7 +165,7 @@ class OrganizationArchiveController extends Controller
                         ->where('birth_county', $detail->from_province)
                         ->get('id')->first()
                 ];
-                $media = !empty($detail->document)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos".$detail->document->file_name:false;
+                $media = !empty($detail->document)?Storage::disk('s3')->temporaryUrl("archives/5/photos".$detail->document->file_name, now()->addMinutes(60)):false;
 ////                return $detail->relatives->count();
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
@@ -231,7 +232,7 @@ class OrganizationArchiveController extends Controller
                     $media = "";
                     if($media_file)
                     {
-                        $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name;
+                        $media = Storage::disk('s3')->temporaryUrl("archives/11/documents/Larsson/".$media_file->year."/".$media_file->file_name, now()->addMinutes(60));
                     }
 
 
@@ -244,7 +245,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media ="https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name.".pdf";
+                $media = Storage::disk('s3')->temporaryUrl("archives/11/documents/Larsson/".explode('-', $detail->letter_date)[0]."/".$detail->file_name.".pdf", now()->addMinutes(60));
                 break;
 
             case(12):
@@ -253,7 +254,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = "https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/12/documents/".$detail->file_name;
+                $media = Storage::disk('s3')->temporaryUrl("archives/12/documents/".$detail->file_name, now()->addMinutes(60));
 
                 break;
 
@@ -304,7 +305,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/Archive/Sverige_Amerika_Centret".substr($detail->file_name,39):false;
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/5/photos/Archive/Sverige_Amerika_Centret".substr($detail->file_name,39), now()->addMinutes(60)):false;
                 break;
 
             case(18):
@@ -341,6 +342,23 @@ class OrganizationArchiveController extends Controller
                 $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name:false;
                 break;
 
+            case(22):
+
+                $model = new BevaringensLevnadsbeskrivningarRecord();
+                $detail = BevaringensLevnadsbeskrivningarRecord::with('user.organization','activities','professions')->findOrFail($id);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id', 'occupation_1', 'occupation_2', 'profession_3', 'profession_4'])
+                    ->flatten();
+
+//                return $detail;
+
+
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/27/Archive/Sverige_Amerika_Centret/BLB/".$detail->file_name, now()->addMinutes(60)):false;
+
+
+//                return $detail;
+                break;
+
             case(23):
 
                 $model = new SwedishAmericanJubileeRecord();
@@ -351,6 +369,7 @@ class OrganizationArchiveController extends Controller
                     ->flatten();
                 break;
 
+
             case(24):
 
                 $model = new SwensonCenterPhotosamlingRecord();
@@ -358,7 +377,7 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".str_replace(" ", "_",substr($detail->file_name,3)):false;
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/24/Archive/Swenson_Center/".substr($detail->file_name, '0','3')."/".str_replace(" ", "_",substr($detail->file_name,3)), now()->addMinutes(60)):false;
 
                 break;
 
@@ -397,7 +416,7 @@ class OrganizationArchiveController extends Controller
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 //                bucketemiweb/archives/5/photos/Archive/Svenska_Emigrantinstitutet/Sandebudet/._Carl_Henry_Carlsten.jpg
-                $media = !empty($detail->file_name)?"https://bucketemiweb.s3.eu-north-1.amazonaws.com/archives/5/photos/".$detail->file_name:false;
+                $media = !empty($detail->file_name)?Storage::disk('s3')->temporaryUrl("archives/5/photos/".$detail->file_name, now()->addMinutes(60)):false;
                 break;
 
             default:
