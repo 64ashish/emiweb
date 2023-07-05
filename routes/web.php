@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         $request->fulfill();
 
-        return redirect('/home');
+        return redirect('home/users/'.auth()->id());
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::get('/email/verify', function () {

@@ -35,11 +35,16 @@ class HomeController extends Controller
     {
 
 
+
         if( !auth()->check() )
         {
             return redirect()->to('/login');
 
         }
+         if(is_null(Auth::user()->email_verified_at))
+         {
+             return redirect('/email/verify');
+         }
 
         if(auth()->user()->hasRole('super admin'))
         {
@@ -61,9 +66,14 @@ class HomeController extends Controller
         } elseif (auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and is_null(auth()->user()->manual_expire) ){
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
             $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
+        }else{
+            $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
         }
 
+
         $user = auth()->user();
+
+//        return $catArchives;
 
 
         return view('home.dashboard', compact('user','catArchives'));
