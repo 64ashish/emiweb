@@ -66,8 +66,6 @@ class HomeController extends Controller
         } elseif (auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and is_null(auth()->user()->manual_expire) ){
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
             $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
-        }else{
-            $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
         }
 
 
