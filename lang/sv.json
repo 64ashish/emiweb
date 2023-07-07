@@ -500,7 +500,13 @@
  "Start subscription": "Starta prenumeration",
  "Before proceeding, please check your email for a verification link. ": "Innan du fortsätter, var god och kontrollera din e-post för en verifieringslänk. ",
  "If you did not receive the email, ": "Om du inte har fått länken, ",
- "click here to request another": "klicka här för att begära en ny"
+ "click here to request another": "klicka här för att begära en ny",
+ "News" : "Nyheter",
+ "Migration registry" : "Migrationsregister",
+ "Books" : "Böcker",
+ "Membership registries" : "Medlemsregister",
+ "Passenger lists" : "Passagerarlistor",
+ "Swedes abroad" : "Svenskar utomlands"
 
 
 
