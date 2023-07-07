@@ -91,8 +91,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@emiwebdb.kortaben.work'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@emiweb.se'),
+        'name' => env('MAIL_FROM_NAME', 'Emiweb'),
     ],
 
     /*
