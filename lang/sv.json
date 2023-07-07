@@ -497,7 +497,10 @@
  "Edit record": "Ändra uppgifter",
  "Your current IP address is not allowed to access this account": "Din nuvarande IP-adress har inte tillåtelse att få åtkomst till detta konto",
  "Subscribe to get full access to all archives. Starting at 200 SEK / 3 months.": "Starta en prenumeration för att få tillgång till alla arkiv. Från 200 SEK / 3 mån.",
- "Start subscription": "Starta prenumeration"
+ "Start subscription": "Starta prenumeration",
+ "Before proceeding, please check your email for a verification link. ": "Innan du fortsätter, var god och kontrollera din e-post för en verifieringslänk. ",
+ "If you did not receive the email, ": "Om du inte har fått länken, ",
+ "click here to request another": "klicka här för att begära en ny"
 
 
 
