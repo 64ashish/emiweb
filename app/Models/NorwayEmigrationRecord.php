@@ -124,8 +124,8 @@ class NorwayEmigrationRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
+            'birth_date',
             'birth_place',
-            'sex',
             'from_location',
             'profession',
             'destination_location',
