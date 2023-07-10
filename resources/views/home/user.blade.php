@@ -74,7 +74,7 @@
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }}</h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is') }}: @if($price == 1) 1 Year @elseif($price == 2) 3 Months @else Not subscribed @endif </p>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is') }}: @if($price == 1) {{ __("1 Year") }} @elseif($price == 2) {{ __("3 Months") }} @else {{ __("Not subscribed") }} @endif </p>
             </div>
 
 
