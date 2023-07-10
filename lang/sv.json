@@ -200,8 +200,8 @@
  "Record date":"Utfl datum",
  "Reference":"Referens",
  "Registered date":"Inflyttningsdatum",
- "Renews at 175 SEK /months":"Förnyas för 175 SEK /månader",
- "Renews at 300 SEK /year":"Förnyas för 300 SEK /år",
+ "Renews at 175 SEK /months":"Förnyas med 175 SEK /månader",
+ "Renews at 300 SEK /year":"Förnyas med 300 SEK /år",
  "Residence":"Boendeort/Utflyttningsförsamling",
  "Residence country":"Utflyttningsland",
  "Results":"Resultat",
@@ -506,7 +506,9 @@
  "Books" : "Böcker",
  "Membership registries" : "Medlemsregister",
  "Passenger lists" : "Passagerarlistor",
- "Swedes abroad" : "Svenskar utomlands"
+ "Swedes abroad" : "Svenskar utomlands",
+ "Your plan is": "Din prenumeration är",
+ "Cancel": "Avsluta"
 
 
 

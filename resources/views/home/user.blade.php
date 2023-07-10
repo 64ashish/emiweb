@@ -74,7 +74,7 @@
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }}</h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is ') }}: @if($price == 1) 1 Year @elseif($price == 2) 3 Months @else Not subscribed @endif </p>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is') }}: @if($price == 1) 1 Year @elseif($price == 2) 3 Months @else Not subscribed @endif </p>
             </div>
 
 
@@ -150,7 +150,9 @@
                             <div class="mt-1 max-w-2xl text-sm text-gray-500 pb-2">{{ __('Cancel subscription') }}</div>
                             <a href="{{ route('subscribe.cancel') }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
                                  shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700
-                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
+                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                {{ __('Cancel') }}
+                            </a>
                         </div>
 
                     @endif
