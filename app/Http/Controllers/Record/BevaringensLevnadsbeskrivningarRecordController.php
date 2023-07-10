@@ -29,7 +29,7 @@ class BevaringensLevnadsbeskrivningarRecordController extends Controller
      */
     public function search(Request $request )
     {
-//        get all archive
+//        get all request
         $all_request = $request->all();
 //      seperate the quryable items
         $quryables = $this->QryableItems($all_request);
