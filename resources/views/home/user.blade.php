@@ -2,7 +2,7 @@
     <div class="grid grid-cols-2 gap-x-5">
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('User information') }}</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('User information') }} : {{ __('Subscription') }}</h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('These are the user details for your account') }}</p>
             </div>
             <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -73,7 +73,7 @@
 
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }} {{__('Change subscription')}}</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }}</h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is') }}: @if($price == 1) {{ __("1 Year") }} @elseif($price == 2) {{ __("3 Months") }} @else {{ __("Not subscribed") }} @endif </p>
             </div>
 
