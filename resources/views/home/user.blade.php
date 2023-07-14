@@ -73,7 +73,7 @@
 
         <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscription') }}</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Subscriptions') }}</h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your plan is') }}: @if($price == 1) {{ __("1 Year") }} @elseif($price == 2) {{ __("3 Months") }} @else {{ __("Not subscribed") }} @endif </p>
             </div>
 
@@ -277,7 +277,7 @@
                                     <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
                                 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
                                 focus:outline-none">
-                                        Subscribe
+                                        {{ __('Subscribe') }}
                                     </button>
                                 </div>
                             </div>
