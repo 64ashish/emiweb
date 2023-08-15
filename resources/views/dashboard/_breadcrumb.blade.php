@@ -2,7 +2,7 @@
         <div>
                 @switch(Route::currentRouteName())
                         @case( Route::currentRouteName() === "records")
-                        <a href="/home" class="text-indigo-600">{{ __('Home') }}</a> {{ __('Your plan is') }} / <a href="{{ route('records',$archive) }}" class="text-indigo-600">{{ __($archive->name) }}</a> / {{ __('Search') }}
+                        <a href="/home" class="text-indigo-600">{{ __('Home') }}</a> / <a href="{{ route('records',$archive) }}" class="text-indigo-600">{{ __($archive->name) }}</a> / {{ __('Search') }}
                         @break
 
                         @case( Route::currentRoutename() === "organizations.archives.records" )
