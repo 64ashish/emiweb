@@ -142,7 +142,7 @@ class NorwegianChurchImmigrantRecord extends Model
             'birth_date',
             'birth_location',
             'to_date',
-            'source_place',
+            'source_area',
             'to_fylke',
             'from_country',
             // 'baptism_location',
