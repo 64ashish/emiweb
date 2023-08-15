@@ -4,9 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ScercPhotoRecord extends Model
 {
@@ -52,12 +49,5 @@ class ScercPhotoRecord extends Model
             'photographer',
             'archive_reference'
         ];
-    }
-
-    protected function fileName(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Storage::disk('s3')->temporaryUrl('archives/5/photos'.Str::replace(' ', '+', $value), now()->addMinutes(60))
-        );
     }
 }
