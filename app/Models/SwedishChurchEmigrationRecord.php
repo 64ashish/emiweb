@@ -118,8 +118,8 @@ class SwedishChurchEmigrationRecord extends Model
 
     public function defaultTableColumns(){
         return [
-//            'first_name',
-//            'last_name',
+            'first_name',
+            'last_name',
             'dob',
             'birth_parish',
             // 'gender',
