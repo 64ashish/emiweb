@@ -80,10 +80,12 @@ class DenmarkEmigration extends Model
 
     public function defaultTableColumns(){
         return [
-            'age',
-            'profession',
             'birth_place',
             'last_resident',
+            'traveled_on',
+            'destination_city',
+            'destination_country',
+
         ];
     }
 
