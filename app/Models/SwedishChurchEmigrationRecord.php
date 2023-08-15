@@ -129,6 +129,8 @@ class SwedishChurchEmigrationRecord extends Model
             
             'record_date',
             'from_province',
+            'from_parish',
+            'destination_country',
             // 'destination_country',
 //            'before_location',
 //            'before_country'
