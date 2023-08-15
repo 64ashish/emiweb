@@ -141,13 +141,9 @@ class NorwegianChurchImmigrantRecord extends Model
             // 'profession',
             'birth_date',
             'birth_location',
-            'birth_country',
-            
-            // 'to_location',
-            'immigration_date',
-            
-            'immigration_place',
-            // 'immigration_county',
+            'to_date'
+            'source_place'
+            'to_fylke'
             'from_country',
             // 'baptism_location',
         ];
