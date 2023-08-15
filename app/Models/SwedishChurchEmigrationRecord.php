@@ -121,7 +121,7 @@ class SwedishChurchEmigrationRecord extends Model
 //            'first_name',
 //            'last_name',
             'dob',
-            'birth_parish',
+//            'birth_parish',
             // 'gender',
 //            'last_resident',
             
