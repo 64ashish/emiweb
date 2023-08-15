@@ -186,7 +186,7 @@ class NewYorkPassengerRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'birth_year',
+            'age',
             'port_of_departure',
             'port_of_arrival',
             'arrival_year',
