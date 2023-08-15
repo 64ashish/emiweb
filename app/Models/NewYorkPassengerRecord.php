@@ -186,12 +186,12 @@ class NewYorkPassengerRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'gender',
-            'ethnicity_nationality',
-            'birthday',
+            'birth_year',
             'port_of_departure',
-            'place_of_origin',
-            'destination'
+            'port_of_arrival',
+            ['arrival_year',
+            'arrival_month',
+            'arrival_day'],
         ];
     }
     public function user(){
