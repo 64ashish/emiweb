@@ -283,7 +283,7 @@ class SwedishChurchEmigrationRecordController extends Controller
 
         $records = $query->paginate(100)->withQueryString();
 
-//        return $records;
+//        return $records->total();
         return view('dashboard.swedishchurchemigrationrecord.photos',
             compact('records'));
     }

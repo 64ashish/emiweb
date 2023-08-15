@@ -217,10 +217,10 @@
                                     </div>
                                     <div id="results-body" class="grid bg-white border-b border-gray-300">
                                         @foreach($records as $record)
-                                        <ul  @click="openPhotoViewer =! openPhotoViewer, openPhoto({{ $record->id }})"
+                                        <ul  @click="openPhotoViewer =! openPhotoViewer, openPhoto({{ $record->id  }})"
                                                 id="results-row"
                                             class="inline-flex odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
-                                            <li class="w-1/3  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->title }} </li>
+                                            <li class="w-1/3  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->title }}</li>
                                             <li class="w-1/3  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->description }}</li>
                                             <li class="w-1/4  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->persons_on_photo }}</li>
                                             <li class="w-1/6  pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]  font-medium  sm:pl-6 lg:pl-8">{{ $record->photographer }}</li>
@@ -323,17 +323,15 @@
                     photoDetail:'',
                     next:'',
                     previous:'',
-                    {{--imgBaseUrl: @json(\Illuminate\Support\Facades\Storage::disk('s3')->temporaryUrl("archives/5/photos".$record->file_name, now()->addMinutes(60))),--}}
+                    imgBaseUrl: @json(\Illuminate\Support\Facades\Storage::disk('s3')->url('archives/5/photos')),
                     imageURL:'',
                     openPhoto(id){
-                        this.imageURL = this.photoDetail['file_name']
                         let totalImages = this.photoRecords.length
                         this.photoDetail = this.photoRecords.find(x => x.id === id);
                         let selectedPhotoIndex = this.photoRecords.findIndex(e => e.id == id );
                         this.next = selectedPhotoIndex != totalImages-1 ? this.photoRecords[selectedPhotoIndex+1].id:false;
                         this.previous = selectedPhotoIndex > 0 ? this.photoRecords[selectedPhotoIndex-1].id:false;
-                        this.imageURL = this.photoDetail['file_name']
-                         // this.imageURL = encodeURI(this.imgBaseUrl+this.photoDetail['file_name'].replaceAll(' ', '+'))
+                        this.imageURL = encodeURI(this.imgBaseUrl+this.photoDetail['file_name'].replaceAll(' ', '+'))
 
                     }
                 }
