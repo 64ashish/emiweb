@@ -143,7 +143,7 @@ class IcelandEmigrationRecord extends Model
             'place_of_birth',
             'departure',
             'destination_country',
-            'death_location'
+            'death_location',
 
         ];
     }
