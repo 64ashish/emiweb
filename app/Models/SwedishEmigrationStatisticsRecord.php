@@ -129,7 +129,6 @@ class SwedishEmigrationStatisticsRecord extends Model
 //            'last_name',
             // 'profession',
             'birth_year',
-            'from_parish',
             'from_year',
             'from_province',
             'from_parish',
