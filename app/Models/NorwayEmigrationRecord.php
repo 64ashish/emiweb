@@ -127,8 +127,8 @@ class NorwayEmigrationRecord extends Model
             'birth_date',
             'birth_place',
             'from_date',
-            'to_fylke',
-            'to_location',
+            'source_area',
+            'from_region',
             'destination_country',
         ];
     }
