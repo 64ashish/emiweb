@@ -126,9 +126,9 @@ class NorwayEmigrationRecord extends Model
 //            'last_name',
             'birth_date',
             'birth_place',
-            'emigration_date',
-            'emigration_place',
-            'emigration_county',
+            'from_date',
+            'from_location',
+            'from_region',
             'destination_country',
         ];
     }
