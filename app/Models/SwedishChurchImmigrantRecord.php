@@ -193,7 +193,7 @@ class SwedishChurchImmigrantRecord extends Model
 
 
             //'profession',
-            'to_parish'
+            'to_parish',
             'to_county',
 
             //'sex',
