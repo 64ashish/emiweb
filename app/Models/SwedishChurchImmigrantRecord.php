@@ -187,11 +187,17 @@ class SwedishChurchImmigrantRecord extends Model
         return [
             //            'first_name',
             //            'last_name',
-            'profession',
-            'to_location',
+            'birth_date',
             'from_location',
-            'sex',
-            'civil_status',
+            'to_date',
+
+
+            //'profession',
+            'to_location',
+            'to_county',
+
+            //'sex',
+            //'civil_status',
             'birth_country',
         ];
     }
