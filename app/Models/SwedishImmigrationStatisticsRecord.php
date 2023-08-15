@@ -120,6 +120,7 @@ class SwedishImmigrationStatisticsRecord extends Model
             // 'civil_status',
             'to_year',
             'to_province', 
+            'to_parish',
             'from_country',];
     }
 
