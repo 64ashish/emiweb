@@ -193,11 +193,12 @@ class SwedishChurchImmigrantRecord extends Model
 
 
             //'profession',
+            'to_parish'
             'to_county',
 
             //'sex',
             //'civil_status',
-            'birth_country',
+            'from_country_code',
         ];
     }
     /**
