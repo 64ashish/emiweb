@@ -111,12 +111,11 @@ class MormonShipPassengerRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'nationality',
+            'departure_year',
+            'conference',
             'residence',
             'residence_country',
-            'profession',
             'destination',
-            'gender',
         ];
     }
 
