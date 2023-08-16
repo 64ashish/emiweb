@@ -119,10 +119,9 @@ class ObituariesSweUsaNewspapersRecord extends Model
         return [
             'birth_date',
             'location_in_sweden',
-            'county_in_sweden',
+            'death_date',
             'death_location',
             'death_state',
-            'death_date',
             'from_year',
         ];
     }
