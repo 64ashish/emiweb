@@ -204,8 +204,8 @@ class SwedishAmericanChurchArchiveRecord extends Model
             'birth_year',
             'birth_parish',
             'immigration_year',
-            'emigration_parish',
-            'emigration_province',
+            'arrived_from_county',
+            'arrived_from_state',
 
         ];
     }
