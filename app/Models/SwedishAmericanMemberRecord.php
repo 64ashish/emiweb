@@ -83,9 +83,8 @@ class SwedishAmericanMemberRecord extends Model
             'birth_date',
             'birth_parish',
             'birth_county',
-            'place',
+            'order_type',
             'state',
-            'lodge',
         ];
     }
 
