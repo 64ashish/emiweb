@@ -44,7 +44,8 @@ class DalslanningarBornInAmericaRecord extends Model
 //            'last_name',
             'birth_date',
             'birth_place',
-            'profession',
+            'death_date',
+            'death_place',
         ];
     }
 
