@@ -106,14 +106,22 @@ class SwedishChurchEmigrationRecord extends Model
             'birth_parish'],
             'birth_country',
             '---',
+            'gender',
+            'civil_status',
+            'has_family',
+            'profession',
+            '---',
             'record_date',
             'from_location',
             ['from_province',
             'from_parish'],
             '---',
             'destination_country',
-            'country_code',
             'destination_location',
+            'country_code',
+            '---',
+            'memo',
+            'act_number',
         ];
     }
 
