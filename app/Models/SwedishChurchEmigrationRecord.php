@@ -102,18 +102,28 @@ class SwedishChurchEmigrationRecord extends Model
             'dob',
             '---',
             'farm_name',
-            ['birth_province',
-            'birth_parish'],
+            ['birth_parish',
+            'birth_province'],
             'birth_country',
+            '---',
+            'gender',
+            'civil_status',
+            'has_family',
+            'profession',
             '---',
             'record_date',
             'from_location',
-            ['from_province',
-            'from_parish'],
+            ['from_parish',
+            'from_province'],
             '---',
             'destination_country',
-            'country_code',
             'destination_location',
+            'country_code',
+            '---',
+            'memo',
+            'act_number',
+
+
         ];
     }
 
@@ -140,18 +150,12 @@ class SwedishChurchEmigrationRecord extends Model
 
     public function searchFields(){
         return [
-            'profession',
-            'gender',
-            'civil_status',
-            'has_family',
             'birth_location',
             'birth_location_in_parish',
             '---',
             'main_act',
-            'act_number',
             'year_act_number',
             '---',
-            'memo',
             'notes',
             'supplement_reference',
             'work_certificate_note',
