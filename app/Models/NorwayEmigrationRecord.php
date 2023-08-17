@@ -120,7 +120,7 @@ class NorwayEmigrationRecord extends Model
 //            'to_location',
             'emigration_date',
             'emigration_place',
-            'from_location',
+            
             'emigration_county',
             'from_region',
 
