@@ -17,7 +17,7 @@ class SendEmailsController extends Controller
      */
     public function sendTest()
     {
-//        Mail::to('hello@emiwebdb.kortaben.work')->send(new TestMail());
+//        Mail::to('info@emiweb.se')->send(new TestMail());
 //        return "you have arrived to send test";
         $mailable = (new TemplatedMailable())
             ->identifier(29033328)
@@ -39,7 +39,7 @@ class SendEmailsController extends Controller
                 "company_address" => "stockamollan"
             ]);
 
-        Mail::to('hello@emiwebdb.kortaben.work')->send($mailable);
+        Mail::to('info@emiweb.se')->send($mailable);
     }
 
 
@@ -59,7 +59,7 @@ class SendEmailsController extends Controller
 
 
         try {
-            Mail::to('hello@emiwebdb.kortaben.work')->send(new SendSuggestion($userSuggestion) );
+            Mail::to('info@emiweb.se')->send(new SendSuggestion($userSuggestion) );
 
         } catch (Exception $e) {
             return $e->getMessage();
