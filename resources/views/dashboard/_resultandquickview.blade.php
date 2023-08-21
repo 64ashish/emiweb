@@ -71,7 +71,13 @@
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                            {{ $record->first_name }} {{ $record->last_name }}
+                                            {{ $record->first_name }}
+                                        </a>
+                                    </td>
+                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
+                                                                        font-medium  sm:pl-6 lg:pl-8">
+                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                            {{ $record->last_name }}
                                         </a>
                                     </td>
                                 @endif
