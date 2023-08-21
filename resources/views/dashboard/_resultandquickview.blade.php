@@ -24,11 +24,20 @@
                             <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
                                 
-                                    {{ __("Full name") }}
+                                    {{$records->first()->first_name }}
                                 
                                 
                            
                             </th>
+                            <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
+                            bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
+                            
+                                {{ $records->first()->last_name }}
+                            
+                            
+                       
+                        </th>
+
                         @endif
                         @foreach($defaultColumns as $column)
                             <th  x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
