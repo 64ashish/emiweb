@@ -12,6 +12,14 @@
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
+
+        .newSet{
+            content: url('/images/sort-table.svg');
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-top: 2px;
+        }
         .sort-result-table::after {
             content: url('/images/sort-table.svg');
             width: 15px;
@@ -239,4 +247,24 @@ if (!e.__Marker) {
 }(window, document);
 </script>
 
+<script>
+    document.getElementById('qry_first_name').addEventListener('change', function() {
+      const inputField = document.getElementById('first_name_value');
+      if (this.value === 'exact') {
+        inputField.setAttribute('required', 'required');
+      } else {
+        inputField.removeAttribute('required');
+      }
+    });
+    </script>
+<script>
+    document.getElementById('qry_last_name').addEventListener('change', function() {
+      const inputField = document.getElementById('last_name_value');
+      if (this.value === 'exact') {
+        inputField.setAttribute('required', 'required');
+      } else {
+        inputField.removeAttribute('required');
+      }
+    });
+    </script>
 </html>

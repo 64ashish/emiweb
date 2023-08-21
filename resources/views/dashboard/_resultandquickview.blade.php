@@ -1,4 +1,10 @@
 {{--<h1>  {{ $records['first_name'] }}</h1>--}}
+<style>
+    .customClr{
+     color: blue !important;
+    }
+</style>
+
 <div class="mt-8 flex flex-col" x-init="document.getElementById('results').scrollIntoView()">
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8" id="results">
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -8,36 +14,38 @@
             <div
                     class="overflow-hidden shadow ring-1 mb-4 ring-black ring-opacity-5 md:rounded-lg">
 
+                    <small> Click on headings to sort the records</small>
                 <table x-show="!openDetails"
                        class="min-w-full table-auto border-separate" style="border-spacing: 0" >
                     <thead class="bg-gray-50">
                     <tr>
 
                         @if($records->first()->first_name != null or $records->first()->last_name != null)
-                            <th x-on:click="sortByColumn" scope="col" class=" border-b border-gray-300 bg-gray-50
+                            <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
-                                <span class="sort-result-table flex">
+                                
                                     {{ __("Full name") }}
-                                </span>
+                                
+                                
                            
                             </th>
                         @endif
                         @foreach($defaultColumns as $column)
-                            <th  x-on:click="sortByColumn" scope="col" class=" border-b border-gray-300 bg-gray-50
+                            <th  x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
-                                <span class="sort-result-table flex">
+                           
                                 {{ __(ucfirst(str_replace('_', ' ', $column))) }}
-                                </span>
+                         
                             </th>
                         @endforeach
                     
                         @foreach($populated_fields as $pop_fields)
                             @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
-                                <th x-on:click="sortByColumn"  scope="col" class=" border-b border-gray-300 bg-gray-50
+                                <th x-on:click="sortByColumn"  scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                     bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
-                                    <span class="sort-result-table flex">
+                                
                                     {{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }}
-                                    </span>
+                                    
                                 </th>
                             @endif
                         @endforeach
@@ -232,8 +240,40 @@
             <span x-show="!openDetails">
                 {{ $records->appends(request()->all())->links() }}
             </span>
-
+            @if( count($records) < 100)
+            <div class="mt-8 flex flex-col" x-init="document.getElementById('results').scrollIntoView()">
+                <!-- Add the new section to display the count of records -->
+                <div class="py-2 text-gray-600">
+                    Displaying {{ count($records) }} records
+                </div>
+                   
+            </div>
+            @endif
+            
 
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Function to add the "highlight" class
+      function addHighlight(element) {
+        if (element) {
+          var clickableElements = document.querySelectorAll(".clickable");
+          clickableElements.forEach(function(elem) {
+            elem.classList.remove("customClr");
+          });
+          element.classList.add("customClr");
+        }
+      }
+
+      // Attach the click event to elements with class "clickable"
+      var clickableElements = document.querySelectorAll(".clickable");
+      clickableElements.forEach(function(element) {
+        element.addEventListener("click", function() {
+          addHighlight(this);
+        });
+      });
+    });
+  </script>
