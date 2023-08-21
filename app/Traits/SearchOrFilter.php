@@ -61,6 +61,7 @@ trait SearchOrFilter
 //        dd($queryables);
         foreach($queryables as  $queryable)
         {
+            if(isset($all_request[$queryable]['value'])){
             if($all_request[$queryable]['value'] != null)
             {
                 $field_scope = Str::of($queryable)->after('qry_');
@@ -87,6 +88,7 @@ trait SearchOrFilter
                 }
 
             }
+        }
         }
 
 
