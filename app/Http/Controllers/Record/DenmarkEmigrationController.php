@@ -119,6 +119,7 @@ class DenmarkEmigrationController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
 
         $result = DenmarkEmigration::query();
+       // dd($all_request);
         $this->QueryMatch($quryables,$result, $all_request);
 
         $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
@@ -143,7 +144,6 @@ class DenmarkEmigrationController extends Controller
 //        return $populated_fields;
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-
 
 //        return $model::findOrFail(1)->archive;;
         return view('dashboard.denmarkemigration.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());

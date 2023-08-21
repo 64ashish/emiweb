@@ -170,7 +170,7 @@
                                         'end' => __('Ending with'),
                                         'exact' => __('Exact')
                                         ], null,['class' => 'max-w-lg block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md']); !!}
+                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md','id' => 'qry_'.$filterAttribute]); !!}
                     @elseif($filterAttribute === 'from_province' and isset($provinces))
                         {!! Form::select($filterAttribute,
                                         $provinces,null,
