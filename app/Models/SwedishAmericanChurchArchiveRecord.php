@@ -201,12 +201,12 @@ class SwedishAmericanChurchArchiveRecord extends Model
             // 'first_name',
             // 'last_name',
             // 'last_name2',
-            'birth_date',
+            'birth_year',
             'birth_parish',
-            'birth_province',
-            'arrival_date_this_place',
-            'emigration_parish',
-            'emigration_province',
+            'immigration_year',
+            'arrived_from_county',
+            'arrived_from_state',
+
         ];
     }
 

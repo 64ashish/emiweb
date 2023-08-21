@@ -92,6 +92,7 @@ class SwedishPortPassengerListRecord extends Model
             'last_name',
             'departure_date',
             'departure_parish',
+            'age',
             '---',
             'departure_county',
             'departure_port',
@@ -103,12 +104,11 @@ class SwedishPortPassengerListRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'age',
-            'sex',
-            'profession',
             'departure_date',
-            'destination',
+            'departure_parish',
             'departure_county',
+            'departure_port',
+            'destination',
         ];
     }
     public function enableQueryMatch(){

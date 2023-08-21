@@ -80,8 +80,9 @@ class UserController extends Controller
         //
 //        return $user;
 //        return $user->subscriptions()->active()->get()->count();
-        $roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
-        return view('admin.users.edit', compact('user', 'roles'));
+//$roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
+$roles = Role::whereNotIn('name', ['super admin'])->get();
+return view('admin.users.edit', compact('user', 'roles'));
 
     }
 

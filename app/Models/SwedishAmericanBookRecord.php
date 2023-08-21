@@ -71,9 +71,7 @@ class SwedishAmericanBookRecord extends Model
             'birth_date',
             'birth_place',
             'residence_city',
-            'county',
             'state',
-            'page_reference',
         ];
     }
 

@@ -164,16 +164,23 @@ class SwedishChurchImmigrantRecord extends Model
             'first_name',
             'last_name',
             'birth_date',
+            'farm_name',
             ['birth_county', 'birth_parish'],
+            'birth_country',
+            '---',
+            'sex',
+            'civil_status',
+            'alone_or_family',
+            'profession',
             '---',
             'to_date',
             'to_location',
             ['to_county', 'to_parish'],
-            'birth_country',
             'from_country_code',
-            'from_date',
             'from_location',
-
+            '---',
+            'comment',
+            'act_nr',
         ];
     }
 
@@ -187,12 +194,18 @@ class SwedishChurchImmigrantRecord extends Model
         return [
             //            'first_name',
             //            'last_name',
-            'profession',
-            'to_location',
-            'from_location',
-            'sex',
-            'civil_status',
-            'birth_country',
+            'birth_date',
+            'birth_parish',
+            'to_date',
+
+
+            //'profession',
+            'to_parish',
+            'to_county',
+
+            //'sex',
+            //'civil_status',
+            'from_country_code',
         ];
     }
     /**
@@ -337,18 +350,11 @@ class SwedishChurchImmigrantRecord extends Model
     public function searchFields()
     {
         return [
-            'profession',
-            'sex',
-            'civil_status',
-            'alone_or_family',
             'birth_location',
-            'farm_name',
             '---',
             'main_act',
-            'act_nr',
             'nr_in_immigration_book',
             '---',
-            'comment',
             'notes',
             '---',
             'before_from_date',

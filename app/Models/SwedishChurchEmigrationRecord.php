@@ -101,9 +101,15 @@ class SwedishChurchEmigrationRecord extends Model
             'last_name',
             'dob',
             '---',
+            'farm_name',
             ['birth_province',
             'birth_parish'],
             'birth_country',
+            '---',
+            'gender',
+            'civil_status',
+            'has_family',
+            'profession',
             '---',
             'record_date',
             'from_location',
@@ -111,8 +117,11 @@ class SwedishChurchEmigrationRecord extends Model
             'from_parish'],
             '---',
             'destination_country',
-            'country_code',
             'destination_location',
+            'country_code',
+            '---',
+            'memo',
+            'act_number',
         ];
     }
 
@@ -122,13 +131,14 @@ class SwedishChurchEmigrationRecord extends Model
 //            'last_name',
             'dob',
             'birth_parish',
-             'gender',
-           'last_resident',
+
             
 //            'birth_place',
             
             'record_date',
+            'from_parish',
             'from_province',
+            'destination_country',
             // 'destination_country',
 //            'before_location',
 //            'before_country'
@@ -154,7 +164,6 @@ class SwedishChurchEmigrationRecord extends Model
             'work_certificate_note',
             'number_in_emigration_book',
             '---',
-            'farm_name',
             'father_last_name',
             'father_first_name',
             'father_profession',

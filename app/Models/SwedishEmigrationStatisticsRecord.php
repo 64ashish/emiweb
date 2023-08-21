@@ -76,12 +76,12 @@ class SwedishEmigrationStatisticsRecord extends Model
             'birth_month',
             'birth_day'],
             'profession',
-            'destination',
             '---',
+            'from_year',
             ['from_province',
             'from_parish'],
-            'from_year',
-            'nationality',
+            'destination',
+            'id',
 
         ];
     }
@@ -128,10 +128,10 @@ class SwedishEmigrationStatisticsRecord extends Model
 //            'first_name',
 //            'last_name',
             // 'profession',
-            'birth_month',
+            'birth_year',
             'from_year',
-            'from_parish',
             'from_province',
+            'from_parish',
             // 'gender',
             // 'civil_status',
             // 'nationality', 

@@ -103,10 +103,11 @@ class SwedishImmigrationStatisticsRecord extends Model
             'birth_day'],
             'profession',
             '---',
+            'to_year',
             ['to_province',
                 'to_parish'],
-            'to_year',
             'from_country',
+            'id',
         ];
     }
 
@@ -120,6 +121,7 @@ class SwedishImmigrationStatisticsRecord extends Model
             // 'civil_status',
             'to_year',
             'to_province', 
+            'to_parish',
             'from_country',];
     }
 

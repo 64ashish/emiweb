@@ -141,10 +141,10 @@ class IcelandEmigrationRecord extends Model
 //            'last_name',
             'date_of_birth',
             'place_of_birth',
+            'departure',
             'destination_country',
-            'destination_location',
-            'home_location',
-            'profession',
+            'death_location',
+
         ];
     }
 

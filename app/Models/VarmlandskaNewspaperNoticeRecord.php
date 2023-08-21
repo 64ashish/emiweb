@@ -92,12 +92,12 @@ class VarmlandskaNewspaperNoticeRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'newspaper',
             'article_year',
-            'places',
+            'article_month',
+            'article_day',
             'death_parish',
             'death_country',
-            'birth_location'
+            'places',
         ];
     }
 

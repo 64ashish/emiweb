@@ -83,12 +83,12 @@ class SwedishEmigrantViaKristianiaRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
-            'profession',
             'age',
             'home_location',
-            'agent',
-            'destination',
             'departure_date',
+            'ship',
+            'destination',
+
         ];
     }
 

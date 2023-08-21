@@ -101,13 +101,11 @@ class BrodernaLarssonArchiveRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
+            'letter_date',
             'home_location',
             'home_parish',
-            'home_county',
-            'home_country',
-            'gender',
             'profession',
-            'letter_date'
+            'geographical_extent',
         ];
     }
 

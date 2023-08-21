@@ -146,14 +146,12 @@ class SwedeInAlaskaRecord extends Model
         return [
 //            'first_name',
 //            'last_name',
+            'birth_date',
             'birth_location',
-            'birth_country',
-            'gender',
-            'to_america_location',
+            'to_america_date',
             'arrival_date_alaska',
-            'profession',
-            'address',
-            'civil_status',
+            'arrival_location_alaska',
+
         ];
     }
     public function getBirthDateAttribute($value)
