@@ -24,7 +24,7 @@
                             <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
                                 
-                                    First Name
+                                {{ __('First name') }} 
                                 
                                 
                            
@@ -32,7 +32,7 @@
                             <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
                                 
-                                    Last Name
+                                {{ __('Last name') }} 
                                 
                                 
                            
