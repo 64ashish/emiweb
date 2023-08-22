@@ -24,7 +24,15 @@
                             <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
                                 
-                                    {{ __("Full name") }}
+                                {{ __('First name') }} 
+                                
+                                
+                           
+                            </th>
+                            <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
+                                bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
+                                
+                                {{ __('Last name') }} 
                                 
                                 
                            
@@ -61,7 +69,13 @@
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                            {{ $record->first_name }} {{ $record->last_name }}
+                                            {{ $record->first_name }} 
+                                        </a>
+                                    </td>
+                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
+                                                                        font-medium  sm:pl-6 lg:pl-8">
+                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                            {{ $record->last_name }}
                                         </a>
                                     </td>
                                 @endif
@@ -109,7 +123,8 @@
                                             @else
                                                {{  $record->first_name }}
                                             @endif
-
+                                        </td>
+                                            <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
                                             @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])
                                                 {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
                                             @else
