@@ -1,5 +1,5 @@
 <?php
-//
+
 namespace App\Http\Controllers;
 
 use App\Models\Archive;
@@ -62,6 +62,7 @@ class SearchController extends Controller
      */
     public function index($archive, FindArchiveService $archiveService)
     {
+
         if($archive !=1 and auth()->user()->hasRole('regular user'))
         {
 //            return "one";
@@ -164,8 +165,6 @@ class SearchController extends Controller
         }
 
 
-
-        dd($records);
 //        return $keywords;
         return view('home.results', compact('records', 'keywords'));
 
