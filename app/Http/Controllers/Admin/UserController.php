@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Cashier\Subscription;
 use Laravel\Fortify\Fortify;
@@ -82,6 +83,15 @@ class UserController extends Controller
 //        return $user->subscriptions()->active()->get()->count();
 //$roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
 $roles = Role::whereNotIn('name', ['super admin'])->get();
+
+
+       /* $user = Auth::user();
+
+        if($user->hasRole('super admin')){
+            dd('admin');
+        }*/
+
+
 return view('admin.users.edit', compact('user', 'roles'));
 
     }

@@ -65,7 +65,30 @@
     </div>
 
 @if((Str::is('*search', Route::currentRoutename()) == true))
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
+        $(document).ready(function (){
+            var sortBy = '{{request('sortBy')}}';
+            var page = '{{request('page')}}';
+            if(sortBy && page == 1){
+                $('.clickable').each(function(){
+                    var column = $.trim($(this).text());
+
+                    if(column === sortBy){
+                        $(this).click();
+                    };
+                })
+            }
+        })
+
+       /* if(sortBy){
+            const columns = document.querySelectorAll(".clickable");
+            for (var i = 0; i < columns.length; i++) {
+                if(columns[i].innerText === sortBy){
+                    columns[i].click();
+                };
+            }
+        }*/
 
         function data() {
             return {
@@ -95,6 +118,13 @@
                 },
 
                 sortByColumn($event) {
+                    var page = '{{request('page')}}';
+                    if(page > 1){
+                        var url = new URL(@json( $records )['first_page_url']);
+                        url.searchParams.append('sortBy', $event.target.innerText);
+                        window.location.href = url;
+                    }
+
                     if (this.sortBy === $event.target.innerText) {
                         if (this.sortAsc) {
                             this.sortBy = "";

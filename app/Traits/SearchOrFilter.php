@@ -101,19 +101,21 @@ trait SearchOrFilter
     {
 
 
-        foreach($inputFields as  $fieldname => $fieldvalue)
-        {
+        foreach($inputFields as  $fieldname => $fieldvalue) {
 
-            if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob'])
-            && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
+            if ($fieldname !== 'sortBy') {
+
+                if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob'])
+                    && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
 //                dd('1');
-                $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
-            } else if ($fieldname === 'memo') {
+                    $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
+                } else if ($fieldname === 'memo') {
 //                dd('2');
-                $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
-            } else if(!Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
+                    $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
+                } else if (!Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
 //                dd();
-                $result->where($fieldname, $fieldvalue);
+                    $result->where($fieldname, $fieldvalue);
+                }
             }
         }
 
@@ -13511,7 +13513,7 @@ trait SearchOrFilter
 //        dd(array_values($result));
 
         return array_values($result);
-        
+
     }
 
     private function getGender(): array

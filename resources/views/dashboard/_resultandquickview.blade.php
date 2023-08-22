@@ -9,6 +9,7 @@
     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8" id="results">
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <h4 class="pb-6" x-show="!openDetails">
+
 {{--                {{ __("Your search returned") ." ". $records->total()." ". __("results") }}--}}
             </h4>
             <div
@@ -22,37 +23,37 @@
                         @if($records->first()->first_name != null or $records->first()->last_name != null)
                             <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
-                                
-                                {{ __('First name') }} 
-                                
-                                
-                           
+
+                                {{ __('First name') }}
+
+
+
                             </th>
                             <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
-                                
-                                {{ __('Last name') }} 
-                                
-                                
-                           
+
+                                {{ __('Last name') }}
+
+
+
                             </th>
                         @endif
                         @foreach($defaultColumns as $column)
                             <th  x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
-                           
+
                                 {{ __(ucfirst(str_replace('_', ' ', $column))) }}
-                         
+
                             </th>
                         @endforeach
-                    
+
                         @foreach($populated_fields as $pop_fields)
                             @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                 <th x-on:click="sortByColumn"  scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                     bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
-                                
+
                                     {{ __(ucfirst(str_replace('_', ' ', $pop_fields))) }}
-                                    
+
                                 </th>
                             @endif
                         @endforeach
@@ -68,7 +69,7 @@
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
                                         <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                            {{ $record->first_name }} 
+                                            {{ $record->first_name }}
                                         </a>
                                     </td>
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
@@ -87,7 +88,7 @@
                                         </a>
                                     </td>
                                 @endforeach
-                                
+
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
@@ -154,12 +155,12 @@
 
                                     </td>
                                 @endforeach
-                                
+
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                         <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]   `
                                                                             hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
-                                            {{ $record[$pop_fields]}} 
+                                            {{ $record[$pop_fields]}}
                                         </td>
                                     @endif
                                 @endforeach
@@ -260,10 +261,10 @@
                 <div class="py-2 text-gray-600">
                     Displaying {{ count($records) }} records
                 </div>
-                   
+
             </div>
             @endif
-            
+
 
         </div>
     </div>

@@ -24,7 +24,7 @@ class IsManualSubscriber
         $hasValidDate = !is_null($user->manual_expire) && Carbon::parse($user->manual_expire)->greaterThanOrEqualTo(Carbon::now());
         $manualSubscribed = $user->hasRole('subscriber') && $hasValidDate ;
 
-        if($user->hasRole(['super admin','emiweb admin','emiweb staff','organization admin','organization staff']))
+        if($user->hasRole(['super admin','emiweb admin','emiweb staff','organization admin', 'subscriber', 'organization staff']))
         {
             return $next($request);
         }
