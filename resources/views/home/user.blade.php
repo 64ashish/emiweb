@@ -85,6 +85,16 @@
                         {{ __("Not subscribed") }}
                     @endif
                 </p>
+
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Plan is valid until') }}:
+                    @if($price == 1)
+                        {{ \Carbon\Carbon::parse(Auth::user()->subscription('3 Months')->created_at)->addMonths(12) }}
+                    @elseif($price == 2)
+                        {{ \Carbon\Carbon::parse(Auth::user()->subscription('3 Months')->created_at)->addMonths(3) }}
+                    @elseif(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber'))
+                        {{ \Carbon\Carbon::parse(Auth::user()->manual_expire) }}
+                    @endif
+                </p>
             </div>
 
 

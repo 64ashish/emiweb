@@ -163,9 +163,6 @@ class SearchController extends Controller
             ]);
         }
 
-
-
-        dd($records);
 //        return $keywords;
         return view('home.results', compact('records', 'keywords'));
 
