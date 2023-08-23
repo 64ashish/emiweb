@@ -62,6 +62,7 @@ class SearchController extends Controller
      */
     public function index($archive, FindArchiveService $archiveService)
     {
+
         if($archive !=1 and auth()->user()->hasRole('regular user'))
         {
 //            return "one";
@@ -162,6 +163,7 @@ class SearchController extends Controller
                 'Obituaries from Swedish American newspapers' =>$this->QueryObituariesSweUsaNewspapersRecord($inputFields)
             ]);
         }
+
 
 //        return $keywords;
         return view('home.results', compact('records', 'keywords'));

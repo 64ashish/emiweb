@@ -29,7 +29,7 @@
             </div>
 
             <div class="text-sm">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> {{ __('Forgot your password?') }}   </a>
+                <a href="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500"> {{ __('Forgot your password?') }}   </a>
             </div>
         </div>
 

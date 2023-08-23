@@ -15,7 +15,6 @@
             <div
                     class="overflow-hidden shadow ring-1 mb-4 ring-black ring-opacity-5 md:rounded-lg">
 
-                    <small> Click on headings to sort the records</small>
                 <table x-show="!openDetails"
                        class="min-w-full table-auto border-separate" style="border-spacing: 0" >
                     <thead class="bg-gray-50">
