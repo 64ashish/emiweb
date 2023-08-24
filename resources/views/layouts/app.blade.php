@@ -173,6 +173,11 @@
                         <button type="submit">{{ __('Logout') }}</button>
                     </form>
                 </li>
+                <li class="font-normal">
+                    <a href="https://www.emiweb.se">
+                        {{ __('Back to Emiweb.se') }}
+                    </a>
+                </li>
 
             </ul>
         </div>
