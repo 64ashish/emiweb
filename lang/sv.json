@@ -1,6 +1,6 @@
 {
  "200 SEK /3 months":"200 SEK /3 månader",
- "500 SEK /year":"500 SEK /år",
+ "600 SEK /year":"600 SEK /år",
  "Account":"Konto",
  "Act nr":"Aktnummer",
  "Act number":"Aktnummer",
@@ -518,5 +518,5 @@
  "Reset":"Nollställ",
  "Recover":"Återställ",
  "Back to login":"Tillbaka till login",
- "Manual payment (Swish, Invoice, Cash)":"Manuell betalning (Swish, Faktura, Kontant)",
+ "Manual payment (Swish, Invoice, Cash)":"Manuell betalning (Swish, Faktura, Kontant)"
 }
