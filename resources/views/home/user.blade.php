@@ -219,7 +219,7 @@
                                             </div>
 
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>{{ __('Renews at 300 SEK /year') }}</p>
+                                                <p>{{ __('Renews at 350 SEK /year') }}</p>
                                             </div>
                                         </div>
                                     </label>
