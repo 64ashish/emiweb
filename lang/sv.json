@@ -519,9 +519,11 @@
  "Recover":"Återställ",
  "Back to login":"Tillbaka till login",
  "Manual payment (Swish, Invoice, Cash)":"Manuell betalning (Swish, Faktura, Kontant)",
- "reset": "Ditt lösenord har återställts!",
- "sent": "Vi har skickat en återställningslänk till din e-post!",
- "throttled": "Vänligen vänta innan du försöker igen.",
- "token": "Återställningskoden för lösenordet är ogiltig.",
- "user": "Vi hittar ingen användare med den e-postadressen."
+ "passwords": {
+    "reset": "Ditt lösenord har återställts!",
+    "sent": "Vi har skickat en återställningslänk till din e-post!",
+    "throttled": "Vänligen vänta innan du försöker igen.",
+    "token": "Återställningskoden för lösenordet är ogiltig.",
+    "user": "Vi hittar ingen användare med den e-postadressen."
+}
 }
