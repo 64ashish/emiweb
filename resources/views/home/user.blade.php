@@ -194,13 +194,13 @@
                                                value="{{ config('services.subscription.3_months') }}" x-model="value" checked="">
                                         <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
                                             <div class="mt-6">
-                                                <span class="text-2xl lg:text-3xl">175</span>
+                                                <span class="text-2xl lg:text-3xl">200</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
                                                 <span class="font-medium">/3 {{__('months')}}</span>
                                             </div>
 
                                             <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
-                                                <p>{{ __('Renews at 175 SEK /months') }}</p>
+                                                <p>{{ __('Renews at 200 SEK /months') }}</p>
                                             </div>
                                         </div>
                                     </label>
@@ -213,7 +213,7 @@
                                                value="{{ config('services.subscription.1_year') }}" x-model="value">
                                         <div class="font-bold text-gray-900 pr-6  flex flex-col">
                                             <div class="mt-6">
-                                                <span class="text-2xl lg:text-3xl">500</span>
+                                                <span class="text-2xl lg:text-3xl">600</span>
                                                 <span class="text-lg lg:text-xl">SEK</span>
                                                 <span class="font-medium">/{{__('year')}}</span>
                                             </div>
