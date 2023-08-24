@@ -5,7 +5,7 @@
         <div class="form__login">
             <div class="mb-3">
                 <label for="name" class="text-gray-700 font-medium block mb-2">{{ __('Name') }}</label>
-                <input id="name" name="name" type="text" autocomplete="name" autofocus
+                <input id="name" name="name" type="text" autocomplete="name" maxlength="50" autofocus
                        class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm"
                        placeholder="{{ __('Name') }}" value="{{ old('name') }}">
             </div>
