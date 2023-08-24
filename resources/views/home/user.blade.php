@@ -80,7 +80,7 @@
                     @elseif($price == 2)
                         {{ __("3 Months") }}
                     @elseif(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber'))
-                        {{ __("subscriber") }}
+                        {{ __("Manual payment (Swish, Invoice, Cash)") }}
                     @else
                         {{ __("Not subscribed") }}
                     @endif
