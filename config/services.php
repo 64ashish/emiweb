@@ -34,6 +34,11 @@ return [
     'subscription' => [
         '3_months' => env('STRIPE_3_MONTHS'),
         '1_year'    =>  env('STRIPE_1_YEAR'),
+    ],
+
+    'recaptcha' => [
+        'key' => env('RECAPTCHA_SITE_KEY'),
+        'secret' => env('RECAPTCHA_SITE_SECRET'),
     ]
 
 ];

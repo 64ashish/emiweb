@@ -26,7 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'organization_id',
         'manual_expire',
-        'ip_address'
+        'ip_address',
+        'email_verified_at'
     ];
 
     /**
@@ -44,9 +45,9 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
     protected $dates = ['manual_expire'];
 

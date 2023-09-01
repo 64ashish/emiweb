@@ -882,7 +882,7 @@
 
 <br>
 <hr class="printfoot" align="left">
-<p class="blacktext">© EmiWeb</p>
+<p class="blacktext">© EmiWeb 2007-2017</p>
 <table class="printfoot">
     <tr>
         <th class="printfootheader">Postadress:</th>

@@ -34,17 +34,14 @@ class HomeController extends Controller
     public function index()
     {
 
-
-
         if( !auth()->check() )
         {
             return redirect()->to('/login');
-
         }
-         if(is_null(Auth::user()->email_verified_at))
-         {
-             return redirect('/email/verify');
-         }
+        if(is_null(Auth::user()->email_verified_at))
+        {
+            return redirect('/email/verify');
+        }
 
         if(auth()->user()->hasRole('super admin'))
         {
@@ -164,7 +161,6 @@ class HomeController extends Controller
     public function localSwitcher(Request $request)
     {
 
-//        return $request;
         $validate = $request->validate([
             'language' => 'required|in:sv,en|max:2',
         ]);

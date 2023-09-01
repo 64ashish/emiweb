@@ -183,7 +183,6 @@ return view('admin.users.edit', compact('user', 'roles'));
     public function syncWithOrganization(Request $request, Organization $organization, User $user)
     {
         $this->authorize('syncWithOrganization', $user);
-//       if the user is being disconnected from a member
         if($request->disconnect == true)
         {
             $user->update(['organization_id' => null]);
@@ -199,8 +198,6 @@ return view('admin.users.edit', compact('user', 'roles'));
 
 
         }else{
-//            check if the user is already associated or not
-
             if($user->organization_id != null)
             {
                 return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
@@ -208,10 +205,9 @@ return view('admin.users.edit', compact('user', 'roles'));
                     'User is already associated  with another Organization!'
                 );
             }
-//            assign to the organization
             $user->update(['organization_id' => $organization->id]);
 //            give user the role
-            $user->syncRoles('organizational subscriber');
+            $user->syncRoles('regular user');
             $user->update(['manual_expire' => Carbon::now()->addYear()]);
 //        redirect appropriately
             return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
@@ -235,37 +231,33 @@ return view('admin.users.edit', compact('user', 'roles'));
 
         $this->authorize('syncRole', $user);
 
-//         dont update superadmin
-            $CurrentRole = $user->roles->first();
-            if(($CurrentRole != null && $CurrentRole->name === "super admin") or ($request->name === "super admin"))
+        //  dont update superadmin
+        $CurrentRole = $user->roles->first();
+        if(($CurrentRole != null && $CurrentRole->name === "super admin") or ($request->name === "super admin"))
+        {
+            return  $this->NowRedirectTo('/admin/users/',
+                '/emiweb/users/',
+                'Are you really trying to update super admin?'
+            );
+
+        }else{
+
+            //  return Carbon::now()->addYear();
+            // redirect to user list with you cant do that message
+            if($request->name == "subscriber" or $request->name == "organizational subscriber")
             {
-                return  $this->NowRedirectTo('/admin/users/',
-                    '/emiweb/users/',
-                    'Are you really trying to update super admin?'
-                );
-
-            }else{
-
-//                return Carbon::now()->addYear();
-                // redirect to user list with you cant do that message
-                if($request->name == "subscriber" or $request->name == "organizational subscriber")
-                {
-                    $user->update(['manual_expire' => Carbon::now()->addYear()]);
-                }else
-                {
-                    $user->update(['manual_expire' => null]);
-                }
-                $user->syncRoles([$request->name]);
-
-                return  $this->NowRedirectTo('/admin/users/',
-                    '/emiweb/users/',
-                    'User updated'
-                );
-
-
+                $user->update(['manual_expire' => Carbon::now()->addYear()]);
+            }else
+            {
+                $user->update(['manual_expire' => null]);
             }
-        //
-//
+            $user->syncRoles([$request->name]);
+
+            return  $this->NowRedirectTo('/admin/organizations/',
+                '/emiweb/organizations/',
+                'User updated'
+            );
+        }
     }
 
     /**
