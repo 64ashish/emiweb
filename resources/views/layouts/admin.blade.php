@@ -107,8 +107,8 @@
                              aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <span class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">{{ auth()->user()->name }}</span>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                               id="user-menu-item-0">Update password</a>
+                            <a href="{{ route('admin.users.edit', [auth()->user()]) }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Update password</a>
+
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

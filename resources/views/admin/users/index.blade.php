@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-        <div class="px-4 sm:px-6 lg:px-8">
+        <div class="px-4 sm:px-4 lg:px-4">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-xl font-semibold text-gray-900">Users</h1>
@@ -17,7 +17,7 @@
                 {!! Form::open(['route' => ['emiweb.users.search']])  !!}
                 @endhasanyrole
 
-                <div class="mt-5 sm:flex sm:items-center">
+                <div class="mt-4 sm:flex sm:items-center">
                     <div class="w-full sm:max-w-xs mr-2">
                         <label for="email" class="sr-only">User Email</label>
                         <input type="email" name="email" id="email" class="block w-full rounded-md border-gray-300
@@ -38,7 +38,7 @@
                             <table class="min-w-full border-separate" style="border-spacing: 0">
                                 <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="sticky top-16 z-10 border-b border-gray-300 bg-gray-50
+                                    <th scope="col" class="w-24 sticky top-16 z-10 border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900
                                 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
                                     <th scope="col" class="sticky top-16  z-10 hidden border-b border-gray-300 bg-gray-50
