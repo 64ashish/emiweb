@@ -44,6 +44,7 @@
                                     <th scope="col" class="sticky top-16  z-10 hidden border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
                                 backdrop-filter sm:table-cell">Email</th>
+                                <th scope="col" class="sticky top-16  z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">Created at</th>
                                     <th scope="col" class="sticky top-16  z-10 hidden border-b border-gray-300 bg-gray-50
                                 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur
                                 backdrop-filter lg:table-cell">Role</th>
@@ -85,6 +86,7 @@
                                         </td>
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                     text-gray-500 hidden sm:table-cell">{{ $user->email}}</td>
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{ $user->created_at}}</td>
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm
                                     text-gray-500 hidden lg:table-cell">{{ $user->roles->pluck('name')->implode(', ') }}</td>
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm

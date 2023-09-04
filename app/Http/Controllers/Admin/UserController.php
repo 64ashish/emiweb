@@ -33,7 +33,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with(['roles.permissions','organization'])->orderBy('name', 'ASC')->get();
+        $users = User::with(['roles.permissions','organization'])->orderBy('id', 'DESC')->get();
 //        $users = User::all();
         return view('admin.users.index', compact('users'));
     }
