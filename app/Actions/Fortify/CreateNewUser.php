@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Rules\ReCaptcha;
+
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -30,12 +32,14 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
+            'g-recaptcha-response' => ['required', new ReCaptcha]
         ])->validate();
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'email_verified_at' => date('Y-m-d H:i:s')
         ])->assignRole('regular user');
     }
 }

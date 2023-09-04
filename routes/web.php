@@ -81,7 +81,6 @@ Route::group(['middleware' => ['auth']], function() {
 
         $request->fulfill();
         return redirect('/');
-//        return redirect('home/users/'.auth()->id());
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::get('/email/verify', function () {
@@ -97,9 +96,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 
-//    Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
-//    Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
-//    Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
+    //    Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
+    //    Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+    //    Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
 
 });
 
@@ -121,7 +120,7 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
     ->name('admin.')
     ->prefix('admin')
     ->group(function(){
-//        Route::get('/', [AdminController::class, 'index'])->name('index');
+    //  Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::resource('/roles', RoleContorller::class);
         Route::post('/roles/{role}/permissions', [RoleContorller::class, 'updatePermission'])
             ->name('roles.permissions');
@@ -141,9 +140,8 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
 
         Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
             ->name('users.sync-role');
-//            Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate']);
-//            Route::get('/leave-impersonate', 'UsersController@leaveImpersonate')
-//                ->name('users.leave-impersonate');
+        //  Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate']);
+        //  Route::get('/leave-impersonate', 'UsersController@leaveImpersonate')->name('users.leave-impersonate');
 
         Route::resource('/categories', CategoryController::class);
 

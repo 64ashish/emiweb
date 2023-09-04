@@ -27,8 +27,14 @@
                        class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm"
                        placeholder="••••••••••">
             </div>
+
+            <div class="form-group">
+                <strong>ReCaptcha:</strong>
+                <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+            </div>  
         </div>
 
+        
         @if($errors->any())
             <ul>
                 @foreach($errors->all() as $error)

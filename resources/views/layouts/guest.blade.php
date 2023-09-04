@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body class="h-full">

@@ -519,6 +519,9 @@
  "Recover":"Återställ",
  "Back to login":"Tillbaka till login",
  "Manual payment (Swish, Invoice, Cash)":"Manuell betalning (Swish, Faktura, Kontant)",
+ "Verify Email Address":"Verifiera e-postadressen",
+ "Please click the button below to verify your email address.":"Klicka på knappen nedan för att verifiera din e-postadress.",
+ "If you did not create an account, no further action is required.":"Om du inte skapade ett konto krävs ingen ytterligare åtgärd.",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",

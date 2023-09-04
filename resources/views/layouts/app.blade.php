@@ -11,6 +11,9 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="https://js.stripe.com/v3/"></script>
 
+    <!-- Scripts -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
     <style>
 
         .newSet{
