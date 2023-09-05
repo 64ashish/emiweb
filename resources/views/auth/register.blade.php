@@ -29,7 +29,6 @@
             </div>
 
             <div class="form-group">
-                <strong>ReCaptcha:</strong>
                 <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
             </div>  
         </div>
