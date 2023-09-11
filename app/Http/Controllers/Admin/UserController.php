@@ -229,8 +229,8 @@ class UserController extends Controller
         $CurrentRole = $user->roles->first();
         if(($CurrentRole != null && $CurrentRole->name === "super admin") or ($request->name === "super admin"))
         {
-            return  $this->NowRedirectTo('/admin/users/',
-                '/emiweb/users/',
+            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+                '/emiweb/users/'.$user->id.'/edit/',
                 'Are you really trying to update super admin?'
             );
 
@@ -247,8 +247,8 @@ class UserController extends Controller
             }
             $user->syncRoles([$request->name]);
             
-            return  $this->NowRedirectTo('/admin/users/',
-                '/emiweb/users/',
+            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+                '/emiweb/users/'.$user->id.'/edit/',
                 'User updated'
             );
         }

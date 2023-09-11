@@ -32,7 +32,7 @@
                                 @endforeach
                             </dd>
                         </div>
-                        @role('super admin')
+                        {{-- @role('super admin')
                         {!! Form::open(['route' =>['admin.users.update',$user], 'method' => 'put']) !!}
                         @endrole
                         @hasanyrole('emiweb admin|emiweb staff')
@@ -47,7 +47,7 @@
 
                                 {{ Form::password('current_password', ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'password']) }}
+                                    'id' => 'password','disabled' => 'disabled']) }}
                                 @error('current_password')
                                 <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                                 </p>@enderror
@@ -56,7 +56,7 @@
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 {{ Form::password('password', ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                     sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                    'id' => 'password']) }}
+                                    'id' => 'password','disabled' => 'disabled']) }}
                                 @error('password')
                                 <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                                 </p>@enderror
@@ -68,11 +68,9 @@
 
                         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
 
-                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
-                                 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update Password</button>
+                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" disabled>Update Password</button>
                         </div>
-                        {!! Form::close() !!}
+                        {!! Form::close() !!} --}}
                     </dl>
                 </div>
 
