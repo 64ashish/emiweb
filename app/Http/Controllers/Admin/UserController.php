@@ -32,9 +32,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        $users = User::with(['roles.permissions','organization'])->orderBy('id', 'DESC')->get();
-//        $users = User::all();
+        $users = User::with(['roles.permissions','organization'])->orderBy('id', 'DESC')->paginate(50);
         return view('admin.users.index', compact('users'));
     }
 
@@ -79,10 +77,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-//        return $user;
-//        return $user->subscriptions()->active()->get()->count();
-//$roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
-$roles = Role::whereNotIn('name', ['super admin'])->get();
+        //        return $user;
+        //        return $user->subscriptions()->active()->get()->count();
+        //$roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
+        $roles = Role::whereNotIn('name', ['super admin'])->get();
 
 
        /* $user = Auth::user();
@@ -90,9 +88,7 @@ $roles = Role::whereNotIn('name', ['super admin'])->get();
         if($user->hasRole('super admin')){
             dd('admin');
         }*/
-
-
-return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles'));
 
     }
 
@@ -126,8 +122,9 @@ return view('admin.users.edit', compact('user', 'roles'));
         ]);
 
 
-        return  $this->NowRedirectTo('/admin/users/',
-            '/emiweb/users/',
+        // return redirect()->route('admin.users.edit', $user->id);
+        return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+            '/emiweb/users/'.$user->id.'/edit/',
             'password is updated'
         );
 
@@ -140,12 +137,11 @@ return view('admin.users.edit', compact('user', 'roles'));
     public function searchForAdmin(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'email'
+            'email' => 'required'
         ]);
 
         if($validated) {
-            $users = User::where('email', 'like', $request->email)
-                ->get();
+            $users = User::where('email', 'like', $request->email)->orWhere('name','LIKE', '%'.$request->email.'%')->paginate(50);
 
             return view('admin.users.index', compact('users'));
         }
@@ -206,10 +202,8 @@ return view('admin.users.edit', compact('user', 'roles'));
                 );
             }
             $user->update(['organization_id' => $organization->id]);
-//            give user the role
             $user->syncRoles('regular user');
             $user->update(['manual_expire' => Carbon::now()->addYear()]);
-//        redirect appropriately
             return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
                 '/emiweb/organizations/'.$organization->id,
                 'User associated with the Organization!'
@@ -235,8 +229,8 @@ return view('admin.users.edit', compact('user', 'roles'));
         $CurrentRole = $user->roles->first();
         if(($CurrentRole != null && $CurrentRole->name === "super admin") or ($request->name === "super admin"))
         {
-            return  $this->NowRedirectTo('/admin/users/',
-                '/emiweb/users/',
+            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+                '/emiweb/users/'.$user->id.'/edit/',
                 'Are you really trying to update super admin?'
             );
 
@@ -252,9 +246,9 @@ return view('admin.users.edit', compact('user', 'roles'));
                 $user->update(['manual_expire' => null]);
             }
             $user->syncRoles([$request->name]);
-
-            return  $this->NowRedirectTo('/admin/organizations/',
-                '/emiweb/organizations/',
+            
+            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+                '/emiweb/users/'.$user->id.'/edit/',
                 'User updated'
             );
         }
@@ -270,9 +264,9 @@ return view('admin.users.edit', compact('user', 'roles'));
             ->whereNotNull('manual_expire')
             ->where('manual_expire', '>=', Carbon::now())
             ->get();
-//        return $manualSubscriptions;
+        //        return $manualSubscriptions;
         $subscriptions =  Subscription::query()->with('user')->active()->get();
-//        return $subscriptions;
+        //        return $subscriptions;
         return view('admin.users.subscriptions', compact('subscriptions', 'manualSubscriptions'));
     }
 

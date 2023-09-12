@@ -53,7 +53,7 @@ class HomeController extends Controller
         if(auth()->user()->hasRole(['organization admin', 'organization staff'])){
             return redirect('/dashboard');
         }
-
+        // $catArchives=[];
         if(auth()->user()->hasRole(['regular user'])){
             $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
         } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
@@ -64,7 +64,6 @@ class HomeController extends Controller
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
             $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
         }
-
 
         $user = auth()->user();
 
@@ -84,7 +83,7 @@ class HomeController extends Controller
      */
     public function user(User $user){
 
-
+        // dd(1);
         if(auth()->user()->hasRole(['regular user']) or auth()->user()->hasRole(['subscriber'])){
             $this->authorize('update', $user);
         }
@@ -97,6 +96,8 @@ class HomeController extends Controller
         if($user->subscriptions()->active()->count() > 0)
         {
             $priceName = $user->subscriptions()->active()->first()->name;
+
+            // dd($priceName);
 
             if($priceName === "3 Months")
             {

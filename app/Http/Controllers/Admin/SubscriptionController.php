@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Subscription;
+use Stripe\Stripe;
+use Stripe\InvoiceItem;
 
 class SubscriptionController extends Controller
 {
@@ -39,7 +41,6 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'plan' => [ 'required',
                 Rule::in([config('services.subscription.3_months'),
@@ -63,10 +64,35 @@ class SubscriptionController extends Controller
 
         $customer = Cashier::findBillable($user->stripe_id);
 
-        if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
+        if($product=="Regular Subscription"){
+
+            $already_subcription = Subscription::where('user_id',$user->id)->where('name',"Regular Subscription")->first();
+            
+            $subscription = $user->newSubscription($product, $request->plan);
+
+            $subscription->create($request->paymentMethod); 
+
+            $chargeOptions = [
+                'description' => 'Subscription creation',
+            ];
+
+            if($already_subcription!=null){
+
+            }else{
+                $stripeCharge = $user->charge(
+                    250*100, $request->paymentMethod ,$chargeOptions
+                );
+            }
+
             $user->syncRoles('subscriber');
             $user->update(['manual_expire' => null]);
 
+        }else{
+            if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
+                $user->syncRoles('subscriber');
+                $user->update(['manual_expire' => null]);
+    
+            }
         }
 
         return redirect()->back()->with('Success','You are now subscribed');
