@@ -137,6 +137,8 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
 
         Route::post('/users/search', [UserController::class, 'searchForAdmin'])
             ->name('users.search');
+        Route::get('/users/search', [UserController::class, 'index'])
+            ->name('users.search');
 
         Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
             ->name('users.sync-role');
