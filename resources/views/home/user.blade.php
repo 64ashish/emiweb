@@ -396,12 +396,12 @@
         <div class="grid grid-cols-2 gap-x-5 mt-10">
             <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Cancel Auto Subscription') }}</h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your Auto Subscription Will Be Cancel from Stripe') }}</p>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Danger zone') }}</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('The subscription terminates when the duration of your subscription has expired.') }}</p>
                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && $user->autosubsc == '')
-                        <div class="d-flex" style="display: flex; justify-content: flex-end; margin-top: -45px;">
+                        <div class="d-flex" style="display: flex; justify-content: flex-end; margin-top: 20px;">
                             {!! Form::model($user,['route' =>['home.users.cancelsub',$user], 'method' => 'post']) !!}
-                                <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="confirm('{{ __('Do you want to cancel auto subscription') }}');">{{ __('Cancel Subscription') }}</button>
+                                <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="confirm('{{ __('Do you want to cancel auto subscription?') }}');">{{ __('Cancel Subscription') }}</button>
                             {!! Form::close() !!}
                         </div>
                     @else
