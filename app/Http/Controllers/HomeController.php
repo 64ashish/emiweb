@@ -117,6 +117,23 @@ class HomeController extends Controller
         return view('home.user', compact('user', 'plans', 'intent', 'price'));
     }
 
+
+    /**
+     * Sync role  to user
+     * @param Request $request
+     * @param User $user
+     * @return Application|RedirectResponse|Redirector|null
+     * @throws AuthorizationException
+     */
+    public function cancelautosubc(Request $request, User $user)
+    {
+        $updateuser = User::where('id', $user->id)->update(['autosubsc' => date('Y-m-d H:i:s')]);
+
+        $user = auth()->user();
+
+        return redirect()->route('home.users.edit', ['user' => $user->id]);
+    }
+
     /**
      * @param Request $request
      * @param User $user

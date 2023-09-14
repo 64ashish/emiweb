@@ -521,6 +521,13 @@
  "Shows":"Visar",
  "Manual payment (Swish, Invoice, Cash)":"Manuell betalning (Swish, Faktura, Kontant)",
  "Verify Email Address":"Verifiera e-postadressen",
+ "Your subscription will expire":"Ditt abonnemang löper ut",
+ "The subscription terminates when the duration of your subscription has expired.":"Abonnemanget upphör när din abonnemangstid har löpt ut.",
+ "Cancel Subscription":"Avbryt prenumeration",
+ "Danger zone":"Danger zone - Avbryt prenumeration",
+ "Do you want to cancel auto subscription?":"Vill du avbryta din automatiska prenumeration?",
+ "Plan is valid until":"Abonnemanget gäller t.o.m",
+ "Your Auto Subscription Will Be Cancel from Stripe":"Su suscripción automática se cancelará desde Stripe",
  "Please click the button below to verify your email address.":"Klicka på knappen nedan för att verifiera din e-postadress.",
  "If you did not create an account, no further action is required.":"Om du inte skapade ett konto krävs ingen ytterligare åtgärd.",
  "passwords": {
