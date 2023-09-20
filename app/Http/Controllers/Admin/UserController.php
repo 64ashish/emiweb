@@ -21,9 +21,46 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Cashier\Subscription;
 use Laravel\Fortify\Fortify;
 use Spatie\Permission\Models\Role;
+use Stripe\Stripe;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
+    public function __construct(Request $request) {
+        $this->middleware(function ($request, $next) {
+            if(Auth::user()){
+                $user_id = Auth::user()->id;
+                if(Auth::user()->manual_expire >= date('Y-m-d H:i:s')){
+                    $user = User::find($user_id);
+                    $user->manual_expire = '';
+                    $user->save();
+                }
+                $user = Auth::user();
+                if(Auth::user()->stripe_id != ''){
+                    $subscriptions = $user->subscriptions()->active()->first();
+                    if($subscriptions != ''){
+                        if($subscriptions->name == 'Regular Subscription'){
+                            $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+1 year'));
+                            $today_date = date('Y-m-d H:i:s');
+                            if($today_date >= $futureDate){
+                                $user->subscription($subscriptions->name)->delete();
+                                $user->syncRoles('regular user');
+                            }
+                        }else if($subscriptions->name == '3 Months'){
+                            $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+3 month'));
+                            $today_date = date('Y-m-d H:i:s');
+                            if($today_date >= $futureDate){
+                                $user->subscription($subscriptions->name)->delete();
+                                $user->syncRoles('regular user');
+                            }
+                        }
+                    }
+                }
+            }
+            return $next($request);
+        });
+    }
+
     use RoleBasedRedirect;
     /**
      * Display a listing of the resource.
@@ -296,5 +333,87 @@ class UserController extends Controller
         //
     }
 
+    public function payment(Request $request)
+    {
+        try {
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $price_id = $request->plan_id;
+            $customer = \Stripe\Customer::create(array(
+                "payment_method" => $request->payment_method,
+                "name" => $request->cardHolderName,
+            ));
 
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            if($request->coupon_name != ''){
+                $subscription_detail = $stripe->subscriptions->create([
+                    'customer' => $customer->id,
+                    'default_payment_method' => $request->payment_method,
+                    'items' => [
+                        ['price' => $price_id],
+                    ],
+                    'coupon' => $request->coupon_name,
+                ]);
+            }else{
+                $subscription_detail = $stripe->subscriptions->create([
+                    'customer' => $customer->id,
+                    'default_payment_method' => $request->payment_method,
+                    'items' => [
+                        ['price' => $price_id],
+                    ]
+                ]);
+            }
+            
+
+            if(!empty($subscription_detail)){
+                return response()->json(['status' => 'true' , 'subscription_detail' => $subscription_detail]);
+            }else{
+                return redirect()->back()->with('error','Something Went Wrong Please try again !');
+            }
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function checkCoupon(Request $request)
+    {
+        $couponCode = $request->couponCode;
+        $stripeSecretKey = env('STRIPE_SECRET');
+
+        $url = "https://api.stripe.com/v1/coupons/{$couponCode}";
+
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $stripeSecretKey,
+            ])->get($url);
+
+            $responseData = $response->json();
+            if ($response->status() === 200) {
+                // pre($responseData); exit;
+                if(isset($responseData['duration_in_months']) && $responseData['duration_in_months'] != ''){
+                    $date1 = date('Y-m-d H:i:s', $responseData['created']);
+                    $futureDate = date('Y-m-d H:i:s', strtotime($date1.' + '.$responseData['duration_in_months'].' month'));
+                    $today_date = date('Y-m-d H:i:s');
+                    if(isset($responseData['created']) && $today_date >= $futureDate){
+                        return response()->json(['status' => 'false','message' => 'Coupon Expired.']);
+                    }
+                }
+                if(isset($responseData['redeem_by']) && $responseData['redeem_by'] != ''){
+                    $date2 = date('Y-m-d H:i:s', $responseData['created']);
+                    $today_date = date('Y-m-d H:i:s');
+                    if(isset($responseData['created']) && $today_date >= $date2){
+                        return response()->json(['status' => 'false','message' => 'Coupon Expired.']);
+                    }
+                }
+                if(isset($responseData['max_redemptions']) && $responseData['times_redeemed'] && $responseData['times_redeemed'] <= $responseData['max_redemptions']){
+                    return response()->json(['status' => 'false','message' => 'Coupon is Already used']);
+                }
+                return response()->json(['status' => 'true','message' => 'Coupon exists.']);
+            } else {
+                return response()->json(['status' => 'false','message' => 'Coupon does not exist.']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

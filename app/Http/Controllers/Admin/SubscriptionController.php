@@ -53,11 +53,19 @@ class SubscriptionController extends Controller
 
         }
 
+        if ( $request->stripe_id == '' || $request->stripe_price == '' || $request->customer_id == '' ){
+            return redirect()->back()->with('error','Please Try Again');
+        }
+
+        $stripe_id = $request->stripe_id;
+        $stripe_price = $request->stripe_price;
+        $customer_id = $request->customer_id;
+
         $user = auth()->user();
 
         $product = $request->plan === config('services.subscription.3_months') ? "3 Months" : "Regular Subscription";
-
-        if ( $user->createOrGetStripeCustomer() && $user->subscription($product) ){
+        // echo 1; exit;
+        if ($user->subscription($product) ){
             return redirect()->back()->with('error','You are already subscribed to this subscription');
 
         }
@@ -68,31 +76,57 @@ class SubscriptionController extends Controller
 
             $already_subcription = Subscription::where('user_id',$user->id)->where('name',"Regular Subscription")->first();
             
-            $subscription = $user->newSubscription($product, $request->plan);
+            // $subscription = $user->newSubscription($product, $request->plan);
+            // pre($subscription); exit;
+            // $subscription->create($request->paymentMethod); 
 
-            $subscription->create($request->paymentMethod); 
+            // $chargeOptions = [
+            //     'description' => 'Subscription creation',
+            // ];
 
-            $chargeOptions = [
-                'description' => 'Subscription creation',
-            ];
+            if($already_subcription == null){
+                $sub = new Subscription();
+                $sub->user_id = auth()->user()->id;
+                $sub->name = $product;
+                $sub->stripe_id = $stripe_id;
+                $sub->stripe_price = $stripe_price;
+                $sub->stripe_status = 'active';
+                $sub->quantity = 1;
+                $sub->save();
 
-            if($already_subcription!=null){
-
-            }else{
-                $stripeCharge = $user->charge(
-                    250*100, $request->paymentMethod ,$chargeOptions
-                );
+                $userD = User::find(auth()->user()->id);
+                $userD->stripe_id = $customer_id;
+                $userD->save();
             }
+            // else{
+            //     $stripeCharge = $user->charge(
+            //         250*100, $request->paymentMethod ,$chargeOptions
+            //     );
+            // }
 
             $user->syncRoles('subscriber');
             $user->update(['manual_expire' => null]);
 
         }else{
-            if ($customer->newSubscription($product, $request->plan)->create($request->paymentMethod)) {
-                $user->syncRoles('subscriber');
-                $user->update(['manual_expire' => null]);
-    
+            $already_subcription = Subscription::where('user_id',$user->id)->where('name',"3 Months")->first();
+
+            if($already_subcription == null){
+                $sub = new Subscription();
+                $sub->user_id = auth()->user()->id;
+                $sub->name = $product;
+                $sub->stripe_id = $stripe_id;
+                $sub->stripe_price = $stripe_price;
+                $sub->stripe_status = 'active';
+                $sub->quantity = 1;
+                $sub->save();
+
+                $userD = User::find(auth()->user()->id);
+                $userD->stripe_id = $customer_id;
+                $userD->save();
             }
+
+            $user->syncRoles('subscriber');
+            $user->update(['manual_expire' => null]);
         }
 
         return redirect()->back()->with('Success','You are now subscribed');
