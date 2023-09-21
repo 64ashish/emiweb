@@ -27,6 +27,40 @@ use function Clue\StreamFilter\append;
 
 class HomeController extends Controller
 {
+    public function __construct(Request $request) {
+        $this->middleware(function ($request, $next) {
+            if(Auth::user()){
+                $user_id = Auth::user()->id;
+                if(Auth::user()->manual_expire >= date('Y-m-d H:i:s')){
+                    $user = User::find($user_id);
+                    $user->manual_expire = '';
+                    $user->save();
+                }
+                $user = Auth::user();
+                if(Auth::user()->stripe_id != ''){
+                    $subscriptions = $user->subscriptions()->active()->first();
+                    if($subscriptions != ''){
+                        if($subscriptions->name == 'Regular Subscription'){
+                            $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+1 year'));
+                            $today_date = date('Y-m-d H:i:s');
+                            if($today_date >= $futureDate){
+                                $user->subscription($subscriptions->name)->delete();
+                                $user->syncRoles('regular user');
+                            }
+                        }else if($subscriptions->name == '3 Months'){
+                            $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+3 month'));
+                            $today_date = date('Y-m-d H:i:s');
+                            if($today_date >= $futureDate){
+                                $user->subscription($subscriptions->name)->delete();
+                                $user->syncRoles('regular user');
+                            }
+                        }
+                    }
+                }
+            }
+            return $next($request);
+        });
+    }
     //
     /**
      * @return Application|Factory|View|RedirectResponse|Redirector

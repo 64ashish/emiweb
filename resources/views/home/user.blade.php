@@ -191,7 +191,7 @@
                                     >
                                         <label for="standard" class="flex items-center gap-2">
                                             <input type="radio" name="plan" id="standard"
-                                                value="{{ config('services.subscription.3_months') }}" x-model="value" checked="">
+                                                value="{{ config('services.subscription.3_months') }}" onclick="getPlanId('{{ config('services.subscription.3_months') }}')" x-model="value" checked="">
                                             <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
                                                 <div class="mt-6">
                                                     <span class="text-2xl lg:text-3xl">200</span>
@@ -210,7 +210,7 @@
                                     >
                                         <label for="premium" class="flex items-center gap-2">
                                             <input type="radio" name="plan" id="premium"
-                                                value="{{ config('services.subscription.1_year') }}" x-model="value">
+                                                value="{{ config('services.subscription.1_year') }}" onclick="getPlanId('{{ config('services.subscription.1_year') }}')" x-model="value">
                                             <div class="font-bold text-gray-900 pr-6  flex flex-col">
                                                 <div class="mt-6">
                                                     <span class="text-2xl lg:text-3xl">600</span>
@@ -224,6 +224,16 @@
                                             </div>
                                         </label>
                                     </div>
+                                </div>
+
+                                <div class="flex flex-col space-x-6 pr-4 mb-5">
+                                    <label for="cardholder-name" class="py-2 px-3 pl-6 text-gray-500 font-medium">{{ __('Discount coupon') }}</label>
+                                    <div class="flex">
+                                        <input type="text" id="coupon" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2 pr-4 px-3 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm" value="">
+                                        <button type="button" id="redeem" class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+                                        focus:outline-none"> {{ __('Redeem') }} </button>
+                                    </div>
+                                    <p class="ml-2" id="coupon-error"></p>
                                 </div>
 
                                 <div class="flex flex-col  space-x-6 pr-8 mb-5">
@@ -304,13 +314,64 @@
                             </div>
 
                         {!! Form::close() !!}
-
+                            <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
                             <script>
                                 const stripe = Stripe('{{ env('STRIPE_KEY') }}');
 
-                                // Create an instance of Elements.
                                 var elements = stripe.elements();
-                                // Custom styling can be passed to options when creating an Element.
+                                var redeem = document.getElementById('redeem');
+                                var couponData = '';
+                                redeem.onclick = async function() {
+                                    var couponData = document.getElementById('coupon').value;
+
+                                    const sessionId = await createPaymentSession(couponData);
+                                };
+
+                                async function createPaymentSession(couponCode) {
+                                    $('#coupon-error').html('');
+                                    if(couponCode != '' && $('.remove-coupon').length != 1){
+                                        try {
+                                            const response = await fetch('/checkCoupon', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    "_token": "{{ csrf_token() }}",
+                                                    couponCode: couponCode,
+                                                }),
+                                            });
+
+                                            const data = await response.json();
+                                            if (data.error) {
+                                                throw new Error(data.error);
+                                            }
+                                            if(data.status == 'true'){
+                                                $('#redeem').html('{{ __("Remove") }}').addClass('remove-coupon');
+                                                $('.remove-coupon').attr('id','');
+                                                $('#coupon').attr('disabled','disabled');
+                                                $('#coupon-error').html('{{ __("Coupon Applied Successfully") }}').attr( "style","color: black");
+                                                setTimeout(() => {
+                                                    $('#coupon-error').html('');
+                                                }, 1000);
+                                                couponCode = data.id;
+                                            }
+                                            if(data.status == 'false'){
+                                                $('#coupon-error').html(data.message).attr( "style","color: red");
+                                                couponCode = '';
+                                            }
+                                            return data.sessionId;
+                                        } catch (error) {
+                                            console.error(error);
+                                            return null;
+                                        }
+                                    }else if($('.remove-coupon').length == 1){
+                                        $('.remove-coupon').html('{{ __("Redeem") }}').attr('id','redeem').removeClass('remove-coupon');
+                                        $('#coupon').removeAttr('disabled').val('');
+                                        couponCode = '';
+                                    }
+                                }
+
                                 // (Note that this demo uses a wider set of styles than the guide below.)
                                 var style = {
                                     base: {
@@ -340,49 +401,88 @@
                                         displayError.textContent = '';
                                     }
                                 });
+
                                 // Handle form submission.
                                 var form = document.getElementById('payment-form');
-                                var cardHolderName = document.getElementById('cardholder-name');
+                                var cardHolderName = document.getElementById('cardholder-name').value;
                                 var clientSecret = form.dataset.secret;
                                 form.addEventListener('submit', async function(event) {
                                     event.preventDefault();
-                                    const { setupIntent, error } = await stripe.confirmCardSetup(
-                                        clientSecret, {
-                                            payment_method: {
-                                                card,
-                                                billing_details: { name: cardHolderName.value }
-                                            }
+                                    stripe.createPaymentMethod({
+                                        type: 'card',
+                                        card: card
+                                    })
+                                    .then(function(result){
+                                        if(result.error){
+                                            var errorElement = document.getElementById('card-errors');
+                                            errorElement.textContent = error.message;
+                                        }else{
+                                            newFlowCouponFun(result.paymentMethod.id)
                                         }
-                                    );
-                                    if (error) {
-                                        // Inform the user if there was an error.
-                                        var errorElement = document.getElementById('card-errors');
-                                        errorElement.textContent = error.message;
-                                    } else {
-                                        // Send the token to your server.
-                                        stripeTokenHandler(setupIntent);
-                                    }
-                                    // stripe.createToken(card).then(function(result) {
-                                    //     if (result.error) {
-                                    //     // Inform the user if there was an error.
-                                    //     var errorElement = document.getElementById('card-errors');
-                                    //     errorElement.textContent = result.error.message;
-                                    //     } else {
-                                    //     // Send the token to your server.
-                                    //     stripeTokenHandler(result.token);
-                                    //     }
-                                    // });
+                                    })
                                 });
+
+                                function newFlowCouponFun(paymentMethodId){
+                                    if($('#coupon').prop('disabled') == true){
+                                        couponData = document.getElementById('coupon').value;
+                                    }
+                                    var cardHolderName = document.getElementById('cardholder-name').value;
+                                    fetch('/payment', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "_token": "{{ csrf_token() }}",
+                                            payment_method: paymentMethodId,
+                                            coupon_name: couponData ? couponData : "",
+                                            plan_id: plan_id ? plan_id : "",
+                                            cardHolderName: cardHolderName ? cardHolderName : "",
+                                        })
+                                    })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        if (data.status == 'true') {
+                                            stripeTokenHandler(data.subscription_detail);
+                                        }
+                                    })
+                                }
+
+                                var plan_id = '';
+                                function getPlanId(plan){
+                                    plan_id = plan;
+                                }
+
                                 // Submit the form with the token ID.
                                 function stripeTokenHandler(setupIntent) {
+                                    console.log(setupIntent);
+                                    
                                     // Insert the token ID into the form so it gets submitted to the server
                                     var form = document.getElementById('payment-form');
                                     var hiddenInput = document.createElement('input');
                                     hiddenInput.setAttribute('type', 'hidden');
                                     hiddenInput.setAttribute('name', 'paymentMethod');
-                                    hiddenInput.setAttribute('value', setupIntent.payment_method);
+                                    hiddenInput.setAttribute('value', setupIntent.default_payment_method);
+
+                                    var hiddenInput1 = document.createElement('input');
+                                    hiddenInput1.setAttribute('type', 'hidden');
+                                    hiddenInput1.setAttribute('name', 'stripe_id');
+                                    hiddenInput1.setAttribute('value', setupIntent.id);
+
+                                    var hiddenInput2 = document.createElement('input');
+                                    hiddenInput2.setAttribute('type', 'hidden');
+                                    hiddenInput2.setAttribute('name', 'stripe_price');
+                                    hiddenInput2.setAttribute('value', setupIntent.plan.id);
+
+                                    var hiddenInput3 = document.createElement('input');
+                                    hiddenInput3.setAttribute('type', 'hidden');
+                                    hiddenInput3.setAttribute('name', 'customer_id');
+                                    hiddenInput3.setAttribute('value', setupIntent.customer);
+
                                     form.appendChild(hiddenInput);
-                                    // Submit the form
+                                    form.appendChild(hiddenInput1);
+                                    form.appendChild(hiddenInput2);
+                                    form.appendChild(hiddenInput3);
                                     form.submit();
                                 }
                             </script>

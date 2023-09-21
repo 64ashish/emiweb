@@ -27,19 +27,6 @@ class ImportController extends Controller
             Excel::import(new DenmarkEmigrationsImport, request()->file('import_file'));
 
             return "task completed successfully";
-//
-//            try {
-//
-//
-//
-//            } catch (Exception $e) {
-//
-//                $errors = $e;
-//                foreach ($errors as $error) {
-//                    $error->row(); // row that went wrong
-//                }
-//            }
-
 
         }
 
