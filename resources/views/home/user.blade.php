@@ -229,7 +229,7 @@
                                 <div class="flex flex-col space-x-6 pr-4 mb-5">
                                     <label for="cardholder-name" class="py-2 px-3 pl-6 text-gray-500 font-medium">{{ __('Discount coupon') }}</label>
                                     <div class="flex">
-                                        <input type="text" id="coupon" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2 pr-4 px-3 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm" value="">
+                                        <input type="text" id="coupon" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2 pr-4 px-1 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm" value="">
                                         <button type="button" id="redeem" class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
                                         focus:outline-none"> {{ __('Redeem') }} </button>
                                     </div>
