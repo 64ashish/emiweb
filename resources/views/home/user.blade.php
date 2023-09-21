@@ -318,9 +318,7 @@
                             <script>
                                 const stripe = Stripe('{{ env('STRIPE_KEY') }}');
 
-                                // Create an instance of Elements.
                                 var elements = stripe.elements();
-                                // Custom styling can be passed to options when creating an Element.
                                 var redeem = document.getElementById('redeem');
                                 var couponData = '';
                                 redeem.onclick = async function() {
