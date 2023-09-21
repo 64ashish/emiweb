@@ -532,9 +532,9 @@
  "If you did not create an account, no further action is required.":"Om du inte skapade ett konto krävs ingen ytterligare åtgärd.",
  "Discount coupon":"Rabattkupong",
  "Redeem":"Använd",
- "Coupon Applied Successfully":"Kupongen har använts framgångsrikt",
+ "Coupon Applied Successfully":"Kupongen har lagts in",
  "Invalid Coupon!":"Ogiltig kupong!",
- "Remove":"Avlägsna",
+ "Remove coupon":"Ta bort kupong",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",
