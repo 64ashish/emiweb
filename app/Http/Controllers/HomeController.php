@@ -89,11 +89,17 @@ class HomeController extends Controller
         }
         // $catArchives=[];
         if(auth()->user()->hasRole(['regular user'])){
+
             $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
+
         } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and !Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+            
             $catArchives = Category::where('id',8)->with('archives')->has('archives')->first();
+        
         } elseif(auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and (!is_null(auth()->user()->manual_expire) and Carbon::parse(auth()->user()->manual_expire)->greaterThanOrEqualTo(Carbon::now())) ){
+            
             $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
+        
         } elseif (auth()->user()->hasRole(['subscriber', 'organizational subscriber']) and is_null(auth()->user()->manual_expire) ){
 //                $catArchives = Archive::get()->append('record_total')->load('category')->groupBy('category.name');
             $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
@@ -101,7 +107,26 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-//        return $catArchives;
+        // return $catArchives;
+
+        // pre($catArchives); exit;
+        $firstArray = array();
+        $secondArray = array();
+        $passangerList = array();
+        foreach($catArchives as $key => $value){
+            if(isset($value->name) && $value->name == 'Passenger lists'){
+                foreach($value->archives as $ke => $archives){
+                    if($archives->name == 'Passenger lists for Swedish ports'){
+                        $firstArray[] = $archives;
+                    }else{
+                        $secondArray[] = $archives;
+                    }
+                }
+                $value->archives = array();
+                $passangerList = array_merge($firstArray,$secondArray);
+                $value->archives = $passangerList;
+            }
+        }
 
 
         return view('home.dashboard', compact('user','catArchives'));
