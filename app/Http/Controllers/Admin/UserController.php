@@ -30,29 +30,41 @@ class UserController extends Controller
         $this->middleware(function ($request, $next) {
             if(Auth::user()){
                 $user_id = Auth::user()->id;
+                $user = Auth::user();
                 if(Auth::user()->manual_expire >= date('Y-m-d H:i:s')){
                     $user = User::find($user_id);
                     $user->manual_expire = null;
                     $user->save();
+                    $user->syncRoles('regular user');
                 }
-                $user = Auth::user();
-                if(Auth::user()->stripe_id != ''){
-                    $subscriptions = $user->subscriptions()->active()->first();
-                    if($subscriptions != ''){
-                        if($subscriptions->name == 'Regular Subscription'){
-                            $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+1 year'));
-                            $today_date = date('Y-m-d H:i:s');
-                            if($today_date >= $futureDate){
-                                $user->subscription($subscriptions->name)->delete();
-                                $user->syncRoles('regular user');
-                            }
-                        }else if($subscriptions->name == '3 Months'){
-                            $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+3 month'));
-                            $today_date = date('Y-m-d H:i:s');
-                            if($today_date >= $futureDate){
-                                $user->subscription($subscriptions->name)->delete();
-                                $user->syncRoles('regular user');
-                            }
+                $futureExDate = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').'+30 days'));
+                if(Auth::user()->is_mailed == 0 && Auth::user()->manual_expire <= $futureExDate){
+                    $user = User::find($user_id);
+                    $user->is_mailed = 1;
+                    $user->save();
+                    mailSend($user->email);
+                }
+                
+                $subscriptions = $user->subscriptions()->active()->first();
+                if($subscriptions != ''){
+                    $today_date = date('Y-m-d H:i:s');
+                    if($subscriptions->ends_at != '' && $today_date >= $subscriptions->ends_at){
+                        $user->subscription($subscriptions->name)->delete();
+                        $user->syncRoles('regular user');
+                    }
+                    else if($subscriptions->name == 'Regular Subscription'){
+                        $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+1 year'));
+                        $today_date = date('Y-m-d H:i:s');
+                        if($today_date >= $futureDate){
+                            $user->subscription($subscriptions->name)->delete();
+                            $user->syncRoles('regular user');
+                        }
+                    }else if($subscriptions->name == '3 Months'){
+                        $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+3 month'));
+                        $today_date = date('Y-m-d H:i:s');
+                        if($today_date >= $futureDate){
+                            $user->subscription($subscriptions->name)->delete();
+                            $user->syncRoles('regular user');
                         }
                     }
                 }
@@ -140,31 +152,63 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->authorize('update', $user);
+        if(isset($request->is_password_update) && $request->is_password_update == 1){
+            # Validation
+            $request->validate([
+                'current_password' => 'required',
+                'password' => 'required',
+                'email' => 'required|email',
+                'address' => 'required',
+                'postcode' => 'required',
+                'ip_address'=>'nullable|ip'
+            ]);
 
-        # Validation
-        $request->validate([
-            'current_password' => 'required',
-            'password' => 'required',
-            'ip_address'=>'nullable|ip'
-        ]);
+            #Match The Old Password
+            if(!Hash::check($request->current_password, $user->password)){
+                return back()->with("error", "Old Password Doesn't match!");
+            }
 
-        #Match The Old Password
-        if(!Hash::check($request->current_password, $user->password)){
-            return back()->with("error", "Old Password Doesn't match!");
+            #Update the new Password
+            $user->update([
+                'password' => Hash::make($request->password),
+                'email' => $request->email,
+                'address' => $request->address,
+                'postcode' => $request->postcode,
+            ]);
+
+
+            // return redirect()->route('admin.users.edit', $user->id);
+            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+                '/emiweb/users/'.$user->id.'/edit/',
+                'Details is updated'
+            );
+        }else{
+            # Validation
+            $request->validate([
+                'email' => 'required|email',
+                'address' => 'required',
+                'postcode' => 'required',
+                'ip_address'=>'nullable|ip'
+            ]);
+
+            #Update details
+            $user->update([
+                'email' => $request->email,
+                'address' => $request->address,
+                'postcode' => $request->postcode,
+            ]);
+            if($request->email != ''){
+                $user->update([
+                    'email_verified_at' => null,
+                ]); 
+            }
+
+            // return redirect()->route('admin.users.edit', $user->id);
+            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+                '/emiweb/users/'.$user->id.'/edit/',
+                'Details is updated'
+            );
         }
-
-        #Update the new Password
-        $user->update([
-            'password' => Hash::make($request->password)
-        ]);
-
-
-        // return redirect()->route('admin.users.edit', $user->id);
-        return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
-            '/emiweb/users/'.$user->id.'/edit/',
-            'password is updated'
-        );
-
     }
 
     /**
@@ -277,7 +321,7 @@ class UserController extends Controller
             // redirect to user list with you cant do that message
             if($request->name == "subscriber" or $request->name == "organizational subscriber")
             {
-                $user->update(['manual_expire' => Carbon::now()->addYear()]);
+                $user->update(['manual_expire' => Carbon::now()->addYear(),'is_mailed' => 0]);
             }else
             {
                 $user->update(['manual_expire' => null]);
@@ -415,5 +459,28 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function expirePlan(Request $request, User $user){
+        $validated = $request->validate([
+            'expiry_date' => 'required'
+        ]);
+
+        $user_id = $user->id;
+        if($user->manual_expire != ''){
+            $user = User::find($user_id);
+            $user->manual_expire = date('Y-m-d H:i:s', $request->expiry_date);
+            $user->save();
+        }
+        if(count($user->subscriptions()->active()->get()) > 0){
+            $subscriptions = $user->subscriptions()->active()->first();
+            $user->subscriptions()->active()->update([
+                'ends_at' => date('Y-m-d H:i:s', strtotime($request->expiry_date)),
+            ]);
+        }
+        return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
+            '/emiweb/users/'.$user->id.'/edit/',
+            'Expiry Date Changed'
+        );
     }
 }

@@ -862,6 +862,9 @@ select {
 .flex {
   display: flex;
 }
+.justify-content-end{
+  justify-content: flex-end;
+}
 .inline-flex {
   display: inline-flex;
 }

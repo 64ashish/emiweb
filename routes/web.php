@@ -54,6 +54,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Subscription;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Mail\WarningMail;
+use Illuminate\Support\Facades\Mail;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +98,7 @@ Route::group(['middleware' => ['auth']], function() {
         return back()->with('message', 'Verification link sent!');
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+    Route::get('send-mail', [HomeController::class, 'mailSend'])->name('mailSend');
 
     Route::post('/checkCoupon', [UserController::class, 'checkCoupon'])->name('checkCoupon');
     Route::post('/payment', [UserController::class, 'payment'])->name('payment');
@@ -143,6 +148,9 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
 
         Route::post('/users/{user}/sync-role', [UserController::class, 'syncRole'])
             ->name('users.sync-role');
+
+        Route::post('/users/{user}/expire-plan', [UserController::class, 'expirePlan'])
+            ->name('users.expire-plan');
         //  Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate']);
         //  Route::get('/leave-impersonate', 'UsersController@leaveImpersonate')->name('users.leave-impersonate');
 
@@ -162,6 +170,9 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
 
         Route::put('/archives/{archive}/update', [ArchiveController::class, 'update'])
             ->name('archives.update');
+
+        Route::get('/archives/display', [ArchiveController::class, 'display'])
+            ->name('archives.display');
 
         Route::resource('/organizations', OrganizationController::class);
         Route::post('/organizations/{organization}/archive', [OrganizationController::class, 'syncArchive'])
