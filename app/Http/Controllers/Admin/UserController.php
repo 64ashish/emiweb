@@ -31,18 +31,18 @@ class UserController extends Controller
             if(Auth::user()){
                 $user_id = Auth::user()->id;
                 $user = Auth::user();
-                if(Auth::user()->manual_expire >= date('Y-m-d H:i:s')){
+                if(Auth::user()->manual_expire <= date('Y-m-d H:i:s')){
                     $user = User::find($user_id);
                     $user->manual_expire = null;
                     $user->save();
                     $user->syncRoles('regular user');
                 }
                 $futureExDate = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').'+30 days'));
-                if(Auth::user()->is_mailed == 0 && Auth::user()->manual_expire <= $futureExDate){
+                if(Auth::user()->is_mailed == 0 && Auth::user()->manual_expire != '' && Auth::user()->manual_expire <= $futureExDate){
                     $user = User::find($user_id);
                     $user->is_mailed = 1;
                     $user->save();
-                    mailSend($user->email);
+                    mailSend($user);
                 }
                 
                 $subscriptions = $user->subscriptions()->active()->first();

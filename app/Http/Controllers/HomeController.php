@@ -33,7 +33,7 @@ class HomeController extends Controller
             if(Auth::user()){
                 $user_id = Auth::user()->id;
                 $user = Auth::user();
-                if(Auth::user()->manual_expire >= date('Y-m-d H:i:s')){
+                if(Auth::user()->manual_expire <= date('Y-m-d H:i:s')){
                     $user = User::find($user_id);
                     $user->manual_expire = null;
                     $user->save();
@@ -44,7 +44,7 @@ class HomeController extends Controller
                     $user = User::find($user_id);
                     $user->is_mailed = 1;
                     $user->save();
-                    mailSend($user->email);
+                    mailSend($user);
                 }
                 $subscriptions = $user->subscriptions()->active()->first();
                 if($subscriptions != ''){
