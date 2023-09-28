@@ -31,7 +31,7 @@ class UserController extends Controller
             if(Auth::user()){
                 $user_id = Auth::user()->id;
                 $user = Auth::user();
-                if(Auth::user()->manual_expire <= date('Y-m-d H:i:s')){
+                if(Auth::user()->manual_expire != '' && Auth::user()->manual_expire <= date('Y-m-d H:i:s')){
                     $user = User::find($user_id);
                     $user->manual_expire = null;
                     $user->save();
