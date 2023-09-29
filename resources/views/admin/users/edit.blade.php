@@ -58,13 +58,6 @@
                         </div>
                     @endif  
                     <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">Email Address</dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {!! Form::text('email', null,['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md', 'id' => 'email']) !!}
-                            @error('email')
-                                <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
-                            @enderror
-                        </dd>
                         <dt class="text-sm font-medium text-gray-500">Address</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {!! Form::text('address', null, ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md', 'id' => 'address']) !!}
@@ -125,7 +118,7 @@
             </div>
         </div>
     </div>
-    @if(count($user->subscriptions()->active()->get()) > 0)
+    {{-- @if(count($user->subscriptions()->active()->get()) > 0)
         <div class="bg-white mt-5 shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">manually Plan Expiry</h3>
@@ -149,7 +142,7 @@
                 </div>
             {!! Form::close() !!}
         </div>
-    @endif
+    @endif --}}
 
     @can('syncRole', $user)
         <div class="bg-white mt-5 shadow overflow-hidden sm:rounded-lg">
@@ -170,7 +163,7 @@
                         <legend class="sr-only">Roles</legend>
                         <div class="space-y-5">
                             @foreach( $roles as $role)
-                                <div class="relative flex items-start">
+                                <div class="relative flex items-start checkRole">
                                     <div class="flex items-center h-5">
                                         {!! Form::radio('name', $role->name, in_array($role->name, $user->roles->pluck('name')->toArray())? 'true' : '', ['class' => 'focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300', 'id'=> $role->name]); !!}
                                     </div>
@@ -180,6 +173,13 @@
                                             {{ $role->permissions->implode('name', ', ') }}
                                         </p>
                                     </div>
+                                    @if($role->name == 'subscriber')
+                                        <div class="ml-4">
+                                            <input type="date" name="expiry_date" id="expiry_date" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" value="{{ isset($user->manual_expire) ? date('Y-m-d', strtotime($user->manual_expire)) : '' }}" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+1 year')) }}">
+
+                                            {{-- {{ Form::date('expiry_date',null, ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md','id' => 'expiry_date','value' => date('Y-m-d', strtotime(Auth::user()->manual_expire)) ,'min' =>  date('Y-m-d')]) }} --}}
+                                        </div>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
@@ -192,4 +192,23 @@
             {!! Form::close() !!}
         </div>
     @endcan
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $('.checkRole').on('click', function(){
+            if($('#subscriber').is(':checked')){
+                $('#expiry_date').css('display','flex');
+            }else{
+                $('#expiry_date').css('display','none');
+            }
+        });
+
+        $( window ).on("load", function() {
+            if($('#subscriber').is(':checked')){
+                $('#expiry_date').css('display','flex');
+            }else{
+                $('#expiry_date').css('display','none');
+            }
+        });
+    </script>
 </x-admin-layout>

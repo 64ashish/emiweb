@@ -111,11 +111,11 @@
 
                             <tr  @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})"
                                  class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
-{{--                                @if(!empty($record->first_name) or !empty($record->last_name))--}}
+                                {{--  @if(!empty($record->first_name) or !empty($record->last_name))--}}
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
-{{--                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
+                                    {{--  @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
-{{--                                        {{ $record->first_name }} {{ $record->last_name }}<br>--}}
+                                    {{--  {{ $record->first_name }} {{ $record->last_name }}<br>--}}
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
 
                                             @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
@@ -138,8 +138,8 @@
 
 
 
-{{--                                            {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
-{{--                                            {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
+                                {{--   {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
+                                {{--   {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
 
 
                                         {{--  </a>--}}

@@ -157,7 +157,6 @@ class UserController extends Controller
             $request->validate([
                 'current_password' => 'required',
                 'password' => 'required',
-                'email' => 'required|email',
                 'address' => 'required',
                 'postcode' => 'required',
                 'ip_address'=>'nullable|ip'
@@ -171,7 +170,6 @@ class UserController extends Controller
             #Update the new Password
             $user->update([
                 'password' => Hash::make($request->password),
-                'email' => $request->email,
                 'address' => $request->address,
                 'postcode' => $request->postcode,
             ]);
@@ -185,7 +183,6 @@ class UserController extends Controller
         }else{
             # Validation
             $request->validate([
-                'email' => 'required|email',
                 'address' => 'required',
                 'postcode' => 'required',
                 'ip_address'=>'nullable|ip'
@@ -193,15 +190,9 @@ class UserController extends Controller
 
             #Update details
             $user->update([
-                'email' => $request->email,
                 'address' => $request->address,
                 'postcode' => $request->postcode,
             ]);
-            if($request->email != ''){
-                $user->update([
-                    'email_verified_at' => null,
-                ]); 
-            }
 
             // return redirect()->route('admin.users.edit', $user->id);
             return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
@@ -303,7 +294,6 @@ class UserController extends Controller
      */
     public function syncRole(Request $request, User $user)
     {
-
         $this->authorize('syncRole', $user);
 
         //  dont update superadmin
@@ -321,7 +311,12 @@ class UserController extends Controller
             // redirect to user list with you cant do that message
             if($request->name == "subscriber" or $request->name == "organizational subscriber")
             {
-                $user->update(['manual_expire' => Carbon::now()->addYear(),'is_mailed' => 0]);
+                if($request->expiry_date != ''){
+                    $manual_expire = $request->expiry_date;
+                }else{
+                    $manual_expire = Carbon::now()->addYear();
+                }
+                $user->update(['manual_expire' => $manual_expire,'is_mailed' => 0]);
             }else
             {
                 $user->update(['manual_expire' => null]);
