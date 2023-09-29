@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Archive;
 
 use App\Traits\SearchOrFilter;
 use Psr\Log\NullLogger;
@@ -100,7 +101,8 @@ class SwedishChurchEmigrationRecordController extends Controller
 
     public function search( Request $request )
     {
-//        return $request->all();
+        // pre($request->all()); exit;
+        // return $request->all();
         // Initialize variables
         $all_request = $request->all();
         $model = new SwedishChurchEmigrationRecord();
@@ -145,10 +147,10 @@ class SwedishChurchEmigrationRecordController extends Controller
             array_keys($fieldsToDisply)
         );
 
-//        return $result;
+        // return $result;
         // Extract variables for view
         $keywords = $request->all();
-//        return $keywords;
+        // return $keywords;
         $populated_fields = collect(
             Arr::except(
                 $inputFields,
@@ -161,17 +163,18 @@ class SwedishChurchEmigrationRecordController extends Controller
                 ['first_name', 'last_name']
             )
         )->keys();
+        // $archive['id'] = $request->archive_id;
+        $archive = Archive::where('id', $request->archive_id)->first();
+            // pre($archive); exit;
+        // return $fieldsToDisply;
 
 
-//        return $fieldsToDisply;
 
 
 
+        // return $keywords['qry_first_name']['value'];
 
-
-//        return $keywords['qry_first_name']['value'];
-
-//        return $archive_name;
+        // return $archive_name;
         // Render view
         return view('dashboard.swedishchurchemigrationrecord.records', compact(
             'records',
@@ -186,7 +189,8 @@ class SwedishChurchEmigrationRecordController extends Controller
             'enableQueryMatch',
             'provinces',
             'genders',
-            'ProvincesParishes'
+            'ProvincesParishes',
+            'archive'
         ))->with($request->all());
     }
 

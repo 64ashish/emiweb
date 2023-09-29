@@ -38,8 +38,7 @@
                     @if(!isset($keywords))
                         {!! Form::open(['route' => 'scerc.search'])  !!}
                     @endif
-
-
+                        <input type="hidden" name="archive_id" value="{{ isset($archive->id) ? $archive->id : $archive['id'] }}">
                         @include('dashboard._filtersattributes')
 
 
