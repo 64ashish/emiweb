@@ -185,11 +185,8 @@ class UserController extends Controller
             $request->validate([
                 'address' => 'required',
                 'postcode' => 'required',
-                'ip_address'=>'nullable|ip'
             ]);
-
-            #Update details
-            $user->update([
+            User::where('id', $user->id)->update([
                 'address' => $request->address,
                 'postcode' => $request->postcode,
             ]);

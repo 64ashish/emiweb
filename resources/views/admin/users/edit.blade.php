@@ -60,14 +60,14 @@
                     <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">Address</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {!! Form::text('address', null, ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md', 'id' => 'address']) !!}
+                            <input type="text" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" name="address" id="address" value="{{ isset($user->address) ? $user->address : '' }}">
                             @error('address')
                                 <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
                             @enderror
                         </dd>
                         <dt class="text-sm font-medium text-gray-500">Post Code</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {!! Form::text('postcode', null, ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md', 'id' => 'postcode']) !!}
+                            <input type="text" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" name="postcode" id="postcode" value="{{ isset($user->postcode) ? $user->postcode : '' }}">
                             @error('postcode')
                                 <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
                             @enderror
