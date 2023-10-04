@@ -62,41 +62,62 @@
                     </thead>
 
                     <tbody  x-ref="tbody"  class="bg-white">
-                    @if(auth()->user()->hasRole('organization admin|organization staff') )
+                    @if(auth()->user()->hasRole('organization admin|organization staff|super admin') )
                         @foreach($records as $record)
                             <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
                                 @if(!empty($record->first_name) or !empty($record->last_name))
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
-                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                            {{ $record->first_name }}
-                                        </a>
+                                        @if(auth()->user()->hasRole('super admin'))
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                {{ $record->first_name }}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                {{ $record->first_name }}
+                                            </a>
+                                        @endif
                                     </td>
-                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
-                                                                        font-medium  sm:pl-6 lg:pl-8">
-                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                            {{ $record->last_name }}
-                                        </a>
+                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] font-medium  sm:pl-6 lg:pl-8">
+                                        @if(auth()->user()->hasRole('super admin'))
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                {{ $record->last_name }}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                {{ $record->last_name }}
+                                            </a>
+                                        @endif
                                     </td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
-                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
-                                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
-                                            {{ $record[$column]}}
-
-                                        </a>
+                                    <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
+                                        @if(auth()->user()->hasRole('super admin'))
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                {{ $record[$column]}}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                {{ $record[$column]}}
+                                            </a>
+                                        @endif
                                     </td>
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
-                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
-                                                                            hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
-                                            <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
-                                                {{ $record[$pop_fields]}}
+                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
+                                            @if(auth()->user()->hasRole('super admin'))
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record[$pop_fields]}}
 
-                                            </a>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record[$pop_fields]}}
+
+                                                </a>
+                                            @endif
                                         </td>
                                     @endif
                                 @endforeach
@@ -111,11 +132,11 @@
 
                             <tr  @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})"
                                  class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
-{{--                                @if(!empty($record->first_name) or !empty($record->last_name))--}}
+                                {{--  @if(!empty($record->first_name) or !empty($record->last_name))--}}
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
-{{--                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
+                                    {{--  @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
                                     <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
-{{--                                        {{ $record->first_name }} {{ $record->last_name }}<br>--}}
+                                    {{--  {{ $record->first_name }} {{ $record->last_name }}<br>--}}
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
 
                                             @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
@@ -138,8 +159,8 @@
 
 
 
-{{--                                            {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
-{{--                                            {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
+                                {{--   {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
+                                {{--   {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
 
 
                                         {{--  </a>--}}

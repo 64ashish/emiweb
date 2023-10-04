@@ -103,4 +103,31 @@ class ArchiveController extends Controller
     {
         //
     }
+
+    public function display()
+    {
+        $catArchives = Category::with('archives')->has('archives')->orderByRaw('FIELD(id,2,8,9,3,5,1,4,6,10,7) ')->get();
+
+        $user = auth()->user();
+
+        $firstArray = array();
+        $secondArray = array();
+        $passangerList = array();
+        foreach($catArchives as $key => $value){
+            if(isset($value->name) && $value->name == 'Passenger lists'){
+                foreach($value->archives as $ke => $archives){
+                    if($archives->name == 'Passenger lists for Swedish ports'){
+                        $firstArray[] = $archives;
+                    }else{
+                        $secondArray[] = $archives;
+                    }
+                }
+                $value->archives = array();
+                $passangerList = array_merge($firstArray,$secondArray);
+                $value->archives = $passangerList;
+            }
+        }
+
+        return view('admin.archives.display', compact('catArchives'));
+    }
 }

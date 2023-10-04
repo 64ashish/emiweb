@@ -254,7 +254,8 @@ class OrganizationArchiveController extends Controller
                 $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
-                $media = Storage::disk('s3')->temporaryUrl("archives/12/documents/".$detail->file_name, now()->addMinutes(60));
+                    // pre($detail); exit;
+                $media = isset($detail->file_name) ? Storage::disk('s3')->temporaryUrl("archives/12/documents/".$detail->file_name, now()->addMinutes(60)) : '';
 
                 break;
 

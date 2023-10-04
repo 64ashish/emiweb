@@ -1,7 +1,13 @@
 <x-app-layout>
     <!-- Main 3 column grid -->
-    {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> auth()->user()->organization,'archive'=>$archive->id]) }} ">
+
+    @if(auth()->user()->hasRole('super admin'))
+        {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> 1,'archive'=>$archive->id]) }} ">
         {{ $archive->name  }}</a> / {{ $detail->first_name }} {{ $detail->last_name }}
+    @else
+        {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> auth()->user()->organization,'archive'=>$archive->id]) }} ">
+        {{ $archive->name  }}</a> / {{ $detail->first_name }} {{ $detail->last_name }}
+    @endif
     <div class="grid pt-6 grid-cols-1 gap-4 items-start lg:gap-8">
         <!-- Left column -->
 
@@ -14,10 +20,18 @@
                         </h3>
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ $archive->name }}</p>
                         <div class="flex pt-3">
-                            <a href="{{ route('organizations.archives.record.edit', ['organization'=> auth()->user()->organization,'archive'=>$detail->archive->id, 'record'=> $detail->id]) }}"
-                            class="inline-flex items-center px-6 mr-2 py-1.5 border border-transparent text-xs font-medium
-                            rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
-                            focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{{ __('Edit record') }}</a>
+                            @if(auth()->user()->hasRole('super admin'))
+                                <a href="{{ route('organizations.archives.record.edit', ['organization'=> 1,'archive'=>$detail->archive->id, 'record'=> $detail->id]) }}"
+                                class="inline-flex items-center px-6 mr-2 py-1.5 border border-transparent text-xs font-medium
+                                rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                                focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{{ __('Edit record') }}</a>
+                            @else
+                                <a href="{{ route('organizations.archives.record.edit', ['organization'=> auth()->user()->organization,'archive'=>$detail->archive->id, 'record'=> $detail->id]) }}"
+                                class="inline-flex items-center px-6 mr-2 py-1.5 border border-transparent text-xs font-medium
+                                rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                                focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{{ __('Edit record') }}</a>
+                            @endif
+
 
                             @if(  !empty($detail->source_hfl_batch_number) &&  !empty($detail->source_hfl_image_number))
                             <a href="https://sok.riksarkivet.se/bildvisning/{{ $detail->source_hfl_batch_number }}_{{ $detail->source_hfl_image_number }}"
