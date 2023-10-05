@@ -655,7 +655,6 @@ trait UniversalQuery{
 
     private function QueryBevaringensLevnadsbeskrivningar($input)
     {
-
         $result = BevaringensLevnadsbeskrivningarRecord::select('id');
 
         $exec = 0;
@@ -680,6 +679,11 @@ trait UniversalQuery{
 
         if (!empty($input['parish'])) {
             $result->where('place_of_birth',  'LIKE','%'. $input['parish'].'%');
+            $exec = $exec+1;
+
+        }
+        if (!empty($input['place_of_birth'])) {
+            $result->where('place_of_birth',  'LIKE','%'. $input['place_of_birth'].'%');
             $exec = $exec+1;
 
         }

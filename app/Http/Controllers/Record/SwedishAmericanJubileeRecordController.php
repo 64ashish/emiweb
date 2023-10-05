@@ -44,10 +44,10 @@ class SwedishAmericanJubileeRecordController extends Controller
         $archive_name = $model::findOrFail(3)->archive;
 //        return $model::findOrFail(3)->first()->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-
+        $provinces = $this->provinces();
 
         return view('dashboard.SwedishAmericanJubileeRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'enableQueryMatch','defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))
+            compact('records', 'keywords', 'filterAttributes', 'advancedFields', 'enableQueryMatch','defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provinces'))
             ->with($request->all());
     }
 }
