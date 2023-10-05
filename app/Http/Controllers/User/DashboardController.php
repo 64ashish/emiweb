@@ -19,8 +19,8 @@ class  DashboardController extends Controller
     {
 
         $user = auth()->user()->load('roles', 'organization','organization.archives.category');
-
-        if(!$user->organization)
+        $CurrentRole = $user->roles->first();
+        if(!$user->organization && $CurrentRole->name != 'super admin')
         {
             $user->syncRoles('regular user');
             return redirect('/home');

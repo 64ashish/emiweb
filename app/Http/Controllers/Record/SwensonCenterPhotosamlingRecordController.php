@@ -44,7 +44,7 @@ class SwensonCenterPhotosamlingRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
 
-        return view('dashboard.swenphotocenter.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.swenphotocenter.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provinces'))->with($request->all());
 
 
     }

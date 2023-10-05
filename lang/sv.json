@@ -544,6 +544,8 @@
  "RENEW NOW":"FÖRNYA NU",
  "Good news! There's still time to renew, and it's as easy as ever pick the subscription that suits your needs and follow the prompts":"Goda nyheter! Det finns fortfarande tid att förnya, och det är lika enkelt som någonsin att välja det abonnemang som passar dina behov och följa uppmaningarna",
  "Thanks":"Tack",
+ "Born parish":"Född församling",
+ "Born in":"Född år",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",

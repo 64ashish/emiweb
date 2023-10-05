@@ -1,7 +1,5 @@
 <div class="grid grid-cols-2 gap-x-6 gap-y-4">
-
 @foreach($filterAttributes as $key => $filterAttribute)
-
         @if($filterAttribute === "---")
             <div class="col-span-2">
                 <hr>
@@ -57,6 +55,7 @@
 {{--            </div>--}}
 
 {{--                        @dd($keywords[$filterAttribute[0]]??'null')--}}
+
                         <div class="col-span-2">
                             <div x-data="loadCounties(
                                 countyInit = '{{ $keywords[$filterAttribute[0]]??null }}',
@@ -96,7 +95,7 @@
 
 
         @else
-
+            <?php //pre($filterAttribute);  ?>
             <div class="sm:grid sm:grid-cols-3 sm:items-start">
                 @if($filterAttribute == ['departure_year','departure_month','departure_day']
                     || $filterAttribute == ['birth_year','birth_month','birth_day']
@@ -156,7 +155,6 @@
                             <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check"
                                    x-model="compare" x-bind:value="compare"
                                    class="self-center rounded border-gray-300 ml-auto">
-{{--                            {!! Form::checkbox("compare_{$filterAttribute}_check") !!}--}}
                             <label for="scales"  x-model="compare"class="self-center  ml-auto" >{{ __('Interval') }}</label>
                         </div>
                     @elseif(in_array($filterAttribute, $enableQueryMatch))
@@ -207,6 +205,8 @@
                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                                  sm:text-sm border-gray-300 rounded-md',
                                 'id' => $key]) !!}
+                    @elseif($filterAttribute === 'emigration_county' and isset($provinces))
+                        {!! Form::select($filterAttribute,$provinces,null,['class' => 'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm','placeholder' => 'Select' ]) !!}
                     @else
                         {!! Form::text($filterAttribute, null,
                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500

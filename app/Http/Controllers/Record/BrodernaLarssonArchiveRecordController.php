@@ -64,13 +64,13 @@ class BrodernaLarssonArchiveRecordController extends Controller
 //        return $archive_name;
 //        $archive_name = "hello, im blrc";
         $ProvincesParishes = collect($this->ProvincesParishes());
-
+        $provinces = $this->provinces();
 
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
 
 
-        return view('dashboard.larsson.records', compact('records', 'keywords','ProvincesParishes','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.larsson.records', compact('provinces','records', 'keywords','ProvincesParishes','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields', 'archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
     }
 

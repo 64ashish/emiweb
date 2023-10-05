@@ -50,8 +50,8 @@ class BevaringensLevnadsbeskrivningarRecordController extends Controller
 //        perform the search
         $result = BevaringensLevnadsbeskrivningarRecord::query();
         $this->QueryMatch($quryables,$result, $all_request);
-
-        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );
+        
+        $records = $this->FilterQuery($inputFields, $result, $all_request, array_keys($fieldsToDisply) );   
 
         $keywords = $request->all();
 
@@ -61,11 +61,12 @@ class BevaringensLevnadsbeskrivningarRecordController extends Controller
         $defaultColumns = $model->defaultTableColumns();
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))
             ->except($defaultColumns )->keys();
+        $provinces = $this->provinces();
 
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
-        return view('dashboard.blbrc.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.blbrc.records', compact('provinces','records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
 
     }
 

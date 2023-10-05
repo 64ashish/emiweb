@@ -58,40 +58,42 @@ trait SearchOrFilter
 
     private function QueryMatch($queryables,$result, $all_request): Builder
     {
-//        dd($queryables);
+        // dd($queryables);
         foreach($queryables as  $queryable)
         {
             if(isset($all_request[$queryable]['value'])){
-            if($all_request[$queryable]['value'] != null)
-            {
-                $field_scope = Str::of($queryable)->after('qry_');
+                if($all_request[$queryable]['value'] != null)
+                {
+                    $field_scope = Str::of($queryable)->after('qry_');
 
-//                dd(array_key_exists('method',$all_request[$queryable]));
+                    //  dd(array_key_exists('method',$all_request[$queryable]));
 
-                if (array_key_exists('method', $all_request[$queryable])) {
-                    switch ($all_request[$queryable]['method']) {
-                        case "start":
-                            $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
-                            break;
-                        case "end":
-                            $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
-                            break;
-                        case "exact":
-                            $result->where($field_scope, $all_request[$queryable]['value']);
-                            break;
-                        default:
-                            $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
-                            break;
+                    if (array_key_exists('method', $all_request[$queryable])) {
+                        switch ($all_request[$queryable]['method']) {
+                            case "start":
+                                $result->where($field_scope, 'like', $all_request[$queryable]['value'] . '%');
+                                break;
+                            case "end":
+                                $result->where($field_scope, 'like', '%' . $all_request[$queryable]['value']);
+                                break;
+                            case "exact":
+                                $result->where($field_scope, $all_request[$queryable]['value']);
+                                break;
+                            default:
+                                $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
+                                break;
+                        }
+                    } else{
+                        $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
                     }
-                } else{
-                    $result->where($field_scope, 'like','%' . $all_request[$queryable]['value'] . '%');
-                }
 
+                }
             }
         }
+
+        if(isset($all_request['place_of_birth']) && $all_request['place_of_birth'] != ''){
+            $result->where('place_of_birth', 'like','%' . $all_request['place_of_birth'] . '%');
         }
-
-
 
         return $result;
 

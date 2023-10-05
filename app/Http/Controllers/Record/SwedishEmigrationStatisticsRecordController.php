@@ -68,13 +68,13 @@ class SwedishEmigrationStatisticsRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
         $ProvincesParishes = collect($this->ProvincesParishes());
-//        $provinces = $this->provinces();
+       $provinces = $this->provinces();
 
 
 
 
 //        return view
-        return view('dashboard.scbe.records', compact('records', 'keywords', 'enableQueryMatch','filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes'))->with($request->all());
+        return view('dashboard.scbe.records', compact('records', 'keywords', 'enableQueryMatch','filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes','provinces'))->with($request->all());
 
     }
 

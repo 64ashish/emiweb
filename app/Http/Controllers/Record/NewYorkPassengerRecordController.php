@@ -51,11 +51,11 @@ class NewYorkPassengerRecordController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-
+        $provinces = $this->provinces();
 
 
 
 //        return view
-        return view('dashboard.NewYorkPassengerRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted'))->with($request->all());
+        return view('dashboard.NewYorkPassengerRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provinces'))->with($request->all());
     }
 }

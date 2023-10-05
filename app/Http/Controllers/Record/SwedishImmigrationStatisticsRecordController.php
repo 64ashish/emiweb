@@ -52,10 +52,10 @@ class SwedishImmigrationStatisticsRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
 
         $ProvincesParishes = collect($this->ProvincesParishes());
-//        $provinces = $this->provinces();
+       $provinces = $this->provinces();
 
 
 //        return view
-        return view('dashboard.SwedishImmigrationStatisticsRecord.records', compact('records','enableQueryMatch', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes'))->with($request->all());
+        return view('dashboard.SwedishImmigrationStatisticsRecord.records', compact('records','enableQueryMatch', 'keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'ProvincesParishes','provinces'))->with($request->all());
     }
 }

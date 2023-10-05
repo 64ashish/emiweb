@@ -70,7 +70,7 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
                  // Send data to view
                 compact('records', 'keywords', 'enableQueryMatch', 'filterAttributes', 
                 'advancedFields', 'defaultColumns', 'populated_fields', 'archive_name', 
-                'fieldsToDisplay', 'toBeHighlighted', 'ProvincesParishes'))->with($request->all());
+                'fieldsToDisplay', 'toBeHighlighted', 'ProvincesParishes','provinces'))->with($request->all());
         }
 
 }
