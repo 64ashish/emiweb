@@ -81,6 +81,11 @@ class SearchController extends Controller
         $enableQueryMatch =$model->enableQueryMatch();
         $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
+        $provinces1 = $this->ProvincesParishes();
+        $provincesCoun = array();
+        foreach($provinces1 as $key => $value){
+            $provincesCoun[$value['code']] = $value['county'];
+        }
 
         $fields = collect($model->getFillable())
             ->diff(['user_id', 'archive_id', 'organization_id','old_id','first_name', 'last_name'])
@@ -98,7 +103,7 @@ class SearchController extends Controller
         $archive_name = $archive;
 
 //        return $archive_name;
-        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'archive_name','enableQueryMatch', 'provinces','genders', 'ProvincesParishes'));
+        return view($viewfile, compact('filterAttributes', 'advancedFields','archive', 'archive_name','enableQueryMatch', 'provinces','genders', 'ProvincesParishes','provincesCoun'));
     }
 
     /**

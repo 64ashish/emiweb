@@ -47,10 +47,15 @@ class SwedishChurchImmigrantRecordController extends Controller
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
         $ProvincesParishes = collect($this->ProvincesParishes());
         $provinces = $this->provinces();
+        $provinces1 = $this->ProvincesParishes();
+        $provincesCoun = array();
+        foreach($provinces1 as $key => $value){
+            $provincesCoun[$value['code']] = $value['county'];
+        }
 
 
 //        return view
-        return view('dashboard.SwedishChurchImmigrantRecord.records', compact('records', 'keywords', 'filterAttributes','enableQueryMatch', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'provinces', 'ProvincesParishes'))->with($request->all());
+        return view('dashboard.SwedishChurchImmigrantRecord.records', compact('records', 'keywords', 'filterAttributes','enableQueryMatch', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted', 'provinces', 'ProvincesParishes','provincesCoun'))->with($request->all());
     }
 
 

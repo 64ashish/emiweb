@@ -42,9 +42,13 @@ class SwensonCenterPhotosamlingRecordController extends Controller
 
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
+        $provinces1 = $this->ProvincesParishes();
+        $provincesCoun = array();
+        foreach($provinces1 as $key => $value){
+            $provincesCoun[$value['code']] = $value['county'];
+        }
 
-
-        return view('dashboard.swenphotocenter.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provinces'))->with($request->all());
+        return view('dashboard.swenphotocenter.records', compact('records', 'keywords','enableQueryMatch', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provincesCoun'))->with($request->all());
 
 
     }
