@@ -56,9 +56,19 @@ class  SwedishPortPassengerListRecordController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-        $provinces = $this->provinces();
 
-//        return view
-        return view('dashboard.SwedishPortPassengerListRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provinces'))->with($request->all());
+        $provinces1 = $this->ProvincesParishes();
+        $provincesCoun = array();
+        foreach($provinces1 as $key => $value){
+            $provincesCoun[$value['code']] = $value['county'];
+        }
+        foreach($records as $k => $data){
+            foreach($provincesCoun as $sort => $county){
+                if($data->departure_county == $sort){
+                    $data->departure_county = $county;
+                }
+            }
+        }
+        return view('dashboard.SwedishPortPassengerListRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provincesCoun'))->with($request->all());
     }
 }

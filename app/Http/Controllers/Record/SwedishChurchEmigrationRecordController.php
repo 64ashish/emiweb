@@ -115,6 +115,11 @@ class SwedishChurchEmigrationRecordController extends Controller
         // retrive from trait
         $genders = $this->getGender();
         $provinces = $this->provinces();
+        $provinces1 = $this->ProvincesParishes();
+        $provincesCoun = array();
+        foreach($provinces1 as $key => $value){
+            $provincesCoun[$value['code']] = $value['county'];
+        }
         $ProvincesParishes = collect($this->ProvincesParishes());
 
         // Modify request data
@@ -190,7 +195,8 @@ class SwedishChurchEmigrationRecordController extends Controller
             'provinces',
             'genders',
             'ProvincesParishes',
-            'archive'
+            'archive',
+            'provincesCoun'
         ))->with($request->all());
     }
 

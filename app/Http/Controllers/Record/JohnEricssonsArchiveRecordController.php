@@ -46,11 +46,15 @@ class JohnEricssonsArchiveRecordController extends Controller
         $populated_fields = collect(Arr::except($inputFields, ['first_name', 'last_name']))->except($defaultColumns )->keys();
         $archive_name = $model::findOrFail(1)->archive;
         $toBeHighlighted = collect(Arr::except($inputFields, ['first_name', 'last_name']))->keys();
-        $provinces = $this->provinces();
+        $provinces1 = $this->ProvincesParishes();
+        $provincesCoun = array();
+        foreach($provinces1 as $key => $value){
+            $provincesCoun[$value['code']] = $value['county'];
+        }
 
 
         return view('dashboard.JohnEricssonsArchiveRecord.records',
-            compact('records', 'keywords', 'filterAttributes', 'enableQueryMatch','advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provinces'))->with($request->all());
+            compact('records', 'keywords', 'filterAttributes', 'enableQueryMatch','advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provincesCoun'))->with($request->all());
     }
 
 }
