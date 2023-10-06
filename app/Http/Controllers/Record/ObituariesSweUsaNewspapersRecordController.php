@@ -51,7 +51,18 @@ class ObituariesSweUsaNewspapersRecordController extends Controller
         foreach($provinces1 as $key => $value){
             $provincesCoun[$value['code']] = $value['county'];
         }
-
+        foreach($records as $k => $data){
+            foreach($provincesCoun as $sort => $county){
+                if($data->from_province == $sort){
+                    $data->from_province = $county;
+                }
+            }
+            foreach($provincesCoun as $sort => $county){
+                if($data->county_in_sweden == $sort){
+                    $data->county_in_sweden = $county;
+                }
+            }
+        }
 
         return view('dashboard.Ofsan.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provincesCoun'))->with($request->all());
 
