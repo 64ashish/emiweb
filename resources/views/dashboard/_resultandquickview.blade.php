@@ -62,7 +62,7 @@
                     </thead>
 
                     <tbody  x-ref="tbody"  class="bg-white">
-                    @if(auth()->user()->hasRole('organization admin|organization staff|super admin') )
+                    @if(auth()->user()->hasRole('organization admin|organization staff|super admin|emiweb admin') )
                         @foreach($records as $record)
                             <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
                                 @if(!empty($record->first_name) or !empty($record->last_name))
