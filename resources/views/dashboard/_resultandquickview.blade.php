@@ -68,10 +68,16 @@
                                 @if(!empty($record->first_name) or !empty($record->last_name))
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
-                                        @if(auth()->user()->hasRole('super admin'))
-                                            <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                                {{ $record->first_name }}
-                                            </a>
+                                        @if(auth()->user()->hasRole('super admin') || auth()->user()->hasRole('emiweb admin'))
+                                            @if(auth()->user()->organization != '')
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record->first_name }}
+                                                </a>
+                                            @else
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record->first_name }}
+                                                </a>
+                                            @endif
                                         @else
                                             <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
                                                 {{ $record->first_name }}
@@ -79,10 +85,16 @@
                                         @endif
                                     </td>
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] font-medium  sm:pl-6 lg:pl-8">
-                                        @if(auth()->user()->hasRole('super admin'))
-                                            <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
-                                                {{ $record->last_name }}
-                                            </a>
+                                        @if(auth()->user()->hasRole('super admin') || auth()->user()->hasRole('emiweb admin'))
+                                            @if(auth()->user()->organization != '')
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record->last_name }}
+                                                </a>
+                                            @else
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record->last_name }}
+                                                </a>
+                                            @endif  
                                         @else
                                             <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record['archive_id'], 'id'=>$record->id]) }}" class="block">
                                                 {{ $record->last_name }}
@@ -92,10 +104,16 @@
                                 @endif
                                 @foreach($defaultColumns as $column)
                                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
-                                        @if(auth()->user()->hasRole('super admin'))
-                                            <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
-                                                {{ $record[$column]}}
-                                            </a>
+                                        @if(auth()->user()->hasRole('super admin') || auth()->user()->hasRole('emiweb admin'))
+                                            @if(auth()->user()->organization != '')
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record[$column]}}
+                                                </a>
+                                            @else
+                                                <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                    {{ $record[$column]}}
+                                                </a>
+                                            @endif
                                         @else
                                             <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                                 {{ $record[$column]}}
@@ -107,11 +125,18 @@
                                 @foreach($populated_fields as $pop_fields)
                                     @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
-                                            @if(auth()->user()->hasRole('super admin'))
-                                                <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
-                                                    {{ $record[$pop_fields]}}
+                                            @if(auth()->user()->hasRole('super admin') || auth()->user()->hasRole('emiweb admin'))
+                                                @if(auth()->user()->organization != '')
+                                                    <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                        {{ $record[$pop_fields]}}
 
-                                                </a>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
+                                                        {{ $record[$pop_fields]}}
+
+                                                    </a>
+                                                @endif
                                             @else
                                                 <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive_id, 'id'=>$record->id]) }}" class="block">
                                                     {{ $record[$pop_fields]}}
