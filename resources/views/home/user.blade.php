@@ -479,10 +479,16 @@
                                     hiddenInput3.setAttribute('name', 'customer_id');
                                     hiddenInput3.setAttribute('value', setupIntent.customer);
 
+                                    var hiddenInput4 = document.createElement('input');
+                                    hiddenInput4.setAttribute('type', 'hidden');
+                                    hiddenInput4.setAttribute('name', 'payment_status');
+                                    hiddenInput4.setAttribute('value', setupIntent.status);
+
                                     form.appendChild(hiddenInput);
                                     form.appendChild(hiddenInput1);
                                     form.appendChild(hiddenInput2);
                                     form.appendChild(hiddenInput3);
+                                    form.appendChild(hiddenInput4);
                                     form.submit();
                                 }
                             </script>
