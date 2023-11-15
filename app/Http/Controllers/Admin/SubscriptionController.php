@@ -53,6 +53,10 @@ class SubscriptionController extends Controller
 
         }
 
+        if ( $request->payment_status != 'active'){
+            return redirect()->back()->with('error','Please Try Again');
+        }
+        
         if ( $request->stripe_id == '' || $request->stripe_price == '' || $request->customer_id == '' ){
             return redirect()->back()->with('error','Please Try Again');
         }
@@ -104,8 +108,13 @@ class SubscriptionController extends Controller
             //     );
             // }
 
-            $user->syncRoles('subscriber');
-            $user->update(['manual_expire' => null]);
+            $user = auth()->user();
+            $subscriptions = $user->subscriptions()->active()->first();
+
+            if($subscriptions != ''){
+                $user->syncRoles('subscriber');
+                $user->update(['manual_expire' => null]);
+            }
 
         }else{
             $already_subcription = Subscription::where('user_id',$user->id)->where('name',"3 Months")->first();
@@ -125,8 +134,13 @@ class SubscriptionController extends Controller
                 $userD->save();
             }
 
-            $user->syncRoles('subscriber');
-            $user->update(['manual_expire' => null]);
+            $user = auth()->user();
+            $subscriptions = $user->subscriptions()->active()->first();
+
+            if($subscriptions != ''){
+                $user->syncRoles('subscriber');
+                $user->update(['manual_expire' => null]);
+            }
         }
 
         return redirect()->back()->with('Success','You are now subscribed');
