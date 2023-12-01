@@ -371,43 +371,101 @@ class UserController extends Controller
 
     public function payment(Request $request)
     {
+        // pre($request->setupIntent['payment_method']); exit;
+        // pre($request->all()); exit;
+        
         try {
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $price_id = $request->plan_id;
-            $customer = \Stripe\Customer::create(array(
-                "payment_method" => $request->payment_method,
-                "name" => $request->cardHolderName,
-            ));
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            if($request->coupon_name != ''){
-                $subscription_detail = $stripe->subscriptions->create([
-                    'customer' => $customer->id,
-                    'default_payment_method' => $request->payment_method,
-                    'items' => [
-                        ['price' => $price_id],
-                    ],
-                    'coupon' => $request->coupon_name,
-                ]);
-            }else{
-                $subscription_detail = $stripe->subscriptions->create([
-                    'customer' => $customer->id,
-                    'default_payment_method' => $request->payment_method,
-                    'items' => [
-                        ['price' => $price_id],
-                    ]
-                ]);
+            try{
+                $customer = \Stripe\Customer::create(array(
+                    "name" => $request->cardHolderName,
+                    "email" => Auth::user()->email
+                ));
+            }catch(\Exception $e){
+                $api_error = $e->getMessage();
             }
             
+            if(empty($api_error) && $customer){
+                try{
+                    if($request->coupon_name != ''){
+                        $subscription = $stripe->subscriptions->create([
+                            'customer' => $customer->id,
+                            // 'default_payment_method' => $payment_method_id,
+                            'items' => [
+                                ['price' => $price_id],
+                            ],
+                            'payment_behavior' => 'default_incomplete',
+                            'coupon' => $request->coupon_name,
+                            'expand' => ['latest_invoice.payment_intent'],
+                        ]);
+                    }else{
+                        $subscription = $stripe->subscriptions->create([
+                            'customer' => $customer->id,
+                            // 'default_payment_method' => $payment_method_id,
+                            'items' => [
+                                ['price' => $price_id],
+                            ],
+                            'payment_behavior' => 'default_incomplete',
+                            'expand' => ['latest_invoice.payment_intent'],
+                        ]);
+                    }
+                }catch(\Exception $e){
+                    $api_error = $e->getMessage();
+                }
 
-            if(!empty($subscription_detail)){
-                return response()->json(['status' => 'true' , 'subscription_detail' => $subscription_detail]);
+                if(empty($api_error) && $subscription){
+                    $output = [
+                        'subscriptionId' => $subscription->id,
+                        'clientSecret' => $subscription->latest_invoice->payment_intent->client_secret,
+                        'customerId' => $customer->id,
+                    ];
+                    return response()->json(['status' => 'true', 'output' => $output], 200);
+                }else{
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
             }else{
-                return redirect()->back()->with('error','Something Went Wrong Please try again !');
+                return response()->json(['error' => $e->getMessage()], 500);
             }
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function savepayment(Request $request) {
+        $payment_intent = isset($request->payment_intent)?$request->payment_intent:''; 
+        $subscription_id = isset($request->subscription_id)?$request->subscription_id:''; 
+        $customer_id = isset($request->customer_id)?$request->customer_id:''; 
+        $plan_id = isset($request->plan_id)?$request->plan_id:''; 
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        try{
+            $customer = $stripe->customers->retrieve(
+                $customer_id,
+                []
+            );
+        }catch (\Exception $e) {
+            $api_error = $e->getMessage();
+        }
+        if(!empty($payment_intent) && $payment_intent['status'] == 'succeeded'){
+            try{
+                $subData = $stripe->subscriptions->retrieve(
+                    $subscription_id,
+                    []
+                );
+            }catch (\Exception $e) {
+                $api_error = $e->getMessage();
+            }
+        }
+
+        if(empty($api_error)){
+            return response()->json(['status' => 'true', 'subData' => $subData], 200);
+        }else{
+            return response()->json(['status' => 'false','error' => $e->getMessage()], 500);
         }
     }
 
