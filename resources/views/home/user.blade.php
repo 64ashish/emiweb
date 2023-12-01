@@ -306,7 +306,7 @@
                                     <div class="pt-8 flex items-center justify-center">
                                         <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
                                     shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
-                                    focus:outline-none">
+                                    focus:outline-none subscribe-new">
                                             {{ __('Subscribe') }}
                                         </button>
                                     </div>
@@ -408,21 +408,54 @@
                                 var clientSecret = form.dataset.secret;
                                 form.addEventListener('submit', async function(event) {
                                     event.preventDefault();
-                                    stripe.createPaymentMethod({
-                                        type: 'card',
-                                        card: card
-                                    })
-                                    .then(function(result){
-                                        if(result.error){
-                                            var errorElement = document.getElementById('card-errors');
-                                            errorElement.textContent = error.message;
-                                        }else{
-                                            newFlowCouponFun(result.paymentMethod.id)
-                                        }
-                                    })
-                                });
+                                    $('.subscribe-new').attr('disabled','disabled');
+                                    // new code
+                                    // stripe.createPaymentMethod({
+                                    //     type: 'card',
+                                    //     card: card
+                                    // })
 
-                                function newFlowCouponFun(paymentMethodId){
+                                    // old code
+                                    // const { setupIntent, error } = await stripe.confirmCardSetup(
+                                    //     clientSecret, {
+                                    //         payment_method: {
+                                    //             card,
+                                    //             billing_details: { 
+                                    //                 name: cardHolderName, 
+                                    //                 email: '<?= Auth::user()->email; ?>' 
+                                    //             },
+                                    //         }
+                                    //     });
+
+                                    //new coode
+                                    // .then(function(result){
+                                    //     // console.log(result);
+                                    //     if(result.error){
+                                    //         var errorElement = document.getElementById('card-errors');
+                                    //         errorElement.textContent = error.message;
+                                    //     }else{
+                                    //         newFlowCouponFun(result.setupIntent.payment_method)
+                                    //     }
+                                    // })
+
+
+                                    // if (error) {
+                                    //     // Inform the user if there was an error.
+                                    //     var errorElement = document.getElementById('card-errors');
+                                    //     errorElement.textContent = error.message;
+                                    // } else {
+                                    //     var setupIntent1 = setupIntent;
+                                    //     newFlowCouponFun('1',setupIntent1);
+                                    // }
+                                    // stripe.createToken(card).then(function(result) {
+                                    //     if (result.error) {
+                                    //         var errorElement = document.getElementById('card-errors');
+                                    //         errorElement.textContent = result.error.message;
+                                    //     } else {
+                                    //         newFlowCouponFun(result.token,setupIntent1);
+                                    //     }
+                                    // });
+
                                     if($('#coupon').prop('disabled') == true){
                                         couponData = document.getElementById('coupon').value;
                                     }
@@ -434,6 +467,71 @@
                                         },
                                         body: JSON.stringify({
                                             "_token": "{{ csrf_token() }}",
+                                            coupon_name: couponData ? couponData : "",
+                                            plan_id: plan_id ? plan_id : "",
+                                            cardHolderName: cardHolderName ? cardHolderName : "",
+                                        })
+                                    })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        console.log(data);
+                                        if(data.output.subscriptionId && data.output.clientSecret){
+                                            paymentProcess(data.output.subscriptionId, data.output.clientSecret, data.output.customerId);
+                                        }
+                                    })
+                                });
+
+                                function paymentProcess(subscriptionId,clientSecret,customerId){
+                                    var cardHolderName = document.getElementById('cardholder-name').value;
+                                    const { setupIntent, error } = stripe.confirmCardPayment(
+                                        clientSecret, {
+                                            payment_method: {
+                                                card,
+                                                billing_details: { 
+                                                    name: cardHolderName, 
+                                                    email: '<?= Auth::user()->email; ?>' 
+                                                },
+                                            }
+                                        }
+                                    ).then((result) => {
+                                        if(result.error){
+                                            var errorElement = document.getElementById('card-errors');
+                                            errorElement.textContent = result.error.message;
+                                        }else{
+                                            fetch('/save-payment', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    "_token": "{{ csrf_token() }}",
+                                                    subscription_id: subscriptionId,
+                                                    customer_id: customerId,
+                                                    plan_id: plan_id ? plan_id : "",
+                                                    payment_intent: result.paymentIntent
+                                                })
+                                            })
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                stripeTokenHandler(data.subData)
+                                            })
+                                        }
+                                    })
+                                }
+
+                                function newFlowCouponFun(paymentMethodId,setupIntent){
+                                    if($('#coupon').prop('disabled') == true){
+                                        couponData = document.getElementById('coupon').value;
+                                    }
+                                    var cardHolderName = document.getElementById('cardholder-name').value;
+                                    fetch('/payment', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "_token": "{{ csrf_token() }}",
+                                            setupIntent: setupIntent,
                                             payment_method: paymentMethodId,
                                             coupon_name: couponData ? couponData : "",
                                             plan_id: plan_id ? plan_id : "",
@@ -443,7 +541,10 @@
                                     .then((response) => response.json())
                                     .then((data) => {
                                         if (data.status == 'true') {
-                                            stripeTokenHandler(data.subscription_detail);
+                                            // stripeTokenHandler(data.subscription_detail);
+                                            if(data.subscription_detail){
+                                                
+                                            }
                                         }
                                     })
                                 }
