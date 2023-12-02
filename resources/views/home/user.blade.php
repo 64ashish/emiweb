@@ -585,11 +585,17 @@
                                     hiddenInput4.setAttribute('name', 'payment_status');
                                     hiddenInput4.setAttribute('value', setupIntent.status);
 
+                                    var hiddenInput5 = document.createElement('input');
+                                    hiddenInput5.setAttribute('type', 'hidden');
+                                    hiddenInput5.setAttribute('name', 'subscription_ends');
+                                    hiddenInput5.setAttribute('value', setupIntent.current_period_end);
+
                                     form.appendChild(hiddenInput);
                                     form.appendChild(hiddenInput1);
                                     form.appendChild(hiddenInput2);
                                     form.appendChild(hiddenInput3);
                                     form.appendChild(hiddenInput4);
+                                    form.appendChild(hiddenInput5);
                                     form.submit();
                                 }
                             </script>

@@ -44,7 +44,6 @@ class UserController extends Controller
                     $user->save();
                     mailSend($user);
                 }
-                
                 $subscriptions = $user->subscriptions()->active()->first();
                 if($subscriptions != ''){
                     $today_date = date('Y-m-d H:i:s');
@@ -54,14 +53,12 @@ class UserController extends Controller
                     }
                     else if($subscriptions->name == 'Regular Subscription'){
                         $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+1 year'));
-                        $today_date = date('Y-m-d H:i:s');
                         if($today_date >= $futureDate){
                             $user->subscription($subscriptions->name)->delete();
                             $user->syncRoles('regular user');
                         }
                     }else if($subscriptions->name == '3 Months'){
                         $futureDate = date('Y-m-d H:i:s', strtotime($subscriptions->created_at.'+3 month'));
-                        $today_date = date('Y-m-d H:i:s');
                         if($today_date >= $futureDate){
                             $user->subscription($subscriptions->name)->delete();
                             $user->syncRoles('regular user');

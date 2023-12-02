@@ -64,6 +64,7 @@ class SubscriptionController extends Controller
         $stripe_id = $request->stripe_id;
         $stripe_price = $request->stripe_price;
         $customer_id = $request->customer_id;
+        $subscription_ends = date('Y-m-d H:i:s', $request->subscription_ends);
 
         $user = auth()->user();
 
@@ -94,6 +95,7 @@ class SubscriptionController extends Controller
                 $sub->name = $product;
                 $sub->stripe_id = $stripe_id;
                 $sub->stripe_price = $stripe_price;
+                $sub->ends_at = $subscription_ends;
                 $sub->stripe_status = 'active';
                 $sub->quantity = 1;
                 $sub->save();
@@ -125,6 +127,7 @@ class SubscriptionController extends Controller
                 $sub->name = $product;
                 $sub->stripe_id = $stripe_id;
                 $sub->stripe_price = $stripe_price;
+                $sub->ends_at = $subscription_ends;
                 $sub->stripe_status = 'active';
                 $sub->quantity = 1;
                 $sub->save();
