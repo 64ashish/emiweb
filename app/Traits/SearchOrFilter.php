@@ -5294,7 +5294,7 @@ trait SearchOrFilter
     },
     {
         "Länskod": "G",
-        "Län": "Kronobrg",
+        "Län": "Kronoberg",
         "Församling": "Älmhult"
     },
     {
