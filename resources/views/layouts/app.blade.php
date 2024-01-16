@@ -46,6 +46,14 @@ window.addEventListener('load', (event) => {
 });
 </script>
 
+<script>
+window.addEventListener('load', (event) => {
+  document.getElementById('search-archive').addEventListener('click', () => {
+    fathom.trackEvent('Arkivsökning');
+  });
+});
+</script>
+
 
 </head>
 
