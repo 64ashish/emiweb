@@ -38,6 +38,14 @@
     <script src="https://cdn.usefathom.com/script.js" data-site="MAMOPBNC" defer></script>
     <!-- / Fathom -->
 
+    <script>
+window.addEventListener('load', (event) => {
+  document.getElementById('global-search').addEventListener('click', () => {
+    fathom.trackEvent('Global sökning');
+  });
+});
+</script>
+
 
 </head>
 
@@ -132,7 +140,7 @@
 
                                     </div>
                                     <div class="p-5 flex justify-end">
-                                        <button type="submit" x-bind:disabled="buttonDisable" class="items-center disabled:opacity-50 px-8 py-2 border
+                                        <button type="submit" x-bind:disabled="buttonDisable" id="global-search" class="items-center disabled:opacity-50 px-8 py-2 border
                                 border-transparent text-base font-medium rounded-md shadow-sm text-white
                                  bg-indigo-600  hover:bg-indigo-700 focus:outline-none focus:ring-2
                                 focus:ring-offset-2 focus:ring-indigo-500 flex">
