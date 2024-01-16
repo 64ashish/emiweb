@@ -34,6 +34,10 @@
 
     </style>
 
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="MAMOPBNC" defer></script>
+    <!-- / Fathom -->
+
 
 </head>
 
