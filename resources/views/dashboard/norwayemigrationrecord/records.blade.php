@@ -46,6 +46,13 @@
     </div>
     @if((Str::is('*search', Route::currentRoutename()) == true))
         <script>
+            $(document).ready(function (){
+                setTimeout(() => {
+                    if ($('#tr').length) {
+                        $('#tr').click();
+                    }
+                }, 500);
+            })
             function data() {
                 return {
                     openDetails: false,
