@@ -63,8 +63,10 @@
 
                     <tbody  x-ref="tbody"  class="bg-white">
                     @if(auth()->user()->hasRole('organization admin|organization staff|super admin|emiweb admin') )
+                        @php $i = 0; @endphp
                         @foreach($records as $record)
-                            <tr class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
+
+                            <tr @php if($i == 0){ echo 'id="tr"'; $i = 1; } @endphp class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white ">
                                 @if(!empty($record->first_name) or !empty($record->last_name))
                                     <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem]
                                                                         font-medium  sm:pl-6 lg:pl-8">
@@ -153,10 +155,10 @@
                     @endif
 
                     @if(auth()->user()->hasRole('regular user|subscriber|organizational subscriber') )
+                        @php $i = 0; @endphp
                         @foreach($records as $record)
 
-                            <tr  @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})"
-                                 class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
+                            <tr @php if($i == 0){ echo 'id="tr"'; $i = 1; } @endphp @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})" class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
                                 {{--  @if(!empty($record->first_name) or !empty($record->last_name))--}}
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
                                     {{--  @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
@@ -278,7 +280,7 @@
                         </div>
 
                     </div>
-                <!-- Start list for view information -->
+                    <!-- Start list for view information -->
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0 bg-white" >
                         <dl class="sm:divide-y sm:divide-gray-200 grid grid-cols-1 sm:grid-cols-2 quickwrapper">
 
@@ -294,7 +296,7 @@
                             </template>
                         </dl>
                     </div>
-                <!-- End list for view information -->
+                    <!-- End list for view information -->
 
                 </div>
             </div>
