@@ -83,13 +83,26 @@
 
                     <div class="-mt-8 ">
                         <nav class="-mb-px flex justify-end space-x-8">
+                            <a href="javascript:void(0)" onclick="previousrecord({{ isset($detail->archive_id) ? $detail->archive_id : '' }},{{ isset($detail->id) ? $detail->id : '' }})" class="relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-4  text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" id="previousRecord">
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+                                </svg>
+                                {{ __('Previous record') }}
+                                <input type="hidden" name="record_id" id="record_id_current" value="{{ isset($detail->id) ? $detail->id : '' }}">
+                            </a>
+                            
+                            <a href="javascript:void(0)" onclick="nextrecord({{ isset($detail->archive_id) ? $detail->archive_id : '' }},{{ isset($detail->id) ? $detail->id : '' }})" class="relative -ml-px inline-flex items-center  border border-gray-300 bg-white px-4 py-4  text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" id="nextRecord">{{ __('Next record') }}
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
                             <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2 hover:text-indigo-700 hover:border-indigo-700
                             font-medium text-sm" :class="{ 'border-indigo-700 text-indigo-700 ': tab === 'details' }"
                                x-on:click.prevent="tab = 'details'"
                                href="#">
 
                                 {{ __('Details') }}</a>
-{{--                            @if(empty($relatives))--}}
+                            {{-- @if(empty($relatives))--}}
                             @if( $detail->relatives != null and $detail->relatives->count() > 0)
                             <a class="text-gray-500  whitespace-nowrap pb-4 px-1 border-b-2 hover:text-indigo-700 hover:border-indigo-700
                             font-medium text-sm" :class="{ 'border-indigo-700 text-indigo-700 ': tab === 'relatives' }"
@@ -207,7 +220,7 @@
                                             <tbody class="bg-white">
                                             <!-- Odd row -->
                                             @foreach($detail->professions as $profession)
-{{--                                                {{ $profession }}--}}
+                            {{--                                                {{ $profession }}--}}
                                                 <tr class="odd:bg-white even:bg-gray-100">
 
                                                     <td class="whitespace-nowrap px-3  py-[0.6rem]  text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]  text-gray-500">{{ $profession->profession }}</td>
@@ -450,5 +463,45 @@
         </div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function (){
+            var retrievedArrayString = sessionStorage.getItem('recordArray');
+            var numberArray = JSON.parse(retrievedArrayString);
+            const id = {{ isset($detail->id) ? $detail->id : '' }};
+            var record_key = numberArray.indexOf(id);
+            if(record_key <= 0){
+                $('#previousRecord').attr('style','display: none !important;');
+            }
+
+            if(record_key >= 99){
+                $('#nextRecord').attr('style','display: none !important;');
+            }
+        });
+
+        function previousrecord(archive_id,id){
+            var retrievedArrayString = sessionStorage.getItem('recordArray');
+            var numberArray = JSON.parse(retrievedArrayString);
+
+            var record_key = numberArray.indexOf(id);
+            record_key = record_key-1;
+
+            var new_id = numberArray[record_key];
+
+            window.location.href = "/records/"+archive_id+"/"+new_id+'?'+record_key
+        }
+
+        function nextrecord(archive_id,id){
+            var retrievedArrayString = sessionStorage.getItem('recordArray');
+            var numberArray = JSON.parse(retrievedArrayString);
+
+            var record_key = numberArray.indexOf(id);
+            record_key = record_key+1;
+
+            var new_id = numberArray[record_key];
+
+            window.location.href = "/records/"+archive_id+"/"+new_id+'?'+record_key
+        }
+    </script>
 </x-app-layout>
 

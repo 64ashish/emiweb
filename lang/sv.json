@@ -546,6 +546,7 @@
  "Thanks":"Tack",
  "Born parish":"Född församling",
  "Born in":"Född år",
+ "Your Organization has been expire":"Din organisation har förfallit",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",

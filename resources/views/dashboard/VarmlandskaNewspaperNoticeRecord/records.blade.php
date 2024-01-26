@@ -50,7 +50,7 @@
             $(document).ready(function (){
                 setTimeout(() => {
                     if ($('#tr').length) {
-                        $('#tr').click();
+                        // $('#tr').click();
                     }
                 }, 500);
             })

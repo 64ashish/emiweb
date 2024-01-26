@@ -84,17 +84,18 @@ class HomeController extends Controller
             // echo $request->ip(); exit;
             $organization = Organization::where('ip_address','LIKE','%'.$request->ip().',%')->orWhere('ip_address','LIKE','%,'.$request->ip())->first();
             if(!empty($organization)){
-                $organization_id = $organization->id;
-                $user = User::where('organization_id', $organization_id)->role('organizational subscriber')->first();
-                if(!empty($user)){
-                    Auth::login($user);
-                    
-                }else{
-                    return redirect()->to('/login');
+                if($organization->expire_date > date('Y-m-d H:i:s') || $organization->expire_date == null){
+                    $organization_id = $organization->id;
+                    $user = User::role('organizational subscriber')->first();
+                    if(!empty($user)){
+                        Auth::login($user);
+                        
+                    }else{
+                        return redirect()->to('/login');
+                    }
                 }
-               
             }
-            return redirect()->to('/login');
+            return redirect()->to('/login')->with("error", "Your Organization has been expire");
         }
         if(is_null(Auth::user()->email_verified_at))
         {

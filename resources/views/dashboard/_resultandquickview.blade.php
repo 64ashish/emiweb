@@ -157,8 +157,7 @@
                     @if(auth()->user()->hasRole('regular user|subscriber|organizational subscriber') )
                         @php $i = 0; @endphp
                         @foreach($records as $record)
-
-                            <tr @php if($i == 0){ echo 'id="tr"'; $i = 1; } @endphp @click="openDetails = ! openDetails, selectedRecord({{ $record->id }})" class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
+                            <tr @php if($i == 0){ echo 'id="tr"'; $i = 1; } @endphp onclick="openRecord({{ $record->archive_id }}, {{ $record->id }})" class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
                                 {{--  @if(!empty($record->first_name) or !empty($record->last_name))--}}
                                     @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
                                     {{--  @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}

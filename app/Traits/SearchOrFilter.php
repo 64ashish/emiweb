@@ -125,7 +125,7 @@ trait SearchOrFilter
 
         return $result
 //            ->orderBy('first_name', 'asc')
-            ->paginate(1000,$fieldsToDisply);
+            ->paginate(100,$fieldsToDisply);
 
     }
 

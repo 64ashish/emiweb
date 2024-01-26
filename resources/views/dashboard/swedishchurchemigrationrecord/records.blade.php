@@ -66,6 +66,13 @@
                 </div>
 
             @endif
+
+            @php $recordIds = array(); @endphp
+            @if(isset($records) and $records->count() > 0)
+                @foreach($records as $record)
+                    @php $recordIds[] = $record->id; @endphp
+                @endforeach
+            @endif
         </section>
 
     </div>
@@ -88,7 +95,7 @@
 
             setTimeout(() => {
                 if ($('#tr').length) {
-                    $('#tr').click();
+                    // $('#tr').click();
                 }
             }, 500);
         })
@@ -182,6 +189,21 @@
                 }
             }
 
+        }
+
+        function openRecord(archive_id, id){
+
+            let all_ids = "{{ json_encode($recordIds); }}";
+            // all_ids.replace(/[/g, "");
+            const numberArray = JSON.parse(all_ids);
+            var record_key = numberArray.indexOf(id);
+
+            window.location.href = "/records/"+archive_id+"/"+id+'?'+record_key
+            // alert("/records/"+archive_id+"/"+id+'?'+record_key);
+
+            var arrayString = JSON.stringify(numberArray);
+
+            sessionStorage.setItem('recordArray', arrayString);
         }
     </script>
     @endif
