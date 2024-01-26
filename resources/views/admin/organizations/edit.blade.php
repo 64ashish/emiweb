@@ -1,4 +1,40 @@
 <x-admin-layout>
+    <style>
+        #tags{
+            float:left;
+            border:1px solid #ccc;
+            padding:5px;
+            font-family:Arial;
+            }
+        #tags > span{
+            cursor:pointer;
+            display:block;
+            float:left;
+            color:#fff;
+            background:#789;
+            padding:5px;
+            padding-right:25px;
+            margin:4px;
+        }
+        #tags > span:hover{
+            opacity:0.7;
+        }
+        #tags > span:after{
+            position:absolute;
+            content:"×";
+            border:1px solid;
+            padding:2px 5px;
+            margin-left:3px;
+            font-size:11px;
+        }
+        #tags > input{
+            background:#eee;
+            border:0;
+            margin:4px;
+            padding:7px;
+            width:auto;
+        }
+    </style>
     <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
             <nav class="space-y-1 lg:fixed">
@@ -80,6 +116,23 @@
                                             sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                                             'id' => 'phone']) !!}
                                     @error('phone')
+                                    <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
+                                    </p>@enderror
+                                </div>
+                            </div>
+
+                            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                <label for="phone" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                    Expiration Date </label>
+                                <div class="mt-1 sm:mt-0 sm:col-span-2">
+                                    {{-- {!! Form::date('expire_date', null,
+                                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
+                                            'id' => 'expire_date']) !!} --}}
+
+                                    <input type="date" name="expire_date" id="expire_date" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:max-w-xs sm:text-sm border-gray-300 rounded-md" value="{{ date('Y-m-d', strtotime($TheOrganization->expire_date)) }}">
+                                    @error('expire_date')
                                     <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                                     </p>@enderror
                                 </div>
@@ -190,10 +243,19 @@
                                     IP address(comma separated) </label>
                                 <div class="mt-1 sm:mt-0 sm:col-span-2">
 
-                                    {!! Form::textarea('ip_address', null,
-                                            ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
-                                            'id' => 'ip_address']) !!}
+                                    {{-- {!! Form::text('ip_address', null, ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md', 'id' => 'ip_address']) !!} --}}
+                                    <div id="tags">
+                                        @if($TheOrganization->ip_address != '')
+                                            @php $ip_address = explode(',',$TheOrganization->ip_address); @endphp
+                                            @foreach($ip_address as $ip)
+                                                @if($ip)
+                                                    <span>{{$ip}}</span>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        <input type="text" value="" id="ip_add" placeholder="Add New IP Address" />
+                                    </div>
+                                    <input type="hidden" name="ip_address" id="ip_address" value="">
                                     @error('ip_address')
                                     <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                                     </p>@enderror
@@ -395,5 +457,39 @@
                 </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            const ip_address_str = '{{ $TheOrganization->ip_address }}';
+            const ip_address_val = ip_address_str.split(',').filter(Boolean);
+            $("#tags #ip_add").on({
+                focusout() {
+                    var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); 
+                    if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
 
+                    console.log(ip_address_val);
+                    if(txt) {ip_address_val.push(txt);}
+                    this.value = "";
+                    console.log(ip_address_val);
+                    var ip_address_string = ip_address_val.join(',');
+                    $('#ip_address').val(ip_address_string);
+                },
+                keyup(ev) {
+                    if(/(,|Enter)/.test(ev.key)) $(this).focusout(); 
+                }
+            });
+            $("#tags").on("click", "span", function() {
+                var remove_ip = $(this).text().replace(/<\/?span>/ig, '');
+                $(this).remove();
+                var index = ip_address_val.indexOf(remove_ip);
+
+                if (index !== -1) {
+                    // remove the element from the array
+                    ip_address_val.splice(index, 1);
+                }
+                var ip_address_string = ip_address_val.join(',');
+                $('#ip_address').val(ip_address_string);
+            });
+        })
+    </script>
 </x-admin-layout>
