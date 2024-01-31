@@ -81,8 +81,7 @@ class HomeController extends Controller
 
         if( !auth()->check() )
         {
-            // echo $request->ip(); exit;
-            $organization = Organization::where('ip_address','LIKE','%'.$request->ip().',%')->orWhere('ip_address','LIKE','%,'.$request->ip())->first();
+            $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->first();
             if(!empty($organization)){
                 if($organization->expire_date > date('Y-m-d H:i:s') || $organization->expire_date == null){
                     $organization_id = $organization->id;
