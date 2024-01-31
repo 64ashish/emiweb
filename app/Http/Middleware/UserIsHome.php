@@ -33,7 +33,7 @@ class UserIsHome
                 {
                     $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->first();
                     if(!empty($organization)){
-                        if($organization->expire_date > date('Y-m-d H:i:s') || $organization->expire_date == null){
+                        if($organization->expire_date >= date('Y-m-d H:i:s') || $organization->expire_date == null){
                             $organization_id = $organization->id;
                             $user = User::role('organizational subscriber')->first();
                             if(!empty($user)){
