@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Organization;
 
 class UserIsHome
 {
@@ -29,6 +31,19 @@ class UserIsHome
             {
                 if(!in_array($request->getClientIp(), $ipAddress))
                 {
+                    $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->first();
+                    if(!empty($organization)){
+                        if($organization->expire_date > date('Y-m-d H:i:s') || $organization->expire_date == null){
+                            $organization_id = $organization->id;
+                            $user = User::role('organizational subscriber')->first();
+                            if(!empty($user)){
+                                Auth::login($user);
+                                
+                            }else{
+                                return redirect()->to('/login');
+                            }
+                        }
+                    }
                     Auth::logout();
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
