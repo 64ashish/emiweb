@@ -255,7 +255,7 @@
                                         @endif
                                         <input type="text" value="" id="ip_add" placeholder="Add New IP Address" />
                                     </div>
-                                    <input type="hidden" name="ip_address" id="ip_address" value="">
+                                    <input type="hidden" name="ip_address" id="ip_address" value="{{ $TheOrganization->ip_address }}">
                                     @error('ip_address')
                                     <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}
                                     </p>@enderror
@@ -462,34 +462,31 @@
         $(document).ready(function(){
             const ip_address_str = '{{ $TheOrganization->ip_address }}';
             const ip_address_val = ip_address_str.split(',').filter(Boolean);
-            $("#tags #ip_add").on({
-                focusout() {
-                    var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); 
-                    if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
-
-                    console.log(ip_address_val);
-                    if(txt) {ip_address_val.push(txt);}
-                    this.value = "";
-                    var ip_address_string = ip_address_val.join(',');
-                    console.log(ip_address_string);
-                    $('#ip_address').val(ip_address_string);
-                },
-                keyup(ev) {
-                    if(/(,|Enter)/.test(ev.key)) $(this).focusout(); 
-                }
-            });
             $("#tags").on("click", "span", function() {
                 var remove_ip = $(this).text().replace(/<\/?span>/ig, '');
                 $(this).remove();
                 var index = ip_address_val.indexOf(remove_ip);
 
                 if (index !== -1) {
-                    // remove the element from the array
                     ip_address_val.splice(index, 1);
                 }
                 var ip_address_string = ip_address_val.join(',');
-                    console.log(ip_address_string);
+                console.log(ip_address_string);
                 $('#ip_address').val(ip_address_string);
+            });
+            $("#tags #ip_add").on({
+                focusout() {
+                    var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); 
+                    if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
+
+                    if(txt) {ip_address_val.push(txt);}
+                    this.value = "";
+                    var ip_address_string = ip_address_val.join(',');
+                    $('#ip_address').val(ip_address_string);
+                },
+                keyup(ev) {
+                    if(/(,|Enter)/.test(ev.key)) $(this).focusout(); 
+                }
             });
         })
     </script>
