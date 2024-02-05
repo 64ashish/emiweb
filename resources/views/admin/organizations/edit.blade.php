@@ -470,8 +470,8 @@
                     console.log(ip_address_val);
                     if(txt) {ip_address_val.push(txt);}
                     this.value = "";
-                    console.log(ip_address_val);
                     var ip_address_string = ip_address_val.join(',');
+                    console.log(ip_address_string);
                     $('#ip_address').val(ip_address_string);
                 },
                 keyup(ev) {
@@ -488,6 +488,7 @@
                     ip_address_val.splice(index, 1);
                 }
                 var ip_address_string = ip_address_val.join(',');
+                    console.log(ip_address_string);
                 $('#ip_address').val(ip_address_string);
             });
         })
