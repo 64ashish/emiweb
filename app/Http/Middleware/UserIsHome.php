@@ -35,7 +35,7 @@ class UserIsHome
                     if(!empty($organization)){
                         if($organization->expire_date >= date('Y-m-d H:i:s') || $organization->expire_date == null){
                             $organization_id = $organization->id;
-                            $user = User::role('organizational subscriber')->first();
+                            $user = User::role('subscriber')->first();
                             if(!empty($user)){
                                 Auth::login($user);
                             }else{
