@@ -184,11 +184,13 @@ window.addEventListener('load', (event) => {
             <ul class="font-bold inline-flex items-center text-white shrink-0">
 
                 @if(auth()->user()->hasRole('regular user|subscriber'))
-                <li class="font-normal">
-                    <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
-                        {{ __('Account') }}
-                    </a>
-                </li>
+                    @if(!Session::has('auto login'))
+                        <li class="font-normal">
+                            <a href="{{ route('home.users.edit', auth()->user()->id ) }}">
+                                {{ __('Account') }}
+                            </a>
+                        </li>
+                    @endif
                 @endif
                 <li class="pl-8">
                     <form method="POST" action="{{ route('logout') }}">

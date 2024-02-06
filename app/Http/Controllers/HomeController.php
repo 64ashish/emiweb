@@ -18,6 +18,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 //use Laravel\Cashier\Subscription;
 use Laravel\Cashier\Cashier;
@@ -88,6 +89,7 @@ class HomeController extends Controller
                     $user = User::role('subscriber')->first();
                     if(!empty($user)){
                         Auth::login($user);
+                        Session::put('auto login', 'yes');
                     }else{
                         return redirect()->to('/login');
                     }
