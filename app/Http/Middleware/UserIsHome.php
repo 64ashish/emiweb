@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Organization;
+use Illuminate\Support\Facades\Session;
 
 class UserIsHome
 {
@@ -38,6 +39,7 @@ class UserIsHome
                             $user = User::role('subscriber')->first();
                             if(!empty($user)){
                                 Auth::login($user);
+                                Session::put('auto login', 'yes');
                             }else{
                                 return redirect()->to('/login');
                             }
