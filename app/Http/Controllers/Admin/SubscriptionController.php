@@ -64,6 +64,7 @@ class SubscriptionController extends Controller
         $stripe_id = $request->stripe_id;
         $stripe_price = $request->stripe_price;
         $customer_id = $request->customer_id;
+        $payment_method_id = $request->paymentMethod;
         $subscription_ends = date('Y-m-d H:i:s', $request->subscription_ends);
 
         $user = auth()->user();
@@ -102,6 +103,7 @@ class SubscriptionController extends Controller
 
                 $userD = User::find(auth()->user()->id);
                 $userD->stripe_id = $customer_id;
+                $userD->pm_type = $payment_method_id;
                 $userD->save();
             }
             // else{
@@ -134,6 +136,7 @@ class SubscriptionController extends Controller
 
                 $userD = User::find(auth()->user()->id);
                 $userD->stripe_id = $customer_id;
+                $userD->pm_type = $payment_method_id;
                 $userD->save();
             }
 
@@ -180,13 +183,42 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request)
     {
-//        return config('services.subscription.3_months');
         $user = auth()->user();
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $customer = $stripe->customers->retrieve($user->stripe_id, []);
+
+        $customer->invoice_settings->default_payment_method = $user->pm_type;
+
+        $customer->save();
 
         $CurrentPlan = $user->subscriptions()->active()->get()->first();
 
         $user->subscription($CurrentPlan->name)->swapAndInvoice($request->plan);
         $user->update(['manual_expire' => null]);
+
+        if(env('STRIPE_3_MONTHS') == $request->plan){
+            $subscription_ends = \Carbon\Carbon::parse(date('Y-m-d H:i:s'))->addMonths(3);
+            
+            $sub = Subscription::find($CurrentPlan->id);
+            $sub->name = '3 Months';
+            $sub->stripe_price = $request->plan;
+            $sub->ends_at = $subscription_ends;
+            $sub->stripe_status = 'active';
+            $sub->quantity = 1;
+            $sub->save();
+        }
+
+        if(env('STRIPE_1_YEAR') == $request->plan){
+            $subscription_ends = \Carbon\Carbon::parse(date('Y-m-d H:i:s'))->addMonths(12);
+            
+            $sub = Subscription::find($CurrentPlan->id);
+            $sub->name = 'Regular Subscription';
+            $sub->stripe_price = $request->plan;
+            $sub->ends_at = $subscription_ends;
+            $sub->stripe_status = 'active';
+            $sub->quantity = 1;
+            $sub->save();
+        }
 
         return redirect()->back();
 
