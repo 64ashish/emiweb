@@ -436,7 +436,8 @@ class UserController extends Controller
         $payment_intent = isset($request->payment_intent)?$request->payment_intent:''; 
         $subscription_id = isset($request->subscription_id)?$request->subscription_id:''; 
         $customer_id = isset($request->customer_id)?$request->customer_id:''; 
-        $plan_id = isset($request->plan_id)?$request->plan_id:''; 
+        $plan_id = isset($request->plan_id)?$request->plan_id:'';
+        $payment_method = isset($request->payment_method)?$request->payment_method:'';
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
@@ -460,7 +461,7 @@ class UserController extends Controller
         }
 
         if(empty($api_error)){
-            return response()->json(['status' => 'true', 'subData' => $subData], 200);
+            return response()->json(['status' => 'true', 'subData' => $subData, 'payment_method' => $payment_method], 200);
         }else{
             return response()->json(['status' => 'false','error' => $e->getMessage()], 500);
         }

@@ -96,8 +96,7 @@
                 </p>
             </div>
 
-
-            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') === false)
+            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') === false || \Carbon\Carbon::now()->addMonths(1)->gte(\Carbon\Carbon::parse(optional($user->subscriptions()->active()->first())->ends_at)))
                 @if($user->subscriptions()->active()->first())
                     <div class="px-4 sm:px-6 mb-6">
                         <form action="/subscribe/{{ $user->subscriptions()->active()->first()->id }}/update"
@@ -508,12 +507,13 @@
                                                     subscription_id: subscriptionId,
                                                     customer_id: customerId,
                                                     plan_id: plan_id ? plan_id : "",
-                                                    payment_intent: result.paymentIntent
+                                                    payment_intent: result.paymentIntent,
+                                                    payment_method: result.paymentIntent.payment_method
                                                 })
                                             })
                                             .then((response) => response.json())
                                             .then((data) => {
-                                                stripeTokenHandler(data.subData)
+                                                stripeTokenHandler(data.subData, data.payment_method)
                                             })
                                         }
                                     })
@@ -555,15 +555,15 @@
                                 }
 
                                 // Submit the form with the token ID.
-                                function stripeTokenHandler(setupIntent) {
-                                    console.log(setupIntent);
+                                function stripeTokenHandler(setupIntent, payment_method) {
+                                    console.log(payment_method);
                                     
                                     // Insert the token ID into the form so it gets submitted to the server
                                     var form = document.getElementById('payment-form');
                                     var hiddenInput = document.createElement('input');
                                     hiddenInput.setAttribute('type', 'hidden');
                                     hiddenInput.setAttribute('name', 'paymentMethod');
-                                    hiddenInput.setAttribute('value', setupIntent.default_payment_method);
+                                    hiddenInput.setAttribute('value', payment_method);
 
                                     var hiddenInput1 = document.createElement('input');
                                     hiddenInput1.setAttribute('type', 'hidden');
