@@ -168,7 +168,7 @@ class SearchController extends Controller
                 'Obituaries from Swedish American newspapers' =>$this->QueryObituariesSweUsaNewspapersRecord($inputFields)
             ]);
         }
-
+        // pre($records); exit;
 
 //        return $keywords;
         return view('home.results', compact('records', 'keywords'));
