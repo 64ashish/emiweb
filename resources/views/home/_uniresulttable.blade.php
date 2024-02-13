@@ -33,7 +33,7 @@
     </td>
     @break
 
-    @case( $key == 'SCB Immigranter')
+    @case( $key == 'SCB Immigranter' || $key == 'SCB immigrants')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
@@ -49,7 +49,7 @@
     </td>
     @break
 
-    @case( $key == 'SCB Emigranter')
+    @case( $key == 'SCB Emigranter' || $key == 'SCB emigrants')
     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm
 
                                                                                 font-medium  sm:pl-6 lg:pl-8">
