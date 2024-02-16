@@ -92,12 +92,6 @@
                     };
                 })
             }
-
-            setTimeout(() => {
-                if ($('#tr').length) {
-                    // $('#tr').click();
-                }
-            }, 500);
         })
 
        /* if(sortBy){

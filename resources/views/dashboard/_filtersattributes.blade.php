@@ -132,10 +132,9 @@
                            ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $filterAttribute[2], 'x-mask' => "99",'placeholder' => "DD"]) !!}
-
                         </div>
-                    @elseif(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob")
-                        <div class="flex gap-2" x-data='{ compare: "{{ $keywords["compare_{$filterAttribute}_check"] ?? false }}" }'>
+                    @elseif(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob" or $filterAttribute === "traveled_on")
+                        <div class="flex gap-2" x-data='{ compare: "{{ $keywords["compare_{$filterAttribute}"] ?? false }}" }'>
                             {!! Form::text("array_".$filterAttribute."[year]", null,
                            ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
@@ -152,10 +151,9 @@
                            ['class' => 'max-w-lg w-14  block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $filterAttribute."_day", 'x-mask' => "99",'placeholder' => "DD",'x-show'=>"!compare"]) !!}
-                            <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check"
-                                   x-model="compare" x-bind:value="compare"
-                                   class="self-center rounded border-gray-300 ml-auto">
-                            <label for="scales"  x-model="compare"class="self-center  ml-auto" >{{ __('Interval') }}</label>
+                            <input type="checkbox" id="scales" name="compare_{{ $filterAttribute }}_check" x-model="compare" 
+                            x-bind:value="compare" class="self-center rounded border-gray-300 ml-auto" {{ isset($keywords["compare_{$filterAttribute}"]) ? 'checked' : false }}>
+                            <label for="scales"  x-model="compare" class="self-center  ml-auto" >{{ __('Interval') }}</label>
                         </div>
                     @elseif(in_array($filterAttribute, $enableQueryMatch))
                             {!! Form::text('qry_'.$filterAttribute.'[value]', null,
