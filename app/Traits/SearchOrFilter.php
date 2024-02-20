@@ -106,22 +106,18 @@ trait SearchOrFilter
         foreach($inputFields as  $fieldname => $fieldvalue) {
 
             if ($fieldname !== 'sortBy') {
-
-                if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob'])
-                    && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
-//                dd('1');
+                if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob', 'traveled on']) && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
+                    //  dd('1');
                     $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
                 } else if ($fieldname === 'memo') {
-//                dd('2');
+                    //  dd('2');
                     $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
                 } else if (!Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
-//                dd();
+                    //  dd();
                     $result->where($fieldname, $fieldvalue);
                 }
             }
         }
-
-
 
         return $result
 //            ->orderBy('first_name', 'asc')

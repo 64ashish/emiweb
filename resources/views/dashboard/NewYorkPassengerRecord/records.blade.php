@@ -49,14 +49,6 @@
     </div>
     @if((Str::is('*search', Route::currentRoutename()) == true))
         <script>
-
-            $(document).ready(function (){
-                setTimeout(() => {
-                    if ($('#tr').length) {
-                        // $('#tr').click();
-                    }
-                }, 500);
-            })
             function openRecord(archive_id, id){
 
                 let all_ids = "{{ json_encode($recordIds); }}";

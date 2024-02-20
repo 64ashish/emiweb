@@ -126,7 +126,6 @@ class DenmarkEmigrationController extends Controller
 
 
 
-
 //        get the keywords again
         $keywords = $request->all();
 
