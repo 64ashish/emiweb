@@ -54,11 +54,11 @@ class SubscriptionController extends Controller
         }
 
         if ( $request->payment_status != 'active'){
-            return redirect()->back()->with('error','Please Try Again');
+            return redirect()->back()->with('error',__('Please Try Again'));
         }
         
         if ( $request->stripe_id == '' || $request->stripe_price == '' || $request->customer_id == '' ){
-            return redirect()->back()->with('error','Please Try Again');
+            return redirect()->back()->with('error',__('Please Try Again'));
         }
 
         $stripe_id = $request->stripe_id;
@@ -72,7 +72,7 @@ class SubscriptionController extends Controller
         $product = $request->plan === config('services.subscription.3_months') ? "3 Months" : "Regular Subscription";
         // echo 1; exit;
         if ($user->subscription($product) ){
-            return redirect()->back()->with('error','You are already subscribed to this subscription');
+            return redirect()->back()->with('error', __('You are already subscribed to this subscription'));
 
         }
 
@@ -149,7 +149,7 @@ class SubscriptionController extends Controller
             }
         }
 
-        return redirect()->back()->with('Success','You are now subscribed');
+        return redirect()->back()->with('Success', __('You are now subscribed'));
     }
 
     /**
