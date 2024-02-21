@@ -55,7 +55,7 @@ class OrganizationController extends Controller
         // redirect to right place
            return  $this->NowRedirectTo('/admin/organizations',
                 '/emiweb/organizations',
-                'Organization has been added'
+            __('Organization has been added') 
             );
 
     }
@@ -119,7 +119,7 @@ class OrganizationController extends Controller
 
         return  $this->NowRedirectTo('/admin/organizations',
             '/emiweb/organizations',
-            'Organization details has been updated'
+            __('Organization details has been updated') 
         );
 
 
@@ -142,7 +142,7 @@ class OrganizationController extends Controller
 
             return  $this->NowRedirectTo('/admin/organizations',
                 '/emiweb/organizations',
-                'Archives synced to organization'
+                __('Archives synced to organization') 
             );
 
 
