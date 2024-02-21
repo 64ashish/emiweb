@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Http;
 class UserController extends Controller
 {
     public function __construct(Request $request) {
+        
         $this->middleware(function ($request, $next) {
             if(Auth::user()){
                 $user_id = Auth::user()->id;
@@ -126,15 +127,28 @@ class UserController extends Controller
         //        return $user;
         //        return $user->subscriptions()->active()->get()->count();
         //$roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
+       
+        $user = User::find($user->id);
+
+        // Hämta användaruppgifter från userDetails-relationen
+        $userDetails = $user->userDetails;
+
+        // Använd null-coalescing-operator för att undvika fel
+        $address = $userDetails->address ?? null;
+        $phone = $userDetails->phone ?? null;
+        $country = $userDetails->country ?? null;
+        $location = $userDetails->location ?? null;
+        $city = $userDetails->city ?? null;
+        $notes = $userDetails->notes ?? null;
+        $postcode = $userDetails->postcode ?? null;
+
+
         $roles = Role::whereNotIn('name', ['super admin'])->get();
+        $user_a = Auth::user();
 
-
-       /* $user = Auth::user();
-
-        if($user->hasRole('super admin')){
-            dd('admin');
-        }*/
-        return view('admin.users.edit', compact('user', 'roles'));
+        // Skicka med variabler till vyn
+        return view('admin.users.edit', compact('user', 'roles', 'user_a', 'address', 'phone', 'country', 'location', 'city', 'notes', 'postcode'));
+        
 
     }
 
@@ -149,19 +163,19 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->authorize('update', $user);
-        if(isset($request->is_password_update) && $request->is_password_update == 1){
+        if (isset($request->is_password_update) && $request->is_password_update == 1) {
             # Validation
             $request->validate([
                 'current_password' => 'required',
                 'password' => 'required',
                 'address' => 'required',
                 'postcode' => 'required',
-                'ip_address'=>'nullable|ip'
+                'ip_address' => 'nullable|ip'
             ]);
 
             #Match The Old Password
-            if(!Hash::check($request->current_password, $user->password)){
-                return back()->with("error", "Old Password Doesn't match!");
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->with("error", __("Old Password Doesn't match!"));
             }
 
             #Update the new Password
@@ -173,25 +187,44 @@ class UserController extends Controller
 
 
             // return redirect()->route('admin.users.edit', $user->id);
-            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
-                '/emiweb/users/'.$user->id.'/edit/',
-                'Details is updated'
+            return  $this->NowRedirectTo(
+                '/admin/users/' . $user->id . '/edit/',
+                '/emiweb/users/' . $user->id . '/edit/',
+                __('Details is updated')
             );
-        }else{
+        } else {
             # Validation
-            $request->validate([
-                'address' => 'required',
-                'postcode' => 'required',
-            ]);
-            User::where('id', $user->id)->update([
+            // Uppdatera users-tabellen
+            $userData = [
+                'email' => $request->email,
+            ];
+
+            User::where('id', $user->id)->update($userData);
+
+            // Uppdatera eller skapa userDetails-tabellen
+            $userDetailsData = [
                 'address' => $request->address,
+                'phone' => $request->phone,
+                'country' => $request->country,
+                'location' => $request->location,
+                'city' => $request->city,
+                'notes' => $request->notes,
                 'postcode' => $request->postcode,
-            ]);
+            ];
+
+            if ($user->userDetails) {
+                // Om userDetails redan finns, uppdatera
+                $user->userDetails->update($userDetailsData);
+            } else {
+                // Om userDetails inte finns, skapa nya uppgifter
+                $user->userDetails()->create($userDetailsData);
+            }
 
             // return redirect()->route('admin.users.edit', $user->id);
-            return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
-                '/emiweb/users/'.$user->id.'/edit/',
-                'Details is updated'
+            return  $this->NowRedirectTo(
+                '/admin/users/' . $user->id . '/edit/',
+                '/emiweb/users/' . $user->id . '/edit/',
+                __('Details is updated')
             );
         }
     }
@@ -254,7 +287,7 @@ class UserController extends Controller
 
             return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
                 '/emiweb/organizations/'.$organization->id,
-                'User disassociated with the Organization!'
+                __('User disassociated with the Organization!')
             );
 
 
@@ -264,7 +297,7 @@ class UserController extends Controller
             {
                 return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
                     '/emiweb/organizations/'.$organization->id,
-                    'User is already associated  with another Organization!'
+                    __('User is already associated  with another Organization!')
                 );
             }
             $user->update(['organization_id' => $organization->id]);
@@ -272,7 +305,7 @@ class UserController extends Controller
             $user->update(['manual_expire' => Carbon::now()->addYear()]);
             return  $this->NowRedirectTo('/admin/organizations/'.$organization->id,
                 '/emiweb/organizations/'.$organization->id,
-                'User associated with the Organization!'
+                __('User associated with the Organization!')
             );
 
         }
@@ -296,7 +329,7 @@ class UserController extends Controller
         {
             return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
                 '/emiweb/users/'.$user->id.'/edit/',
-                'Are you really trying to update super admin?'
+                __('Are you really trying to update super admin?')
             );
 
         }else{
@@ -319,7 +352,7 @@ class UserController extends Controller
             
             return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
                 '/emiweb/users/'.$user->id.'/edit/',
-                'User updated'
+                __('User updated')
             );
         }
     }
@@ -349,7 +382,7 @@ class UserController extends Controller
     {
         $sub_name = $user->subscriptions->first()->name;
         $user->subscription($sub_name)->cancel();
-        return redirect()->back()->with('Success', 'Subscription is now cancelled');
+        return redirect()->back()->with('Success', __('Subscription is now cancelled'));
     }
 
 
@@ -482,28 +515,29 @@ class UserController extends Controller
             $responseData = $response->json();
             if ($response->status() === 200) {
                 // pre($responseData); exit;
-                if(isset($responseData['duration_in_months']) && $responseData['duration_in_months'] != ''){
+                if (isset($responseData['duration_in_months']) && $responseData['duration_in_months'] != '') {
                     $date1 = date('Y-m-d H:i:s', $responseData['created']);
-                    $futureDate = date('Y-m-d H:i:s', strtotime($date1.' + '.$responseData['duration_in_months'].' month'));
+                    $futureDate = date('Y-m-d H:i:s', strtotime($date1 . ' + ' . $responseData['duration_in_months'] . ' month'));
                     $today_date = date('Y-m-d H:i:s');
-                    if(isset($responseData['created']) && $today_date >= $futureDate){
-                        return response()->json(['status' => 'false','message' => 'Coupon Expired.']);
+                    if (isset($responseData['created']) && $today_date >= $futureDate) {
+                        return response()->json(['status' => 'false', 'message' => __('Coupon Expired.')]);
                     }
                 }
-                if(isset($responseData['redeem_by']) && $responseData['redeem_by'] != ''){
+                if (isset($responseData['redeem_by']) && $responseData['redeem_by'] != '') {
                     $date2 = date('Y-m-d H:i:s', $responseData['created']);
                     $today_date = date('Y-m-d H:i:s');
-                    if(isset($responseData['created']) && $today_date >= $date2){
-                        return response()->json(['status' => 'false','message' => 'Coupon Expired.']);
+                    if (isset($responseData['created']) && $today_date >= $date2) {
+                        return response()->json(['status' => 'false', 'message' => __('Coupon Expired.')]);
                     }
                 }
-                if(isset($responseData['max_redemptions']) && $responseData['times_redeemed'] && $responseData['times_redeemed'] <= $responseData['max_redemptions']){
-                    return response()->json(['status' => 'false','message' => 'Coupon is Already used']);
+                if (isset($responseData['max_redemptions']) && $responseData['times_redeemed'] && $responseData['times_redeemed'] <= $responseData['max_redemptions']) {
+                    return response()->json(['status' => 'false', 'message' => __('Coupon is Already used')]);
                 }
-                return response()->json(['status' => 'true','message' => 'Coupon exists.']);
+                return response()->json(['status' => 'true', 'message' => __('Coupon exists.')]);
             } else {
-                return response()->json(['status' => 'false','message' => 'Coupon does not exist.']);
+                return response()->json(['status' => 'false', 'message' => __('Coupon does not exist.')]);
             }
+            
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -528,7 +562,7 @@ class UserController extends Controller
         }
         return  $this->NowRedirectTo('/admin/users/'.$user->id.'/edit/',
             '/emiweb/users/'.$user->id.'/edit/',
-            'Expiry Date Changed'
+            __('Expiry Date Changed')
         );
     }
 }
