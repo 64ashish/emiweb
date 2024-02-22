@@ -82,19 +82,28 @@ class HomeController extends Controller
 
         if( !auth()->check() )
         {
-            $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->orWhere('ip_address','LIKE',$request->getClientIp())->first();
+            $organization = Organization::where('ip_address','LIKE', '%'.$request->getClientIp().',%')->orWhere('ip_address','LIKE', $request->getClientIp())->get();
             if(!empty($organization)){
-                if($organization->expire_date >= date('Y-m-d H:i:s') || $organization->expire_date == null){
-                    $organization_id = $organization->id;
-                    $user = User::role('subscriber')->first();
-                    if(!empty($user)){
-                        Auth::login($user);
-                        Session::put('auto login', 'yes');
+                foreach($organization as $org)
+                {
+                    if($org->expire_date >= date('Y-m-d H:i:s') || $org->expire_date == null){
+                        $ip_arr = explode(',', $org->ip_address);
+                        foreach($ip_arr as $ip){
+                            if($ip == $request->getClientIp())
+                            {
+                                $organization_id = $org->id;
+                                $user = User::role('subscriber')->first();
+                                if(!empty($user)){
+                                    Auth::login($user);
+                                    Session::put('auto login', 'yes');
+                                }else{
+                                    return redirect()->to('/login');
+                                }
+                            }
+                        }
                     }else{
-                        return redirect()->to('/login');
+                        return redirect()->to('/login')->with("error", "Your Organization has been expire");
                     }
-                }else{
-                    return redirect()->to('/login')->with("error", "Your Organization has been expire");
                 }
             }
             return redirect()->to('/login');
