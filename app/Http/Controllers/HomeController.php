@@ -255,7 +255,7 @@ class HomeController extends Controller
         $postcode = $userDetails->postcode ?? null;
   
 
-        // $intent = $user->createSetupIntent();
+        $intent = $user->createSetupIntent();
         return view('home.user', compact(
             'user',  
             'plans',  
