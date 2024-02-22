@@ -117,6 +117,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
         // Handle redirection for unauthenticated users
         if (!auth()->check()) {
             // Retrieve organization based on IP address
@@ -137,6 +138,7 @@ class HomeController extends Controller
                 } else {
                     // If organization's subscription has expired, redirect to login page with an error message
                     return redirect()->to('/login')->with("error", "Your Organization has expired");
+
                 }
             }
             // If no organization is found, redirect to login page
