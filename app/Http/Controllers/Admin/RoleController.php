@@ -12,7 +12,7 @@ use Illuminate\Routing\Redirector;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RoleContorller extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
