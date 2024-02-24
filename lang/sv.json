@@ -681,6 +681,9 @@
     "Assign Permission": "Tilldela behörighet",
     "Your subscription ends on %s": "Ditt abonnemang löper ut den %s.",
     "My subscription": "Mitt abonnemang",
+    "User details have been updated": "Användaruppgifter har uppdaterats",
+    "Note: That if you change your e-mail, you must log in with new e-mail. if you have accidentally forgotten or have problems logging in, you can contact info@emiweb.se for help.": "Obs: Om du ändrar din e-post måste du logga in med nya e-post adressen. om du av misstag har glömt eller har problem med att logga in kan du kontakta info@emiweb.se för hjälp.",
+    "Should you wish for us to issue an invoice, please fill out the specified details below. Otherwise, it is not mandatory to do so. Once completed, kindly send us an email, and we will take care of the rest.": "Om du vill att vi ska utfärda en faktura, vänligen fyll i de angivna uppgifterna nedan. Annars är det inte obligatoriskt att göra det. När det är klart, skicka ett mail till oss så tar vi hand om resten.",
     "passwords": {
         "reset": "Ditt lösenord har återställts!",
         "sent": "Vi har skickat en återställningslänk till din e-post!",

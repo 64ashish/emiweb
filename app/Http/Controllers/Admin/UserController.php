@@ -129,11 +129,10 @@ class UserController extends Controller
         //$roles = Role::whereNotIn('name', ['super admin','organization admin', 'organization staff'])->get();
        
         $user = User::find($user->id);
-
-        // Hämta användaruppgifter från userDetails-relationen
+        // Retrieve user details from the userDetails relation
         $userDetails = $user->userDetails;
 
-        // Använd null-coalescing-operator för att undvika fel
+        // Use null-coalescing operator to avoid errors
         $address = $userDetails->address ?? null;
         $phone = $userDetails->phone ?? null;
         $country = $userDetails->country ?? null;
@@ -194,14 +193,14 @@ class UserController extends Controller
             );
         } else {
             # Validation
-            // Uppdatera users-tabellen
+        
             $userData = [
                 'email' => $request->email,
             ];
 
             User::where('id', $user->id)->update($userData);
 
-            // Uppdatera eller skapa userDetails-tabellen
+
             $userDetailsData = [
                 'address' => $request->address,
                 'phone' => $request->phone,
@@ -212,13 +211,15 @@ class UserController extends Controller
                 'postcode' => $request->postcode,
             ];
 
+            // Update user details
             if ($user->userDetails) {
-                // Om userDetails redan finns, uppdatera
+                // Details already exists, update
                 $user->userDetails->update($userDetailsData);
             } else {
-                // Om userDetails inte finns, skapa nya uppgifter
+                //If userDetails does not exist, create new details
                 $user->userDetails()->create($userDetailsData);
             }
+       
 
             // return redirect()->route('admin.users.edit', $user->id);
             return  $this->NowRedirectTo(
