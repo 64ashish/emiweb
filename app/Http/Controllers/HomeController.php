@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
-use Laravel\Cashier\Subscription;
+// use Laravel\Cashier\Subscription;
 use Laravel\Cashier\Cashier;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
@@ -121,12 +121,12 @@ class HomeController extends Controller
         // Handle redirection for unauthenticated users
         if (!auth()->check()) {
             // Retrieve organization based on IP address
-            $organization = Organization::where('ip_address', 'LIKE', '%' . $request->getClientIp() . ',%')->orWhere('ip_address', 'LIKE', $request->getClientIp())->first();
+            $organization = Organization::where('ip_address', 'LIKE', '%' . $request->getClientIp() . ',%')->orWhere('ip_address', 'LIKE', '%'.$request->getClientIp())->first();
             if (!empty($organization)) {
                 if ($organization->expire_date >= date('Y-m-d H:i:s') || $organization->expire_date == null) {
                     // Automatically log in the first user with the 'subscriber' role
                     $organization_id = $organization->id;
-                    $user = User::role('subscriber')->first();
+                    $user = User::role('subscriber')->whereNotNull('email_verified_at')->first();
                     if (!empty($user)) {
                         Auth::login($user);
                         Session::put('auto login', 'yes');

@@ -149,7 +149,17 @@
                     </div>
                     @endif
                     <ul class="font-bold inline-flex items-center text-white shrink-0">
-
+                        @if(Session::get('auto login') == 'yes')
+                            <li class="pl-8">
+                                <div class="ml-3 relative">
+                                    <form class=" border-gray-200 " method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="block px-4 mt-1 py-2 text-sm w-full text-white-700 flex items-center font-bold hover:bg-indigo-700 group" type="submit">
+                                            <span class="group-hover:text-white">{{ __('Logout') }}</span></button>
+                                    </form>
+                                </div>
+                            </li>
+                        @endif
                         @if(auth()->user()->hasRole('regular user|subscriber'))
                         @if(!Session::has('auto login'))
                         <li class="pl-8">

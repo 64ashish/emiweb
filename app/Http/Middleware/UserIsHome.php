@@ -32,7 +32,7 @@ class UserIsHome
             {
                 if(!in_array($request->getClientIp(), $ipAddress))
                 {
-                    $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->orWhere('ip_address','LIKE',$request->getClientIp())->get();
+                    $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->orWhere('ip_address','LIKE', '%'.$request->getClientIp())->get();
                     if(!empty($organization)){
                         foreach($organization as $org)
                         {
@@ -42,7 +42,7 @@ class UserIsHome
                                     if($ip == $request->getClientIp())
                                     {
                                         $organization_id = $org->id;
-                                        $user = User::role('subscriber')->first();
+                                        $user = User::role('subscriber')->whereNotNull('email_verified_at')->first();
                                         if(!empty($user)){
                                             Auth::login($user);
                                             Session::put('auto login', 'yes');
