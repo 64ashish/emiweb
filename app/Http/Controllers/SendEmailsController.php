@@ -64,6 +64,6 @@ class SendEmailsController extends Controller
         } catch (Exception $e) {
             return $e->getMessage();
         }
-       return redirect()->back()->with('success', __("Your suggestion has been received"));
+       return redirect()->back()->with('success', "Your suggestion has been received");
     }
 }

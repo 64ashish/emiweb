@@ -48,7 +48,7 @@ class ArchiveController extends Controller
     {
         //
         $category->archives()->create($archiveRequest->all());
-        return redirect('/admin/archives')->with('success', __('Archive created!'));
+        return redirect('/admin/archives')->with('success', 'Archive created!');
 
     }
 
@@ -90,7 +90,7 @@ class ArchiveController extends Controller
     {
         //
         $archive->update($archiveRequest->all());
-        return redirect('/admin/archives')->with('success', __('Archive Updated!'));
+        return redirect('/admin/archives')->with('success', 'Archive Updated!');
     }
 
     /**
