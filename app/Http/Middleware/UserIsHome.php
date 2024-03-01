@@ -32,7 +32,14 @@ class UserIsHome
             {
                 if(!in_array($request->getClientIp(), $ipAddress))
                 {
-                    $organization = Organization::where('ip_address','LIKE','%'.$request->getClientIp().',%')->orWhere('ip_address','LIKE',$request->getClientIp())->first();
+                    $ip = $request->getClientIp();
+
+                    $organization = Organization::where(function($query) use ($ip) {
+                        $query->where('ip_address', 'LIKE', '%'.$ip.'%')
+                            ->orWhere('ip_address', 'LIKE', '%'.$ip.',%')
+                            ->orWhere('ip_address', 'LIKE', '%,'.$ip.',%')
+                            ->orWhere('ip_address', 'LIKE', '%,'.$ip);
+                    })->first();
                     if(!empty($organization)){
                         if($organization->expire_date >= date('Y-m-d H:i:s') || $organization->expire_date == null){
                             $organization_id = $organization->id;
