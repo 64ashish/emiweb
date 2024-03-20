@@ -185,12 +185,10 @@
                             <div class="form-row">
                                 <div x-data="{value:null}"
                                     class="md:flex md:justify-center md:space-x-6 my-8" >
-                                    <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                        x-bind:class="value == '{{ config('services.subscription.3_months') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
-                                    >
+                                    <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"  x-bind:class="value == '{{ config('services.subscription.3_months') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '" >
                                         <label for="standard" class="flex items-center gap-2">
                                             <input type="radio" name="plan" id="standard"
-                                                value="{{ config('services.subscription.3_months') }}" onclick="getPlanId('{{ config('services.subscription.3_months') }}')" x-model="value" checked="">
+                                                value="{{ config('services.subscription.3_months') }}" onclick="getPlanId('{{ config('services.subscription.3_months') }}','3')" x-model="value" checked="">
                                             <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
                                                 <div class="mt-6">
                                                     <span class="text-2xl lg:text-3xl">200</span>
@@ -204,12 +202,10 @@
                                             </div>
                                         </label>
                                     </div>
-                                    <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"
-                                        x-bind:class="value == '{{ config('services.subscription.1_year') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '"
-                                    >
+                                    <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6" x-bind:class="value == '{{ config('services.subscription.1_year') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '" >
                                         <label for="premium" class="flex items-center gap-2">
                                             <input type="radio" name="plan" id="premium"
-                                                value="{{ config('services.subscription.1_year') }}" onclick="getPlanId('{{ config('services.subscription.1_year') }}')" x-model="value">
+                                                value="{{ config('services.subscription.1_year') }}" onclick="getPlanId('{{ config('services.subscription.1_year') }}','1')" x-model="value">
                                             <div class="font-bold text-gray-900 pr-6  flex flex-col">
                                                 <div class="mt-6">
                                                     <span class="text-2xl lg:text-3xl">600</span>
@@ -468,6 +464,7 @@
                                             "_token": "{{ csrf_token() }}",
                                             coupon_name: couponData ? couponData : "",
                                             plan_id: plan_id ? plan_id : "",
+                                            duration: duration ? duration : "",
                                             cardHolderName: cardHolderName ? cardHolderName : "",
                                         })
                                     })
@@ -550,8 +547,10 @@
                                 }
 
                                 var plan_id = '';
-                                function getPlanId(plan){
+                                var duration = '';
+                                function getPlanId(plan,time){
                                     plan_id = plan;
+                                    duration = time;
                                 }
 
                                 // Submit the form with the token ID.

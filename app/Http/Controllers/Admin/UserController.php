@@ -374,6 +374,13 @@ class UserController extends Controller
         try {
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $price_id = $request->plan_id;
+            $duration = $request->duration;
+
+            if ($duration == 1) {
+                $endDate = Carbon::now()->addMonths(12);
+            } else {
+                $endDate = Carbon::now()->addMonths(3);
+            }
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             try{
@@ -392,11 +399,14 @@ class UserController extends Controller
                             'customer' => $customer->id,
                             // 'default_payment_method' => $payment_method_id,
                             'items' => [
-                                ['price' => $price_id],
+                                [
+                                    'price' => $price_id
+                                ],
                             ],
                             'payment_behavior' => 'default_incomplete',
                             'coupon' => $request->coupon_name,
                             'expand' => ['latest_invoice.payment_intent'],
+                            'cancel_at' => $endDate->timestamp,
                         ]);
                     }else{
                         $subscription = $stripe->subscriptions->create([
@@ -407,6 +417,7 @@ class UserController extends Controller
                             ],
                             'payment_behavior' => 'default_incomplete',
                             'expand' => ['latest_invoice.payment_intent'],
+                            'cancel_at' => $endDate->timestamp,
                         ]);
                     }
                 }catch(\Exception $e){
