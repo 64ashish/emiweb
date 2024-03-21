@@ -623,7 +623,57 @@
                     @endif
                 </div>
             </div>
+
+            <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Cancel Auto Subscription') }}</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('you can stop auto subscription by using this switch') }}</p>
+                    <div class="d-flex" style="display: flex; justify-content: flex-end;">
+                        <div class="on-off-toggle">
+                            <input class="on-off-toggle__input" type="checkbox" id="bopis" onclick="updateAutoStatus(this)" {{ isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1 ? "checked" : ''}}/>
+                            <label for="bopis" class="on-off-toggle__slider"></label>
+                        </div>    
+                    </div>                  
+                </div>
+            </div>
         </div>
+
+        <script>
+            function updateAutoStatus(e){
+                if(e.checked == true){
+                    fetch('/auto-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "_token": "{{ csrf_token() }}",
+                            "is_auto_sub": 1
+                        })
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                    })
+                }else{
+                    fetch('/auto-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "_token": "{{ csrf_token() }}",
+                            "is_auto_sub": 0
+                        })
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                    })
+                }
+            }
+        </script>
+
     @endif
 
 

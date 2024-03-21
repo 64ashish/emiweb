@@ -103,6 +103,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/checkCoupon', [UserController::class, 'checkCoupon'])->name('checkCoupon');
     Route::post('/payment', [UserController::class, 'payment'])->name('payment');
     Route::post('/save-payment', [UserController::class, 'savepayment'])->name('savepayment');
+    Route::post('/auto-payment', [UserController::class, 'autopayment'])->name('autopayment');
     //    Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
     //    Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
     //    Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
