@@ -547,6 +547,8 @@
  "Born parish":"Född församling",
  "Born in":"Född år",
  "Your Organization has been expire":"Din organisation har förfallit",
+ "Cancel Auto Subscription": "Avbryt automatisk prenumeration",
+ "you can stop auto subscription by using this switch": "du kan stoppa automatisk prenumeration genom att använda denna switch",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",

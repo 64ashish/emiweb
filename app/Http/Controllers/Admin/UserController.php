@@ -368,12 +368,16 @@ class UserController extends Controller
 
     public function payment(Request $request)
     {
-        // pre($request->setupIntent['payment_method']); exit;
-        // pre($request->all()); exit;
-        
         try {
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $price_id = $request->plan_id;
+            $duration = $request->duration;
+
+            if ($duration == 1) {
+                $endDate = Carbon::now()->addMonths(12);
+            } else {
+                $endDate = Carbon::now()->addMonths(3);
+            }
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             try{
@@ -387,28 +391,35 @@ class UserController extends Controller
             
             if(empty($api_error) && $customer){
                 try{
-                    if($request->coupon_name != ''){
-                        $subscription = $stripe->subscriptions->create([
+                    if ($request->coupon_name != '') {
+                        $subscriptionData = [
                             'customer' => $customer->id,
-                            // 'default_payment_method' => $payment_method_id,
                             'items' => [
-                                ['price' => $price_id],
+                                [
+                                    'price' => $price_id
+                                ],
                             ],
                             'payment_behavior' => 'default_incomplete',
                             'coupon' => $request->coupon_name,
-                            'expand' => ['latest_invoice.payment_intent'],
-                        ]);
-                    }else{
-                        $subscription = $stripe->subscriptions->create([
+                            'expand' => ['latest_invoice.payment_intent']
+                        ];
+                    } else {
+                        $subscriptionData = [
                             'customer' => $customer->id,
-                            // 'default_payment_method' => $payment_method_id,
                             'items' => [
                                 ['price' => $price_id],
                             ],
                             'payment_behavior' => 'default_incomplete',
-                            'expand' => ['latest_invoice.payment_intent'],
-                        ]);
+                            'expand' => ['latest_invoice.payment_intent']
+                        ];
                     }
+                    
+                    // Conditionally add 'cancel_at' based on the user's auto subscription setting
+                    if (Auth::user()->is_auto_sub != 1) {
+                        $subscriptionData['cancel_at'] = $endDate->timestamp;
+                    }
+                    
+                    $subscription = $stripe->subscriptions->create($subscriptionData);
                 }catch(\Exception $e){
                     $api_error = $e->getMessage();
                 }
@@ -530,5 +541,35 @@ class UserController extends Controller
             '/emiweb/users/'.$user->id.'/edit/',
             'Expiry Date Changed'
         );
+    }
+
+    public function autopayment(Request $request, User $user){
+        $user = Auth::user();
+        $sub_id = $user->subscriptions->first()->stripe_id;
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        if($request->is_auto_sub == 1){
+            try{
+                $stripe->subscriptions->update($sub_id, ['cancel_at_period_end' => false]);
+            }catch (\Exception $e) {
+                $api_error = $e->getMessage();
+            }
+        }else{
+            try{
+                $stripe->subscriptions->update($sub_id, ['cancel_at_period_end' => true]);
+            }catch (\Exception $e) {
+                $api_error = $e->getMessage();
+            }
+        }
+
+        if(empty($api_error)){
+            $update = User::find($user->id);
+            $update->is_auto_sub = $request->is_auto_sub;
+            $update->save();
+            return response()->json(['status' => 'true', 'is_auto_sub' => $request->is_auto_sub], 200);
+        }else{
+            return response()->json(['status' => 'false','error' => $e->getMessage()], 500);
+        }
     }
 }

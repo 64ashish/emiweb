@@ -470,11 +470,12 @@
             var numberArray = JSON.parse(retrievedArrayString);
             const id = {{ isset($detail->id) ? $detail->id : '' }};
             var record_key = numberArray.indexOf(id);
+            console.log(numberArray.length);
             if(record_key <= 0){
                 $('#previousRecord').attr('style','display: none !important;');
             }
 
-            if(record_key >= 99){
+            if(record_key >= 99 || numberArray.length == 1 || (numberArray.length-1) == record_key){
                 $('#nextRecord').attr('style','display: none !important;');
             }
         });
@@ -497,10 +498,14 @@
 
             var record_key = numberArray.indexOf(id);
             record_key = record_key+1;
-
             var new_id = numberArray[record_key];
 
-            window.location.href = "/records/"+archive_id+"/"+new_id+'?'+record_key
+            if(new_id == undefined){
+                window.location.reload();
+            }else{
+                window.location.href = "/records/"+archive_id+"/"+new_id+'?'+record_key
+            }
+
         }
     </script>
 </x-app-layout>
