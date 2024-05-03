@@ -21,7 +21,7 @@ class SwedishAmericanChurchArchiveRecordController extends Controller
                 //        get the input data ready
                 $all_request = $request->all();
                 //        dd($request->qry_last_name['value']);
-                if (!is_null(trim($all_request['qry_last_name']['value']))) {
+                if (isset($all_request['qry_last_name']['value']) && !is_null(trim($all_request['qry_last_name']['value']))) {
                         $lastNames = explode(" ", trim($all_request['qry_last_name']['value']));
                         //            dd($lastNames[3]);
                         if (array_key_exists(1, $lastNames)) {
