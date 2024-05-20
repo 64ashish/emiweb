@@ -626,14 +626,34 @@
 
             <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Cancel Auto Subscription') }}</h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('you can stop auto subscription by using this switch') }}</p>
-                    <div class="d-flex" style="display: flex; justify-content: flex-end;">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Automatic renewal') }}</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('By activating automatic renewal, you do not risk your account being deactivated when the subscription period expires.') }}</p>
+                    <div class="d-flex" style="margin-top: 5px; display: flex; align-items: center;">
                         <div class="on-off-toggle">
                             <input class="on-off-toggle__input" type="checkbox" id="bopis" onclick="updateAutoStatus(this)" {{ isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1 ? "checked" : ''}}/>
                             <label for="bopis" class="on-off-toggle__slider"></label>
-                        </div>    
-                    </div>                  
+                        </div> 
+                        <div class="switch-status">
+                            <b>
+                                @if(isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1)
+                                    {{ __('Active') }}
+                                @else
+                                    {{ __('Not active') }}
+                                @endif
+                            </b>
+                        </div>   
+                    </div>
+                    <div class="expire-line">
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your subscription is automatically renewed') }}
+                            @if($price == 1)
+                                {{ \Carbon\Carbon::parse(Auth::user()->subscription('Regular Subscription')->created_at)->addMonths(12) }}
+                            @elseif($price == 2)
+                                {{ \Carbon\Carbon::parse(Auth::user()->subscription('3 Months')->created_at)->addMonths(3) }}
+                            @elseif(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber'))
+                                {{ \Carbon\Carbon::parse(Auth::user()->manual_expire) }}
+                            @endif
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -653,7 +673,7 @@
                     })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data);
+                        document.querySelector('.switch-status').innerHTML = "{{ __('Active') }}";
                     })
                 }else{
                     fetch('/auto-payment', {
@@ -668,7 +688,7 @@
                     })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data);
+                        document.querySelector('.switch-status').innerHTML = "{{ __('Not active') }}";
                     })
                 }
             }
