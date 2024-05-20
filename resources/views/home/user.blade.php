@@ -634,15 +634,17 @@
                             <label for="bopis" class="on-off-toggle__slider"></label>
                         </div> 
                         <div class="switch-status">
-                            @if(isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1)
-                                {{ __('Active') }}
-                            @else
-                                {{ __('Not active') }}
-                            @endif
+                            <b>
+                                @if(isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1)
+                                    {{ __('Active') }}
+                                @else
+                                    {{ __('Not active') }}
+                                @endif
+                            </b>
                         </div>   
                     </div>
                     <div class="expire-line">
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your subscription will expire') }}:
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your subscription is automatically renewed') }}
                             @if($price == 1)
                                 {{ \Carbon\Carbon::parse(Auth::user()->subscription('Regular Subscription')->created_at)->addMonths(12) }}
                             @elseif($price == 2)

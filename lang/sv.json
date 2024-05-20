@@ -554,7 +554,7 @@
  "By activating automatic renewal, you do not risk your account being deactivated when the subscription period expires.": "Genom att aktivera automatisk förnyelse riskerar du inte att ditt konto inaktiveras när abonnemangstiden löper ut.",
  "Active": "Aktivt",
  "Not active": "Ej aktivt",
- "Your subscription is expiring": "Ditt abonnemang löper ut",
+ "Your subscription is automatically renewed": "Ditt abonnemang förnyas automatiskt",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",
