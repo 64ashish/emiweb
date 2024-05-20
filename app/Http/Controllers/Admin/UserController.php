@@ -552,22 +552,34 @@ class UserController extends Controller
         if($request->is_auto_sub == 1){
             try{
                 $stripe->subscriptions->update($sub_id, ['cancel_at_period_end' => false]);
+                $subData = $stripe->subscriptions->retrieve(
+                    $sub_id,
+                    []
+                );
+
+                $date = "";
             }catch (\Exception $e) {
                 $api_error = $e->getMessage();
             }
         }else{
             try{
                 $stripe->subscriptions->update($sub_id, ['cancel_at_period_end' => true]);
+                $subData = $stripe->subscriptions->retrieve(
+                    $sub_id,
+                    []
+                );
+
+                $date = date('Y-m-d', $subData->canceled_at);
             }catch (\Exception $e) {
                 $api_error = $e->getMessage();
             }
-        }
+        }   
 
         if(empty($api_error)){
             $update = User::find($user->id);
             $update->is_auto_sub = $request->is_auto_sub;
             $update->save();
-            return response()->json(['status' => 'true', 'is_auto_sub' => $request->is_auto_sub], 200);
+            return response()->json(['status' => 'true', 'is_auto_sub' => $request->is_auto_sub, 'date' => $date], 200);
         }else{
             return response()->json(['status' => 'false','error' => $e->getMessage()], 500);
         }
