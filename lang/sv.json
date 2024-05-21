@@ -555,6 +555,7 @@
  "Active": "Aktivt",
  "Not active": "Ej aktivt",
  "Your subscription is automatically renewed": "Ditt abonnemang förnyas automatiskt",
+ "Your subscription expires": "Ditt abonnemang löper ut",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",
