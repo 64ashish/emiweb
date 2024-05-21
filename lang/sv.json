@@ -556,6 +556,7 @@
  "Not active": "Ej aktivt",
  "Your subscription is automatically renewed": "Ditt abonnemang förnyas automatiskt",
  "Your subscription expires": "Ditt abonnemang löper ut",
+ "You have an account with manual payment. Insert a payment card above or contact an administrator at info@emiweb.se to extend your subscription.": "Du har ett konto med manuell betalning. Lägg in ett betalkort ovan eller kontakta en administratör på info@emiweb.se för att förlänga din prenumeration.",
  "passwords": {
     "reset": "Ditt lösenord har återställts!",
     "sent": "Vi har skickat en återställningslänk till din e-post!",
