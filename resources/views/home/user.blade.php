@@ -644,13 +644,18 @@
                         </div>   
                     </div>
                     <div class="expire-line">
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('Your subscription is automatically renewed') }}
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            @if(isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1)
+                                <span>{{ __('Your subscription is automatically renewed') }}</span>
+                            @else
+                                <span>{{ __('Your subscription expires') }}</span>
+                            @endif
                             @if($price == 1)
-                                {{ \Carbon\Carbon::parse(Auth::user()->subscription('Regular Subscription')->created_at)->addMonths(12) }}
+                                {{ \Carbon\Carbon::parse(Auth::user()->subscription('Regular Subscription')->created_at)->addMonths(12)->format('Y-m-d') }}
                             @elseif($price == 2)
-                                {{ \Carbon\Carbon::parse(Auth::user()->subscription('3 Months')->created_at)->addMonths(3) }}
+                                {{ \Carbon\Carbon::parse(Auth::user()->subscription('3 Months')->created_at)->addMonths(3)->format('Y-m-d') }}
                             @elseif(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber'))
-                                {{ \Carbon\Carbon::parse(Auth::user()->manual_expire) }}
+                                {{ \Carbon\Carbon::parse(Auth::user()->manual_expire)->format('Y-m-d') }}
                             @endif
                         </p>
                     </div>
@@ -674,6 +679,7 @@
                     .then((response) => response.json())
                     .then((data) => {
                         document.querySelector('.switch-status').innerHTML = "{{ __('Active') }}";
+                        document.querySelector('.expire-line span').innerHTML = "{{ __('Your subscription is automatically renewed') }}";
                     })
                 }else{
                     fetch('/auto-payment', {
@@ -689,6 +695,7 @@
                     .then((response) => response.json())
                     .then((data) => {
                         document.querySelector('.switch-status').innerHTML = "{{ __('Not active') }}";
+                        document.querySelector('.expire-line span').innerHTML = "{{ __('Your subscription expires') }}";
                     })
                 }
             }
