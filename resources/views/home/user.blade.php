@@ -232,10 +232,8 @@
                                 </div>
 
                                 <div class="flex flex-col  space-x-6 pr-8 mb-5">
-                                    <label for="cardholder-name" class="py-2 px-3 pl-6 text-gray-500 font-medium">Cardholder's
-                                        Name</label>
-                                    <input type="text" id="cardholder-name"
-                                        class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2
+                                    <label for="cardholder-name" class="py-2 px-3 pl-6 text-gray-500 font-medium">Cardholder's Name</label>
+                                    <input type="text" id="cardholder-name" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2
                                     px-3 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm">
                                 </div>
                                 <div class="max-w-lg mx-auto rounded-md shadow-md shadow-gray-300/50 p-6 mb-8">
@@ -627,21 +625,39 @@
             <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Automatic renewal') }}</h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('By activating automatic renewal, you do not risk your account being deactivated when the subscription period expires.') }}</p>
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && Auth::user()->manual_expire != '')
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('You have an account with manual payment. Insert a payment card above or contact an administrator at info@emiweb.se to extend your subscription.') }}</p>
+                    @else
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('By activating automatic renewal, you do not risk your account being deactivated when the subscription period expires.') }}</p>
+                    @endif
+
+
                     <div class="d-flex" style="margin-top: 5px; display: flex; align-items: center;">
-                        <div class="on-off-toggle">
-                            <input class="on-off-toggle__input" type="checkbox" id="bopis" onclick="updateAutoStatus(this)" {{ isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1 ? "checked" : ''}}/>
-                            <label for="bopis" class="on-off-toggle__slider"></label>
-                        </div> 
-                        <div class="switch-status">
-                            <b>
-                                @if(isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1)
-                                    {{ __('Active') }}
-                                @else
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && Auth::user()->manual_expire != ''        )
+                            <div class="on-off-toggle disabled">
+                                <input class="on-off-toggle__input" type="checkbox" id="bopis" onclick="updateAutoStatus(this)" {{ isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1 ? "checked" : ''}} disabled/>
+                                <label for="bopis" class="on-off-toggle__slider disabled"></label>
+                            </div> 
+                            <div class="switch-status disabled">
+                                <b>
                                     {{ __('Not active') }}
-                                @endif
-                            </b>
-                        </div>   
+                                </b>
+                            </div>  
+                        @else
+                            <div class="on-off-toggle">
+                                <input class="on-off-toggle__input" type="checkbox" id="bopis" onclick="updateAutoStatus(this)" {{ isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1 ? "checked" : ''}}/>
+                                <label for="bopis" class="on-off-toggle__slider"></label>
+                            </div>  
+                            <div class="switch-status">
+                                <b>
+                                    @if(isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1)
+                                        {{ __('Active') }}
+                                    @else
+                                        {{ __('Not active') }}
+                                    @endif
+                                </b>
+                            </div>  
+                        @endif
                     </div>
                     <div class="expire-line">
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">
