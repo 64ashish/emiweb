@@ -625,7 +625,7 @@
             <div class="col-span-2 lg:col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __('Automatic renewal') }}</h3>
-                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && Auth::user()->manual_expire != '')
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && $price != 1 && $price != 2)
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('You have an account with manual payment. Insert a payment card above or contact an administrator at info@emiweb.se to extend your subscription.') }}</p>
                     @else
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ __('By activating automatic renewal, you do not risk your account being deactivated when the subscription period expires.') }}</p>
