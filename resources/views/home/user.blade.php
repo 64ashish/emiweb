@@ -633,7 +633,7 @@
 
 
                     <div class="d-flex" style="margin-top: 5px; display: flex; align-items: center;">
-                        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && Auth::user()->manual_expire != '')
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && $price != 1 && $price != 2)
                             <div class="on-off-toggle disabled">
                                 <input class="on-off-toggle__input" type="checkbox" id="bopis" onclick="updateAutoStatus(this)" {{ isset(Auth::user()->is_auto_sub) && Auth::user()->is_auto_sub == 1 ? "checked" : ''}} disabled/>
                                 <label for="bopis" class="on-off-toggle__slider disabled"></label>
