@@ -178,7 +178,20 @@
 
                     </div>
                 @else
-                    <div class="px-4 sm:px-6">
+                    @php $new_style = ''; @endphp
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && $price != 1 && $price != 2 && Auth::user()->manual_expire != '')
+                        @php
+                            $userManualExpireDate = \Carbon\Carbon::parse(Auth::user()->manual_expire);
+                            $currentDate = \Carbon\Carbon::now();
+                            
+                            $oneWeekFromNow = $currentDate->copy()->addDays(3);
+                            
+                            if ($userManualExpireDate->greaterThan($oneWeekFromNow)) {
+                                $new_style = 'style="display: none;"';
+                            }
+                        @endphp
+                    @endif
+                    <div class="px-4 sm:px-6" <?= $new_style ?>>
 
                         <form action="/subscribe" method="post" id="payment-form" data-secret="{{ $intent->client_secret }}">
                             @csrf
