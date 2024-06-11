@@ -311,9 +311,24 @@ class UserController extends Controller
                     $manual_expire = Carbon::now()->addYear();
                 }
                 $user->update(['manual_expire' => $manual_expire,'is_mailed' => 0]);
+                $user->subscriptions()->active()->update(['ends_at' => $manual_expire]);
+                $sub_id = $user->subscriptions->first()->stripe_id;
+
+                \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+                try{
+                    $stripe->subscriptions->update($sub_id, ['cancel_at' => strtotime($manual_expire)]);
+                    $subData = $stripe->subscriptions->retrieve(
+                        $sub_id,
+                        []
+                    );
+                }catch (\Exception $e) {
+                    $api_error = $e->getMessage();
+                }
             }else
             {
                 $user->update(['manual_expire' => null]);
+                $user->subscriptions()->active()->update(['ends_at' => null]);
             }
             $user->syncRoles([$request->name]);
             
