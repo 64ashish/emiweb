@@ -69,6 +69,13 @@ class  SwedishPortPassengerListRecordController extends Controller
                 }
             }
         }
+        if (array_key_exists('departure_port_text', $keywords) && Arr::exists($keywords,"compare_departure_port_check")) {
+        }else{
+            if (array_key_exists('departure_port_text', $keywords)){
+                unset($keywords['departure_port_text']);
+            }
+        }
+        // pre($records); exit;
         return view('dashboard.SwedishPortPassengerListRecord.records', compact('records', 'enableQueryMatch','keywords', 'filterAttributes', 'advancedFields', 'defaultColumns','populated_fields','archive_name','fieldsToDisply','toBeHighlighted','provincesCoun'))->with($request->all());
     }
 }

@@ -133,7 +133,7 @@
                            sm:max-w-xs sm:text-sm border-gray-300 rounded-md',
                            'id' => $filterAttribute[2], 'x-mask' => "99",'placeholder' => "DD"]) !!}
                         </div>
-                    @elseif(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob" or $filterAttribute === "traveled_on")
+                    @elseif(str_contains(str_replace('_', ' ', $filterAttribute), 'date') or $filterAttribute === "dob" or $filterAttribute === "traveled_on" or $filterAttribute === "age")
                         <div class="flex gap-2" x-data='{ compare: "{{ $keywords["compare_{$filterAttribute}"] ?? false }}" }'>
                             {!! Form::text("array_".$filterAttribute."[year]", null,
                            ['class' => 'max-w-lg w-24 block shadow-sm focus:ring-indigo-500 focus:border-indigo-500
@@ -157,8 +157,7 @@
                         </div>
                     @elseif(in_array($filterAttribute, $enableQueryMatch))
                             {!! Form::text('qry_'.$filterAttribute.'[value]', null,
-                                            ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500
-                                             sm:text-sm border-gray-300 rounded-md',
+                                            ['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md',
                                             'id' => $filterAttribute.'_value']) !!}
                             {!! Form::select('qry_'.$filterAttribute.'[method]', [
                                          null => __('Contains'),
@@ -207,6 +206,16 @@
                         {!! Form::select($filterAttribute,$provincesCoun,null,['class' => 'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm','placeholder' => 'Select' ]) !!}
                     @elseif($filterAttribute === 'county_in_sweden' and isset($provincesCoun))
                         {!! Form::select($filterAttribute,$provincesCoun,null,['class' => 'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm','placeholder' => 'Select' ]) !!}
+                    @elseif($filterAttribute === 'departure_port' and isset($provincesCoun))
+                        <div class="flex gap-2" x-data='{ compare: "{{ $keywords["{$filterAttribute}_text"] ?? false }}" }'>
+                            {!! Form::select($filterAttribute,$provincesCoun,null,['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md','placeholder' => 'Select','x-show'=>"!compare"]) !!}
+
+                            {!! Form::text($filterAttribute.'_text', null,['class' => 'max-w-lg block w-2/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md','id' => $filterAttribute, 'x-show'=>"compare"]) !!}
+
+                            <input type="checkbox" id="scales-text" name="compare_{{ $filterAttribute }}_check" x-model="compare" 
+                            x-bind:value="compare" class="self-center rounded border-gray-300 ml-auto" {{ isset($keywords["{$filterAttribute}_text"]) ? 'checked' : false }}>
+                            <label for="scales-text"  x-model="compare" class="self-center  ml-auto" >{{ __('Textbox') }}</label>
+                        </div>
                     @else
                         {!! Form::text($filterAttribute, null,
                                 ['class' => 'max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500
