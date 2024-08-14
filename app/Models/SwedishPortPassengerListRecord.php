@@ -93,10 +93,13 @@ class SwedishPortPassengerListRecord extends Model
             'departure_date',
             'departure_parish',
             'age',
+            'sex',
+            'destination',
             '---',
             'departure_county',
             'departure_port',
             'source_reference',
+            'parish_of_emigration'
         ];
     }
 
@@ -115,6 +118,8 @@ class SwedishPortPassengerListRecord extends Model
         return [
             'first_name',
             'last_name',
+            'parish_of_emigration',
+            'destination',
         ];
     }
 

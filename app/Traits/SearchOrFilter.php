@@ -101,20 +101,42 @@ trait SearchOrFilter
 
     private function FilterQuery( $inputFields, $result, $all_request,$fieldsToDisply): LengthAwarePaginator
     {
-
-
         foreach($inputFields as  $fieldname => $fieldvalue) {
-
             if ($fieldname !== 'sortBy') {
                 if (Str::contains(Str::replace('_', ' ', $fieldname), ['date', 'dob', 'traveled on']) && !Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
-                    //  dd('1');
                     $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
                 } else if ($fieldname === 'memo') {
-                    //  dd('2');
                     $result->where($fieldname, 'like', '%' . $fieldvalue . '%');
-                } else if (!Str::contains(Str::replace('_', ' ', $fieldname), ['compare'])) {
-                    //  dd();
-                    $result->where($fieldname, $fieldvalue);
+                } else if ($fieldname === 'age') {
+                    $this->applyDateFilter($fieldname, $fieldvalue, $result, $all_request);
+                } else if (!Str::contains(Str::replace('_', ' ', $fieldname), ['compare','text'])) {
+                    if($fieldname == 'departure_port' || $fieldname == 'departure_port_text'){
+                        if (array_key_exists('departure_port_text', $inputFields) && Arr::exists($all_request,"compare_departure_port_check")) {
+                            $fieldname = 'departure_port_text';
+                            $fieldvalue = $inputFields['departure_port_text'];
+                        }else{
+                            if (array_key_exists('departure_port_text', $inputFields)){
+                                $inputFields['departure_port_text'] = '';
+                            }
+                        }
+                        $provinces1 = $this->ProvincesParishes();
+                        $provincesCoun = array();
+                        $port_name = $fieldvalue;
+                        if($fieldname != 'departure_port_text'){
+                            foreach($provinces1 as $key => $value){
+                                $provincesCoun[$value['code']] = $value['county'];
+                            }
+                            foreach($provincesCoun as $sort => $county){
+                                if($fieldvalue == $sort){
+                                    $port_name = $county;
+                                }
+                            }
+                        }
+                        $result->where('departure_port', 'like', '%' . $port_name . '%');
+                        $result->orWhere('departure_port', $fieldvalue);
+                    }else{
+                        $result->where($fieldname, $fieldvalue);
+                    }
                 }
             }
         }

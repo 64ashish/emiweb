@@ -37,6 +37,13 @@
 
 
                             </th>
+                        @else
+                            <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
+                            {{ __('First name') }}
+                            </th>
+                            <th x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell ">
+                                {{ __('Last name') }}
+                            </th>
                         @endif
                         @foreach($defaultColumns as $column)
                             <th  x-on:click="sortByColumn" scope="col" class="clickable border-b border-gray-300 bg-gray-50
@@ -48,7 +55,7 @@
                         @endforeach
 
                         @foreach($populated_fields as $pop_fields)
-                            @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
+                            @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare')  && $pop_fields != 'departure_port_text')
                                 <th x-on:click="sortByColumn"  scope="col" class="clickable border-b border-gray-300 bg-gray-50
                                     bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900  sm:table-cell">
 
@@ -125,7 +132,7 @@
                                 @endforeach
 
                                 @foreach($populated_fields as $pop_fields)
-                                    @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
+                                    @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare')  && $pop_fields != 'departure_port_text')
                                         <td class="whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.7rem] leading-[0.7rem] sm:py-[0.6rem] hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
                                             @if(auth()->user()->hasRole('super admin') || auth()->user()->hasRole('emiweb admin'))
                                                 @if(auth()->user()->organization != '')
@@ -159,54 +166,45 @@
                         @foreach($records as $record)
                             <tr @php if($i == 0){ echo 'id="tr"'; $i = 1; } @endphp onclick="openRecord({{ $record->archive_id }}, {{ $record->id }})" class="odd:bg-white even:bg-gray-100 hover:bg-indigo-700 text-gray-900 hover:text-white cursor-pointer">
                                 {{--  @if(!empty($record->first_name) or !empty($record->last_name))--}}
-                                    @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
+                                @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))
                                     {{--  @if(Arr::exists($record, 'first_name') or Arr::exists($record, 'last_name'))--}}
-                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
-                                    {{--  {{ $record->first_name }} {{ $record->last_name }}<br>--}}
+                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem] sm:pl-6 lg:pl-8">
+                                        {{--  {{ $record->first_name }} {{ $record->last_name }}<br>--}}
                                         {{--  <a href="{{ route('records.show', ['arch'=> $record->archive_id,'id'=>$record->id]) }}" class="block">--}}
 
-                                            @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
-                                                        {!! preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name) !!}
-                                            @else
-                                               {{  $record->first_name }}
-                                            @endif
-                                        </td>
-                                            <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]    sm:pl-6 lg:pl-8">
-                                            @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])
-                                                {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
-                                            @else
-                                                {{  $record->last_name }}
-                                            @endif
+                                        @if(array_key_exists('qry_first_name', $keywords) and $keywords['qry_first_name']['value'])
+                                                    {!! preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name) !!}
+                                        @else
+                                            {{  $record->first_name }}
+                                        @endif
+                                    </td>
+                                    <td  class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem] sm:pl-6 lg:pl-8">
+                                        @if(array_key_exists('qry_last_name', $keywords) and $keywords['qry_last_name']['value'])
+                                            {!! preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name) !!}
+                                        @else
+                                            {{  $record->last_name }}
+                                        @endif
 
-                                            {{ $record->last_name2 ?? '' }}
+                                        {{ $record->last_name2 ?? '' }}
 
-
-
-
-
-
-                                {{--   {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
-                                {{--   {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
+                                        {{--   {!! preg_match('/ '. $keywords['qry_first_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_first_name']['value'] . ')/i', '<b>$1</b>', $record->first_name):$record->first_name !!}--}}
+                                        {{--   {!! preg_match('/ '. $keywords['qry_last_name']['value'] . ')/i', $record->first_name)?preg_replace('/(' . $keywords['qry_last_name']['value'] . ')/i', '<b>$1</b>', $record->last_name):$record->last_name !!}--}}
 
 
                                         {{--  </a>--}}
                                     </td>
+                                @else
+                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem] sm:pl-6 lg:pl-8"></td>
+                                    <td class="whitespace-nowrap border-b border-gray-200 py-2 pl-4 pr-3 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem] sm:pl-6 lg:pl-8"></td>
                                 @endif
                                 @foreach($defaultColumns as $column)
-                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]
-                                                                         hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
-
+                                    <td class="{{ $column }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem] hidden sm:table-cell {{ $toBeHighlighted->contains($column) ? 'font-bold':'' }}">
                                         {{ $record[$column]}}
-
-
-
                                     </td>
                                 @endforeach
-
                                 @foreach($populated_fields as $pop_fields)
-                                    @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare'))
-                                        <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]   `
-                                                                            hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
+                                    @if(!str_contains(str_replace('_', ' ', $pop_fields),'compare') && $pop_fields != 'departure_port_text')
+                                        <td class="{{ $pop_fields }} whitespace-nowrap border-b border-gray-200 px-3 py-2 text-[0.85rem] leading-[0.9rem] sm:py-[0.6rem]` hidden sm:table-cell {{ $toBeHighlighted->contains($pop_fields) ? 'font-bold':'' }}">
                                             {{ $record[$pop_fields]}}
                                         </td>
                                     @endif
