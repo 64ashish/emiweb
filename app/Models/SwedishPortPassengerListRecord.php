@@ -99,7 +99,7 @@ class SwedishPortPassengerListRecord extends Model
             'departure_county',
             'departure_port',
             'source_reference',
-            'parish_of_emigration'
+            //'parish_of_emigration'
         ];
     }
 
