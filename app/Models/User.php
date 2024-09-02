@@ -58,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Organization::class);
     }
 
+    public function latestLogin()
+    {
+        return $this->hasOne(UserLoginHistory::class)->latest('login_at');
+    }
+
     public function association()
     {
         return $this->hasOne(Association::class);

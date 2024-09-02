@@ -58,6 +58,18 @@
             Permissions
         </a>
 
+        <a href=" {{ route('admin.statistics.index') }} " class="{{  (request()->is('admin/statistics*')) ? 'bg-indigo-800' : ''  }} text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <!-- Heroicon name: outline/chart-bar -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 flex-shrink-0 h-6 w-6 text-indigo-300" viewBox="0 0 64 64" fill="currentColor">
+                <rect x="5" y="40" width="8" height="20" />
+                <rect x="19" y="28" width="8" height="32" />
+                <rect x="33" y="40" width="8" height="20" />
+                <rect x="47" y="28" width="8" height="32" />
+                <path d="M4 30 L24 13 L36 29 L58 15" stroke="currentColor" stroke-width="4" fill="none"/>
+            </svg>
+            User Statistics
+        </a>
+
     @endhasanyrole
 
     @hasanyrole('emiweb admin|emiweb staff')
