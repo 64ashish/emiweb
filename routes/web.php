@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleContorller;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageCollectionController;
@@ -135,6 +136,8 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
         Route::delete('/roles/{role}/permissions/{permission}', [RoleContorller::class, 'revokePermission'])
             ->name('roles.permissions.revoke');
         Route::resource('/permissions', PermissionController::class);
+
+        Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
 
         Route::get('/users', [UserController::class, 'index'])
             ->name('users.index');

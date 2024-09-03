@@ -78,7 +78,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['roles.permissions','organization'])->orderBy('id', 'DESC')->paginate(50);
+        $users = User::with(['roles.permissions','organization','latestLogin'])->orderBy('id', 'DESC')->paginate(50);
         return view('admin.users.index', compact('users'));
     }
 

@@ -38,6 +38,7 @@
                                     <th scope="col" class="sticky top-16  z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">Created at</th>
                                     <th scope="col" class="sticky top-16  z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter lg:table-cell">Role</th>
                                     <th scope="col" class="sticky top-16  z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Organization</th>
+                                    <th scope="col" class="sticky top-16  z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Last Login</th>
                                     <th scope="col" class="sticky top-16  z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
                                         <span class="sr-only">Update</span>
                                     </th>
@@ -78,6 +79,18 @@
                                             @else
                                                 No association
                                             @endif
+                                        </td>
+                                        <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+                                            @php
+                                                $relativeTime = '';
+                                                if ($user->latestLogin) {
+                                                    $dateString = $user->latestLogin->login_at;
+                                                    $relativeTime = getTime($dateString);
+                                                } else {
+                                                    $relativeTime = '';
+                                                }
+                                                echo $relativeTime;
+                                            @endphp
                                         </td>
                                         <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                                             @role('super admin')

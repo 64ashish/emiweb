@@ -34,3 +34,34 @@ function mailSend($user){
         dd($e);
     }
 }
+
+function getTime($date){
+    $date = \Carbon\Carbon::parse($date);
+    $now = \Carbon\Carbon::now();
+    $relativeTime = '';
+
+    $diffInMinutes = $now->diffInMinutes($date);
+    $diffInHours = $now->diffInHours($date);
+    $diffInDays = $now->diffInDays($date);
+    $diffInWeeks = $now->diffInWeeks($date);
+    $diffInMonths = $now->diffInMonths($date);
+    $diffInYears = $now->diffInYears($date);
+
+    if ($diffInYears > 0) {
+        $relativeTime = $diffInYears . ' year' . ($diffInYears > 1 ? 's' : '') . ' ago';
+    } elseif ($diffInMonths > 0) {
+        $relativeTime = $diffInMonths . ' month' . ($diffInMonths > 1 ? 's' : '') . ' ago';
+    } elseif ($diffInWeeks > 0) {
+        $relativeTime = $diffInWeeks . ' week' . ($diffInWeeks > 1 ? 's' : '') . ' ago';
+    } elseif ($diffInDays > 0) {
+        $relativeTime = $diffInDays . ' day' . ($diffInDays > 1 ? 's' : '') . ' ago';
+    } elseif ($diffInHours > 0) {
+        $relativeTime = $diffInHours . ' hour' . ($diffInHours > 1 ? 's' : '') . ' ago';
+    } elseif ($diffInMinutes > 0) {
+        $relativeTime = $diffInMinutes . ' minute' . ($diffInMinutes > 1 ? 's' : '') . ' ago';
+    } else {
+        $relativeTime = 'just now';
+    }
+
+    return $relativeTime;
+}
