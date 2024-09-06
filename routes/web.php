@@ -138,6 +138,8 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
         Route::resource('/permissions', PermissionController::class);
 
         Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+        Route::post('/statistics/search', [StatisticsController::class, 'search'])->name('statistic.search');
+        Route::get('/statistics/search', [StatisticsController::class, 'index'])->name('statistic.search');
 
         Route::get('/users', [UserController::class, 'index'])
             ->name('users.index');
@@ -208,6 +210,10 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
 
         Route::get('/users', [UserController::class, 'index'])
             ->name('users.index');
+
+        Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+        Route::post('/statistics/search', [StatisticsController::class, 'search'])->name('statistic.search');
+        Route::get('/statistics/search', [StatisticsController::class, 'index'])->name('statistic.search');
 
 
         Route::put('/users/{user}/update', [UserController::class, 'update'])
