@@ -608,4 +608,56 @@ class UserController extends Controller
             return response()->json(['status' => 'false','error' => 'Missing Subscription Data'], 500);
         }
     }
+
+    public function createCus(Request $request)
+    {
+        try {
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            try{
+                $customer = \Stripe\Customer::create(array(
+                    "name" => $request->cardHolderName,
+                    "email" => Auth::user()->email
+                ));
+            }catch(\Exception $e){
+                $api_error = $e->getMessage();
+            }
+            
+            if(empty($api_error) && $customer){
+                $output = [
+                    'clientSecret' => env('STRIPE_SECRET'),
+                    'customerId' => $customer->id,
+                ];
+                return response()->json(['status' => 'true', 'output' => $output], 200);
+            }else{
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function saveCard(Request $request) {
+        $customer_id = $request->customer_id;
+        $payment_method_id = $request->payment_method;
+        $cardHolderName = $request->cardHolderName;
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+
+        $payment_method = $stripe->paymentMethods->retrieve($payment_method_id, []);
+
+        $userD = User::find(auth()->user()->id);
+        $userD->stripe_id = $customer_id;
+        $userD->pm_type = $payment_method_id;
+        $userD->pm_last_four = isset($payment_method->card->last4) ? $payment_method->card->last4 : '';
+        $userD->card_exp_month = isset($payment_method->card->exp_month) ? $payment_method->card->exp_month : '';
+        $userD->card_exp_year = isset($payment_method->card->exp_year) ? $payment_method->card->exp_year : '';
+        $userD->card_type = isset($payment_method->card->brand) ? $payment_method->card->brand : '';
+        $userD->card_holdername = $cardHolderName;
+        $userD->save();
+
+        return response()->json(['status' => 'true'], 200);
+    }
 }

@@ -105,6 +105,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/payment', [UserController::class, 'payment'])->name('payment');
     Route::post('/save-payment', [UserController::class, 'savepayment'])->name('savepayment');
     Route::post('/auto-payment', [UserController::class, 'autopayment'])->name('autopayment');
+    Route::post('/cust-create', [UserController::class, 'createCus'])->name('createCus');
+    Route::post('/save-card', [UserController::class, 'saveCard'])->name('saveCard');
     //    Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
     //    Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
     //    Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
@@ -138,6 +140,8 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
         Route::resource('/permissions', PermissionController::class);
 
         Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+        Route::post('/statistics/search', [StatisticsController::class, 'search'])->name('statistic.search');
+        Route::get('/statistics/search', [StatisticsController::class, 'index'])->name('statistic.search');
 
         Route::get('/users', [UserController::class, 'index'])
             ->name('users.index');
@@ -208,6 +212,10 @@ Route::middleware(['auth', 'verified', 'role:super admin|emiweb admin|emiweb sta
 
         Route::get('/users', [UserController::class, 'index'])
             ->name('users.index');
+
+        Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+        Route::post('/statistics/search', [StatisticsController::class, 'search'])->name('statistic.search');
+        Route::get('/statistics/search', [StatisticsController::class, 'index'])->name('statistic.search');
 
 
         Route::put('/users/{user}/update', [UserController::class, 'update'])
