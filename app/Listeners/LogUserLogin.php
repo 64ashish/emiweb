@@ -24,7 +24,7 @@ class LogUserLogin
             'user_id' => $user->id,
             'ip_address' => Request::ip(),
             'organization_id' => $user->organization_id,
-            'login_at' => date('Y-m-d H:i:s'),
+            'login_at' => now(),
         ]);
 
         $yearAgoDate = date('Y-m-d H:i:s', strtotime('-1 year'));
