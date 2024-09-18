@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Stockholm', // Or another city in the UTC+2 time zone region.
 
     /*
     |--------------------------------------------------------------------------
