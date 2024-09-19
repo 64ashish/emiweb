@@ -714,9 +714,9 @@
                     {!! Form::close() !!}
                     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
                     <script>
-                        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+                        const stripe_manual = Stripe('{{ env('STRIPE_KEY') }}');
 
-                        var elements = stripe.elements();
+                        var elements = stripe_manual.elements();
 
                         async function createPaymentSession(couponCode) {
                             $('#coupon-error').html('');
@@ -822,7 +822,7 @@
 
                         function paymentProcess(customerId,clientSecret){
                             var cardHolderName = document.getElementById('cardholder-name-m').value;
-                            const { setupIntent, error } = stripe.confirmCardSetup(
+                            const { setupIntent, error } = stripe_manual.confirmCardSetup(
                                 clientSecret, {
                                     payment_method: {
                                         card,
