@@ -566,8 +566,6 @@
 
                                 // Submit the form with the token ID.
                                 function stripeTokenHandler(setupIntent, payment_method) {
-                                    console.log(payment_method);
-                                    
                                     // Insert the token ID into the form so it gets submitted to the server
                                     var form = document.getElementById('payment-form');
                                     var hiddenInput = document.createElement('input');
@@ -614,37 +612,64 @@
             @endif
             @if(\Illuminate\Support\Facades\Auth::user()->hasRole('subscriber') && Auth::user()->manual_expire != '')
                 <div class="px-4 sm:px-6">
-                    <form action="/save-card" method="post" id="card-form" data-secret="{{ $intent->client_secret }}">
+                    <form action="/subscribe" method="post" id="manual-payment-form" data-secret="{{ $intent->client_secret }}">
                         @csrf
                         <div class="form-row">
-                            <div class="mx-auto p-5">
-                                <div class="flex">
-                                    <label for="card_holder">Card Holder Name:-</label>
-                                    <p class="text-gray-500">&nbsp;&nbsp;{{ Auth::user()->card_holdername }}</p>
-                                </div>
+                            <div x-data="{value:null}"
+                                class="md:flex md:justify-center md:space-x-6 my-8" >
+                                <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6"  x-bind:class="value == '{{ config('services.subscription.3_months') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '" >
+                                    <label for="standard" class="flex items-center gap-2">
+                                        <input type="radio" name="plan" id="standard"
+                                            value="{{ config('services.subscription.3_months') }}" onclick="getPlanId('{{ config('services.subscription.3_months') }}','3')" x-model="value" checked="">
+                                        <div class="font-bold text-gray-900 pr-6 flex flex-col justify-center">
+                                            <div class="mt-6">
+                                                <span class="text-2xl lg:text-3xl">200</span>
+                                                <span class="text-lg lg:text-xl">SEK</span>
+                                                <span class="font-medium">/3 {{__('months')}}</span>
+                                            </div>
 
-                                <div class="flex">
-                                    <label for="card_holder">Card Last 4 Digit:-</label>
-                                    <p class="text-gray-500">&nbsp;&nbsp;{{ Auth::user()->pm_last_four }}</p>
+                                            <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
+                                                <p>{{ __('Renews at 200 SEK /months') }}</p>
+                                            </div>
+                                        </div>
+                                    </label>
                                 </div>
+                                <div class="flex items-center space-x-3 rounded-md shadow-lg px-3 lg:px-6" x-bind:class="value == '{{ config('services.subscription.1_year') }}' ? 'border border-solid border-indigo-500 shadow-indigo-300/50' : 'shadow-gray-300/50 border border-solid '" >
+                                    <label for="premium" class="flex items-center gap-2">
+                                        <input type="radio" name="plan" id="premium"
+                                            value="{{ config('services.subscription.1_year') }}" onclick="getPlanId('{{ config('services.subscription.1_year') }}','1')" x-model="value">
+                                        <div class="font-bold text-gray-900 pr-6  flex flex-col">
+                                            <div class="mt-6">
+                                                <span class="text-2xl lg:text-3xl">600</span>
+                                                <span class="text-lg lg:text-xl">SEK</span>
+                                                <span class="font-medium">/{{__('year')}}</span>
+                                            </div>
 
-                                <div class="flex">
-                                    <label for="card_holder">Card Exp.:-</label>
-                                    <p class="text-gray-500">&nbsp;&nbsp;{{ isset(Auth::user()->card_exp_month) ? Auth::user()->card_exp_month.'/'.Auth::user()->card_exp_year : '' }}</p>
-                                </div>
-
-                                <div class="flex">
-                                    <label for="card_holder">Card Type:-</label>
-                                    <p class="text-gray-500">&nbsp;&nbsp;{{ Auth::user()->card_type }}</p>
+                                            <div class="text-sm text-gray-500 font-medium pt-2 mb-6">
+                                                <p>{{ __('Renews at 350 SEK /year') }}</p>
+                                            </div>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="flex flex-col mx-auto space-x-6 pr-8 mb-4">
+
+                            <div class="flex flex-col space-x-6 pr-4 mb-5">
+                                <label for="cardholder-name" class="py-2 px-3 pl-6 text-gray-500 font-medium">{{ __('Discount coupon') }}</label>
+                                <div class="flex">
+                                    <input type="text" id="coupon" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2 pr-4 px-1 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm" value="">
+                                    <button type="button" id="redeem" class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+                                    focus:outline-none"> {{ __('Redeem') }} </button>
+                                </div>
+                                <p class="ml-2" id="coupon-error"></p>
+                            </div>
+
+                            <div class="flex flex-col  space-x-6 pr-8 mb-5">
                                 <label for="cardholder-name" class="py-2 px-3 pl-6 text-gray-500 font-medium">Cardholder's Name</label>
-                                <input type="text" id="cardholder-name-m" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2
+                                <input type="text" id="cardholder-name" class="placeholder:text-gray-500 block w-full border border-gray-300 rounded-md py-2
                                 px-3 shadow-sm focus:outline-none focus:border-indigo-500 focus:placeholder:text-transparent focus:ring-1 sm:text-sm">
                             </div>
-                            <div class="max-w-lg mx-auto rounded-md shadow-md shadow-gray-300/50 p-1 mb-5">
-                                <label for="card-element-m">
+                            <div class="max-w-lg mx-auto rounded-md shadow-md shadow-gray-300/50 p-6 mb-8">
+                                <label for="card-element">
                                     <div class="flex items-center space-x-3 mb-4">
                                         <div class="flex-none w-16 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
                                             {{-- Visa logo --}}
@@ -696,27 +721,36 @@
                                         </div>
                                     </div>
                                 </label>
-                                <div id="card-element-m" class="border border-solid border-gray-300 rounded-md h-9 relative pt-2 pl-4">
+                                <div id="card-element" class="border border-solid border-gray-300 rounded-md h-9 relative pt-2 pl-4">
                                     <!-- A Stripe Element will be inserted here. -->
                                 </div>
 
                                 <!-- Used to display form errors. -->
                                 <div id="card-errors" role="alert"></div>
-                            </div>
 
-                            <div class="py-5 flex items-center justify-center">
-                                <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none subscribe-new">
-                                    {{ __('Submit') }}
-                                </button>
+                                <div class="pt-8 flex items-center justify-center">
+                                    <button id="card-button" class="inline-flex justify-center py-2 px-4 border border-transparent
+                                shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700
+                                focus:outline-none subscribe-new">
+                                        {{ __('Subscribe') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                     {!! Form::close() !!}
                     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
                     <script>
-                        const stripe_manual = Stripe('{{ env('STRIPE_KEY') }}');
+                        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
 
-                        var elements = stripe_manual.elements();
+                        var elements = stripe.elements();
+                        var redeem = document.getElementById('redeem');
+                        var couponData = '';
+                        redeem.onclick = async function() {
+                            var couponData = document.getElementById('coupon').value;
+
+                            const sessionId = await createPaymentSession(couponData);
+                        };
 
                         async function createPaymentSession(couponCode) {
                             $('#coupon-error').html('');
@@ -781,8 +815,8 @@
                         };
                         // Create an instance of the card Element.
                         var card = elements.create('card', {style: style});
-                        // Add an instance of the card Element into the `card-element-m` <div>.
-                        card.mount('#card-element-m');
+                        // Add an instance of the card Element into the `card-element` <div>.
+                        card.mount('#card-element');
                         // Handle real-time validation errors from the card Element.
                         card.on('change', function(event) {
                             var displayError = document.getElementById('card-errors');
@@ -794,35 +828,42 @@
                         });
 
                         // Handle form submission.
-                        var form = document.getElementById('card-form');
-                        var cardHolderName = document.getElementById('cardholder-name-m').value;
+                        var form = document.getElementById('manual-payment-form');
+                        var cardHolderName = document.getElementById('cardholder-name').value;
                         var clientSecret = form.dataset.secret;
                         form.addEventListener('submit', async function(event) {
                             event.preventDefault();
                             $('.subscribe-new').attr('disabled','disabled');
-
-                            var cardHolderName = document.getElementById('cardholder-name-m').value;
-                            fetch('/cust-create', {
+                            
+                            if($('#coupon').prop('disabled') == true){
+                                couponData = document.getElementById('coupon').value;
+                            }
+                            var cardHolderName = document.getElementById('cardholder-name').value;
+                            fetch('/payment', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
                                 },
                                 body: JSON.stringify({
                                     "_token": "{{ csrf_token() }}",
+                                    coupon_name: couponData ? couponData : "",
+                                    plan_id: plan_id ? plan_id : "",
+                                    duration: duration ? duration : "",
                                     cardHolderName: cardHolderName ? cardHolderName : "",
                                 })
                             })
                             .then((response) => response.json())
                             .then((data) => {
-                                if(data.output.customerId){
-                                    paymentProcess(data.output.customerId,clientSecret);
+                                console.log(data);
+                                if(data.output.subscriptionId && data.output.clientSecret){
+                                    paymentProcess(data.output.subscriptionId, data.output.clientSecret, data.output.customerId);
                                 }
                             })
                         });
 
-                        function paymentProcess(customerId,clientSecret){
-                            var cardHolderName = document.getElementById('cardholder-name-m').value;
-                            const { setupIntent, error } = stripe_manual.confirmCardSetup(
+                        function paymentProcess(subscriptionId,clientSecret,customerId){
+                            var cardHolderName = document.getElementById('cardholder-name').value;
+                            const { setupIntent, error } = stripe.confirmCardPayment(
                                 clientSecret, {
                                     payment_method: {
                                         card,
@@ -837,25 +878,105 @@
                                     var errorElement = document.getElementById('card-errors');
                                     errorElement.textContent = result.error.message;
                                 }else{
-                                    fetch('/save-card', {
+                                    fetch('/save-payment', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify({
                                             "_token": "{{ csrf_token() }}",
+                                            subscription_id: subscriptionId,
                                             customer_id: customerId,
-                                            setup_intent: result.setupIntent,
-                                            payment_method: result.setupIntent.payment_method,
-                                            cardHolderName: cardHolderName
+                                            plan_id: plan_id ? plan_id : "",
+                                            payment_intent: result.paymentIntent,
+                                            payment_method: result.paymentIntent.payment_method
                                         })
                                     })
                                     .then((response) => response.json())
                                     .then((data) => {
-                                        window.location.reload(true);
+                                        stripeTokenHandler2(data.subData, data.payment_method)
                                     })
                                 }
-                            });
+                            })
+                        }
+
+                        function newFlowCouponFun(paymentMethodId,setupIntent){
+                            if($('#coupon').prop('disabled') == true){
+                                couponData = document.getElementById('coupon').value;
+                            }
+                            var cardHolderName = document.getElementById('cardholder-name').value;
+                            fetch('/payment', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    "_token": "{{ csrf_token() }}",
+                                    setupIntent: setupIntent,
+                                    payment_method: paymentMethodId,
+                                    coupon_name: couponData ? couponData : "",
+                                    plan_id: plan_id ? plan_id : "",
+                                    cardHolderName: cardHolderName ? cardHolderName : "",
+                                })
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.status == 'true') {
+                                    if(data.subscription_detail){
+                                        
+                                    }
+                                }
+                            })
+                        }
+
+                        var plan_id = '';
+                        var duration = '';
+                        function getPlanId(plan,time){
+                            plan_id = plan;
+                            duration = time;
+                        }
+
+                        // Submit the form with the token ID.
+                        function stripeTokenHandler2(setupIntent, payment_method) {
+                            // Insert the token ID into the form so it gets submitted to the server
+                            var form = document.getElementById('manual-payment-form');
+                            var hiddenInput = document.createElement('input');
+                            hiddenInput.setAttribute('type', 'hidden');
+                            hiddenInput.setAttribute('name', 'paymentMethod');
+                            hiddenInput.setAttribute('value', payment_method);
+
+                            var hiddenInput1 = document.createElement('input');
+                            hiddenInput1.setAttribute('type', 'hidden');
+                            hiddenInput1.setAttribute('name', 'stripe_id');
+                            hiddenInput1.setAttribute('value', setupIntent.id);
+
+                            var hiddenInput2 = document.createElement('input');
+                            hiddenInput2.setAttribute('type', 'hidden');
+                            hiddenInput2.setAttribute('name', 'stripe_price');
+                            hiddenInput2.setAttribute('value', setupIntent.plan.id);
+
+                            var hiddenInput3 = document.createElement('input');
+                            hiddenInput3.setAttribute('type', 'hidden');
+                            hiddenInput3.setAttribute('name', 'customer_id');
+                            hiddenInput3.setAttribute('value', setupIntent.customer);
+
+                            var hiddenInput4 = document.createElement('input');
+                            hiddenInput4.setAttribute('type', 'hidden');
+                            hiddenInput4.setAttribute('name', 'payment_status');
+                            hiddenInput4.setAttribute('value', setupIntent.status);
+
+                            var hiddenInput5 = document.createElement('input');
+                            hiddenInput5.setAttribute('type', 'hidden');
+                            hiddenInput5.setAttribute('name', 'subscription_ends');
+                            hiddenInput5.setAttribute('value', setupIntent.current_period_end);
+
+                            form.appendChild(hiddenInput);
+                            form.appendChild(hiddenInput1);
+                            form.appendChild(hiddenInput2);
+                            form.appendChild(hiddenInput3);
+                            form.appendChild(hiddenInput4);
+                            form.appendChild(hiddenInput5);
+                            form.submit();
                         }
                     </script>
                 </div>
