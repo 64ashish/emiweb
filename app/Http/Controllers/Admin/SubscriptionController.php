@@ -10,6 +10,7 @@ use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Subscription;
 use Stripe\Stripe;
 use Stripe\InvoiceItem;
+use DB;
 
 class SubscriptionController extends Controller
 {
@@ -70,10 +71,15 @@ class SubscriptionController extends Controller
         $user = auth()->user();
 
         $product = $request->plan === config('services.subscription.3_months') ? "3 Months" : "Regular Subscription";
-        // echo 1; exit;
+        
+        if($user->manual_expire != ''){
+            DB::transaction(function () use ($user, $product) {
+                $user->subscription($product)->delete();
+                auth()->user()->update(['manual_expire' => null]);
+            });
+        }
         if ($user->subscription($product) ){
             return redirect()->back()->with('error','You are already subscribed to this subscription');
-
         }
 
         $customer = Cashier::findBillable($user->stripe_id);

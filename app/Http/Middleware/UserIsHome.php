@@ -45,6 +45,7 @@ class UserIsHome
                             $organization_id = $organization->id;
                             $user = User::role('subscriber')->first();
                             if(!empty($user)){
+                                $user->organization_id = $organization_id;
                                 Auth::login($user);
                                 Session::put('auto login', 'yes');
                             }else{

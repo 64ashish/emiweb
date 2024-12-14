@@ -5,7 +5,7 @@
         {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> 1,'archive'=>$archive->id]) }} ">
         {{ $archive->name  }}</a> / {{ $detail->first_name }} {{ $detail->last_name }}
     @else
-        {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> auth()->user()->organization,'archive'=>$archive->id]) }} ">
+        {{ __('Hem') }} / <a href="{{ route('organizations.archives.records', ['organization'=> isset(auth()->user()->organization) ? auth()->user()->organization : 1,'archive'=>$archive->id]) }} ">
         {{ $archive->name  }}</a> / {{ $detail->first_name }} {{ $detail->last_name }}
     @endif
     <div class="grid pt-6 grid-cols-1 gap-4 items-start lg:gap-8">
