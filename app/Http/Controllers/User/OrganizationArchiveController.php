@@ -413,7 +413,7 @@ class OrganizationArchiveController extends Controller
                 $model = new ObituariesSweUsaNewspapersRecord();
                 $detail = ObituariesSweUsaNewspapersRecord::with('user.organization')->findOrFail($id);
 //                return $detail;
-                $theFillables = collect($model->getFillable())
+                $fields = collect($model->getFillable())
                     ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
                     ->flatten();
 //                bucketemiweb/archives/5/photos/Archive/Svenska_Emigrantinstitutet/Sandebudet/._Carl_Henry_Carlsten.jpg

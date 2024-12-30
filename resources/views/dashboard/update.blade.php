@@ -36,7 +36,7 @@
                         <a href="{{ route('organizations.archives.show', ['organization'=> 1,'archive'=>$record->archive->id, 'id'=> $record->id]) }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer">Cancel
                         </a>
                     @else
-                        <a href="{{ route('organizations.archives.show', ['organization'=> auth()->user()->organization,'archive'=>$record->archive->id, 'id'=> $record->id]) }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer">Cancel
+                        <a href="{{ route('organizations.archives.show', ['organization'=> isset(auth()->user()->organization) ? auth()->user()->organization : 1,'archive'=>$record->archive->id, 'id'=> $record->id]) }}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer">Cancel
                         </a>
                     @endif
                     <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent
