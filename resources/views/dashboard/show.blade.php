@@ -26,7 +26,7 @@
                                 rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{{ __('Edit record') }}</a>
                             @else
-                                <a href="{{ route('organizations.archives.record.edit', ['organization'=> auth()->user()->organization,'archive'=>$detail->archive->id, 'record'=> $detail->id]) }}"
+                                <a href="{{ route('organizations.archives.record.edit', ['organization'=> isset(auth()->user()->organization) ? auth()->user()->organization : 1,'archive'=>$detail->archive->id, 'record'=> $detail->id]) }}"
                                 class="inline-flex items-center px-6 mr-2 py-1.5 border border-transparent text-xs font-medium
                                 rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{{ __('Edit record') }}</a>
