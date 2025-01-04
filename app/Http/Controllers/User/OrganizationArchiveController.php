@@ -609,6 +609,7 @@ class OrganizationArchiveController extends Controller
      */
     public function edit(Organization $organization, Archive $archive, $record)
     {
+        // pre($archive); exit;
         $this->authorize('update', $archive);
 
         switch($archive->id) {
@@ -775,6 +776,62 @@ class OrganizationArchiveController extends Controller
                     ->flatten();
                 break;
 
+            case(22):
+                $model = new BevaringensLevnadsbeskrivningarRecord();
+                $record = BevaringensLevnadsbeskrivningarRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(23):
+                $model = new SwedishAmericanJubileeRecord();
+                $record = SwedishAmericanJubileeRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(24):
+                $model = new SwensonCenterPhotosamlingRecord();
+                $record = SwensonCenterPhotosamlingRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(26):
+                $model = new RsPersonalHistoryRecord();
+                $record = RsPersonalHistoryRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(27):
+                $model = new SwedishUsaCentersEmiPhotoRecord();
+                $record = SwedishUsaCentersEmiPhotoRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(28):
+                $model = new SwedishAmericanBookRecord();
+                $record = SwedishAmericanBookRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
+            case(29):
+                $model = new ObituariesSweUsaNewspapersRecord();
+                $record = ObituariesSweUsaNewspapersRecord::findOrFail($record);
+                $fields = collect($model->getFillable())
+                    ->diff(['user_id', 'archive_id', 'organization_id','old_id'])
+                    ->flatten();
+                break;
+
             default:
                 abort(403);
         }
@@ -809,7 +866,7 @@ class OrganizationArchiveController extends Controller
                     ]);
                     $archive->denmarkEmigrations()->create($request->all());
                     break;
-//                    add last_name1 in validation for this to work
+                // add last_name1 in validation for this to work
                 case(2):
                     $request->merge([
                         'user_id' => auth()->user()->id,
@@ -819,7 +876,7 @@ class OrganizationArchiveController extends Controller
                     break;
 
                 case(3):
-//                    update given name and surname to first and last names
+                // update given name and surname to first and last names
                     $request->merge([
                         'user_id' => auth()->user()->id,
                         'organization_id' => auth()->user()->organization_id
@@ -989,10 +1046,13 @@ class OrganizationArchiveController extends Controller
     {
         $this->authorize('update', $archive);
 
-        $validated = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required'
-        ]);
+        $validated = true;
+        if($archive->id != 23 && $archive->id != 24 && $archive->id != 27){
+            $validated = $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required'
+            ]);
+        }
 
         if($validated) {
             switch ($archive->id) {
@@ -1099,6 +1159,40 @@ class OrganizationArchiveController extends Controller
                     $model->update($request->except(['_token', '_method' ]));
                     break;
 
+                case(22):
+                    $model = BevaringensLevnadsbeskrivningarRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
+
+                case(23):
+                    $model = SwedishAmericanJubileeRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
+
+                case(24):
+                    $model = SwensonCenterPhotosamlingRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
+
+                case(26):
+                    $model = RsPersonalHistoryRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
+
+                case(27):
+                    $model = SwedishUsaCentersEmiPhotoRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
+
+                case(28):
+                    $model = SwedishAmericanBookRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
+
+                case(29):
+                    $model = ObituariesSweUsaNewspapersRecord::findOrFail($record);
+                    $model->update($request->except(['_token', '_method' ]));
+                    break;
                 default:
                     abort(403);
             }
