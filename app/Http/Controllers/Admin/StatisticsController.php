@@ -21,6 +21,7 @@ class StatisticsController extends Controller
     {
         $sortName = 'login_at';
         $sortType = 'DESC';
+        $ip_address = $request->ip_address;
         if(isset($request->sort)){
             $sortable = explode('-',$request->sort);
             if($sortable[0] == 'user'){
@@ -34,8 +35,14 @@ class StatisticsController extends Controller
             }
             $sortType = $sortable[1];
         }
-        $statistics = UserLoginHistory::with(['user','organization'])->orderBy($sortName, $sortType)->paginate(50);
-        return view('admin.statistic.index', compact('statistics'));
+        $statistics = UserLoginHistory::with(['user','organization']);
+        if(isset($ip_address) && $ip_address != ''){
+            $statistics = $statistics->where('ip_address', 'like', $ip_address)
+            ->orWhere('ip_address', 'LIKE', $ip_address . '%');
+        }
+        $statistics = $statistics->orderBy($sortName, $sortType)->paginate(50);
+        $statistics->appends(['ip_address' => $ip_address]);
+        return view('admin.statistic.index', compact('statistics', 'ip_address'));
     }
 
     public function search(Request $request)
@@ -43,12 +50,20 @@ class StatisticsController extends Controller
         $validated = $request->validate([
             'ip_address' => 'required'
         ]);
-
-        if($validated) {
+    
+        if ($validated) {
             $ip_address = $request->ip_address;
-            $statistics = UserLoginHistory::where('ip_address', 'like', $ip_address)->orWhere('ip_address','LIKE', $ip_address.'%')->paginate(50);
-
-            return view('admin.statistic.index', ['statistics' => $statistics, 'ip_address' => $ip_address]);
+            $statistics = UserLoginHistory::where('ip_address', 'like', $ip_address)
+                ->orWhere('ip_address', 'LIKE', $ip_address . '%')
+                ->paginate(50);
+    
+            // Append the search query to the pagination links
+            $statistics->appends(['ip_address' => $ip_address]);
+            
+            return view('admin.statistic.index', [
+                'statistics' => $statistics,
+                'ip_address' => $ip_address
+            ]);
         }
     }
 }

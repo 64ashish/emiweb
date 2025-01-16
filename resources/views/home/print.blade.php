@@ -886,14 +886,12 @@
 <table class="printfoot">
     <tr>
         <th class="printfootheader">Postadress:</th>
-        <th class="printfootheader">Telefon:</th>
         <th class="printfootheader">Email:</th>
         <th class="printfootheader">Bankgiro:</th>
 
     </tr>
     <tr>
-        <td class="printfoot">Kyrkåsen 2C, SE 68597 ÖSTMARK, Sweden</td>
-        <td class="printfoot">+46-(0)560-20000</td>
+        <td class="printfoot">c/o Svenska Emigrantinstitutet, Södra Järnvägsgatan 2, 352 29 Växjö, Sweden</td>
         <td class="printfoot">info@emiweb.se</td>
         <td class="printfoot">320-5911</td>
     </tr>
@@ -903,7 +901,7 @@
         <th class="printfootheader">Organisationsnr:</th>
     </tr>
     <tr>
-        <td class="printfoot">Kyrkåsen 2C, ÖSTMARK</td>
+        <td class="printfoot">Södra Järnvägsgatan 2, 352 29 Växjö</td>
         <td class="printfoot">www.emiweb.se</td>
         <td class="printfoot">802442-0492</td>
     </tr>
