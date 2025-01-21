@@ -420,7 +420,8 @@ class UserController extends Controller
                             ],
                             'payment_behavior' => 'default_incomplete',
                             'coupon' => $request->coupon_name,
-                            'expand' => ['latest_invoice.payment_intent']
+                            'expand' => ['latest_invoice.payment_intent'],
+                            'proration_behavior' => 'none'
                         ];
                     } else {
                         $subscriptionData = [
@@ -429,7 +430,8 @@ class UserController extends Controller
                                 ['price' => $price_id],
                             ],
                             'payment_behavior' => 'default_incomplete',
-                            'expand' => ['latest_invoice.payment_intent']
+                            'expand' => ['latest_invoice.payment_intent'],
+                            'proration_behavior' => 'none'
                         ];
                     }
                     
